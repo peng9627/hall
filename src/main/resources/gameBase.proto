@@ -1,0 +1,71 @@
+syntax = "proto3";
+option java_package = "game.mode";
+
+//通用请求
+message BaseConnection {
+    OperationType operationType = 1; //操作类型
+    bytes data = 2; //数据
+}
+
+//消息id
+enum OperationType {
+
+    //通用
+    ERROR = 0; //错误
+
+    //大厅
+    LOGIN = 10; //登录
+    CREATE_ROOM = 11; //创建房间
+    QUERY = 12; //查询数据
+
+    //麻将
+    CONNECTION = 20; //连接
+    ROOM_INFO = 21;
+    SEAT_INFO = 22;
+    GAME_INFO = 23;
+    READY = 24; //准备
+    COMPLETED = 25; //就绪
+    ACTION = 26; //通知
+    ROUND = 27; //通知回合
+    ASK = 28; //询问
+    EXIT = 29; //退出
+    RESULT = 30; //结果
+    MESSAGE = 31; //喇叭
+    REPLAY = 32; //回放
+}
+
+//操作id
+enum OperationId {
+    //大厅
+    ROOM_LIST = 0; //房间列表
+
+    //麻将
+    DEAL_CARD = 10; //发牌
+    BUY_HORSE = 11; //买马
+    GET_CARD = 12; //摸牌
+    PLAY_CARD = 13; //出牌
+    TOUCH = 14; //碰
+    AN_GANG = 15; //暗杠
+    DIAN_GANG = 16; //点杠
+    BA_GANG = 17; //扒杠
+    HU = 18; //胡
+    PASS = 19; //过
+}
+
+//错误码
+enum ErrorCode {
+    //通用
+    SUCCESS = 0; //成功
+    ERROR_UNKNOW = 1; //未知错误
+
+    //登录
+    ERROR_UNKNOW_ACCOUNT = 10; //账号不存在
+    ERROR_PASSWORD_INCORRECT = 11; //密码错误
+
+    //游戏
+    ROOM_NOT_EXIST = 21; //房间不存在
+    COUNT_FULL = 22; //人数已满
+    SHOUND_NOT_OPERATION = 23; //不允许的操作
+    GOLD_TOO_LITTLE = 24; //金币不足
+    HASNOT_CARD = 25; //用户手中没有此牌
+}

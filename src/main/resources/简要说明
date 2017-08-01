@@ -1,0 +1,9 @@
+字节采用  4长度(总包)+2(包体头)+包体(采用ssl加密后的字节)
+
+请求：
+    包体头对应 MessageId
+    包体为通用请求 其中 operationId 为具体操作的id   data为具体数据（如：登录，具体数据为LoginRequest）
+
+返回：
+    包体头对应 MessageId
+    包体为通用返回 其中 operationId 为具体操作的id   data为具体数据（如：请求结果返回，具体数据为ResultResponse）

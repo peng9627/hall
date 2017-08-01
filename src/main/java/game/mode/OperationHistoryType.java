@@ -1,0 +1,42 @@
+package game.mode;
+
+/**
+ * Created by pengyi
+ * Date : 16-6-12.
+ */
+public enum OperationHistoryType {
+
+    DEAL_CARD("发牌", 1),
+    BUY_HORSE("买马", 2),
+    GET_CARD("摸牌", 3),
+    PLAY_CARD("出牌", 4),
+    PENG("碰", 5),
+    AN_GANG("暗杠", 6),
+    DIAN_GANG("点杠", 7),
+    BA_GANG("扒杠", 8),
+    HU("胡", 9);
+
+    private String name;
+    private Integer values;
+
+    OperationHistoryType(String name, Integer values) {
+        this.name = name;
+        this.values = values;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getValues() {
+        return values;
+    }
+
+    public void setValues(Integer values) {
+        this.values = values;
+    }
+}
