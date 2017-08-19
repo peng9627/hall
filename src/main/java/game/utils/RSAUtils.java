@@ -72,7 +72,7 @@ public class RSAUtils {
             }
 
             if (result != null) {
-                Base64.getEncoder().encode(result);
+                return Base64.getEncoder().encode(result);
             }
         } catch (InvalidKeyException e) {
             e.printStackTrace();

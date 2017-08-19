@@ -10,28 +10,29 @@ import java.util.List;
  */
 public class Room {
 
-    private Double baseScore; //基础分
+    private int baseScore; //基础分
     private String roomNo;  //桌号
     private List<Seat> seats;//座位
+    private List<Integer> seatNos;
     private int operationSeat;
     private List<OperationHistory> historyList;
     private List<Integer> surplusCards;//剩余的牌
     private GameStatus gameStatus;
-    private List<GameResult> gameResults;
 
-    private String lastOperation;
+    private int lastOperation;
 
-    private String banker;//庄家
+    private int banker;//庄家
     private int gameTimes; //游戏局数
     private int count;//人数
     private boolean dianpao;//点炮
     private Integer[] dice;//骰子
+    private List recordList;//战绩
 
-    public Double getBaseScore() {
+    public int getBaseScore() {
         return baseScore;
     }
 
-    public void setBaseScore(Double baseScore) {
+    public void setBaseScore(int baseScore) {
         this.baseScore = baseScore;
     }
 
@@ -49,6 +50,14 @@ public class Room {
 
     public void setSeats(List<Seat> seats) {
         this.seats = seats;
+    }
+
+    public List<Integer> getSeatNos() {
+        return seatNos;
+    }
+
+    public void setSeatNos(List<Integer> seatNos) {
+        this.seatNos = seatNos;
     }
 
     public int getOperationSeat() {
@@ -83,19 +92,19 @@ public class Room {
         this.gameStatus = gameStatus;
     }
 
-    public List<GameResult> getGameResults() {
-        return gameResults;
+    public int getLastOperation() {
+        return lastOperation;
     }
 
-    public void setGameResults(List<GameResult> gameResults) {
-        this.gameResults = gameResults;
+    public void setLastOperation(int lastOperation) {
+        this.lastOperation = lastOperation;
     }
 
-    public String getBanker() {
+    public int getBanker() {
         return banker;
     }
 
-    public void setBanker(String banker) {
+    public void setBanker(int banker) {
         this.banker = banker;
     }
 
@@ -131,23 +140,18 @@ public class Room {
         this.dice = dice;
     }
 
+    public List getRecordList() {
+        return recordList;
+    }
+
+    public void setRecordList(List recordList) {
+        this.recordList = recordList;
+    }
+
     public Room() {
     }
 
-    public void addSeat(User user) {
-        Seat seat = new Seat();
-        seat.setRobot(false);
-        seat.setReady(false);
-        seat.setAreaString("");
-        seat.setEnd(false);
-        seat.setGold(0);
-        seat.setScore(0);
-        seat.setSeatNo(seats.size() + 1);
-        seat.setUserName(user.getUsername());
-        seats.add(seat);
-    }
-
-    public Room(Double baseScore, String roomNo, String banker, int gameTimes, int count, boolean dianpao) {
+    public Room(int baseScore, String roomNo, int banker, int gameTimes, int count, boolean dianpao) {
         this.baseScore = baseScore;
         this.roomNo = roomNo;
         this.banker = banker;
@@ -156,9 +160,12 @@ public class Room {
         this.dianpao = dianpao;
         this.seats = new ArrayList<>();
         this.historyList = new ArrayList<>();
-        this.gameResults = new ArrayList<>();
+        this.recordList = new ArrayList<>();
         this.dice = new Integer[]{0, 0};
         this.gameStatus = GameStatus.WAITING;
-        this.lastOperation = "";
+        seatNos = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            seatNos.add(i + 1);
+        }
     }
 }

@@ -25,7 +25,7 @@ public class HallTcpService implements Runnable {
     private ServerSocket serverSocket;
     private boolean started = false;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-    public static Map<String, HallClient> userClients = new HashMap<>();
+    public static Map<Integer, HallClient> userClients = new HashMap<>();
 
     private ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
 

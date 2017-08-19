@@ -20,7 +20,7 @@ public class RedisService {
     }
 
     public void addCache(final String key, final String value) {
-        redisClientTemplate.set(key, value, 3600);
+        redisClientTemplate.set(key, value, 0);
     }
 
     public void addCache(final String key, final String value, int timeout) {

@@ -70,7 +70,7 @@
 
         <version.fastjson>1.2.23</version.fastjson>
         <version.jedis>2.9.0</version.jedis>
-        <version.protobuf>3.3.1</version.protobuf>
+        <version.protobuf>3.6.1</version.protobuf>
 
         <version.jar.plugin>3.0.2</version.jar.plugin>
         <version.jxr.plugin>2.5</version.jxr.plugin>
@@ -86,7 +86,7 @@
 
         <dependency>
             <groupId>com.google.protobuf</groupId>
-            <artifactId>protobuf-java</artifactId>
+            <artifactId>protobuf-socket</artifactId>
             <version>${version.protobuf}</version>
         </dependency>
 
@@ -158,7 +158,7 @@
                                 <goal>sources</goal>
                             </goals>
                             <configuration>
-                                <outputDirectory>${project.build.finalName}/lib</outputDirectory>
+                                <outputFile>${project.build.finalName}/lib</outputFile>
                             </configuration>
                         </execution>
                         <execution>

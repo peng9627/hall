@@ -44,7 +44,9 @@ public class RedisClientTemplate {
         }
         try {
             result = shardedJedis.set(key, value);
-            shardedJedis.expire(key, timeout);
+            if (0 != timeout) {
+                shardedJedis.expire(key, timeout);
+            }
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         } finally {
