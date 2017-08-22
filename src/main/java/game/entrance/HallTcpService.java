@@ -25,7 +25,7 @@ public class HallTcpService implements Runnable {
     private ServerSocket serverSocket;
     private boolean started = false;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-    public static Map<Integer, HallClient> userClients = new HashMap<>();
+    public final static Map<Integer, MessageReceive> userClients = new HashMap<>();
 
     private ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
 
@@ -57,7 +57,7 @@ public class HallTcpService implements Runnable {
         try {
             while (started) {
                 Socket s = serverSocket.accept();
-                cachedThreadPool.execute(new HallClient(s, redisService));
+                cachedThreadPool.execute(new MessageReceive(s, redisService));
             }
         } catch (IOException e) {
             logger.error("socket.server.dirty.shutdown.message");
