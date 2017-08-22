@@ -14,16 +14,16 @@ public class SangongRoom {
     private GameStatus gameStatus;
     private List<Integer> seatNos;
     private int gameTimes; //游戏局数
-    private int count;//人数
     private int grab;//庄家
+    private int bankerWay;//庄家方式
 
-    public SangongRoom(int baseScore, String roomNo, int gameTimes, int count) {
+    public SangongRoom(int baseScore, String roomNo, int gameTimes, int bankerWay) {
         this.baseScore = baseScore;
         this.roomNo = roomNo;
         this.gameTimes = gameTimes;
-        this.count = count;
+        this.bankerWay = bankerWay;
         this.gameStatus = GameStatus.WAITING;
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < 6; i++) {
             seatNos.add(i + 1);
         }
     }
@@ -68,19 +68,19 @@ public class SangongRoom {
         this.gameTimes = gameTimes;
     }
 
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
-
     public int getGrab() {
         return grab;
     }
 
     public void setGrab(int grab) {
         this.grab = grab;
+    }
+
+    public int getBankerWay() {
+        return bankerWay;
+    }
+
+    public void setBankerWay(int bankerWay) {
+        this.bankerWay = bankerWay;
     }
 }

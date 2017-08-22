@@ -8,21 +8,22 @@ import java.util.List;
  * Author pengyi
  * Date 17-3-7.
  */
-public class RunQuicklyRoom {
+public class XingningMahjongRoom {
 
     private int baseScore; //基础分
     private String roomNo;  //桌号
-    private int operationSeat;
-    private GameStatus gameStatus;
     private List<Integer> seatNos;
+    private GameStatus gameStatus;
 
-    private int lastOperation;
-
+    private int banker;//庄家
     private int gameTimes; //游戏局数
     private int count;//人数
-    private int multiple;
-    private int gameCount;
-    private int gameRules;
+    private int ghost;//1.红中做鬼，2.无鬼，3.翻鬼，4.无鬼加倍
+    private int gameRules;////游戏规则  高位到低位顺序（鸡胡，门清，天地和，幺九，全番，十三幺，对对胡，十八罗汉，七小对，清一色，混一色，海底捞，杠爆全包，庄硬）
+
+    private int initMaCount;
+
+    private int roomOwner;
 
     public int getBaseScore() {
         return baseScore;
@@ -40,12 +41,12 @@ public class RunQuicklyRoom {
         this.roomNo = roomNo;
     }
 
-    public int getOperationSeat() {
-        return operationSeat;
+    public List<Integer> getSeatNos() {
+        return seatNos;
     }
 
-    public void setOperationSeat(int operationSeat) {
-        this.operationSeat = operationSeat;
+    public void setSeatNos(List<Integer> seatNos) {
+        this.seatNos = seatNos;
     }
 
     public GameStatus getGameStatus() {
@@ -56,20 +57,12 @@ public class RunQuicklyRoom {
         this.gameStatus = gameStatus;
     }
 
-    public List<Integer> getSeatNos() {
-        return seatNos;
+    public int getBanker() {
+        return banker;
     }
 
-    public void setSeatNos(List<Integer> seatNos) {
-        this.seatNos = seatNos;
-    }
-
-    public int getLastOperation() {
-        return lastOperation;
-    }
-
-    public void setLastOperation(int lastOperation) {
-        this.lastOperation = lastOperation;
+    public void setBanker(int banker) {
+        this.banker = banker;
     }
 
     public int getGameTimes() {
@@ -88,20 +81,12 @@ public class RunQuicklyRoom {
         this.count = count;
     }
 
-    public int getMultiple() {
-        return multiple;
+    public int getGhost() {
+        return ghost;
     }
 
-    public void setMultiple(int multiple) {
-        this.multiple = multiple;
-    }
-
-    public int getGameCount() {
-        return gameCount;
-    }
-
-    public void setGameCount(int gameCount) {
-        this.gameCount = gameCount;
+    public void setGhost(int ghost) {
+        this.ghost = ghost;
     }
 
     public int getGameRules() {
@@ -112,17 +97,36 @@ public class RunQuicklyRoom {
         this.gameRules = gameRules;
     }
 
-    public RunQuicklyRoom() {
+    public int getInitMaCount() {
+        return initMaCount;
     }
 
-    public RunQuicklyRoom(int baseScore, String roomNo, int gameTimes, int count, int gameRules) {
+    public void setInitMaCount(int initMaCount) {
+        this.initMaCount = initMaCount;
+    }
+
+    public int getRoomOwner() {
+        return roomOwner;
+    }
+
+    public void setRoomOwner(int roomOwner) {
+        this.roomOwner = roomOwner;
+    }
+
+    public XingningMahjongRoom() {
+    }
+
+    public XingningMahjongRoom(int baseScore, String roomNo, int banker, int gameTimes, int count, int initMaCount, int ghost, int gameRules) {
         this.baseScore = baseScore;
         this.roomNo = roomNo;
+        this.banker = banker;
+        this.roomOwner = banker;
         this.gameTimes = gameTimes;
         this.count = count;
+        this.initMaCount = initMaCount;
+        this.ghost = ghost;
         this.gameRules = gameRules;
         this.gameStatus = GameStatus.WAITING;
-        this.multiple = 1;
         seatNos = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             seatNos.add(i + 1);
