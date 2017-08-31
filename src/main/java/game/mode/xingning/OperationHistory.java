@@ -1,4 +1,4 @@
-package game.mode;
+package game.mode.xingning;
 
 /**
  * Created by pengyi
@@ -6,16 +6,25 @@ package game.mode;
  */
 public class OperationHistory {
 
-    private String userName;
+    private int userId;
     private OperationHistoryType historyType;
     private Integer card;
 
-    public String getUserName() {
-        return userName;
+    public OperationHistory() {
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public OperationHistory(int userId, OperationHistoryType historyType, Integer card) {
+        this.userId = userId;
+        this.historyType = historyType;
+        this.card = card;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public OperationHistoryType getHistoryType() {
@@ -31,15 +40,6 @@ public class OperationHistory {
     }
 
     public void setCard(Integer card) {
-        this.card = card;
-    }
-
-    public OperationHistory() {
-    }
-
-    public OperationHistory(String userName, OperationHistoryType historyType, Integer card) {
-        this.userName = userName;
-        this.historyType = historyType;
         this.card = card;
     }
 }

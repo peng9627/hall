@@ -1,4 +1,4 @@
-package game.mode;
+package game.mode.xingning;
 
 /**
  * Created by pengyi
@@ -6,15 +6,13 @@ package game.mode;
  */
 public enum OperationHistoryType {
 
-    DEAL_CARD("发牌", 1),
-    BUY_HORSE("买马", 2),
-    GET_CARD("摸牌", 3),
-    PLAY_CARD("出牌", 4),
-    PENG("碰", 5),
-    AN_GANG("暗杠", 6),
-    DIAN_GANG("点杠", 7),
-    BA_GANG("扒杠", 8),
-    HU("胡", 9);
+    GET_CARD("摸牌", 1),
+    PLAY_CARD("出牌", 2),
+    PENG("碰", 3),
+    AN_GANG("暗杠", 4),
+    DIAN_GANG("点杠", 5),
+    BA_GANG("扒杠", 6),
+    HU("胡", 7);
 
     private String name;
     private Integer values;

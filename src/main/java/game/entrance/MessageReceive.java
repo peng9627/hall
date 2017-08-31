@@ -73,7 +73,7 @@ public class MessageReceive implements Runnable {
         }
     }
 
-    private void close() {
+    public void close() {
         connect = false;
         try {
             if (is != null)

@@ -1,5 +1,8 @@
-package game.mode;
+package game.mode.runquickly;
 
+
+import game.mode.GameStatus;
+import game.mode.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,11 +15,10 @@ public class RunQuicklyRoom {
 
     private int baseScore; //基础分
     private String roomNo;  //桌号
-    private int operationSeat;
+    private int roomOwner;
+    private List<Seat> seats = new ArrayList<>();//座位
     private GameStatus gameStatus;
     private List<Integer> seatNos;
-
-    private int lastOperation;
 
     private int gameTimes; //游戏局数
     private int count;//人数
@@ -40,12 +42,20 @@ public class RunQuicklyRoom {
         this.roomNo = roomNo;
     }
 
-    public int getOperationSeat() {
-        return operationSeat;
+    public int getRoomOwner() {
+        return roomOwner;
     }
 
-    public void setOperationSeat(int operationSeat) {
-        this.operationSeat = operationSeat;
+    public void setRoomOwner(int roomOwner) {
+        this.roomOwner = roomOwner;
+    }
+
+    public List<Seat> getSeats() {
+        return seats;
+    }
+
+    public void setSeats(List<Seat> seats) {
+        this.seats = seats;
     }
 
     public GameStatus getGameStatus() {
@@ -62,14 +72,6 @@ public class RunQuicklyRoom {
 
     public void setSeatNos(List<Integer> seatNos) {
         this.seatNos = seatNos;
-    }
-
-    public int getLastOperation() {
-        return lastOperation;
-    }
-
-    public void setLastOperation(int lastOperation) {
-        this.lastOperation = lastOperation;
     }
 
     public int getGameTimes() {
@@ -115,9 +117,10 @@ public class RunQuicklyRoom {
     public RunQuicklyRoom() {
     }
 
-    public RunQuicklyRoom(int baseScore, String roomNo, int gameTimes, int count, int gameRules) {
+    public RunQuicklyRoom(int baseScore, String roomNo, int gameTimes, int count, int gameRules, int roomOwner) {
         this.baseScore = baseScore;
         this.roomNo = roomNo;
+        this.roomOwner = roomOwner;
         this.gameTimes = gameTimes;
         this.count = count;
         this.gameRules = gameRules;
@@ -128,4 +131,20 @@ public class RunQuicklyRoom {
             seatNos.add(i + 1);
         }
     }
+
+    public void addSeats(List<User> users) {
+        for (User user : users) {
+            Seat seat = new Seat();
+            seat.setAreaString("");
+            seat.setHead(user.getHead());
+            seat.setNickname(user.getNickname());
+            seat.setSex(user.getSex().equals("MAN"));
+            seat.setScore(0);
+            seat.setSeatNo(seatNos.get(0));
+            seatNos.remove(0);
+            seat.setUserId(user.getUserId());
+            seats.add(seat);
+        }
+    }
+
 }

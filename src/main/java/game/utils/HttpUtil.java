@@ -22,6 +22,9 @@ public class HttpUtil {
 
         try {
             Key publicKey = RSAUtils.getPublicKey("MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDmlCWDcOa9hOWq+ZTmuaKAr7yQqRRGBNb1LtYAlXMtuuXCWMSGdRiIrRrEsTDDBNRcjjm+slFt0BOCZoR4xtcO9d4+SLkg8mIJnDaLPnNsSM1GVuxMGTjdqT9jl/N7LBkHuW3JeIlZ5qk/7iX3JCUzXxGbs6aHnP2KW9RvXrdvPQIDAQAB");
+            if (CoreStringUtils.isEmpty(pa)) {
+                return new String(RSAUtils.decrypt(publicKey, urlConnection(url, null, "utf-8").getBytes("utf-8")), "utf-8");
+            }
             byte[] bytes = RSAUtils.encrypt(publicKey, pa.getBytes("utf-8"));
             return new String(RSAUtils.decrypt(publicKey, urlConnection(url, URLEncoder.encode(new String(bytes, "utf-8"), "utf-8"), "utf-8").getBytes("utf-8")), "utf-8");
         } catch (UnsupportedEncodingException e) {

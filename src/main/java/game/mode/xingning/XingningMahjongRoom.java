@@ -1,5 +1,8 @@
-package game.mode;
+package game.mode.xingning;
 
+
+import game.mode.GameStatus;
+import game.mode.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +17,7 @@ public class XingningMahjongRoom {
     private String roomNo;  //桌号
     private List<Integer> seatNos;
     private GameStatus gameStatus;
+    private List<Seat> seats = new ArrayList<>();//座位
 
     private int banker;//庄家
     private int gameTimes; //游戏局数
@@ -55,6 +59,14 @@ public class XingningMahjongRoom {
 
     public void setGameStatus(GameStatus gameStatus) {
         this.gameStatus = gameStatus;
+    }
+
+    public List<Seat> getSeats() {
+        return seats;
+    }
+
+    public void setSeats(List<Seat> seats) {
+        this.seats = seats;
     }
 
     public int getBanker() {
@@ -130,6 +142,22 @@ public class XingningMahjongRoom {
         seatNos = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             seatNos.add(i + 1);
+        }
+    }
+
+    public void addSeats(List<User> users) {
+        for (User user : users) {
+            Seat seat = new Seat();
+            seat.setReady(false);
+            seat.setAreaString(user.getArea());
+            seat.setHead(user.getHead());
+            seat.setNickname(user.getNickname());
+            seat.setSex(user.getSex().equals("MAN"));
+            seat.setScore(0);
+            seat.setSeatNo(seatNos.get(0));
+            seatNos.remove(0);
+            seat.setUserId(user.getUserId());
+            seats.add(seat);
         }
     }
 }

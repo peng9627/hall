@@ -15,14 +15,17 @@ public class User {
     private String nickname;            //网名
     private String head;                //头像
     private String agent;               //终端
-    private Long money;                 //房卡
+    private Integer money;              //房卡
     private String sex;
     private String weChatNo;            //微信号
     private String registerIp;          //注册ip
     private String lastLoginIp;         //上次登陆ip
     private String area;                //地方
-    private Long gameCount;             //游戏局数
+    private Integer gameCount;             //游戏局数
+    private Integer todayGameCount;     //今日游戏次数
     private Date lastLoginDate;         //上次登陆时间
+    private Boolean status;             //状态
+    private Integer integral;           //积分
 
     public String getId() {
         return id;
@@ -80,11 +83,11 @@ public class User {
         this.agent = agent;
     }
 
-    public Long getMoney() {
+    public Integer getMoney() {
         return money;
     }
 
-    public void setMoney(Long money) {
+    public void setMoney(Integer money) {
         this.money = money;
     }
 
@@ -128,12 +131,20 @@ public class User {
         this.area = area;
     }
 
-    public Long getGameCount() {
+    public Integer getGameCount() {
         return gameCount;
     }
 
-    public void setGameCount(Long gameCount) {
+    public void setGameCount(Integer gameCount) {
         this.gameCount = gameCount;
+    }
+
+    public Integer getTodayGameCount() {
+        return todayGameCount;
+    }
+
+    public void setTodayGameCount(Integer todayGameCount) {
+        this.todayGameCount = todayGameCount;
     }
 
     public Date getLastLoginDate() {
@@ -142,5 +153,21 @@ public class User {
 
     public void setLastLoginDate(Date lastLoginDate) {
         this.lastLoginDate = lastLoginDate;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    public Integer getIntegral() {
+        return integral;
+    }
+
+    public void setIntegral(Integer integral) {
+        this.integral = integral;
     }
 }

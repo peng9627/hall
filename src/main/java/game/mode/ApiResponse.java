@@ -5,15 +5,15 @@ package game.mode;
  */
 public class ApiResponse<T> {
 
-    private String code;     // API执行结果
+    private Integer code;     // API执行结果
 
     private T data;           //返回数据
 
-    public String getCode() {
+    public Integer getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(Integer code) {
         this.code = code;
     }
 
@@ -28,11 +28,11 @@ public class ApiResponse<T> {
     public ApiResponse() {
     }
 
-    public ApiResponse(String code) {
+    public ApiResponse(Integer code) {
         this(code, null);
     }
 
-    public ApiResponse(String code, T data) {
+    public ApiResponse(Integer code, T data) {
         this.code = code;
         this.data = data;
     }
