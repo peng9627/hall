@@ -77,7 +77,7 @@ public class RobotThread implements Runnable {
                         .setAgent(Hall.Agent.ANDROID).setSex(true).build();
                 send(os, request.setOperationType(GameBase.OperationType.LOGIN).setData(loginRequest.toByteString()).build());
 
-                Hall.RegistrationRequest registrationRequest = Hall.RegistrationRequest.newBuilder().setId("ff8080115df48669015da48a1d7a0000").build();
+                Hall.RegistrationRequest registrationRequest = Hall.RegistrationRequest.newBuilder().setId("ff8080815df48669015da48a1d7a0000").build();
                 send(os, request.setOperationType(GameBase.OperationType.REGISTRATION).setData(registrationRequest.toByteString()).build());
             }
 

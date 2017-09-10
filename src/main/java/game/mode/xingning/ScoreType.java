@@ -25,7 +25,10 @@ public enum ScoreType {
     QUANFAN_HU("全番", 17),
     SHUANGHAOHUAQIXIAODUI_HU("双豪华七小对", 18),
     SANHAOHUAQIXIAODUI_HU("三豪华七小对", 19),
-    SHIBALUOHAN("十八罗汉", 20);
+    SHIBALUOHAN("十八罗汉", 20),
+    HAIDI("海底", 21),
+    GANGBAO("杠爆", 22),
+    ZHUANGYING("庄硬", 23);
 
     private String name;
     private Integer values;

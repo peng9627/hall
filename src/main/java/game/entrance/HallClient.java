@@ -54,9 +54,9 @@ public class HallClient {
                     jsonObject.clear();
                     jsonObject.put("sex", loginRequest.getSex() ? "MAN" : "WOMAN");
                     jsonObject.put("weChatNo", loginRequest.getUsername());
-                    jsonObject.put("area", "重庆市");
+                    jsonObject.put("area", "");
                     jsonObject.put("nickname", loginRequest.getUsername());
-                    jsonObject.put("head", "");
+                    jsonObject.put("head", loginRequest.getHead());
                     jsonObject.put("agent", loginRequest.getAgent().name());
                     jsonObject.put("ip", ip);
                     ApiResponse<User> response = JSON.parseObject(HttpUtil.urlConnectionByRsa("http://127.0.0.1:9999/api/user/login_wechat", jsonObject.toJSONString()),
@@ -458,7 +458,7 @@ public class HallClient {
                                         while (userList.size() > 0) {
                                             switch (arena.getGameType()) {
                                                 case XINGNING_MAHJONG:
-                                                    XingningMahjongRoom xingningMahjongRoom = new XingningMahjongRoom(1, roomNo(), 0, 1, 4, 0, 2, 0);
+                                                    XingningMahjongRoom xingningMahjongRoom = new XingningMahjongRoom(1, roomNo(), userList.get(0).getUserId(), 1, 4, 0, 2, 0);
                                                     Hall.RoomResponse roomResponse = Hall.RoomResponse.newBuilder().setIntoIp("192.168.3.99")
                                                             .setPort(10001).setRoomNo(String.valueOf(xingningMahjongRoom.getRoomNo())).build();
                                                     if (userList.size() > 4) {
@@ -523,7 +523,7 @@ public class HallClient {
                                                     redisService.addCache("room_match" + runQuicklyRoom.getRoomNo(), String.valueOf(matchNo));
                                                     break;
                                                 case RUIJIN_MAHJONG:
-                                                    RuijinMahjongRoom ruijinMahjongRoom = new RuijinMahjongRoom(1, roomNo(), 0, 1, 4, true, 1);
+                                                    RuijinMahjongRoom ruijinMahjongRoom = new RuijinMahjongRoom(1, roomNo(), userList.get(0).getUserId(), 1, 4, true, 1);
                                                     roomResponse = Hall.RoomResponse.newBuilder().setIntoIp("192.168.3.99")
                                                             .setPort(10003).setRoomNo(String.valueOf(ruijinMahjongRoom.getRoomNo())).build();
                                                     if (userList.size() > 4) {
@@ -746,7 +746,7 @@ public class HallClient {
                     GameBase.RoundItemRecord.Builder roundItemRecord = GameBase.RoundItemRecord.newBuilder();
                     for (SeatRecord seatRecord : record.getSeatRecordList()) {
                         roundItemRecord.addUserRecord(GameBase.UserRecord.newBuilder().setID(seatRecord.getUserId())
-                                .setNickname("111").setHead("").setScore(seatRecord.getWinOrLose()).build());
+                                .setNickname(seatRecord.getNickname()).setHead(seatRecord.getNickname()).setScore(seatRecord.getWinOrLose()).build());
                     }
                     recordResponse.addRoundItemRecord(roundItemRecord);
                 }
