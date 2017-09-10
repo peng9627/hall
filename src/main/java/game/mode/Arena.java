@@ -14,7 +14,7 @@ public class Arena {
     private Date createDate;
 
     private GameType gameType;              //游戏类型
-    private ArenaType arenaType;            //竞技类型
+    private Integer arenaType;            //竞技类型
     private String name;                    //竞技名
     private Integer count;                  //人数
     private Integer entryFee;               //报名费
@@ -52,11 +52,11 @@ public class Arena {
         this.gameType = gameType;
     }
 
-    public ArenaType getArenaType() {
+    public Integer getArenaType() {
         return arenaType;
     }
 
-    public void setArenaType(ArenaType arenaType) {
+    public void setArenaType(Integer arenaType) {
         this.arenaType = arenaType;
     }
 

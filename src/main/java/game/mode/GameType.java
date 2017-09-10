@@ -6,8 +6,8 @@ package game.mode;
 public enum GameType {
 
     XINGNING_MAHJONG("兴宁麻将", 1),
-    RUN_QUICKLY("跑得快", 2),
-    RUIJIN_MAHJONG("瑞金麻将", 3),
+    RUIJIN_MAHJONG("瑞金麻将", 2),
+    RUN_QUICKLY("跑得快", 3),
     SANGONG("三公", 4);
 
     GameType(String name, int value) {

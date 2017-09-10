@@ -4,6 +4,7 @@ package game.mode.sangong;
 import game.mode.GameStatus;
 import game.mode.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,13 +21,16 @@ public class SangongRoom {
     private int gameTimes; //游戏局数
     private int grab;//庄家
     private int bankerWay;//庄家方式
+    private int roomOwner;
 
-    public SangongRoom(int baseScore, String roomNo, int gameTimes, int bankerWay) {
+    public SangongRoom(int baseScore, String roomNo, int gameTimes, int bankerWay, int userId) {
         this.baseScore = baseScore;
         this.roomNo = roomNo;
         this.gameTimes = gameTimes;
         this.bankerWay = bankerWay;
         this.gameStatus = GameStatus.WAITING;
+        this.roomOwner = userId;
+        this.seatNos = new ArrayList<>();
         for (int i = 0; i < 6; i++) {
             seatNos.add(i + 1);
         }
@@ -96,11 +100,19 @@ public class SangongRoom {
         this.bankerWay = bankerWay;
     }
 
+    public int getRoomOwner() {
+        return roomOwner;
+    }
+
+    public void setRoomOwner(int roomOwner) {
+        this.roomOwner = roomOwner;
+    }
+
     public void addSeats(List<User> users) {
         for (User user : users) {
             Seat seat = new Seat();
             seat.setAreaString(user.getArea());
-            seat.setScore(0);
+            seat.setScore(1000);
             seat.setSeatNo(seats.size() + 1);
             seat.setUserId(user.getUserId());
             seat.setHead(user.getHead());

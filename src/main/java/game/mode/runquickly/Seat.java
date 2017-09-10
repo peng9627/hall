@@ -13,6 +13,7 @@ public class Seat {
     private boolean sex;                        //性别
     private int score;                          //输赢分数
     private String areaString;                  //地区
+    private boolean canPlay;                    //能出牌
 
     public int getSeatNo() {
         return seatNo;
@@ -68,5 +69,13 @@ public class Seat {
 
     public void setAreaString(String areaString) {
         this.areaString = areaString;
+    }
+
+    public boolean isCanPlay() {
+        return canPlay;
+    }
+
+    public void setCanPlay(boolean canPlay) {
+        this.canPlay = canPlay;
     }
 }

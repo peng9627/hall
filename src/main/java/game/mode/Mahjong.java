@@ -5451,15 +5451,6 @@ public final class Mahjong {
 
         /**
          * <pre>
-         * 游戏状态
-         * </pre>
-         * <p>
-         * <code>.GameStatus gameStatus = 1;</code>
-         */
-        game.mode.GameBase.GameStatus getGameStatus();
-
-        /**
-         * <pre>
          * 当前操作的人
          * </pre>
          * <p>
@@ -5656,18 +5647,6 @@ public final class Mahjong {
             return gameStatus_;
         }
 
-        /**
-         * <pre>
-         * 游戏状态
-         * </pre>
-         * <p>
-         * <code>.GameStatus gameStatus = 1;</code>
-         */
-        public game.mode.GameBase.GameStatus getGameStatus() {
-            game.mode.GameBase.GameStatus result = game.mode.GameBase.GameStatus.valueOf(gameStatus_);
-            return result == null ? game.mode.GameBase.GameStatus.UNRECOGNIZED : result;
-        }
-
         public static final int OPERATIONUSER_FIELD_NUMBER = 2;
         private int operationUser_;
 
@@ -5783,9 +5762,6 @@ public final class Mahjong {
 
         public void writeTo(com.google.protobuf.CodedOutputStream output)
                 throws java.io.IOException {
-            if (gameStatus_ != game.mode.GameBase.GameStatus.WAITING.getNumber()) {
-                output.writeEnum(1, gameStatus_);
-            }
             if (operationUser_ != 0) {
                 output.writeUInt32(2, operationUser_);
             }
@@ -5805,10 +5781,6 @@ public final class Mahjong {
             if (size != -1) return size;
 
             size = 0;
-            if (gameStatus_ != game.mode.GameBase.GameStatus.WAITING.getNumber()) {
-                size += com.google.protobuf.CodedOutputStream
-                        .computeEnumSize(1, gameStatus_);
-            }
             if (operationUser_ != 0) {
                 size += com.google.protobuf.CodedOutputStream
                         .computeUInt32Size(2, operationUser_);
@@ -6213,35 +6185,6 @@ public final class Mahjong {
              */
             public Builder setGameStatusValue(int value) {
                 gameStatus_ = value;
-                onChanged();
-                return this;
-            }
-
-            /**
-             * <pre>
-             * 游戏状态
-             * </pre>
-             * <p>
-             * <code>.GameStatus gameStatus = 1;</code>
-             */
-            public game.mode.GameBase.GameStatus getGameStatus() {
-                game.mode.GameBase.GameStatus result = game.mode.GameBase.GameStatus.valueOf(gameStatus_);
-                return result == null ? game.mode.GameBase.GameStatus.UNRECOGNIZED : result;
-            }
-
-            /**
-             * <pre>
-             * 游戏状态
-             * </pre>
-             * <p>
-             * <code>.GameStatus gameStatus = 1;</code>
-             */
-            public Builder setGameStatus(game.mode.GameBase.GameStatus value) {
-                if (value == null) {
-                    throw new NullPointerException();
-                }
-
-                gameStatus_ = value.getNumber();
                 onChanged();
                 return this;
             }

@@ -153,7 +153,7 @@ public class XingningMahjongRoom {
             seat.setHead(user.getHead());
             seat.setNickname(user.getNickname());
             seat.setSex(user.getSex().equals("MAN"));
-            seat.setScore(0);
+            seat.setScore(1000);
             seat.setSeatNo(seatNos.get(0));
             seatNos.remove(0);
             seat.setUserId(user.getUserId());
