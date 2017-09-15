@@ -70,7 +70,7 @@
 
         <version.fastjson>1.2.23</version.fastjson>
         <version.jedis>2.9.0</version.jedis>
-        <version.protobuf>3.6.1</version.protobuf>
+        <version.protobuf>3.4.0</version.protobuf>
 
         <version.jar.plugin>3.0.2</version.jar.plugin>
         <version.jxr.plugin>2.5</version.jxr.plugin>
@@ -86,7 +86,7 @@
 
         <dependency>
             <groupId>com.google.protobuf</groupId>
-            <artifactId>protobuf-socket</artifactId>
+            <artifactId>protobuf-java</artifactId>
             <version>${version.protobuf}</version>
         </dependency>
 
@@ -139,7 +139,7 @@
                     <configuration>
                         <archive>
                             <manifest>
-                                <mainClass>niuniu.entrance.StartGame</mainClass>
+                                <mainClass>game.entrance.StartGame</mainClass>
                             </manifest>
                         </archive>
                         <descriptorRefs>
@@ -181,7 +181,7 @@
                     <configuration>
                         <archive>
                             <manifest>
-                                <mainClass>niuniu.entrance.StartGame</mainClass>
+                                <mainClass>game.entrance.StartGame</mainClass>
                                 <addClasspath>true</addClasspath>
                                 <classpathPrefix>lib/</classpathPrefix>
                             </manifest>
@@ -271,40 +271,40 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>com.github.wvengen</groupId>
-                <artifactId>proguard-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>proguard</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <obfuscate>true</obfuscate>
-                    <proguardInclude>${basedir}/proguard.conf</proguardInclude>
-                    <libs>
-                        <lib>${java.home}/lib/rt.jar</lib>
-                        <lib>${java.home}/lib/jce.jar</lib>
-                        <lib>${java.home}/lib/ext/sunjce_provider.jar</lib>
-                    </libs>
-                    <addMavenDescriptor>false</addMavenDescriptor>
-                    <injar>${project.build.finalName}-${branch}.jar</injar>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>net.sf.proguard</groupId>
-                        <artifactId>proguard-base</artifactId>
-                        <!--<classifier>${branch}</classifier>-->
-                        <version>${version.proguard.plugin}</version>
-                        <scope>runtime</scope>
-                    </dependency>
-                </dependencies>
-                <version>${version.wvengen.plugin}</version>
+            <!--<plugin>-->
+            <!--<groupId>com.github.wvengen</groupId>-->
+            <!--<artifactId>proguard-maven-plugin</artifactId>-->
+            <!--<executions>-->
+            <!--<execution>-->
+            <!--<phase>package</phase>-->
+            <!--<goals>-->
+            <!--<goal>proguard</goal>-->
+            <!--</goals>-->
+            <!--</execution>-->
+            <!--</executions>-->
+            <!--<configuration>-->
+            <!--<obfuscate>true</obfuscate>-->
+            <!--<proguardInclude>${basedir}/proguard.conf</proguardInclude>-->
+            <!--<libs>-->
+            <!--<lib>${java.home}/lib/rt.jar</lib>-->
+            <!--<lib>${java.home}/lib/jce.jar</lib>-->
+            <!--<lib>${java.home}/lib/ext/sunjce_provider.jar</lib>-->
+            <!--</libs>-->
+            <!--<addMavenDescriptor>false</addMavenDescriptor>-->
+            <!--<injar>${project.build.finalName}-${branch}.jar</injar>-->
+            <!--</configuration>-->
+            <!--<dependencies>-->
+            <!--<dependency>-->
+            <!--<groupId>net.sf.proguard</groupId>-->
+            <!--<artifactId>proguard-base</artifactId>-->
+            <!--&lt;!&ndash;<classifier>${branch}</classifier>&ndash;&gt;-->
+            <!--<version>${version.proguard.plugin}</version>-->
+            <!--<scope>runtime</scope>-->
+            <!--</dependency>-->
+            <!--</dependencies>-->
+            <!--<version>${version.wvengen.plugin}</version>-->
 
-            </plugin>
+            <!--</plugin>-->
         </plugins>
 
         <defaultGoal>install</defaultGoal>

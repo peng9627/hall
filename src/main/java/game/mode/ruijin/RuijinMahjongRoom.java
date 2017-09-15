@@ -141,6 +141,8 @@ public class RuijinMahjongRoom {
             seat.setNickname(user.getNickname());
             seat.setSex(user.getSex().equals("MAN"));
             seat.setScore(1000);
+            seat.setIp(user.getLastLoginIp());
+            seat.setGameCount(user.getGameCount());
             seat.setSeatNo(seatNos.get(0));
             seatNos.remove(0);
             seat.setUserId(user.getUserId());

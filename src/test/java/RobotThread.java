@@ -1,4 +1,3 @@
-import com.google.protobuf.GeneratedMessageV3;
 import game.mode.GameBase;
 import game.mode.Hall;
 import game.utils.ByteUtils;
@@ -35,14 +34,34 @@ public class RobotThread implements Runnable {
         return new String(bytes);
     }
 
-    private void send(OutputStream os, GeneratedMessageV3 messageV3) {
+    private void send(OutputStream os, GameBase.BaseConnection baseConnection) {
         try {
-            String md5 = CoreStringUtils.md5(ByteUtils.addAll(md5Key, messageV3.toByteArray()), 32, false);
-            messageV3.sendTo(os, md5);
-            logger.info(id + "发送" + messageV3.toString());
+            String md5 = CoreStringUtils.md5(ByteUtils.addAll(md5Key, baseConnection.toByteArray()), 32, false);
+            sendTo(os, md5, baseConnection);
+            logger.info(id + "发送" + baseConnection.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void sendTo(OutputStream os, String h, GameBase.BaseConnection baseConnection) throws IOException {
+        int len = baseConnection.getSerializedSize() + 36;
+        writeInt(os, len);
+        writeString(os, h);
+        os.write(baseConnection.toByteArray());
+    }
+
+    private static void writeInt(OutputStream s, int v) throws IOException {
+        s.write((v >>> 24) & 0xFF);
+        s.write((v >>> 16) & 0xFF);
+        s.write((v >>> 8) & 0xFF);
+        s.write((v) & 0xFF);
+    }
+
+    private static void writeString(OutputStream s, String v) throws IOException {
+        byte[] bytes = v.getBytes();
+        writeInt(s, bytes.length);
+        s.write(bytes);
     }
 
     String ip;
@@ -72,12 +91,12 @@ public class RobotThread implements Runnable {
             request = GameBase.BaseConnection.newBuilder();
             action = GameBase.BaseAction.newBuilder();
 
-            for (int i = 0; i < 16; i++) {
+            for (int i = 0; i < 15; i++) {
                 Hall.LoginRequest loginRequest = Hall.LoginRequest.newBuilder().setUsername("test" + 0 + "" + i).setNickname("test" + 0 + "" + i).setHead("")
                         .setAgent(Hall.Agent.ANDROID).setSex(true).build();
                 send(os, request.setOperationType(GameBase.OperationType.LOGIN).setData(loginRequest.toByteString()).build());
 
-                Hall.RegistrationRequest registrationRequest = Hall.RegistrationRequest.newBuilder().setId("ff8080815df48669015da48a1d7a0000").build();
+                Hall.RegistrationRequest registrationRequest = Hall.RegistrationRequest.newBuilder().setId("ff8080815df48669015da48a1d7c0000").build();
                 send(os, request.setOperationType(GameBase.OperationType.REGISTRATION).setData(registrationRequest.toByteString()).build());
             }
 

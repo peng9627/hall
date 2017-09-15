@@ -140,6 +140,8 @@ public class RunQuicklyRoom {
             seat.setNickname(user.getNickname());
             seat.setSex(user.getSex().equals("MAN"));
             seat.setScore(1000);
+            seat.setIp(user.getLastLoginIp());
+            seat.setGameCount(user.getGameCount());
             seat.setSeatNo(seatNos.get(0));
             seat.setCanPlay(true);
             seatNos.remove(0);

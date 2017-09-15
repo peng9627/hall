@@ -14,6 +14,8 @@ public class Seat {
     private int score;                          //输赢分数
     private String areaString;                  //地区
     private boolean canPlay;                    //能出牌
+    private String ip;
+    private int gameCount;
 
     public int getSeatNo() {
         return seatNo;
@@ -77,5 +79,21 @@ public class Seat {
 
     public void setCanPlay(boolean canPlay) {
         this.canPlay = canPlay;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
+
+    public int getGameCount() {
+        return gameCount;
+    }
+
+    public void setGameCount(int gameCount) {
+        this.gameCount = gameCount;
     }
 }

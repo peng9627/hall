@@ -148,12 +148,13 @@ public class XingningMahjongRoom {
     public void addSeats(List<User> users) {
         for (User user : users) {
             Seat seat = new Seat();
-            seat.setReady(false);
             seat.setAreaString(user.getArea());
             seat.setHead(user.getHead());
             seat.setNickname(user.getNickname());
             seat.setSex(user.getSex().equals("MAN"));
             seat.setScore(1000);
+            seat.setIp(user.getLastLoginIp());
+            seat.setGameCount(user.getGameCount());
             seat.setSeatNo(seatNos.get(0));
             seatNos.remove(0);
             seat.setUserId(user.getUserId());

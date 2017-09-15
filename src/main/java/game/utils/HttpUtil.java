@@ -77,8 +77,6 @@ public class HttpUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("返回" + response);
-
         return response;
     }
 }

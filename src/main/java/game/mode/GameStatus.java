@@ -8,7 +8,9 @@ public enum GameStatus {
 
     WAITING("等待开始", 0),
     READYING("准备", 1),
-    PLAYING("游戏中", 2);
+    PLAYING("游戏中", 2),
+    GRABING("抢庄", 3),
+    OPENING("开牌", 4);
 
     private String name;
     private Integer values;

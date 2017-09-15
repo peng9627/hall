@@ -23,6 +23,9 @@ public class SangongRoom {
     private int bankerWay;//庄家方式
     private int roomOwner;
 
+    public SangongRoom() {
+    }
+
     public SangongRoom(int baseScore, String roomNo, int gameTimes, int bankerWay, int userId) {
         this.baseScore = baseScore;
         this.roomNo = roomNo;
@@ -113,6 +116,8 @@ public class SangongRoom {
             Seat seat = new Seat();
             seat.setAreaString(user.getArea());
             seat.setScore(1000);
+            seat.setIp(user.getLastLoginIp());
+            seat.setGameCount(user.getGameCount());
             seat.setSeatNo(seats.size() + 1);
             seat.setUserId(user.getUserId());
             seat.setHead(user.getHead());
