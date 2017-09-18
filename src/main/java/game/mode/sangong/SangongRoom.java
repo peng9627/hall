@@ -22,17 +22,24 @@ public class SangongRoom {
     private int grab;//庄家
     private int bankerWay;//庄家方式
     private int roomOwner;
+    private int payType;//支付方式
+    private int count;//人数
 
     public SangongRoom() {
     }
 
-    public SangongRoom(int baseScore, String roomNo, int gameTimes, int bankerWay, int userId) {
+    public SangongRoom(int baseScore, String roomNo, int gameTimes, int bankerWay, int userId, int payType, int count) {
         this.baseScore = baseScore;
         this.roomNo = roomNo;
         this.gameTimes = gameTimes;
         this.bankerWay = bankerWay;
         this.gameStatus = GameStatus.WAITING;
         this.roomOwner = userId;
+        this.payType = payType;
+        this.count = count;
+        if (2 == bankerWay) {
+            this.grab = userId;
+        }
         this.seatNos = new ArrayList<>();
         for (int i = 0; i < 6; i++) {
             seatNos.add(i + 1);
@@ -109,6 +116,22 @@ public class SangongRoom {
 
     public void setRoomOwner(int roomOwner) {
         this.roomOwner = roomOwner;
+    }
+
+    public int getPayType() {
+        return payType;
+    }
+
+    public void setPayType(int payType) {
+        this.payType = payType;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 
     public void addSeats(List<User> users) {

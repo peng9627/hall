@@ -177,6 +177,7 @@ public class HallClient {
                         jsonObject.clear();
                         jsonObject.put("userId", userId);
                         jsonObject.put("flowType", 2);
+                        boolean moneyEnough = true;
                         switch (createRoomRequest.getGameType()) {
                             case MAHJONG_XINGNING:
                                 Hall.XingningMahjongCreateRoomRequest xingningMahjongCreateRoomRequest = Hall.XingningMahjongCreateRoomRequest.parseFrom(createRoomRequest.getData());
@@ -189,14 +190,20 @@ public class HallClient {
                                 } else {
                                     jsonObject.put("money", 2);
                                 }
+                                Hall.RoomResponse.Builder createRoomResponse = Hall.RoomResponse.newBuilder();
+                                if (userResponse.getData().getMoney() < jsonObject.getIntValue("money")) {
+                                    moneyEnough = false;
+                                    createRoomResponse.setError(GameBase.ErrorCode.MONEY_NOT_ENOUGH);
+                                    messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
+                                    break;
+                                }
                                 redisService.addCache("room" + xingningMahjongRoom.getRoomNo(), JSON.toJSONString(xingningMahjongRoom));
                                 redisService.addCache("reconnect" + userId, "xingning_mahjong," + xingningMahjongRoom.getRoomNo());
                                 redisService.addCache("room_type" + xingningMahjongRoom.getRoomNo(), "xingning_mahjong");
 
-                                Hall.RoomResponse createRoomResponse = Hall.RoomResponse.newBuilder()
-                                        .setRoomNo(xingningMahjongRoom.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS).setIntoIp(Constant.gameServerIp)
-                                        .setPort(10001).build();
-                                messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.toByteString()).build(), userId);
+                                createRoomResponse.setRoomNo(xingningMahjongRoom.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS)
+                                        .setIntoIp(Constant.gameServerIp).setPort(10001).build();
+                                messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
                                 break;
                             case MAHJONG_RUIJIN:
                                 Hall.RuijinMahjongCreateRoomRequest ruijinMahjongCreateRoomRequest = Hall.RuijinMahjongCreateRoomRequest.parseFrom(createRoomRequest.getData());
@@ -214,15 +221,20 @@ public class HallClient {
                                         jsonObject.put("money", 3);
                                         break;
                                 }
-
+                                createRoomResponse = Hall.RoomResponse.newBuilder();
+                                if (userResponse.getData().getMoney() < jsonObject.getIntValue("money")) {
+                                    moneyEnough = false;
+                                    createRoomResponse.setError(GameBase.ErrorCode.MONEY_NOT_ENOUGH);
+                                    messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
+                                    break;
+                                }
                                 redisService.addCache("room" + ruijinMahjongRoom.getRoomNo(), JSON.toJSONString(ruijinMahjongRoom));
                                 redisService.addCache("reconnect" + userId, "ruijin_mahjong," + ruijinMahjongRoom.getRoomNo());
                                 redisService.addCache("room_type" + ruijinMahjongRoom.getRoomNo(), "ruijin_mahjong");
 
-                                createRoomResponse = Hall.RoomResponse.newBuilder()
-                                        .setRoomNo(ruijinMahjongRoom.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS).setIntoIp(Constant.gameServerIp)
-                                        .setPort(10003).build();
-                                messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.toByteString()).build(), userId);
+                                createRoomResponse.setRoomNo(ruijinMahjongRoom.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS)
+                                        .setIntoIp(Constant.gameServerIp).setPort(10003).build();
+                                messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
                                 break;
                             case RUN_QUICKLY:
                                 Hall.RunQuicklyCreateRoomRequest runQuicklyCreateRoomRequest = Hall.RunQuicklyCreateRoomRequest.parseFrom(createRoomRequest.getData());
@@ -240,96 +252,119 @@ public class HallClient {
                                         jsonObject.put("money", 3);
                                         break;
                                 }
+                                createRoomResponse = Hall.RoomResponse.newBuilder();
+                                if (userResponse.getData().getMoney() < jsonObject.getIntValue("money")) {
+                                    moneyEnough = false;
+                                    createRoomResponse.setError(GameBase.ErrorCode.MONEY_NOT_ENOUGH);
+                                    messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
+                                    break;
+                                }
                                 redisService.addCache("room" + runQuicklyRoom.getRoomNo(), JSON.toJSONString(runQuicklyRoom));
                                 redisService.addCache("reconnect" + userId, "run_quickly," + runQuicklyRoom.getRoomNo());
                                 redisService.addCache("room_type" + runQuicklyRoom.getRoomNo(), "run_quickly");
 
-                                createRoomResponse = Hall.RoomResponse.newBuilder()
-                                        .setRoomNo(runQuicklyRoom.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS).setIntoIp(Constant.gameServerIp)
-                                        .setPort(10002).build();
-                                messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.toByteString()).build(), userId);
+                                createRoomResponse.setRoomNo(runQuicklyRoom.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS)
+                                        .setIntoIp(Constant.gameServerIp).setPort(10002).build();
+                                messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
                                 break;
                             case SANGONG:
                                 Hall.SanGongCreateRoomRequest sanGongCreateRoomRequest = Hall.SanGongCreateRoomRequest.parseFrom(createRoomRequest.getData());
-                                SangongRoom sangongRoom = new SangongRoom(sanGongCreateRoomRequest.getBaseScore(), roomNo(), sanGongCreateRoomRequest.getGameTimes(), sanGongCreateRoomRequest.getBankerWay(), userId);
-                                jsonObject.put("description", "开房间" + sangongRoom.getRoomNo());
-                                switch (sangongRoom.getGameTimes()) {
-                                    case 10:
-                                        jsonObject.put("money", 2);
+                                SangongRoom sangongRoom = new SangongRoom(sanGongCreateRoomRequest.getBaseScore(), roomNo(),
+                                        sanGongCreateRoomRequest.getGameTimes(), sanGongCreateRoomRequest.getBankerWay(),
+                                        userId, sanGongCreateRoomRequest.getPayType(), sanGongCreateRoomRequest.getCount());
+                                createRoomResponse = Hall.RoomResponse.newBuilder();
+                                if (1 == sanGongCreateRoomRequest.getPayType()) {
+                                    jsonObject.put("description", "开房间" + sangongRoom.getRoomNo());
+                                    switch (sangongRoom.getGameTimes()) {
+                                        case 10:
+                                            jsonObject.put("money", 3);
+                                            break;
+                                        case 20:
+                                            jsonObject.put("money", 6);
+                                            break;
+                                    }
+                                    if (userResponse.getData().getMoney() < jsonObject.getIntValue("money")) {
+                                        moneyEnough = false;
+                                        createRoomResponse.setError(GameBase.ErrorCode.MONEY_NOT_ENOUGH);
+                                        messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
                                         break;
-                                    case 20:
-                                        jsonObject.put("money", 3);
-                                        break;
+                                    }
                                 }
                                 redisService.addCache("room" + sangongRoom.getRoomNo(), JSON.toJSONString(sangongRoom));
                                 redisService.addCache("reconnect" + userId, "sangong," + sangongRoom.getRoomNo());
                                 redisService.addCache("room_type" + sangongRoom.getRoomNo(), "sangong");
 
-                                createRoomResponse = Hall.RoomResponse.newBuilder()
-                                        .setRoomNo(sangongRoom.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS).setIntoIp(Constant.gameServerIp)
-                                        .setPort(10004).build();
-                                messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.toByteString()).build(), userId);
+                                createRoomResponse.setRoomNo(sangongRoom.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS)
+                                        .setIntoIp(Constant.gameServerIp).setPort(10004).build();
+                                messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
                                 break;
                         }
-                        ApiResponse moneyDetail = JSON.parseObject(HttpUtil.urlConnectionByRsa("http://127.0.0.1:9999/api/money_detailed/create", jsonObject.toJSONString()), new TypeReference<ApiResponse<User>>() {
-                        });
-                        if (0 != moneyDetail.getCode()) {
-                            LoggerFactory.getLogger(this.getClass()).error("http://127.0.0.1:9999/api/money_detailed/create?" + jsonObject.toJSONString());
+                        if (moneyEnough && jsonObject.containsKey("money")) {
+                            ApiResponse moneyDetail = JSON.parseObject(HttpUtil.urlConnectionByRsa("http://127.0.0.1:9999/api/money_detailed/create", jsonObject.toJSONString()), new TypeReference<ApiResponse<User>>() {
+                            });
+                            if (0 != moneyDetail.getCode()) {
+                                LoggerFactory.getLogger(this.getClass()).error("http://127.0.0.1:9999/api/money_detailed/create?" + jsonObject.toJSONString());
+                            }
                         }
                     }
                     break;
                 case ADD_ROOM:
                     Hall.AddToRoomRequest addToRoomRequest = Hall.AddToRoomRequest.parseFrom(request.getData());
-                    Hall.RoomResponse createRoomResponse = null;
+                    Hall.RoomResponse.Builder createRoomResponse = Hall.RoomResponse.newBuilder();
                     if (redisService.exists("room" + addToRoomRequest.getRoomNo())) {
                         switch (redisService.getCache("room_type" + addToRoomRequest.getRoomNo())) {
                             case "xingning_mahjong":
                                 XingningMahjongRoom xingningMahjongRoom = JSON.parseObject(redisService.getCache("room" + addToRoomRequest.getRoomNo()), XingningMahjongRoom.class);
 
                                 if (0 != xingningMahjongRoom.getGameStatus().compareTo(GameStatus.WAITING)) {
-                                    createRoomResponse = Hall.RoomResponse.newBuilder()
-                                            .setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.GAME_START).build();
+                                    createRoomResponse.setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.GAME_START);
                                 } else {
-                                    createRoomResponse = Hall.RoomResponse.newBuilder()
-                                            .setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS).setIntoIp(Constant.gameServerIp)
-                                            .setPort(10001).build();
+                                    createRoomResponse.setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS)
+                                            .setIntoIp(Constant.gameServerIp).setPort(10001);
                                 }
                                 break;
                             case "ruijin_mahjong":
                                 RuijinMahjongRoom ruijinMahjongRoom = JSON.parseObject(redisService.getCache("room" + addToRoomRequest.getRoomNo()), RuijinMahjongRoom.class);
                                 if (0 != ruijinMahjongRoom.getGameStatus().compareTo(GameStatus.WAITING)) {
-                                    createRoomResponse = Hall.RoomResponse.newBuilder()
-                                            .setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.GAME_START).build();
+                                    createRoomResponse.setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.GAME_START);
                                 } else {
-                                    createRoomResponse = Hall.RoomResponse.newBuilder()
-                                            .setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS).setIntoIp(Constant.gameServerIp)
-                                            .setPort(10003).build();
+                                    createRoomResponse.setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS)
+                                            .setIntoIp(Constant.gameServerIp).setPort(10003);
                                 }
                                 break;
                             case "run_quickly":
                                 RunQuicklyRoom runQuicklyRoom = JSON.parseObject(redisService.getCache("room" + addToRoomRequest.getRoomNo()), RunQuicklyRoom.class);
                                 if (0 != runQuicklyRoom.getGameStatus().compareTo(GameStatus.WAITING)) {
-                                    createRoomResponse = Hall.RoomResponse.newBuilder()
-                                            .setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.GAME_START).build();
+                                    createRoomResponse.setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.GAME_START);
                                 } else {
-                                    createRoomResponse = Hall.RoomResponse.newBuilder()
-                                            .setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS).setIntoIp(Constant.gameServerIp)
-                                            .setPort(10002).build();
+                                    createRoomResponse.setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS)
+                                            .setIntoIp(Constant.gameServerIp).setPort(10002);
                                 }
                                 break;
                             case "sangong":
                                 SangongRoom sangongRoom = JSON.parseObject(redisService.getCache("room" + addToRoomRequest.getRoomNo()), SangongRoom.class);
+                                if (2 == sangongRoom.getPayType()) {
+                                    jsonObject.clear();
+                                    jsonObject.put("userId", userId);
+                                    userResponse = JSON.parseObject(HttpUtil.urlConnectionByRsa("http://127.0.0.1:9999/api/user/info", jsonObject.toJSONString()), new TypeReference<ApiResponse<User>>() {
+                                    });
+                                    if (0 == userResponse.getCode()) {
+                                        if (userResponse.getData().getMoney() < jsonObject.getIntValue("money")) {
+                                            createRoomResponse.setError(GameBase.ErrorCode.MONEY_NOT_ENOUGH);
+                                            break;
+                                        }
+                                    }
+
+                                }
                                 if (0 != sangongRoom.getGameStatus().compareTo(GameStatus.WAITING)) {
-                                    createRoomResponse = Hall.RoomResponse.newBuilder()
-                                            .setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.GAME_START).build();
+                                    createRoomResponse.setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.GAME_START);
                                 } else {
-                                    createRoomResponse = Hall.RoomResponse.newBuilder()
-                                            .setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS).setIntoIp(Constant.gameServerIp)
-                                            .setPort(10004).build();
+                                    createRoomResponse.setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS)
+                                            .setIntoIp(Constant.gameServerIp).setPort(10004);
                                 }
                                 break;
                         }
-                        messageReceive.send(this.response.setOperationType(GameBase.OperationType.ADD_ROOM).setData(createRoomResponse.toByteString()).build(), userId);
+                        messageReceive.send(this.response.setOperationType(GameBase.OperationType.ADD_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
                     } else {
                         messageReceive.send(this.response.setOperationType(GameBase.OperationType.ADD_ROOM).setData(Hall.RoomResponse.newBuilder()
                                 .setError(GameBase.ErrorCode.ROOM_NOT_EXIST).build().toByteString()).build(), userId);
@@ -581,7 +616,7 @@ public class HallClient {
                                                     redisService.addCache("room_match" + ruijinMahjongRoom.getRoomNo(), String.valueOf(matchNo));
                                                     break;
                                                 case SANGONG:
-                                                    SangongRoom sangongRoom = new SangongRoom(1, String.valueOf(roomNo()), 1, 1, 0);
+                                                    SangongRoom sangongRoom = new SangongRoom(1, String.valueOf(roomNo()), 1, 1, 0, 0, 4);
                                                     roomResponse = Hall.RoomResponse.newBuilder().setIntoIp(Constant.gameServerIp)
                                                             .setPort(10004).setRoomNo(String.valueOf(sangongRoom.getRoomNo())).build();
 
