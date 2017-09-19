@@ -64,7 +64,7 @@ public class HallClient {
                     jsonObject.put("head", loginRequest.getHead());
                     jsonObject.put("agent", loginRequest.getAgent().name());
                     jsonObject.put("ip", ip);
-                    ApiResponse<User> response = JSON.parseObject(HttpUtil.urlConnectionByRsa("http://127.0.0.1:9999/api/user/login_wechat", jsonObject.toJSONString()),
+                    ApiResponse<User> response = JSON.parseObject(HttpUtil.urlConnectionByRsa(Constant.apiUrl + Constant.wechatLogin, jsonObject.toJSONString()),
                             new TypeReference<ApiResponse<User>>() {
                             });
                     if (0 == response.getCode()) {
@@ -170,7 +170,7 @@ public class HallClient {
                 case CREATE_ROOM:
                     jsonObject.clear();
                     jsonObject.put("userId", userId);
-                    ApiResponse<User> userResponse = JSON.parseObject(HttpUtil.urlConnectionByRsa("http://127.0.0.1:9999/api/user/info", jsonObject.toJSONString()), new TypeReference<ApiResponse<User>>() {
+                    ApiResponse<User> userResponse = JSON.parseObject(HttpUtil.urlConnectionByRsa(Constant.apiUrl + Constant.userInfoUrl, jsonObject.toJSONString()), new TypeReference<ApiResponse<User>>() {
                     });
                     if (0 == userResponse.getCode()) {
                         Hall.BaseCreateRoomRequest createRoomRequest = Hall.BaseCreateRoomRequest.parseFrom(request.getData());
@@ -183,7 +183,7 @@ public class HallClient {
                                 Hall.XingningMahjongCreateRoomRequest xingningMahjongCreateRoomRequest = Hall.XingningMahjongCreateRoomRequest.parseFrom(createRoomRequest.getData());
                                 XingningMahjongRoom xingningMahjongRoom = new XingningMahjongRoom(xingningMahjongCreateRoomRequest.getBaseScore(),
                                         roomNo(), userId, xingningMahjongCreateRoomRequest.getGameTimes(), xingningMahjongCreateRoomRequest.getCount(),
-                                        xingningMahjongCreateRoomRequest.getMaCount(), 2, xingningMahjongCreateRoomRequest.getGameRules());
+                                        xingningMahjongCreateRoomRequest.getMaCount(), 1, xingningMahjongCreateRoomRequest.getGameRules());
                                 jsonObject.put("description", "开房间" + xingningMahjongRoom.getRoomNo());
                                 if (8 == xingningMahjongCreateRoomRequest.getGameTimes()) {
                                     jsonObject.put("money", 1);
@@ -300,10 +300,10 @@ public class HallClient {
                                 break;
                         }
                         if (moneyEnough && jsonObject.containsKey("money")) {
-                            ApiResponse moneyDetail = JSON.parseObject(HttpUtil.urlConnectionByRsa("http://127.0.0.1:9999/api/money_detailed/create", jsonObject.toJSONString()), new TypeReference<ApiResponse<User>>() {
+                            ApiResponse moneyDetail = JSON.parseObject(HttpUtil.urlConnectionByRsa(Constant.apiUrl + Constant.moneyDetailedCreate, jsonObject.toJSONString()), new TypeReference<ApiResponse<User>>() {
                             });
                             if (0 != moneyDetail.getCode()) {
-                                LoggerFactory.getLogger(this.getClass()).error("http://127.0.0.1:9999/api/money_detailed/create?" + jsonObject.toJSONString());
+                                LoggerFactory.getLogger(this.getClass()).error(Constant.apiUrl + Constant.moneyDetailedCreate + "?" + jsonObject.toJSONString());
                             }
                         }
                     }
@@ -346,7 +346,7 @@ public class HallClient {
                                 if (2 == sangongRoom.getPayType()) {
                                     jsonObject.clear();
                                     jsonObject.put("userId", userId);
-                                    userResponse = JSON.parseObject(HttpUtil.urlConnectionByRsa("http://127.0.0.1:9999/api/user/info", jsonObject.toJSONString()), new TypeReference<ApiResponse<User>>() {
+                                    userResponse = JSON.parseObject(HttpUtil.urlConnectionByRsa(Constant.apiUrl + Constant.userInfoUrl, jsonObject.toJSONString()), new TypeReference<ApiResponse<User>>() {
                                     });
                                     if (0 == userResponse.getCode()) {
                                         if (userResponse.getData().getMoney() < jsonObject.getIntValue("money")) {
@@ -387,7 +387,7 @@ public class HallClient {
 
                     jsonObject.clear();
                     jsonObject.put("userId", userId);
-                    userResponse = JSON.parseObject(HttpUtil.urlConnectionByRsa("http://127.0.0.1:9999/api/user/info", jsonObject.toJSONString()), new TypeReference<ApiResponse<User>>() {
+                    userResponse = JSON.parseObject(HttpUtil.urlConnectionByRsa(Constant.apiUrl + Constant.userInfoUrl, jsonObject.toJSONString()), new TypeReference<ApiResponse<User>>() {
                     });
                     if (0 == userResponse.getCode()) {
                         User user = userResponse.getData();
@@ -430,7 +430,7 @@ public class HallClient {
                 case SHARE_SUCCESS:
                     jsonObject.clear();
                     jsonObject.put("userId", userId);
-                    ApiResponse apiResponse = JSON.parseObject(HttpUtil.urlConnectionByRsa("http://127.0.0.1:9999/api/user/share", jsonObject.toJSONString()), new TypeReference<ApiResponse<User>>() {
+                    ApiResponse apiResponse = JSON.parseObject(HttpUtil.urlConnectionByRsa(Constant.apiUrl + Constant.share, jsonObject.toJSONString()), new TypeReference<ApiResponse<User>>() {
                     });
                     this.response.setOperationType(GameBase.OperationType.SHARE_SUCCESS);
                     if (0 == apiResponse.getCode()) {
@@ -445,7 +445,7 @@ public class HallClient {
                     Hall.RegistrationListRequest registrationListRequest = Hall.RegistrationListRequest.parseFrom(request.getData());
                     jsonObject.clear();
                     jsonObject.put("gameType", registrationListRequest.getGameType().getNumber());
-                    ApiResponse<List<Arena>> arenasResponse = JSON.parseObject(HttpUtil.urlConnectionByRsa("http://127.0.0.1:9999/api/arena/list", jsonObject.toJSONString()),
+                    ApiResponse<List<Arena>> arenasResponse = JSON.parseObject(HttpUtil.urlConnectionByRsa(Constant.apiUrl + Constant.arenaListUrl, jsonObject.toJSONString()),
                             new TypeReference<ApiResponse<List<Arena>>>() {
                             });
                     Hall.RegistrationListResponse.Builder registrationListResponse = Hall.RegistrationListResponse.newBuilder();
@@ -467,7 +467,7 @@ public class HallClient {
                     break;
                 case REGISTRATION:
                     Hall.RegistrationRequest registrationRequest = Hall.RegistrationRequest.parseFrom(request.getData());
-                    ApiResponse<Arena> arenaResponse = JSON.parseObject(HttpUtil.urlConnectionByRsa("http://127.0.0.1:9999/api/arena/info/" + registrationRequest.getId(), null),
+                    ApiResponse<Arena> arenaResponse = JSON.parseObject(HttpUtil.urlConnectionByRsa(Constant.apiUrl + Constant.arenaInfoUrl + registrationRequest.getId(), null),
                             new TypeReference<ApiResponse<Arena>>() {
                             });
                     Hall.RegistrationResponse.Builder registrationResponse = Hall.RegistrationResponse.newBuilder();
@@ -499,7 +499,7 @@ public class HallClient {
                                     }
                                     jsonObject.clear();
                                     jsonObject.put("userIds", stringBuilder.toString().substring(1));
-                                    ApiResponse<List<User>> usersResponse = JSON.parseObject(HttpUtil.urlConnectionByRsa("http://127.0.0.1:9999/api/user/list", jsonObject.toJSONString()),
+                                    ApiResponse<List<User>> usersResponse = JSON.parseObject(HttpUtil.urlConnectionByRsa(Constant.apiUrl + Constant.userListUrl, jsonObject.toJSONString()),
                                             new TypeReference<ApiResponse<List<User>>>() {
                                             });
                                     if (0 == usersResponse.getCode()) {
@@ -551,7 +551,7 @@ public class HallClient {
                                                     redisService.addCache("room_match" + xingningMahjongRoom.getRoomNo(), String.valueOf(matchNo));
                                                     break;
                                                 case RUN_QUICKLY:
-                                                    RunQuicklyRoom runQuicklyRoom = new RunQuicklyRoom(1, roomNo(), 1, 4, 1, userId);
+                                                    RunQuicklyRoom runQuicklyRoom = new RunQuicklyRoom(1, roomNo(), 1, 4, 16382, userId);
                                                     roomResponse = Hall.RoomResponse.newBuilder().setIntoIp(Constant.gameServerIp)
                                                             .setPort(10002).setRoomNo(String.valueOf(runQuicklyRoom.getRoomNo())).build();
                                                     if (userList.size() > 4) {
@@ -684,7 +684,7 @@ public class HallClient {
                     break;
                 case EXCHANGE_HISTORY:
                     Hall.ExchangeHistory.Builder exchangeHistory = Hall.ExchangeHistory.newBuilder();
-                    ApiResponse<List<Exchange>> exchangeHistoryResponse = JSON.parseObject(HttpUtil.urlConnectionByRsa("http://127.0.0.1:9999/api/exchange/list/" + userId, null), new TypeReference<ApiResponse<List<Exchange>>>() {
+                    ApiResponse<List<Exchange>> exchangeHistoryResponse = JSON.parseObject(HttpUtil.urlConnectionByRsa(Constant.apiUrl + Constant.exchangeListUrl + userId, null), new TypeReference<ApiResponse<List<Exchange>>>() {
                     });
                     if (null != exchangeHistoryResponse && 0 == exchangeHistoryResponse.getCode()) {
                         if (null != exchangeHistoryResponse.getData() && 0 < exchangeHistoryResponse.getData().size()) {
@@ -754,7 +754,7 @@ public class HallClient {
         GameBase.RecordResponse.Builder recordResponse = GameBase.RecordResponse.newBuilder();
         jsonObject.clear();
         jsonObject.put("userId", userId);
-        ApiResponse<List<GameRecordRepresentation>> gameRecordResponse = JSON.parseObject(HttpUtil.urlConnectionByRsa("http://127.0.0.1:9999/api/gamerecord/list", jsonObject.toJSONString()),
+        ApiResponse<List<GameRecordRepresentation>> gameRecordResponse = JSON.parseObject(HttpUtil.urlConnectionByRsa(Constant.apiUrl + Constant.gamerecordListUrl, jsonObject.toJSONString()),
                 new TypeReference<ApiResponse<List<GameRecordRepresentation>>>() {
                 });
         Map<GameType, GameBase.GameRecord.Builder> gameRecords = new HashMap<>();
@@ -796,7 +796,7 @@ public class HallClient {
      */
     private GameBase.RecordDetailsResponse recordDetails(String recordId) {
         GameBase.RecordDetailsResponse.Builder recordResponse = GameBase.RecordDetailsResponse.newBuilder();
-        ApiResponse<GameRecordInfoRepresentation> gameRecordResponse = JSON.parseObject(HttpUtil.urlConnectionByRsa("http://127.0.0.1:9999/api/gamerecord/info/" + recordId, null),
+        ApiResponse<GameRecordInfoRepresentation> gameRecordResponse = JSON.parseObject(HttpUtil.urlConnectionByRsa(Constant.apiUrl + Constant.gamerecordInfoUrl + recordId, null),
                 new TypeReference<ApiResponse<GameRecordInfoRepresentation>>() {
                 });
         if (0 == gameRecordResponse.getCode()) {
@@ -827,7 +827,7 @@ public class HallClient {
      */
     private GameBase.ReplayResponse replay(String recordId, int round) {
         GameBase.ReplayResponse.Builder replayResponse = GameBase.ReplayResponse.newBuilder();
-        ApiResponse<GameRecordInfoRepresentation> gameRecordResponse = JSON.parseObject(HttpUtil.urlConnectionByRsa("http://127.0.0.1:9999/api/gamerecord/info/" + recordId, null),
+        ApiResponse<GameRecordInfoRepresentation> gameRecordResponse = JSON.parseObject(HttpUtil.urlConnectionByRsa(Constant.apiUrl + Constant.gamerecordInfoUrl + recordId, null),
                 new TypeReference<ApiResponse<GameRecordInfoRepresentation>>() {
                 });
         if (0 == gameRecordResponse.getCode()) {
