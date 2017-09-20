@@ -86,6 +86,9 @@ public class NoticeReceive implements Runnable {
                 SocketRequest socketRequest = JSON.parseObject(data, SocketRequest.class);
                 switch (socketRequest.getNoticeType()) {
                     case 1:
+                        synchronized (this) {
+                            wait(1000);
+                        }
                         JSONObject jsonObject = new JSONObject();
                         jsonObject.put("userId", socketRequest.getUserId());
                         ApiResponse<User> userResponse = JSON.parseObject(HttpUtil.urlConnectionByRsa("http://127.0.0.1:9999/api/user/info", jsonObject.toJSONString()), new TypeReference<ApiResponse<User>>() {
