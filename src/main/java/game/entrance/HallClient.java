@@ -522,7 +522,7 @@ public class HallClient {
                                                     XingningMahjongRoom xingningMahjongRoom = new XingningMahjongRoom(1, roomNo(), userList.get(0).getUserId(), 1, 4, 0, 2, 0);
                                                     Hall.RoomResponse roomResponse = Hall.RoomResponse.newBuilder().setIntoIp(Constant.gameServerIp)
                                                             .setPort(10001).setRoomNo(String.valueOf(xingningMahjongRoom.getRoomNo())).build();
-                                                    if (userList.size() > 4) {
+                                                    if (userList.size() >= 4) {
                                                         xingningMahjongRoom.addSeats(userList.subList(0, 4));
                                                         for (int i = 0; i < 4; i++) {
                                                             if (HallTcpService.userClients.containsKey(userList.get(i).getUserId())) {
@@ -533,15 +533,6 @@ public class HallClient {
                                                         userList.remove(0);
                                                         userList.remove(0);
                                                         userList.remove(0);
-                                                    } else {
-                                                        xingningMahjongRoom.setCount(userList.size());
-                                                        xingningMahjongRoom.addSeats(userList);
-                                                        for (User user : userList) {
-                                                            if (HallTcpService.userClients.containsKey(user.getUserId())) {
-                                                                messageReceive.send(this.response.setOperationType(GameBase.OperationType.COMPETITION_START).setData(roomResponse.toByteString()).build(), user.getUserId());
-                                                            }
-                                                        }
-                                                        userList.clear();
                                                     }
                                                     roomNos.add(Integer.parseInt(xingningMahjongRoom.getRoomNo()));
                                                     redisService.addCache("room" + xingningMahjongRoom.getRoomNo(), JSON.toJSONString(xingningMahjongRoom));
@@ -554,7 +545,7 @@ public class HallClient {
                                                     RunQuicklyRoom runQuicklyRoom = new RunQuicklyRoom(1, roomNo(), 1, 4, 16382, userId);
                                                     roomResponse = Hall.RoomResponse.newBuilder().setIntoIp(Constant.gameServerIp)
                                                             .setPort(10002).setRoomNo(String.valueOf(runQuicklyRoom.getRoomNo())).build();
-                                                    if (userList.size() > 4) {
+                                                    if (userList.size() >= 4) {
                                                         runQuicklyRoom.addSeats(userList.subList(0, 4));
                                                         for (int i = 0; i < 4; i++) {
                                                             if (HallTcpService.userClients.containsKey(userList.get(i).getUserId())) {
@@ -565,16 +556,6 @@ public class HallClient {
                                                         userList.remove(0);
                                                         userList.remove(0);
                                                         userList.remove(0);
-                                                    } else {
-                                                        runQuicklyRoom.setCount(userList.size());
-                                                        runQuicklyRoom.addSeats(userList);
-                                                        for (User user : userList) {
-                                                            if (HallTcpService.userClients.containsKey(user.getUserId())) {
-                                                                messageReceive.send(this.response.setOperationType(GameBase.OperationType.COMPETITION_START).setData(roomResponse.toByteString()).build(), user.getUserId());
-                                                            }
-                                                        }
-                                                        people.clear();
-                                                        userList.clear();
                                                     }
                                                     roomNos.add(Integer.parseInt(runQuicklyRoom.getRoomNo()));
                                                     redisService.addCache("room" + runQuicklyRoom.getRoomNo(), JSON.toJSONString(runQuicklyRoom));
@@ -587,7 +568,7 @@ public class HallClient {
                                                     RuijinMahjongRoom ruijinMahjongRoom = new RuijinMahjongRoom(1, roomNo(), userList.get(0).getUserId(), 1, 4, true, 1);
                                                     roomResponse = Hall.RoomResponse.newBuilder().setIntoIp(Constant.gameServerIp)
                                                             .setPort(10003).setRoomNo(String.valueOf(ruijinMahjongRoom.getRoomNo())).build();
-                                                    if (userList.size() > 4) {
+                                                    if (userList.size() >= 4) {
                                                         ruijinMahjongRoom.addSeats(userList.subList(0, 4));
                                                         for (int i = 0; i < 4; i++) {
                                                             if (HallTcpService.userClients.containsKey(userList.get(i).getUserId())) {
@@ -598,15 +579,6 @@ public class HallClient {
                                                         userList.remove(0);
                                                         userList.remove(0);
                                                         userList.remove(0);
-                                                    } else {
-                                                        ruijinMahjongRoom.setCount(userList.size());
-                                                        ruijinMahjongRoom.addSeats(userList.subList(0, userList.size()));
-                                                        for (User user : userList) {
-                                                            if (HallTcpService.userClients.containsKey(user.getUserId())) {
-                                                                messageReceive.send(this.response.setOperationType(GameBase.OperationType.COMPETITION_START).setData(roomResponse.toByteString()).build(), user.getUserId());
-                                                            }
-                                                        }
-                                                        userList.clear();
                                                     }
                                                     roomNos.add(Integer.parseInt(ruijinMahjongRoom.getRoomNo()));
                                                     redisService.addCache("room" + ruijinMahjongRoom.getRoomNo(), JSON.toJSONString(ruijinMahjongRoom));
@@ -620,9 +592,9 @@ public class HallClient {
                                                     roomResponse = Hall.RoomResponse.newBuilder().setIntoIp(Constant.gameServerIp)
                                                             .setPort(10004).setRoomNo(String.valueOf(sangongRoom.getRoomNo())).build();
 
-                                                    if (userList.size() > 6) {
+                                                    if (userList.size() > 4) {
                                                         sangongRoom.addSeats(userList.subList(0, 4));
-                                                        for (int i = 0; i < 6; i++) {
+                                                        for (int i = 0; i < 4; i++) {
                                                             if (HallTcpService.userClients.containsKey(userList.get(i).getUserId())) {
                                                                 messageReceive.send(this.response.setOperationType(GameBase.OperationType.COMPETITION_START).setData(roomResponse.toByteString()).build(), userList.get(i).getUserId());
                                                             }
@@ -631,14 +603,6 @@ public class HallClient {
                                                         userList.remove(0);
                                                         userList.remove(0);
                                                         userList.remove(0);
-                                                    } else {
-                                                        sangongRoom.addSeats(userList.subList(0, userList.size()));
-                                                        for (User user : userList) {
-                                                            if (HallTcpService.userClients.containsKey(user.getUserId())) {
-                                                                messageReceive.send(this.response.setOperationType(GameBase.OperationType.COMPETITION_START).setData(roomResponse.toByteString()).build(), user.getUserId());
-                                                            }
-                                                        }
-                                                        userList.clear();
                                                     }
                                                     roomNos.add(Integer.parseInt(sangongRoom.getRoomNo()));
                                                     redisService.addCache("room" + sangongRoom.getRoomNo(), JSON.toJSONString(sangongRoom));
@@ -652,7 +616,7 @@ public class HallClient {
 
                                         MatchInfo matchInfo = new MatchInfo();
                                         matchInfo.setStatus(1);
-                                        matchInfo.setStartDate(new Date());
+                                        matchInfo.setMatchEliminateScore(400);
                                         matchInfo.setRooms(roomNos);
                                         matchInfo.setArena(arena);
                                         matchInfo.setMatchUsers(matchUsers);
