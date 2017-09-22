@@ -23,5 +23,4 @@ public class Constant {
     public static String gameServerIp = "192.168.2.99";
 
     public static int messageTimeout = 300000;
-
 }
