@@ -91,13 +91,23 @@ public class RobotThread implements Runnable {
             request = GameBase.BaseConnection.newBuilder();
             action = GameBase.BaseAction.newBuilder();
 
-            for (int i = 0; i < 15; i++) {
+            for (int i = 45; i < 60; i++) {
                 Hall.LoginRequest loginRequest = Hall.LoginRequest.newBuilder().setUsername("test" + 0 + "" + i).setNickname("test" + 0 + "" + i).setHead("")
                         .setAgent(Hall.Agent.ANDROID).setSex(true).build();
                 send(os, request.setOperationType(GameBase.OperationType.LOGIN).setData(loginRequest.toByteString()).build());
 
-                Hall.RegistrationRequest registrationRequest = Hall.RegistrationRequest.newBuilder().setId("ff8080815df48669015da48a1d7c0000").build();
+                Hall.RegistrationRequest registrationRequest = Hall.RegistrationRequest.newBuilder().setId("ff8080815df48669015da48a1d7a0000").build();
+//                                Hall.RegistrationRequest registrationRequest = Hall.RegistrationRequest.newBuilder().setId("ff8080815df48669015da48a1d7c0000").build();
+//                                Hall.RegistrationRequest registrationRequest = Hall.RegistrationRequest.newBuilder().setId("ff8080115df48669015da48a1d7a0000").build();
+//                Hall.RegistrationRequest registrationRequest = Hall.RegistrationRequest.newBuilder().setId("ff8080815df43669015da48a1d7a0000").build();
                 send(os, request.setOperationType(GameBase.OperationType.REGISTRATION).setData(registrationRequest.toByteString()).build());
+                synchronized (this) {
+                    try {
+                        wait(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
 
         } catch (IOException e) {

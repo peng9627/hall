@@ -183,7 +183,7 @@ public class HallClient {
                                 Hall.XingningMahjongCreateRoomRequest xingningMahjongCreateRoomRequest = Hall.XingningMahjongCreateRoomRequest.parseFrom(createRoomRequest.getData());
                                 XingningMahjongRoom xingningMahjongRoom = new XingningMahjongRoom(xingningMahjongCreateRoomRequest.getBaseScore(),
                                         roomNo(), userId, xingningMahjongCreateRoomRequest.getGameTimes(), xingningMahjongCreateRoomRequest.getCount(),
-                                        xingningMahjongCreateRoomRequest.getMaCount(), 1, xingningMahjongCreateRoomRequest.getGameRules());
+                                        xingningMahjongCreateRoomRequest.getMaCount(), xingningMahjongCreateRoomRequest.getGhost(), xingningMahjongCreateRoomRequest.getGameRules());
                                 jsonObject.put("description", "开房间" + xingningMahjongRoom.getRoomNo());
                                 if (8 == xingningMahjongCreateRoomRequest.getGameTimes()) {
                                     jsonObject.put("money", 1);
@@ -519,12 +519,13 @@ public class HallClient {
                                         while (userList.size() > 0) {
                                             switch (arena.getGameType()) {
                                                 case XINGNING_MAHJONG:
-                                                    XingningMahjongRoom xingningMahjongRoom = new XingningMahjongRoom(1, roomNo(), userList.get(0).getUserId(), 1, 4, 0, 2, 0);
+                                                    XingningMahjongRoom xingningMahjongRoom = new XingningMahjongRoom(1, roomNo(), userList.get(0).getUserId(), 1, 4, 0, 1, 16382);
                                                     Hall.RoomResponse roomResponse = Hall.RoomResponse.newBuilder().setIntoIp(Constant.gameServerIp)
                                                             .setPort(10001).setRoomNo(String.valueOf(xingningMahjongRoom.getRoomNo())).build();
                                                     if (userList.size() >= 4) {
                                                         xingningMahjongRoom.addSeats(userList.subList(0, 4));
                                                         for (int i = 0; i < 4; i++) {
+                                                            redisService.addCache("reconnect" + userList.get(i).getUserId(), "xingning_mahjong," + xingningMahjongRoom.getRoomNo());
                                                             if (HallTcpService.userClients.containsKey(userList.get(i).getUserId())) {
                                                                 messageReceive.send(this.response.setOperationType(GameBase.OperationType.COMPETITION_START).setData(roomResponse.toByteString()).build(), userList.get(i).getUserId());
                                                             }
@@ -537,7 +538,6 @@ public class HallClient {
                                                     roomNos.add(Integer.parseInt(xingningMahjongRoom.getRoomNo()));
                                                     redisService.addCache("room" + xingningMahjongRoom.getRoomNo(), JSON.toJSONString(xingningMahjongRoom));
 
-                                                    redisService.addCache("reconnect" + userId, "xingning_mahjong," + xingningMahjongRoom.getRoomNo());
                                                     redisService.addCache("room_type" + xingningMahjongRoom.getRoomNo(), "xingning_mahjong");
                                                     redisService.addCache("room_match" + xingningMahjongRoom.getRoomNo(), String.valueOf(matchNo));
                                                     break;
@@ -548,6 +548,7 @@ public class HallClient {
                                                     if (userList.size() >= 4) {
                                                         runQuicklyRoom.addSeats(userList.subList(0, 4));
                                                         for (int i = 0; i < 4; i++) {
+                                                            redisService.addCache("reconnect" + userList.get(i).getUserId(), "run_quickly," + runQuicklyRoom.getRoomNo());
                                                             if (HallTcpService.userClients.containsKey(userList.get(i).getUserId())) {
                                                                 messageReceive.send(this.response.setOperationType(GameBase.OperationType.COMPETITION_START).setData(roomResponse.toByteString()).build(), userList.get(i).getUserId());
                                                             }
@@ -560,7 +561,6 @@ public class HallClient {
                                                     roomNos.add(Integer.parseInt(runQuicklyRoom.getRoomNo()));
                                                     redisService.addCache("room" + runQuicklyRoom.getRoomNo(), JSON.toJSONString(runQuicklyRoom));
 
-                                                    redisService.addCache("reconnect" + userId, "run_quickly," + runQuicklyRoom.getRoomNo());
                                                     redisService.addCache("room_type" + runQuicklyRoom.getRoomNo(), "run_quickly");
                                                     redisService.addCache("room_match" + runQuicklyRoom.getRoomNo(), String.valueOf(matchNo));
                                                     break;
@@ -571,6 +571,7 @@ public class HallClient {
                                                     if (userList.size() >= 4) {
                                                         ruijinMahjongRoom.addSeats(userList.subList(0, 4));
                                                         for (int i = 0; i < 4; i++) {
+                                                            redisService.addCache("reconnect" + userList.get(i).getUserId(), "ruijin_mahjong," + ruijinMahjongRoom.getRoomNo());
                                                             if (HallTcpService.userClients.containsKey(userList.get(i).getUserId())) {
                                                                 messageReceive.send(this.response.setOperationType(GameBase.OperationType.COMPETITION_START).setData(roomResponse.toByteString()).build(), userList.get(i).getUserId());
                                                             }
@@ -583,7 +584,6 @@ public class HallClient {
                                                     roomNos.add(Integer.parseInt(ruijinMahjongRoom.getRoomNo()));
                                                     redisService.addCache("room" + ruijinMahjongRoom.getRoomNo(), JSON.toJSONString(ruijinMahjongRoom));
 
-                                                    redisService.addCache("reconnect" + userId, "ruijin_mahjong," + ruijinMahjongRoom.getRoomNo());
                                                     redisService.addCache("room_type" + ruijinMahjongRoom.getRoomNo(), "ruijin_mahjong");
                                                     redisService.addCache("room_match" + ruijinMahjongRoom.getRoomNo(), String.valueOf(matchNo));
                                                     break;
@@ -592,9 +592,10 @@ public class HallClient {
                                                     roomResponse = Hall.RoomResponse.newBuilder().setIntoIp(Constant.gameServerIp)
                                                             .setPort(10004).setRoomNo(String.valueOf(sangongRoom.getRoomNo())).build();
 
-                                                    if (userList.size() > 4) {
+                                                    if (userList.size() >= 4) {
                                                         sangongRoom.addSeats(userList.subList(0, 4));
                                                         for (int i = 0; i < 4; i++) {
+                                                            redisService.addCache("reconnect" + userList.get(i).getUserId(), "sangong," + sangongRoom.getRoomNo());
                                                             if (HallTcpService.userClients.containsKey(userList.get(i).getUserId())) {
                                                                 messageReceive.send(this.response.setOperationType(GameBase.OperationType.COMPETITION_START).setData(roomResponse.toByteString()).build(), userList.get(i).getUserId());
                                                             }
@@ -607,7 +608,6 @@ public class HallClient {
                                                     roomNos.add(Integer.parseInt(sangongRoom.getRoomNo()));
                                                     redisService.addCache("room" + sangongRoom.getRoomNo(), JSON.toJSONString(sangongRoom));
 
-                                                    redisService.addCache("reconnect" + userId, "sangong," + sangongRoom.getRoomNo());
                                                     redisService.addCache("room_type" + sangongRoom.getRoomNo(), "sangong");
                                                     redisService.addCache("room_match" + sangongRoom.getRoomNo(), String.valueOf(matchNo));
                                                     break;
@@ -616,7 +616,7 @@ public class HallClient {
 
                                         MatchInfo matchInfo = new MatchInfo();
                                         matchInfo.setStatus(1);
-                                        matchInfo.setMatchEliminateScore(400);
+                                        matchInfo.setMatchEliminateScore(990);
                                         matchInfo.setRooms(roomNos);
                                         matchInfo.setArena(arena);
                                         matchInfo.setMatchUsers(matchUsers);

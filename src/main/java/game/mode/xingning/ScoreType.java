@@ -28,7 +28,8 @@ public enum ScoreType {
     SHIBALUOHAN("十八罗汉", 20),
     HAIDI("海底", 21),
     GANGBAO("杠爆", 22),
-    ZHUANGYING("庄硬", 23);
+    ZHUANGYING("庄硬", 23),
+    FEI("飞", 24);
 
     private String name;
     private Integer values;

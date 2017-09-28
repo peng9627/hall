@@ -19,8 +19,8 @@ public class Constant {
     public static String gamerecordListUrl = "/gamerecord/list";
     public static String gamerecordInfoUrl = "/gamerecord/info/";
     public static String exchangeListUrl = "/exchange/list/";
-    //                public static String gameServerIp = "119.23.67.179";
-    public static String gameServerIp = "192.168.2.99";
+    //                    public static String gameServerIp = "119.23.67.179";
+    public static String gameServerIp = "192.168.1.99";
 
     public static int messageTimeout = 300000;
 }

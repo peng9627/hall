@@ -16,8 +16,8 @@ public class SangongRoom {
     private int baseScore; //基础分
     private String roomNo;  //桌号
     private GameStatus gameStatus;
-    private List<Seat> seats;//座位
-    private List<Integer> seatNos;
+    private List<Seat> seats = new ArrayList<>();//座位
+    private List<Integer> seatNos = new ArrayList<>();
     private int gameTimes; //游戏局数
     private int grab;//庄家
     private int bankerWay;//庄家方式
