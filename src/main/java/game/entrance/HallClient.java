@@ -158,13 +158,19 @@ public class HallClient {
                         XingningMahjongRoom xingningMahjongRoom = new XingningMahjongRoom(createRoomRequest.getBaseScore(),
                                 roomNo(), userId, createRoomRequest.getGameTimes(), createRoomRequest.getCount(),
                                 createRoomRequest.getMaCount(), createRoomRequest.getGhost(), createRoomRequest.getGameRules());
+                        Hall.RoomResponse.Builder createRoomResponse = Hall.RoomResponse.newBuilder();
+                        if (0 == xingningMahjongRoom.getCount()) {
+                            createRoomResponse.setRoomNo(xingningMahjongRoom.getRoomNo()).setError(GameBase.ErrorCode.ERROR_UNKNOW)
+                                    .setIntoIp(Constant.gameServerIp).setPort(10001).build();
+                            messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
+                            break;
+                        }
                         jsonObject.put("description", "开房间" + xingningMahjongRoom.getRoomNo());
                         if (8 == createRoomRequest.getGameTimes()) {
                             jsonObject.put("money", 1);
                         } else {
                             jsonObject.put("money", 2);
                         }
-                        Hall.RoomResponse.Builder createRoomResponse = Hall.RoomResponse.newBuilder();
                         if (userResponse.getData().getMoney() < jsonObject.getIntValue("money")) {
                             createRoomResponse.setError(GameBase.ErrorCode.MONEY_NOT_ENOUGH);
                             messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
