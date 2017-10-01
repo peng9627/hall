@@ -1,4 +1,4 @@
-package game.mode.xingning;
+package game.mode.songjianghe;
 
 /**
  * Author pengyi

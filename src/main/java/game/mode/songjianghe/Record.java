@@ -1,4 +1,4 @@
-package game.mode.xingning;
+package game.mode.songjianghe;
 
 import java.util.List;
 

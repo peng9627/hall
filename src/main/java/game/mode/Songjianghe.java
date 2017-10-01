@@ -23,55 +23,28 @@ public final class Songjianghe {
 
         /**
          * <pre>
-         * 基础分
-         * </pre>
-         * <p>
-         * <code>uint32 baseScore = 1;</code>
-         */
-        int getBaseScore();
-
-        /**
-         * <pre>
          * 游戏局数
          * </pre>
          * <p>
-         * <code>uint32 gameTimes = 2;</code>
+         * <code>uint32 gameTimes = 1;</code>
          */
         int getGameTimes();
 
         /**
          * <pre>
-         * 游戏规则  低位到高位到顺序（鸡胡，门清，天地和，幺九，全番，十三幺，对对胡，十八罗汉，七小对，清一色，混一色，海底捞，杠爆全包，庄硬）
+         * 游戏规则  低位到高位到顺序（点炮包自己，4翻封，一炮多响，旋风杠，飘，允许相同ip，代开房）
          * </pre>
          * <p>
-         * <code>uint32 gameRules = 3;</code>
+         * <code>uint32 gameRules = 2;</code>
          */
         int getGameRules();
-
-        /**
-         * <pre>
-         * 1.红中做鬼，2.无鬼，3.翻鬼，4.无鬼加倍
-         * </pre>
-         * <p>
-         * <code>uint32 ghost = 4;</code>
-         */
-        int getGhost();
-
-        /**
-         * <pre>
-         * 马数
-         * </pre>
-         * <p>
-         * <code>uint32 maCount = 5;</code>
-         */
-        int getMaCount();
 
         /**
          * <pre>
          * 人数
          * </pre>
          * <p>
-         * <code>uint32 count = 6;</code>
+         * <code>uint32 count = 3;</code>
          */
         int getCount();
     }
@@ -93,11 +66,8 @@ public final class Songjianghe {
         }
 
         private SongjiangheMahjongIntoResponse() {
-            baseScore_ = 0;
             gameTimes_ = 0;
             gameRules_ = 0;
-            ghost_ = 0;
-            maCount_ = 0;
             count_ = 0;
         }
 
@@ -129,30 +99,15 @@ public final class Songjianghe {
                         }
                         case 8: {
 
-                            baseScore_ = input.readUInt32();
+                            gameTimes_ = input.readUInt32();
                             break;
                         }
                         case 16: {
 
-                            gameTimes_ = input.readUInt32();
-                            break;
-                        }
-                        case 24: {
-
                             gameRules_ = input.readUInt32();
                             break;
                         }
-                        case 32: {
-
-                            ghost_ = input.readUInt32();
-                            break;
-                        }
-                        case 40: {
-
-                            maCount_ = input.readUInt32();
-                            break;
-                        }
-                        case 48: {
+                        case 24: {
 
                             count_ = input.readUInt32();
                             break;
@@ -172,30 +127,16 @@ public final class Songjianghe {
         public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
             return game.mode.Songjianghe.internal_static_SongjiangheMahjongIntoResponse_descriptor;
-        }
+    }
 
-        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-            return game.mode.Songjianghe.internal_static_SongjiangheMahjongIntoResponse_fieldAccessorTable
-                    .ensureFieldAccessorsInitialized(
-                            game.mode.Songjianghe.SongjiangheMahjongIntoResponse.class, game.mode.Songjianghe.SongjiangheMahjongIntoResponse.Builder.class);
-        }
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    internalGetFieldAccessorTable() {
+        return game.mode.Songjianghe.internal_static_SongjiangheMahjongIntoResponse_fieldAccessorTable
+                .ensureFieldAccessorsInitialized(
+                        game.mode.Songjianghe.SongjiangheMahjongIntoResponse.class, game.mode.Songjianghe.SongjiangheMahjongIntoResponse.Builder.class);
+    }
 
-        public static final int BASESCORE_FIELD_NUMBER = 1;
-        private int baseScore_;
-
-        /**
-         * <pre>
-         * 基础分
-         * </pre>
-         * <p>
-         * <code>uint32 baseScore = 1;</code>
-         */
-        public int getBaseScore() {
-            return baseScore_;
-        }
-
-        public static final int GAMETIMES_FIELD_NUMBER = 2;
+        public static final int GAMETIMES_FIELD_NUMBER = 1;
         private int gameTimes_;
 
         /**
@@ -203,55 +144,27 @@ public final class Songjianghe {
          * 游戏局数
          * </pre>
          * <p>
-         * <code>uint32 gameTimes = 2;</code>
+         * <code>uint32 gameTimes = 1;</code>
          */
         public int getGameTimes() {
             return gameTimes_;
         }
 
-        public static final int GAMERULES_FIELD_NUMBER = 3;
+        public static final int GAMERULES_FIELD_NUMBER = 2;
         private int gameRules_;
 
         /**
          * <pre>
-         * 游戏规则  低位到高位到顺序（鸡胡，门清，天地和，幺九，全番，十三幺，对对胡，十八罗汉，七小对，清一色，混一色，海底捞，杠爆全包，庄硬）
+         * 游戏规则  低位到高位到顺序（点炮包自己，4翻封，一炮多响，旋风杠，飘，允许相同ip，代开房）
          * </pre>
          * <p>
-         * <code>uint32 gameRules = 3;</code>
+         * <code>uint32 gameRules = 2;</code>
          */
         public int getGameRules() {
             return gameRules_;
         }
 
-        public static final int GHOST_FIELD_NUMBER = 4;
-        private int ghost_;
-
-        /**
-         * <pre>
-         * 1.红中做鬼，2.无鬼，3.翻鬼，4.无鬼加倍
-         * </pre>
-         * <p>
-         * <code>uint32 ghost = 4;</code>
-         */
-        public int getGhost() {
-            return ghost_;
-        }
-
-        public static final int MACOUNT_FIELD_NUMBER = 5;
-        private int maCount_;
-
-        /**
-         * <pre>
-         * 马数
-         * </pre>
-         * <p>
-         * <code>uint32 maCount = 5;</code>
-         */
-        public int getMaCount() {
-            return maCount_;
-        }
-
-        public static final int COUNT_FIELD_NUMBER = 6;
+        public static final int COUNT_FIELD_NUMBER = 3;
         private int count_;
 
         /**
@@ -259,7 +172,7 @@ public final class Songjianghe {
          * 人数
          * </pre>
          * <p>
-         * <code>uint32 count = 6;</code>
+         * <code>uint32 count = 3;</code>
          */
         public int getCount() {
             return count_;
@@ -278,23 +191,14 @@ public final class Songjianghe {
 
         public void writeTo(com.google.protobuf.CodedOutputStream output)
                 throws java.io.IOException {
-            if (baseScore_ != 0) {
-                output.writeUInt32(1, baseScore_);
-            }
             if (gameTimes_ != 0) {
-                output.writeUInt32(2, gameTimes_);
+                output.writeUInt32(1, gameTimes_);
             }
             if (gameRules_ != 0) {
-                output.writeUInt32(3, gameRules_);
-            }
-            if (ghost_ != 0) {
-                output.writeUInt32(4, ghost_);
-            }
-            if (maCount_ != 0) {
-                output.writeUInt32(5, maCount_);
+                output.writeUInt32(2, gameRules_);
             }
             if (count_ != 0) {
-                output.writeUInt32(6, count_);
+                output.writeUInt32(3, count_);
             }
         }
 
@@ -303,29 +207,17 @@ public final class Songjianghe {
             if (size != -1) return size;
 
             size = 0;
-            if (baseScore_ != 0) {
-                size += com.google.protobuf.CodedOutputStream
-                        .computeUInt32Size(1, baseScore_);
-            }
             if (gameTimes_ != 0) {
                 size += com.google.protobuf.CodedOutputStream
-                        .computeUInt32Size(2, gameTimes_);
+                        .computeUInt32Size(1, gameTimes_);
             }
             if (gameRules_ != 0) {
                 size += com.google.protobuf.CodedOutputStream
-                        .computeUInt32Size(3, gameRules_);
-            }
-            if (ghost_ != 0) {
-                size += com.google.protobuf.CodedOutputStream
-                        .computeUInt32Size(4, ghost_);
-            }
-            if (maCount_ != 0) {
-                size += com.google.protobuf.CodedOutputStream
-                        .computeUInt32Size(5, maCount_);
+                        .computeUInt32Size(2, gameRules_);
             }
             if (count_ != 0) {
                 size += com.google.protobuf.CodedOutputStream
-                        .computeUInt32Size(6, count_);
+                        .computeUInt32Size(3, count_);
             }
             memoizedSize = size;
             return size;
@@ -344,16 +236,10 @@ public final class Songjianghe {
             game.mode.Songjianghe.SongjiangheMahjongIntoResponse other = (game.mode.Songjianghe.SongjiangheMahjongIntoResponse) obj;
 
             boolean result = true;
-            result = result && (getBaseScore()
-                    == other.getBaseScore());
             result = result && (getGameTimes()
                     == other.getGameTimes());
             result = result && (getGameRules()
                     == other.getGameRules());
-            result = result && (getGhost()
-                    == other.getGhost());
-            result = result && (getMaCount()
-                    == other.getMaCount());
             result = result && (getCount()
                     == other.getCount());
             return result;
@@ -366,16 +252,10 @@ public final class Songjianghe {
             }
             int hash = 41;
             hash = (19 * hash) + getDescriptor().hashCode();
-            hash = (37 * hash) + BASESCORE_FIELD_NUMBER;
-            hash = (53 * hash) + getBaseScore();
             hash = (37 * hash) + GAMETIMES_FIELD_NUMBER;
             hash = (53 * hash) + getGameTimes();
             hash = (37 * hash) + GAMERULES_FIELD_NUMBER;
             hash = (53 * hash) + getGameRules();
-            hash = (37 * hash) + GHOST_FIELD_NUMBER;
-            hash = (53 * hash) + getGhost();
-            hash = (37 * hash) + MACOUNT_FIELD_NUMBER;
-            hash = (53 * hash) + getMaCount();
             hash = (37 * hash) + COUNT_FIELD_NUMBER;
             hash = (53 * hash) + getCount();
             hash = (29 * hash) + unknownFields.hashCode();
@@ -530,15 +410,9 @@ public final class Songjianghe {
 
             public Builder clear() {
                 super.clear();
-                baseScore_ = 0;
-
                 gameTimes_ = 0;
 
                 gameRules_ = 0;
-
-                ghost_ = 0;
-
-                maCount_ = 0;
 
                 count_ = 0;
 
@@ -564,11 +438,8 @@ public final class Songjianghe {
 
             public game.mode.Songjianghe.SongjiangheMahjongIntoResponse buildPartial() {
                 game.mode.Songjianghe.SongjiangheMahjongIntoResponse result = new game.mode.Songjianghe.SongjiangheMahjongIntoResponse(this);
-                result.baseScore_ = baseScore_;
                 result.gameTimes_ = gameTimes_;
                 result.gameRules_ = gameRules_;
-                result.ghost_ = ghost_;
-                result.maCount_ = maCount_;
                 result.count_ = count_;
                 onBuilt();
                 return result;
@@ -617,20 +488,11 @@ public final class Songjianghe {
 
             public Builder mergeFrom(game.mode.Songjianghe.SongjiangheMahjongIntoResponse other) {
                 if (other == game.mode.Songjianghe.SongjiangheMahjongIntoResponse.getDefaultInstance()) return this;
-                if (other.getBaseScore() != 0) {
-                    setBaseScore(other.getBaseScore());
-                }
                 if (other.getGameTimes() != 0) {
                     setGameTimes(other.getGameTimes());
                 }
                 if (other.getGameRules() != 0) {
                     setGameRules(other.getGameRules());
-                }
-                if (other.getGhost() != 0) {
-                    setGhost(other.getGhost());
-                }
-                if (other.getMaCount() != 0) {
-                    setMaCount(other.getMaCount());
                 }
                 if (other.getCount() != 0) {
                     setCount(other.getCount());
@@ -661,47 +523,6 @@ public final class Songjianghe {
                 return this;
             }
 
-            private int baseScore_;
-
-            /**
-             * <pre>
-             * 基础分
-             * </pre>
-             * <p>
-             * <code>uint32 baseScore = 1;</code>
-             */
-            public int getBaseScore() {
-                return baseScore_;
-            }
-
-            /**
-             * <pre>
-             * 基础分
-             * </pre>
-             * <p>
-             * <code>uint32 baseScore = 1;</code>
-             */
-            public Builder setBaseScore(int value) {
-
-                baseScore_ = value;
-                onChanged();
-                return this;
-            }
-
-            /**
-             * <pre>
-             * 基础分
-             * </pre>
-             * <p>
-             * <code>uint32 baseScore = 1;</code>
-             */
-            public Builder clearBaseScore() {
-
-                baseScore_ = 0;
-                onChanged();
-                return this;
-            }
-
             private int gameTimes_;
 
             /**
@@ -709,7 +530,7 @@ public final class Songjianghe {
              * 游戏局数
              * </pre>
              * <p>
-             * <code>uint32 gameTimes = 2;</code>
+             * <code>uint32 gameTimes = 1;</code>
              */
             public int getGameTimes() {
                 return gameTimes_;
@@ -720,7 +541,7 @@ public final class Songjianghe {
              * 游戏局数
              * </pre>
              * <p>
-             * <code>uint32 gameTimes = 2;</code>
+             * <code>uint32 gameTimes = 1;</code>
              */
             public Builder setGameTimes(int value) {
 
@@ -734,7 +555,7 @@ public final class Songjianghe {
              * 游戏局数
              * </pre>
              * <p>
-             * <code>uint32 gameTimes = 2;</code>
+             * <code>uint32 gameTimes = 1;</code>
              */
             public Builder clearGameTimes() {
 
@@ -747,10 +568,10 @@ public final class Songjianghe {
 
             /**
              * <pre>
-             * 游戏规则  低位到高位到顺序（鸡胡，门清，天地和，幺九，全番，十三幺，对对胡，十八罗汉，七小对，清一色，混一色，海底捞，杠爆全包，庄硬）
+             * 游戏规则  低位到高位到顺序（点炮包自己，4翻封，一炮多响，旋风杠，飘，允许相同ip，代开房）
              * </pre>
              * <p>
-             * <code>uint32 gameRules = 3;</code>
+             * <code>uint32 gameRules = 2;</code>
              */
             public int getGameRules() {
                 return gameRules_;
@@ -758,10 +579,10 @@ public final class Songjianghe {
 
             /**
              * <pre>
-             * 游戏规则  低位到高位到顺序（鸡胡，门清，天地和，幺九，全番，十三幺，对对胡，十八罗汉，七小对，清一色，混一色，海底捞，杠爆全包，庄硬）
+             * 游戏规则  低位到高位到顺序（点炮包自己，4翻封，一炮多响，旋风杠，飘，允许相同ip，代开房）
              * </pre>
              * <p>
-             * <code>uint32 gameRules = 3;</code>
+             * <code>uint32 gameRules = 2;</code>
              */
             public Builder setGameRules(int value) {
 
@@ -772,96 +593,14 @@ public final class Songjianghe {
 
             /**
              * <pre>
-             * 游戏规则  低位到高位到顺序（鸡胡，门清，天地和，幺九，全番，十三幺，对对胡，十八罗汉，七小对，清一色，混一色，海底捞，杠爆全包，庄硬）
+             * 游戏规则  低位到高位到顺序（点炮包自己，4翻封，一炮多响，旋风杠，飘，允许相同ip，代开房）
              * </pre>
              * <p>
-             * <code>uint32 gameRules = 3;</code>
+             * <code>uint32 gameRules = 2;</code>
              */
             public Builder clearGameRules() {
 
                 gameRules_ = 0;
-                onChanged();
-                return this;
-            }
-
-            private int ghost_;
-
-            /**
-             * <pre>
-             * 1.红中做鬼，2.无鬼，3.翻鬼，4.无鬼加倍
-             * </pre>
-             * <p>
-             * <code>uint32 ghost = 4;</code>
-             */
-            public int getGhost() {
-                return ghost_;
-            }
-
-            /**
-             * <pre>
-             * 1.红中做鬼，2.无鬼，3.翻鬼，4.无鬼加倍
-             * </pre>
-             * <p>
-             * <code>uint32 ghost = 4;</code>
-             */
-            public Builder setGhost(int value) {
-
-                ghost_ = value;
-                onChanged();
-                return this;
-            }
-
-            /**
-             * <pre>
-             * 1.红中做鬼，2.无鬼，3.翻鬼，4.无鬼加倍
-             * </pre>
-             * <p>
-             * <code>uint32 ghost = 4;</code>
-             */
-            public Builder clearGhost() {
-
-                ghost_ = 0;
-                onChanged();
-                return this;
-            }
-
-            private int maCount_;
-
-            /**
-             * <pre>
-             * 马数
-             * </pre>
-             * <p>
-             * <code>uint32 maCount = 5;</code>
-             */
-            public int getMaCount() {
-                return maCount_;
-            }
-
-            /**
-             * <pre>
-             * 马数
-             * </pre>
-             * <p>
-             * <code>uint32 maCount = 5;</code>
-             */
-            public Builder setMaCount(int value) {
-
-                maCount_ = value;
-                onChanged();
-                return this;
-            }
-
-            /**
-             * <pre>
-             * 马数
-             * </pre>
-             * <p>
-             * <code>uint32 maCount = 5;</code>
-             */
-            public Builder clearMaCount() {
-
-                maCount_ = 0;
                 onChanged();
                 return this;
             }
@@ -873,7 +612,7 @@ public final class Songjianghe {
              * 人数
              * </pre>
              * <p>
-             * <code>uint32 count = 6;</code>
+             * <code>uint32 count = 3;</code>
              */
             public int getCount() {
                 return count_;
@@ -884,7 +623,7 @@ public final class Songjianghe {
              * 人数
              * </pre>
              * <p>
-             * <code>uint32 count = 6;</code>
+             * <code>uint32 count = 3;</code>
              */
             public Builder setCount(int value) {
 
@@ -898,7 +637,7 @@ public final class Songjianghe {
              * 人数
              * </pre>
              * <p>
-             * <code>uint32 count = 6;</code>
+             * <code>uint32 count = 3;</code>
              */
             public Builder clearCount() {
 
@@ -978,13 +717,13 @@ public final class Songjianghe {
 
         /**
          * <pre>
-         * 操作记录
+         *操作记录
          * </pre>
-         * <p>
+         *
          * <code>repeated .OperationHistory history = 2;</code>
          */
-        java.util.List<game.mode.GameBase.OperationHistory>
-        getHistoryList();
+    java.util.List<game.mode.GameBase.OperationHistory>
+    getHistoryList();
 
         /**
          * <pre>
@@ -1122,8 +861,8 @@ public final class Songjianghe {
                             break;
                         }
                     }
-                }
-            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
                 throw e.setUnfinishedMessage(this);
             } catch (java.io.IOException e) {
                 throw new com.google.protobuf.InvalidProtocolBufferException(
@@ -2327,45 +2066,43 @@ public final class Songjianghe {
     static {
         java.lang.String[] descriptorData = {
                 "\n\021songjianghe.proto\032\016gameBase.proto\032\rmah" +
-                        "jong.proto\"\210\001\n\036SongjiangheMahjongIntoRes" +
-                        "ponse\022\021\n\tbaseScore\030\001 \001(\r\022\021\n\tgameTimes\030\002 " +
-                        "\001(\r\022\021\n\tgameRules\030\003 \001(\r\022\r\n\005ghost\030\004 \001(\r\022\017\n" +
-                        "\007maCount\030\005 \001(\r\022\r\n\005count\030\006 \001(\r\"\224\001\n Songji" +
-                        "angheMahjongReplayResponse\022$\n\005start\030\001 \001(" +
-                        "\0132\025.MahjongStartResponse\022\"\n\007history\030\002 \003(" +
-                        "\0132\021.OperationHistory\022&\n\006result\030\003 \001(\0132\026.M" +
-                        "ahjongResultResponseB\013\n\tgame.modeb\006proto" +
-                        "3"
+                        "jong.proto\"U\n\036SongjiangheMahjongIntoResp" +
+                        "onse\022\021\n\tgameTimes\030\001 \001(\r\022\021\n\tgameRules\030\002 \001" +
+                        "(\r\022\r\n\005count\030\003 \001(\r\"\224\001\n SongjiangheMahjong" +
+      "ReplayResponse\022$\n\005start\030\001 \001(\0132\025.MahjongS" +
+      "tartResponse\022\"\n\007history\030\002 \003(\0132\021.Operatio" +
+      "nHistory\022&\n\006result\030\003 \001(\0132\026.MahjongResult" +
+      "ResponseB\013\n\tgame.modeb\006proto3"
+    };
+    com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
+        new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
+          public com.google.protobuf.ExtensionRegistry assignDescriptors(
+              com.google.protobuf.Descriptors.FileDescriptor root) {
+            descriptor = root;
+            return null;
+          }
         };
-        com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-                new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
-                    public com.google.protobuf.ExtensionRegistry assignDescriptors(
-                            com.google.protobuf.Descriptors.FileDescriptor root) {
-                        descriptor = root;
-                        return null;
-                    }
-                };
-        com.google.protobuf.Descriptors.FileDescriptor
-                .internalBuildGeneratedFileFrom(descriptorData,
-                        new com.google.protobuf.Descriptors.FileDescriptor[]{
-                                game.mode.GameBase.getDescriptor(),
-                                game.mode.Mahjong.getDescriptor(),
-                        }, assigner);
-        internal_static_SongjiangheMahjongIntoResponse_descriptor =
-                getDescriptor().getMessageTypes().get(0);
-        internal_static_SongjiangheMahjongIntoResponse_fieldAccessorTable = new
-                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-                internal_static_SongjiangheMahjongIntoResponse_descriptor,
-                new java.lang.String[]{"BaseScore", "GameTimes", "GameRules", "Ghost", "MaCount", "Count",});
-        internal_static_SongjiangheMahjongReplayResponse_descriptor =
-                getDescriptor().getMessageTypes().get(1);
-        internal_static_SongjiangheMahjongReplayResponse_fieldAccessorTable = new
-                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-                internal_static_SongjiangheMahjongReplayResponse_descriptor,
-                new java.lang.String[]{"Start", "History", "Result",});
-        game.mode.GameBase.getDescriptor();
-        game.mode.Mahjong.getDescriptor();
-    }
+    com.google.protobuf.Descriptors.FileDescriptor
+      .internalBuildGeneratedFileFrom(descriptorData,
+        new com.google.protobuf.Descriptors.FileDescriptor[] {
+          game.mode.GameBase.getDescriptor(),
+          game.mode.Mahjong.getDescriptor(),
+        }, assigner);
+    internal_static_SongjiangheMahjongIntoResponse_descriptor =
+      getDescriptor().getMessageTypes().get(0);
+    internal_static_SongjiangheMahjongIntoResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_SongjiangheMahjongIntoResponse_descriptor,
+        new java.lang.String[] { "GameTimes", "GameRules", "Count", });
+    internal_static_SongjiangheMahjongReplayResponse_descriptor =
+      getDescriptor().getMessageTypes().get(1);
+    internal_static_SongjiangheMahjongReplayResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_SongjiangheMahjongReplayResponse_descriptor,
+        new java.lang.String[] { "Start", "History", "Result", });
+    game.mode.GameBase.getDescriptor();
+    game.mode.Mahjong.getDescriptor();
+  }
 
-    // @@protoc_insertion_point(outer_class_scope)
+  // @@protoc_insertion_point(outer_class_scope)
 }

@@ -32,7 +32,7 @@ public class HallNoticeService implements Runnable {
     @Override
     public void run() {
 
-        int port = 10010;
+        int port = 10110;
         try {
             serverSocket = new ServerSocket(port);
             started = true;
