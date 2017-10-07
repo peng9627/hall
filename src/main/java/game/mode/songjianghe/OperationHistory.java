@@ -1,5 +1,9 @@
 package game.mode.songjianghe;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 /**
  * Created by pengyi
  * Date 2017/7/28.
@@ -8,7 +12,8 @@ public class OperationHistory {
 
     private int userId;
     private OperationHistoryType historyType;
-    private Integer card;
+    private List<Integer> cards;
+    private Date date;
 
     public OperationHistory() {
     }
@@ -16,7 +21,16 @@ public class OperationHistory {
     public OperationHistory(int userId, OperationHistoryType historyType, Integer card) {
         this.userId = userId;
         this.historyType = historyType;
-        this.card = card;
+        this.cards = new ArrayList<>();
+        this.cards.add(card);
+        this.date = new Date();
+    }
+
+    public OperationHistory(int userId, OperationHistoryType historyType, List<Integer> cards) {
+        this.userId = userId;
+        this.historyType = historyType;
+        this.cards = cards;
+        this.date = new Date();
     }
 
     public int getUserId() {
@@ -35,11 +49,19 @@ public class OperationHistory {
         this.historyType = historyType;
     }
 
-    public Integer getCard() {
-        return card;
+    public List<Integer> getCards() {
+        return cards;
     }
 
-    public void setCard(Integer card) {
-        this.card = card;
+    public void setCards(List<Integer> cards) {
+        this.cards = cards;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

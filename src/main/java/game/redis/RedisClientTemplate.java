@@ -36,6 +36,7 @@ public class RedisClientTemplate {
      * @return 结果
      */
     public String set(String key, String value, int timeout) {
+        log.info("redis 添加" + key);
         String result = null;
         ShardedJedis shardedJedis = shardedJedisPool.getResource();
 
@@ -213,6 +214,7 @@ public class RedisClientTemplate {
     }
 
     public Long del(String key) {
+        log.info("redis 删除" + key);
         Long result = null;
         ShardedJedis shardedJedis = shardedJedisPool.getResource();
         if (shardedJedis == null) {
@@ -225,6 +227,7 @@ public class RedisClientTemplate {
         } finally {
             shardedJedis.close();
         }
+        log.info("redis 删除" + key + "成功");
         return result;
     }
 
@@ -255,19 +258,30 @@ public class RedisClientTemplate {
     public boolean lock(String lockedKey, long timeout) {
         long nano = System.nanoTime();
         ShardedJedis shardedJedis = shardedJedisPool.getResource();
-        long timeoutNanos = timeout * 1000000L;
-        while ((System.nanoTime() - nano) < timeoutNanos) {
-            if (shardedJedis.setnx(lockedKey, CoreDateUtils.formatDate(new Date(), "yyyyMMddHHmmssSSS")) == 1) {
-                shardedJedis.expire(lockedKey, 5);
-                log.info("RedisSimpleLockUtils.lock-->lockedKey=‘{}’ , timeout={}毫秒", lockedKey, timeout);
-                return true;
+
+        if (shardedJedis == null) {
+            return false;
+        }
+        Long del = null;
+        try {
+            long timeoutNanos = timeout * 1000000L;
+            while ((System.nanoTime() - nano) < timeoutNanos) {
+                if (shardedJedis.setnx(lockedKey, CoreDateUtils.formatDate(new Date(), "yyyyMMddHHmmssSSS")) == 1) {
+                    shardedJedis.expire(lockedKey, 5);
+                    log.info("lock-->lockedKey=‘{}’", lockedKey);
+                    return true;
+                }
+                // 短暂休眠，nano避免出现活锁
+                try {
+                    Thread.sleep(2, new Random().nextInt(500));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-            // 短暂休眠，nano避免出现活锁
-            try {
-                Thread.sleep(2, new Random().nextInt(500));
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        } finally {
+            shardedJedis.close();
         }
         return false;
     }
@@ -307,7 +321,18 @@ public class RedisClientTemplate {
      */
     public void unlock(String lockedKey) {
         ShardedJedis shardedJedis = shardedJedisPool.getResource();
-        Long del = shardedJedis.del(lockedKey);
-        log.info("RedisSimpleLockUtils.unlock-->lockedKey=‘{}’ ,del lock={}", lockedKey, del);
+        if (shardedJedis == null) {
+            return;
+        }
+        Long del = null;
+        try {
+            del = shardedJedis.del(lockedKey);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        } finally {
+            shardedJedis.close();
+        }
+
+        log.info("unlock-->lockedKey=‘{}’", lockedKey);
     }
 }

@@ -13,7 +13,8 @@ public enum OperationHistoryType {
     DIAN_GANG("点杠", 5),
     BA_GANG("扒杠", 6),
     HU("胡", 7),
-    CHI("吃", 8);
+    CHI("吃", 8),
+    XF_GANG("旋风杠", 9);
 
     private String name;
     private Integer values;

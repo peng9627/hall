@@ -6,10 +6,7 @@ import com.alibaba.fastjson.TypeReference;
 import com.google.protobuf.InvalidProtocolBufferException;
 import game.constant.Constant;
 import game.mode.*;
-import game.mode.songjianghe.OperationHistory;
-import game.mode.songjianghe.Record;
-import game.mode.songjianghe.Room;
-import game.mode.songjianghe.SeatRecord;
+import game.mode.songjianghe.*;
 import game.redis.RedisService;
 import game.utils.HttpUtil;
 import game.utils.LoggerUtil;
@@ -17,10 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.nio.charset.Charset;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Created by pengyi
@@ -86,7 +80,7 @@ public class HallClient {
                         if (redisService.exists("reconnect" + userId)) {
                             String reconnectString = redisService.getCache("reconnect" + userId);
                             String[] reconnectInfo = reconnectString.split(",");
-                            if (redisService.exists("room" + reconnectInfo[1])) {
+                            if (redisService.exists("room" + reconnectInfo[1]) && "songjianghe_mahjong".equals(reconnectInfo[0])) {
                                 loginResponse.setInGame(true);
                                 messageReceive.send(this.response.setOperationType(GameBase.OperationType.LOGIN).setData(loginResponse.build().toByteString()).build(), userId);
 
@@ -134,10 +128,7 @@ public class HallClient {
 
                         GameBase.RecordResponse recordResponse = gameRecord();
                         messageReceive.send(this.response.setOperationType(GameBase.OperationType.RECORD).setData(recordResponse.toByteString()).build(), userId);
-
-                        Hall.TaskResponse taskResponse = Hall.TaskResponse.newBuilder().setCount(100).setName("每日对战100局")
-                                .setReward(100).setTodayGameCount(user.getTodayGameCount()).build();
-                        messageReceive.send(this.response.setOperationType(GameBase.OperationType.TASK).setData(taskResponse.toByteString()).build(), userId);
+                        sendAgentRoomList();
                     } else {
                         messageReceive.send(this.response.setOperationType(GameBase.OperationType.LOGIN)
                                 .setData(loginResponse.setErrorCode(GameBase.ErrorCode.ERROR_UNKNOW).build().toByteString()).build(), 0);
@@ -175,11 +166,16 @@ public class HallClient {
                             break;
                         }
                         redisService.addCache("room" + room.getRoomNo(), JSON.toJSONString(room));
-                        redisService.addCache("reconnect" + userId, "xingning_mahjong," + room.getRoomNo());
-                        redisService.addCache("room_type" + room.getRoomNo(), "xingning_mahjong");
+                        redisService.addCache("room_type" + room.getRoomNo(), "songjianghe_mahjong");
 
-                        createRoomResponse.setRoomNo(room.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS)
-                                .setIntoIp(Constant.gameServerIp).setPort(10101).build();
+                        if (1 == (createRoomRequest.getGameRules() >> 4) % 2) {
+                            createRoomResponse.setRoomNo(room.getRoomNo()).setError(GameBase.ErrorCode.AGENT_SUCCESS)
+                                    .setIntoIp(Constant.gameServerIp).setPort(10101).build();
+                        } else {
+                            createRoomResponse.setRoomNo(room.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS)
+                                    .setIntoIp(Constant.gameServerIp).setPort(10101).build();
+                        }
+
                         messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
                         if (jsonObject.containsKey("money")) {
                             ApiResponse moneyDetail = JSON.parseObject(HttpUtil.urlConnectionByRsa(Constant.apiUrl + Constant.moneyDetailedCreate, jsonObject.toJSONString()), new TypeReference<ApiResponse<User>>() {
@@ -187,6 +183,22 @@ public class HallClient {
                             if (0 != moneyDetail.getCode()) {
                                 LoggerFactory.getLogger(this.getClass()).error(Constant.apiUrl + Constant.moneyDetailedCreate + "?" + jsonObject.toJSONString());
                             }
+                        }
+                        if (1 == (createRoomRequest.getGameRules() >> 4) % 2) {
+                            while (!redisService.lock("lock_agent_rooms" + userId)) {
+                            }
+                            List<String> agentRooms;
+                            if (redisService.exists("agent_rooms" + userId)) {
+                                agentRooms = JSON.parseArray(redisService.getCache("agent_rooms" + userId), String.class);
+                            } else {
+                                agentRooms = new ArrayList<>();
+                            }
+                            agentRooms.add(room.getRoomNo());
+                            redisService.addCache("agent_rooms" + userId, JSON.toJSONString(agentRooms));
+                            redisService.unlock("lock_agent_rooms" + userId);
+                            sendAgentRoomList();
+                        } else {
+                            redisService.addCache("reconnect" + userId, "songjianghe_mahjong," + room.getRoomNo());
                         }
                     }
                     break;
@@ -246,12 +258,8 @@ public class HallClient {
 
                         GameBase.RecordResponse recordResponse = gameRecord();
                         messageReceive.send(this.response.setOperationType(GameBase.OperationType.RECORD).setData(recordResponse.toByteString()).build(), userId);
-
-                        Hall.TaskResponse taskResponse = Hall.TaskResponse.newBuilder().setCount(100).setName("每日对战100局")
-                                .setReward(100).setTodayGameCount(user.getTodayGameCount()).build();
-                        messageReceive.send(this.response.setOperationType(GameBase.OperationType.TASK).setData(taskResponse.toByteString()).build(), userId);
+                        sendAgentRoomList();
                     }
-
                     break;
 
                 case RECORD_DETAILS:
@@ -283,45 +291,39 @@ public class HallClient {
                     GameBase.LoggerRequest loggerRequest = GameBase.LoggerRequest.parseFrom(request.getData());
                     LoggerUtil.logger(userId + "----" + loggerRequest.getLogger());
                     break;
-                case EXCHANGE_HISTORY:
-                    Hall.ExchangeHistory.Builder exchangeHistory = Hall.ExchangeHistory.newBuilder();
-                    ApiResponse<List<Exchange>> exchangeHistoryResponse = JSON.parseObject(HttpUtil.urlConnectionByRsa(Constant.apiUrl + Constant.exchangeListUrl + userId, null), new TypeReference<ApiResponse<List<Exchange>>>() {
-                    });
-                    if (null != exchangeHistoryResponse && 0 == exchangeHistoryResponse.getCode()) {
-                        if (null != exchangeHistoryResponse.getData() && 0 < exchangeHistoryResponse.getData().size()) {
-                            for (Exchange exchange : exchangeHistoryResponse.getData()) {
-                                exchangeHistory.addExchangeHistory(Hall.ExchangeHistoryItem.newBuilder()
-                                        .setDateTime(exchange.getCreateDate().getTime()).setGolds(exchange.getPrice()).setGoodsName(exchange.getGoodsName()));
-                            }
-                        }
-                    }
-                    messageReceive.send(this.response.setOperationType(GameBase.OperationType.EXCHANGE_HISTORY).setData(exchangeHistory.build().toByteString()).build(), userId);
-                    break;
-                case MALL:
-                    Hall.Mall.Builder mall = Hall.Mall.newBuilder();
-                    mall.setWechat("121212");
-
-                    if (redisService.exists("cache_goods")) {
-                        String goodsCache = redisService.getCache("cache_goods");
-                        int version = Integer.parseInt(goodsCache.substring(0, goodsCache.indexOf(",")));
-                        if (this.version != version) {
-                            this.version = version;
-                            mall.setUpdate(true);
-                            List<Goods> goodsList = JSON.parseArray(goodsCache.substring(goodsCache.indexOf(",") + 1), Goods.class);
-                            if (null != goodsList && 0 < goodsList.size()) {
-                                for (Goods goods : goodsList) {
-                                    mall.addGoods(Hall.Goods.newBuilder().setGolds(goods.getPrice()).setGoodsName(goods.getName()).setImageUrl(goods.getImg()));
-                                }
-                            }
-                        }
-                    }
-                    messageReceive.send(this.response.setOperationType(GameBase.OperationType.MALL).setData(mall.build().toByteString()).build(), userId);
-                    break;
             }
         } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();
         }
 
+    }
+
+    private void sendAgentRoomList() {
+        while (!redisService.lock("lock_agent_rooms" + userId)) {
+        }
+        List<String> agentRooms;
+        if (redisService.exists("agent_rooms" + userId)) {
+            agentRooms = JSON.parseArray(redisService.getCache("agent_rooms" + userId), String.class);
+        } else {
+            agentRooms = new ArrayList<>();
+        }
+        Hall.AgentRoomList.Builder agentRoomList = Hall.AgentRoomList.newBuilder();
+        List<String> removeRooms = new ArrayList<>();
+        for (String roomNo : agentRooms) {
+            if (redisService.exists("room" + roomNo)) {
+                Room room = JSON.parseObject(redisService.getCache("room" + roomNo), Room.class);
+                agentRoomList.addRoomItem(Hall.AgentRoomItem.newBuilder().setCount(room.getCount())
+                        .setCurrentCount(room.getSeats().size()).setGameRules(room.getGameRules()).setGameTimes(room.getGameTimes())
+                        .setNormal(room.isNormal()).setSingleFan(room.isSingleFan()).setRoomNo(roomNo));
+            } else {
+                removeRooms.add(roomNo);
+            }
+        }
+        agentRooms.removeAll(removeRooms);
+        response.setOperationType(GameBase.OperationType.AGENT_ROOM_LIST).setData(agentRoomList.build().toByteString());
+        messageReceive.send(response.build(), userId);
+        redisService.addCache("agent_rooms" + userId, JSON.toJSONString(agentRooms));
+        redisService.unlock("lock_agent_rooms" + userId);
     }
 
     /**
@@ -395,7 +397,7 @@ public class HallClient {
             if (null != gameRecordResponse.getData().getData()) {
                 List<Record> records = JSON.parseArray(new String(gameRecordResponse.getData().getData(), Charset.forName("utf-8")), Record.class);
                 for (Record record : records) {
-                    GameBase.RoundItemRecord.Builder roundItemRecord = GameBase.RoundItemRecord.newBuilder();
+                    GameBase.RoundItemRecord.Builder roundItemRecord = GameBase.RoundItemRecord.newBuilder().setDateTime(record.getStartDate().getTime());
                     for (SeatRecord seatRecord : record.getSeatRecordList()) {
                         roundItemRecord.addUserRecord(GameBase.UserRecord.newBuilder().setID(seatRecord.getUserId())
                                 .setNickname(seatRecord.getNickname()).setHead(seatRecord.getNickname()).setScore(seatRecord.getWinOrLose()).build());
@@ -423,50 +425,156 @@ public class HallClient {
                 });
         if (0 == gameRecordResponse.getCode()) {
             replayResponse.setErrorCode(GameBase.ErrorCode.SUCCESS);
-
-            switch (gameRecordResponse.getData().getGameType()) {
-                case XINGNING_MAHJONG:
-                    if (null != gameRecordResponse.getData().getData()) {
-                        List<Record> records = JSON.parseArray(new String(gameRecordResponse.getData().getData(), Charset.forName("utf-8")), Record.class);
+            GameRecordInfoRepresentation infoRepresentation = gameRecordResponse.getData();
+            switch (infoRepresentation.getGameType()) {
+                case SONGJIANGHE:
+                    if (null != infoRepresentation.getData()) {
+                        List<Record> records = JSON.parseArray(new String(infoRepresentation.getData(), Charset.forName("utf-8")), Record.class);
                         Record record = records.get(round);
 
                         Songjianghe.SongjiangheMahjongReplayResponse.Builder sonfjiangheReplayResponse = Songjianghe.SongjiangheMahjongReplayResponse.newBuilder();
-                        Mahjong.MahjongStartResponse.Builder dealCard = Mahjong.MahjongStartResponse.newBuilder();
-                        dealCard.setBanker(record.getBanker()).addAllDice(Arrays.asList(record.getDice()));
-                        sonfjiangheReplayResponse.setStart(dealCard);
+
+                        Mahjong.MahjongGameInfo.Builder gameInfo = Mahjong.MahjongGameInfo.newBuilder();
+                        gameInfo.setSurplusCardsSize(135 - (record.getSeatRecordList().size() * 13));
+                        gameInfo.setBanker(record.getBanker());
+                        if (null != record.getDice() && 0 < record.getDice().length) {
+                            gameInfo.addAllDice(Arrays.asList(record.getDice()));
+                        }
+                        gameInfo.setGameCount(record.getGameCount());
+
+                        Mahjong.MahjongResultResponse.Builder resultResponse = Mahjong.MahjongResultResponse.newBuilder();
+                        GameBase.RoomSeatsInfo.Builder roomSeatsInfo = GameBase.RoomSeatsInfo.newBuilder();
+                        for (SeatRecord seatRecord : record.getSeatRecordList()) {
+                            Mahjong.MahjongSeatGameInfo.Builder gameSeatResponse = Mahjong.MahjongSeatGameInfo.newBuilder();
+                            Mahjong.MahjongUserResult.Builder mahjongUserResult = Mahjong.MahjongUserResult.newBuilder();
+                            GameBase.SeatResponse.Builder seatResponse = GameBase.SeatResponse.newBuilder();
+                            gameSeatResponse.setID(seatRecord.getUserId());
+                            if (null != seatRecord.getInitialCards()) {
+                                if (seatRecord.getUserId() == userId) {
+                                    gameSeatResponse.addAllInitialCards(seatRecord.getInitialCards());
+                                }
+                            }
+                            if (null != seatRecord.getCards()) {
+                                mahjongUserResult.addAllCards(seatRecord.getCards());
+                                if (seatRecord.getUserId() == userId) {
+                                    gameSeatResponse.addAllCards(seatRecord.getInitialCards());
+                                } else {
+                                    gameSeatResponse.setCardsSize(seatRecord.getInitialCards().size());
+                                }
+                            }
+                            gameInfo.addSeats(gameSeatResponse);
+                            mahjongUserResult.setID(seatRecord.getUserId());
+                            mahjongUserResult.setScore(seatRecord.getScore());
+                            mahjongUserResult.setWinOrLose(seatRecord.getWinOrLose());
+                            mahjongUserResult.addAllAnGangCards(seatRecord.getAnGangCards());
+                            mahjongUserResult.addAllMingGangCards(seatRecord.getMingGangCards());
+                            mahjongUserResult.addAllPengCards(seatRecord.getPengCards());
+                            mahjongUserResult.addAllChiCards(seatRecord.getChiCards());
+                            if (null != seatRecord.getCardResult()) {
+                                mahjongUserResult.setCardScore(seatRecord.getCardResult().getScore());
+                                for (ScoreType scoreType : seatRecord.getCardResult().getScoreTypes()) {
+                                    mahjongUserResult.addScoreTypes(Mahjong.ScoreType.forNumber(scoreType.ordinal() - 3));
+                                }
+                            }
+                            int mingGangScore = 0;
+                            for (GameResult gameResult : seatRecord.getMingGangResult()) {
+                                mingGangScore += gameResult.getScore();
+                            }
+                            int anGangScore = 0;
+                            for (GameResult gameResult : seatRecord.getAnGangResult()) {
+                                anGangScore += gameResult.getScore();
+                            }
+                            mahjongUserResult.setGangScore(mingGangScore + anGangScore);
+                            if (null != seatRecord.getChiCards()) {
+                                mahjongUserResult.addAllChiCards(seatRecord.getChiCards());
+                            }
+                            if (null != seatRecord.getPengCards()) {
+                                mahjongUserResult.addAllPengCards(seatRecord.getPengCards());
+                            }
+                            if (null != seatRecord.getMingGangCards()) {
+                                mahjongUserResult.addAllMingGangCards(seatRecord.getMingGangCards());
+                            }
+                            if (null != seatRecord.getAnGangCards()) {
+                                mahjongUserResult.addAllAnGangCards(seatRecord.getAnGangCards());
+                            }
+                            mahjongUserResult.setHuCard(seatRecord.getHuCard());
+                            mahjongUserResult.setWinOrLose(seatRecord.getWinOrLose());
+                            resultResponse.addUserResult(mahjongUserResult);
+
+                            seatResponse.setSeatNo(seatRecord.getSeatNo());
+                            seatResponse.setID(seatRecord.getUserId());
+                            seatResponse.setScore(seatRecord.getScore() - seatRecord.getWinOrLose());
+                            seatResponse.setReady(true);
+                            seatResponse.setNickname(seatRecord.getNickname());
+                            seatResponse.setHead(seatRecord.getHead());
+                            seatResponse.setSex(seatRecord.isSex());
+                            seatResponse.setOffline(false);
+                            seatResponse.setIsRobot(false);
+                            seatResponse.setIp(seatRecord.getIp());
+                            roomSeatsInfo.addSeats(seatResponse.build());
+                        }
+                        sonfjiangheReplayResponse.setGameInfo(gameInfo);
+                        sonfjiangheReplayResponse.setResult(resultResponse);
+                        sonfjiangheReplayResponse.setSeatInfo(roomSeatsInfo);
 
                         for (OperationHistory operationHistory : record.getHistoryList()) {
-                            GameBase.OperationHistory.Builder builder = GameBase.OperationHistory.newBuilder();
+                            GameBase.BaseAction.Builder builder = GameBase.BaseAction.newBuilder();
                             builder.setID(operationHistory.getUserId());
-                            builder.addCard(operationHistory.getCard());
                             switch (operationHistory.getHistoryType()) {
                                 case GET_CARD:
                                     builder.setOperationId(GameBase.ActionId.GET_CARD);
+                                    builder.setData(Mahjong.MahjongGetCardResponse.newBuilder().setCard(operationHistory.getCards().get(0)).build().toByteString());
                                     break;
                                 case PLAY_CARD:
                                     builder.setOperationId(GameBase.ActionId.PLAY_CARD);
+                                    builder.setData(Mahjong.MahjongPlayCard.newBuilder().setCard(operationHistory.getCards().get(0)).build().toByteString());
                                     break;
                                 case PENG:
                                     builder.setOperationId(GameBase.ActionId.PENG);
+                                    builder.setData(Mahjong.MahjongPengResponse.newBuilder().setCard(operationHistory.getCards().get(0)).build().toByteString());
                                     break;
                                 case AN_GANG:
                                     builder.setOperationId(GameBase.ActionId.AN_GANG);
+                                    builder.setData(Mahjong.MahjongGang.newBuilder().addAllCard(operationHistory.getCards()).build().toByteString());
                                     break;
                                 case DIAN_GANG:
                                     builder.setOperationId(GameBase.ActionId.DIAN_GANG);
+                                    builder.setData(Mahjong.MahjongGang.newBuilder().addAllCard(operationHistory.getCards()).build().toByteString());
                                     break;
                                 case BA_GANG:
                                     builder.setOperationId(GameBase.ActionId.BA_GANG);
+                                    builder.setData(Mahjong.MahjongGang.newBuilder().addAllCard(operationHistory.getCards()).build().toByteString());
                                     break;
                                 case HU:
                                     builder.setOperationId(GameBase.ActionId.HU);
+                                    builder.setData(Mahjong.MahjongHuResponse.newBuilder().setCard(operationHistory.getCards().get(0)).build().toByteString());
                                     break;
                                 case CHI:
                                     builder.setOperationId(GameBase.ActionId.CHI);
+                                    builder.setData(Mahjong.MahjongChi.newBuilder().addAllCards(operationHistory.getCards()).build().toByteString());
+                                    break;
+                                case XF_GANG:
+                                    builder.setOperationId(GameBase.ActionId.CHI);
+                                    builder.setData(Mahjong.MahjongGang.newBuilder().addAllCard(operationHistory.getCards()).build().toByteString());
                                     break;
                             }
                             sonfjiangheReplayResponse.addHistory(builder);
                         }
+
+                        GameBase.RoomCardIntoResponse.Builder roomCardIntoResponseBuilder = GameBase.RoomCardIntoResponse.newBuilder();
+                        roomCardIntoResponseBuilder.setRoomNo(infoRepresentation.getRoomNo().toString());
+                        roomCardIntoResponseBuilder.setRoomOwner(infoRepresentation.getRoomOwner());
+                        roomCardIntoResponseBuilder.setStarted(true);
+                        Songjianghe.SongjiangheMahjongIntoResponse.Builder intoResponseBuilder = Songjianghe.SongjiangheMahjongIntoResponse.newBuilder();
+                        intoResponseBuilder.setCount(infoRepresentation.getGameCount());
+                        intoResponseBuilder.setGameTimes(infoRepresentation.getGameTotal());
+                        JSONObject jsonObject = JSON.parseObject(infoRepresentation.getGameRule());
+                        intoResponseBuilder.setGameRules(jsonObject.getIntValue("gameRule"));
+                        intoResponseBuilder.setNormal(jsonObject.getBooleanValue("normal"));
+                        intoResponseBuilder.setSingleFan(jsonObject.getBooleanValue("singleFan"));
+                        roomCardIntoResponseBuilder.setError(GameBase.ErrorCode.SUCCESS);
+                        roomCardIntoResponseBuilder.setData(intoResponseBuilder.build().toByteString());
+                        sonfjiangheReplayResponse.setRoomInfo(roomCardIntoResponseBuilder);
                         replayResponse.setReplay(sonfjiangheReplayResponse.build().toByteString());
                     }
                     break;

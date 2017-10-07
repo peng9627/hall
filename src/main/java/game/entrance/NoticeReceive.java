@@ -119,7 +119,7 @@ public class NoticeReceive implements Runnable {
         SocketRequest socketRequest = JSON.parseObject(param, SocketRequest.class);
         ApiResponse apiResponse = new ApiResponse();
         switch (requestPath) {
-            case "1":
+            case "1"://更新货币
                 synchronized (this) {
                     wait(1000);
                 }
@@ -132,6 +132,9 @@ public class NoticeReceive implements Runnable {
                     HallTcpService.userClients.get(socketRequest.getUserId()).send(GameBase.BaseConnection.newBuilder().setOperationType(GameBase.OperationType.CURRENCY).setData(currencyResponse.toByteString()).build(), socketRequest.getUserId());
                 }
                 apiResponse.setCode(0);
+                break;
+            case "2"://更新单个带开房
+//                if (redisService.exists())
                 break;
         }
 

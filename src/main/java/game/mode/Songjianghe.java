@@ -32,10 +32,28 @@ public final class Songjianghe {
 
         /**
          * <pre>
-         * 游戏规则  低位到高位到顺序（点炮包自己，4翻封，一炮多响，旋风杠，飘，允许相同ip，代开房）
+         * true正常结算 false点炮包自己
          * </pre>
          * <p>
-         * <code>uint32 gameRules = 2;</code>
+         * <code>bool normal = 2;</code>
+         */
+        boolean getNormal();
+
+        /**
+         * <pre>
+         * true1翻封，false 16翻
+         * </pre>
+         * <p>
+         * <code>bool singleFan = 3;</code>
+         */
+        boolean getSingleFan();
+
+        /**
+         * <pre>
+         * 游戏规则  低位到高位到顺序（一炮多响，旋风杠，飘，允许相同ip，代开房）
+         * </pre>
+         * <p>
+         * <code>uint32 gameRules = 4;</code>
          */
         int getGameRules();
 
@@ -44,7 +62,7 @@ public final class Songjianghe {
          * 人数
          * </pre>
          * <p>
-         * <code>uint32 count = 3;</code>
+         * <code>uint32 count = 5;</code>
          */
         int getCount();
     }
@@ -67,6 +85,8 @@ public final class Songjianghe {
 
         private SongjiangheMahjongIntoResponse() {
             gameTimes_ = 0;
+            normal_ = false;
+            singleFan_ = false;
             gameRules_ = 0;
             count_ = 0;
         }
@@ -104,10 +124,20 @@ public final class Songjianghe {
                         }
                         case 16: {
 
-                            gameRules_ = input.readUInt32();
+                            normal_ = input.readBool();
                             break;
                         }
                         case 24: {
+
+                            singleFan_ = input.readBool();
+                            break;
+                        }
+                        case 32: {
+
+                            gameRules_ = input.readUInt32();
+                            break;
+                        }
+                        case 40: {
 
                             count_ = input.readUInt32();
                             break;
@@ -126,15 +156,15 @@ public final class Songjianghe {
 
         public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-            return game.mode.Songjianghe.internal_static_SongjiangheMahjongIntoResponse_descriptor;
-    }
+      return game.mode.Songjianghe.internal_static_SongjiangheMahjongIntoResponse_descriptor;
+        }
 
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-    internalGetFieldAccessorTable() {
-        return game.mode.Songjianghe.internal_static_SongjiangheMahjongIntoResponse_fieldAccessorTable
-                .ensureFieldAccessorsInitialized(
-                        game.mode.Songjianghe.SongjiangheMahjongIntoResponse.class, game.mode.Songjianghe.SongjiangheMahjongIntoResponse.Builder.class);
-    }
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+            return game.mode.Songjianghe.internal_static_SongjiangheMahjongIntoResponse_fieldAccessorTable
+                    .ensureFieldAccessorsInitialized(
+                            game.mode.Songjianghe.SongjiangheMahjongIntoResponse.class, game.mode.Songjianghe.SongjiangheMahjongIntoResponse.Builder.class);
+        }
 
         public static final int GAMETIMES_FIELD_NUMBER = 1;
         private int gameTimes_;
@@ -150,21 +180,49 @@ public final class Songjianghe {
             return gameTimes_;
         }
 
-        public static final int GAMERULES_FIELD_NUMBER = 2;
+        public static final int NORMAL_FIELD_NUMBER = 2;
+        private boolean normal_;
+
+        /**
+         * <pre>
+         * true正常结算 false点炮包自己
+         * </pre>
+         * <p>
+         * <code>bool normal = 2;</code>
+         */
+        public boolean getNormal() {
+            return normal_;
+        }
+
+        public static final int SINGLEFAN_FIELD_NUMBER = 3;
+        private boolean singleFan_;
+
+        /**
+         * <pre>
+         * true1翻封，false 16翻
+         * </pre>
+         * <p>
+         * <code>bool singleFan = 3;</code>
+         */
+        public boolean getSingleFan() {
+            return singleFan_;
+        }
+
+        public static final int GAMERULES_FIELD_NUMBER = 4;
         private int gameRules_;
 
         /**
          * <pre>
-         * 游戏规则  低位到高位到顺序（点炮包自己，4翻封，一炮多响，旋风杠，飘，允许相同ip，代开房）
+         * 游戏规则  低位到高位到顺序（一炮多响，旋风杠，飘，允许相同ip，代开房）
          * </pre>
          * <p>
-         * <code>uint32 gameRules = 2;</code>
+         * <code>uint32 gameRules = 4;</code>
          */
         public int getGameRules() {
             return gameRules_;
         }
 
-        public static final int COUNT_FIELD_NUMBER = 3;
+        public static final int COUNT_FIELD_NUMBER = 5;
         private int count_;
 
         /**
@@ -172,7 +230,7 @@ public final class Songjianghe {
          * 人数
          * </pre>
          * <p>
-         * <code>uint32 count = 3;</code>
+         * <code>uint32 count = 5;</code>
          */
         public int getCount() {
             return count_;
@@ -194,11 +252,17 @@ public final class Songjianghe {
             if (gameTimes_ != 0) {
                 output.writeUInt32(1, gameTimes_);
             }
+            if (normal_ != false) {
+                output.writeBool(2, normal_);
+            }
+            if (singleFan_ != false) {
+                output.writeBool(3, singleFan_);
+            }
             if (gameRules_ != 0) {
-                output.writeUInt32(2, gameRules_);
+                output.writeUInt32(4, gameRules_);
             }
             if (count_ != 0) {
-                output.writeUInt32(3, count_);
+                output.writeUInt32(5, count_);
             }
         }
 
@@ -211,13 +275,21 @@ public final class Songjianghe {
                 size += com.google.protobuf.CodedOutputStream
                         .computeUInt32Size(1, gameTimes_);
             }
+            if (normal_ != false) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeBoolSize(2, normal_);
+            }
+            if (singleFan_ != false) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeBoolSize(3, singleFan_);
+            }
             if (gameRules_ != 0) {
                 size += com.google.protobuf.CodedOutputStream
-                        .computeUInt32Size(2, gameRules_);
+                        .computeUInt32Size(4, gameRules_);
             }
             if (count_ != 0) {
                 size += com.google.protobuf.CodedOutputStream
-                        .computeUInt32Size(3, count_);
+                        .computeUInt32Size(5, count_);
             }
             memoizedSize = size;
             return size;
@@ -238,6 +310,10 @@ public final class Songjianghe {
             boolean result = true;
             result = result && (getGameTimes()
                     == other.getGameTimes());
+            result = result && (getNormal()
+                    == other.getNormal());
+            result = result && (getSingleFan()
+                    == other.getSingleFan());
             result = result && (getGameRules()
                     == other.getGameRules());
             result = result && (getCount()
@@ -254,6 +330,12 @@ public final class Songjianghe {
             hash = (19 * hash) + getDescriptor().hashCode();
             hash = (37 * hash) + GAMETIMES_FIELD_NUMBER;
             hash = (53 * hash) + getGameTimes();
+            hash = (37 * hash) + NORMAL_FIELD_NUMBER;
+            hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+                    getNormal());
+            hash = (37 * hash) + SINGLEFAN_FIELD_NUMBER;
+            hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+                    getSingleFan());
             hash = (37 * hash) + GAMERULES_FIELD_NUMBER;
             hash = (53 * hash) + getGameRules();
             hash = (37 * hash) + COUNT_FIELD_NUMBER;
@@ -412,6 +494,10 @@ public final class Songjianghe {
                 super.clear();
                 gameTimes_ = 0;
 
+                normal_ = false;
+
+                singleFan_ = false;
+
                 gameRules_ = 0;
 
                 count_ = 0;
@@ -439,6 +525,8 @@ public final class Songjianghe {
             public game.mode.Songjianghe.SongjiangheMahjongIntoResponse buildPartial() {
                 game.mode.Songjianghe.SongjiangheMahjongIntoResponse result = new game.mode.Songjianghe.SongjiangheMahjongIntoResponse(this);
                 result.gameTimes_ = gameTimes_;
+                result.normal_ = normal_;
+                result.singleFan_ = singleFan_;
                 result.gameRules_ = gameRules_;
                 result.count_ = count_;
                 onBuilt();
@@ -490,6 +578,12 @@ public final class Songjianghe {
                 if (other == game.mode.Songjianghe.SongjiangheMahjongIntoResponse.getDefaultInstance()) return this;
                 if (other.getGameTimes() != 0) {
                     setGameTimes(other.getGameTimes());
+                }
+                if (other.getNormal() != false) {
+                    setNormal(other.getNormal());
+                }
+                if (other.getSingleFan() != false) {
+                    setSingleFan(other.getSingleFan());
                 }
                 if (other.getGameRules() != 0) {
                     setGameRules(other.getGameRules());
@@ -564,14 +658,96 @@ public final class Songjianghe {
                 return this;
             }
 
+            private boolean normal_;
+
+            /**
+             * <pre>
+             * true正常结算 false点炮包自己
+             * </pre>
+             * <p>
+             * <code>bool normal = 2;</code>
+             */
+            public boolean getNormal() {
+                return normal_;
+            }
+
+            /**
+             * <pre>
+             * true正常结算 false点炮包自己
+             * </pre>
+             * <p>
+             * <code>bool normal = 2;</code>
+             */
+            public Builder setNormal(boolean value) {
+
+                normal_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * true正常结算 false点炮包自己
+             * </pre>
+             * <p>
+             * <code>bool normal = 2;</code>
+             */
+            public Builder clearNormal() {
+
+                normal_ = false;
+                onChanged();
+                return this;
+            }
+
+            private boolean singleFan_;
+
+            /**
+             * <pre>
+             * true1翻封，false 16翻
+             * </pre>
+             * <p>
+             * <code>bool singleFan = 3;</code>
+             */
+            public boolean getSingleFan() {
+                return singleFan_;
+            }
+
+            /**
+             * <pre>
+             * true1翻封，false 16翻
+             * </pre>
+             * <p>
+             * <code>bool singleFan = 3;</code>
+             */
+            public Builder setSingleFan(boolean value) {
+
+                singleFan_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * true1翻封，false 16翻
+             * </pre>
+             * <p>
+             * <code>bool singleFan = 3;</code>
+             */
+            public Builder clearSingleFan() {
+
+                singleFan_ = false;
+                onChanged();
+                return this;
+            }
+
             private int gameRules_;
 
             /**
              * <pre>
-             * 游戏规则  低位到高位到顺序（点炮包自己，4翻封，一炮多响，旋风杠，飘，允许相同ip，代开房）
+             * 游戏规则  低位到高位到顺序（一炮多响，旋风杠，飘，允许相同ip，代开房）
              * </pre>
              * <p>
-             * <code>uint32 gameRules = 2;</code>
+             * <code>uint32 gameRules = 4;</code>
              */
             public int getGameRules() {
                 return gameRules_;
@@ -579,10 +755,10 @@ public final class Songjianghe {
 
             /**
              * <pre>
-             * 游戏规则  低位到高位到顺序（点炮包自己，4翻封，一炮多响，旋风杠，飘，允许相同ip，代开房）
+             * 游戏规则  低位到高位到顺序（一炮多响，旋风杠，飘，允许相同ip，代开房）
              * </pre>
              * <p>
-             * <code>uint32 gameRules = 2;</code>
+             * <code>uint32 gameRules = 4;</code>
              */
             public Builder setGameRules(int value) {
 
@@ -593,10 +769,10 @@ public final class Songjianghe {
 
             /**
              * <pre>
-             * 游戏规则  低位到高位到顺序（点炮包自己，4翻封，一炮多响，旋风杠，飘，允许相同ip，代开房）
+             * 游戏规则  低位到高位到顺序（一炮多响，旋风杠，飘，允许相同ip，代开房）
              * </pre>
              * <p>
-             * <code>uint32 gameRules = 2;</code>
+             * <code>uint32 gameRules = 4;</code>
              */
             public Builder clearGameRules() {
 
@@ -612,7 +788,7 @@ public final class Songjianghe {
              * 人数
              * </pre>
              * <p>
-             * <code>uint32 count = 3;</code>
+             * <code>uint32 count = 5;</code>
              */
             public int getCount() {
                 return count_;
@@ -623,7 +799,7 @@ public final class Songjianghe {
              * 人数
              * </pre>
              * <p>
-             * <code>uint32 count = 3;</code>
+             * <code>uint32 count = 5;</code>
              */
             public Builder setCount(int value) {
 
@@ -637,7 +813,7 @@ public final class Songjianghe {
              * 人数
              * </pre>
              * <p>
-             * <code>uint32 count = 3;</code>
+             * <code>uint32 count = 5;</code>
              */
             public Builder clearCount() {
 
@@ -701,45 +877,45 @@ public final class Songjianghe {
             com.google.protobuf.MessageOrBuilder {
 
         /**
-         * <code>.MahjongStartResponse start = 1;</code>
+         * <code>.MahjongGameInfo gameInfo = 1;</code>
          */
-        boolean hasStart();
+        boolean hasGameInfo();
 
         /**
-         * <code>.MahjongStartResponse start = 1;</code>
+         * <code>.MahjongGameInfo gameInfo = 1;</code>
          */
-        game.mode.Mahjong.MahjongStartResponse getStart();
+        game.mode.Mahjong.MahjongGameInfo getGameInfo();
 
         /**
-         * <code>.MahjongStartResponse start = 1;</code>
+         * <code>.MahjongGameInfo gameInfo = 1;</code>
          */
-        game.mode.Mahjong.MahjongStartResponseOrBuilder getStartOrBuilder();
-
-        /**
-         * <pre>
-         *操作记录
-         * </pre>
-         *
-         * <code>repeated .OperationHistory history = 2;</code>
-         */
-    java.util.List<game.mode.GameBase.OperationHistory>
-    getHistoryList();
+        game.mode.Mahjong.MahjongGameInfoOrBuilder getGameInfoOrBuilder();
 
         /**
          * <pre>
          * 操作记录
          * </pre>
          * <p>
-         * <code>repeated .OperationHistory history = 2;</code>
+         * <code>repeated .BaseAction history = 2;</code>
          */
-        game.mode.GameBase.OperationHistory getHistory(int index);
+        java.util.List<game.mode.GameBase.BaseAction>
+        getHistoryList();
 
         /**
          * <pre>
          * 操作记录
          * </pre>
          * <p>
-         * <code>repeated .OperationHistory history = 2;</code>
+         * <code>repeated .BaseAction history = 2;</code>
+         */
+        game.mode.GameBase.BaseAction getHistory(int index);
+
+        /**
+         * <pre>
+         * 操作记录
+         * </pre>
+         * <p>
+         * <code>repeated .BaseAction history = 2;</code>
          */
         int getHistoryCount();
 
@@ -748,9 +924,9 @@ public final class Songjianghe {
          * 操作记录
          * </pre>
          * <p>
-         * <code>repeated .OperationHistory history = 2;</code>
+         * <code>repeated .BaseAction history = 2;</code>
          */
-        java.util.List<? extends game.mode.GameBase.OperationHistoryOrBuilder>
+        java.util.List<? extends game.mode.GameBase.BaseActionOrBuilder>
         getHistoryOrBuilderList();
 
         /**
@@ -758,9 +934,9 @@ public final class Songjianghe {
          * 操作记录
          * </pre>
          * <p>
-         * <code>repeated .OperationHistory history = 2;</code>
+         * <code>repeated .BaseAction history = 2;</code>
          */
-        game.mode.GameBase.OperationHistoryOrBuilder getHistoryOrBuilder(
+        game.mode.GameBase.BaseActionOrBuilder getHistoryOrBuilder(
                 int index);
 
         /**
@@ -777,6 +953,36 @@ public final class Songjianghe {
          * <code>.MahjongResultResponse result = 3;</code>
          */
         game.mode.Mahjong.MahjongResultResponseOrBuilder getResultOrBuilder();
+
+        /**
+         * <code>.RoomCardIntoResponse roomInfo = 4;</code>
+         */
+        boolean hasRoomInfo();
+
+        /**
+         * <code>.RoomCardIntoResponse roomInfo = 4;</code>
+         */
+        game.mode.GameBase.RoomCardIntoResponse getRoomInfo();
+
+        /**
+         * <code>.RoomCardIntoResponse roomInfo = 4;</code>
+         */
+        game.mode.GameBase.RoomCardIntoResponseOrBuilder getRoomInfoOrBuilder();
+
+        /**
+         * <code>.RoomSeatsInfo seatInfo = 5;</code>
+         */
+        boolean hasSeatInfo();
+
+        /**
+         * <code>.RoomSeatsInfo seatInfo = 5;</code>
+         */
+        game.mode.GameBase.RoomSeatsInfo getSeatInfo();
+
+        /**
+         * <code>.RoomSeatsInfo seatInfo = 5;</code>
+         */
+        game.mode.GameBase.RoomSeatsInfoOrBuilder getSeatInfoOrBuilder();
     }
 
     /**
@@ -826,25 +1032,25 @@ public final class Songjianghe {
                             break;
                         }
                         case 10: {
-                            game.mode.Mahjong.MahjongStartResponse.Builder subBuilder = null;
-                            if (start_ != null) {
-                                subBuilder = start_.toBuilder();
+                            game.mode.Mahjong.MahjongGameInfo.Builder subBuilder = null;
+                            if (gameInfo_ != null) {
+                                subBuilder = gameInfo_.toBuilder();
                             }
-                            start_ = input.readMessage(game.mode.Mahjong.MahjongStartResponse.parser(), extensionRegistry);
+                            gameInfo_ = input.readMessage(game.mode.Mahjong.MahjongGameInfo.parser(), extensionRegistry);
                             if (subBuilder != null) {
-                                subBuilder.mergeFrom(start_);
-                                start_ = subBuilder.buildPartial();
+                                subBuilder.mergeFrom(gameInfo_);
+                                gameInfo_ = subBuilder.buildPartial();
                             }
 
                             break;
                         }
                         case 18: {
                             if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
-                                history_ = new java.util.ArrayList<game.mode.GameBase.OperationHistory>();
+                                history_ = new java.util.ArrayList<game.mode.GameBase.BaseAction>();
                                 mutable_bitField0_ |= 0x00000002;
                             }
                             history_.add(
-                                    input.readMessage(game.mode.GameBase.OperationHistory.parser(), extensionRegistry));
+                                    input.readMessage(game.mode.GameBase.BaseAction.parser(), extensionRegistry));
                             break;
                         }
                         case 26: {
@@ -860,9 +1066,35 @@ public final class Songjianghe {
 
                             break;
                         }
+                        case 34: {
+                            game.mode.GameBase.RoomCardIntoResponse.Builder subBuilder = null;
+                            if (roomInfo_ != null) {
+                                subBuilder = roomInfo_.toBuilder();
+                            }
+                            roomInfo_ = input.readMessage(game.mode.GameBase.RoomCardIntoResponse.parser(), extensionRegistry);
+                            if (subBuilder != null) {
+                                subBuilder.mergeFrom(roomInfo_);
+                                roomInfo_ = subBuilder.buildPartial();
+                            }
+
+                            break;
+                        }
+                        case 42: {
+                            game.mode.GameBase.RoomSeatsInfo.Builder subBuilder = null;
+                            if (seatInfo_ != null) {
+                                subBuilder = seatInfo_.toBuilder();
+                            }
+                            seatInfo_ = input.readMessage(game.mode.GameBase.RoomSeatsInfo.parser(), extensionRegistry);
+                            if (subBuilder != null) {
+                                subBuilder.mergeFrom(seatInfo_);
+                                seatInfo_ = subBuilder.buildPartial();
+                            }
+
+                            break;
+                        }
                     }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                }
+            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
                 throw e.setUnfinishedMessage(this);
             } catch (java.io.IOException e) {
                 throw new com.google.protobuf.InvalidProtocolBufferException(
@@ -888,41 +1120,41 @@ public final class Songjianghe {
         }
 
         private int bitField0_;
-        public static final int START_FIELD_NUMBER = 1;
-        private game.mode.Mahjong.MahjongStartResponse start_;
+    public static final int GAMEINFO_FIELD_NUMBER = 1;
+        private game.mode.Mahjong.MahjongGameInfo gameInfo_;
 
         /**
-         * <code>.MahjongStartResponse start = 1;</code>
+         * <code>.MahjongGameInfo gameInfo = 1;</code>
          */
-        public boolean hasStart() {
-            return start_ != null;
+        public boolean hasGameInfo() {
+            return gameInfo_ != null;
         }
 
         /**
-         * <code>.MahjongStartResponse start = 1;</code>
+         * <code>.MahjongGameInfo gameInfo = 1;</code>
          */
-        public game.mode.Mahjong.MahjongStartResponse getStart() {
-            return start_ == null ? game.mode.Mahjong.MahjongStartResponse.getDefaultInstance() : start_;
+        public game.mode.Mahjong.MahjongGameInfo getGameInfo() {
+            return gameInfo_ == null ? game.mode.Mahjong.MahjongGameInfo.getDefaultInstance() : gameInfo_;
         }
 
         /**
-         * <code>.MahjongStartResponse start = 1;</code>
+         * <code>.MahjongGameInfo gameInfo = 1;</code>
          */
-        public game.mode.Mahjong.MahjongStartResponseOrBuilder getStartOrBuilder() {
-            return getStart();
+        public game.mode.Mahjong.MahjongGameInfoOrBuilder getGameInfoOrBuilder() {
+            return getGameInfo();
         }
 
         public static final int HISTORY_FIELD_NUMBER = 2;
-        private java.util.List<game.mode.GameBase.OperationHistory> history_;
+        private java.util.List<game.mode.GameBase.BaseAction> history_;
 
         /**
          * <pre>
          * 操作记录
          * </pre>
          * <p>
-         * <code>repeated .OperationHistory history = 2;</code>
+         * <code>repeated .BaseAction history = 2;</code>
          */
-        public java.util.List<game.mode.GameBase.OperationHistory> getHistoryList() {
+        public java.util.List<game.mode.GameBase.BaseAction> getHistoryList() {
             return history_;
         }
 
@@ -931,9 +1163,9 @@ public final class Songjianghe {
          * 操作记录
          * </pre>
          * <p>
-         * <code>repeated .OperationHistory history = 2;</code>
+         * <code>repeated .BaseAction history = 2;</code>
          */
-        public java.util.List<? extends game.mode.GameBase.OperationHistoryOrBuilder>
+        public java.util.List<? extends game.mode.GameBase.BaseActionOrBuilder>
         getHistoryOrBuilderList() {
             return history_;
         }
@@ -943,7 +1175,7 @@ public final class Songjianghe {
          * 操作记录
          * </pre>
          * <p>
-         * <code>repeated .OperationHistory history = 2;</code>
+         * <code>repeated .BaseAction history = 2;</code>
          */
         public int getHistoryCount() {
             return history_.size();
@@ -954,9 +1186,9 @@ public final class Songjianghe {
          * 操作记录
          * </pre>
          * <p>
-         * <code>repeated .OperationHistory history = 2;</code>
+         * <code>repeated .BaseAction history = 2;</code>
          */
-        public game.mode.GameBase.OperationHistory getHistory(int index) {
+        public game.mode.GameBase.BaseAction getHistory(int index) {
             return history_.get(index);
         }
 
@@ -965,9 +1197,9 @@ public final class Songjianghe {
          * 操作记录
          * </pre>
          * <p>
-         * <code>repeated .OperationHistory history = 2;</code>
+         * <code>repeated .BaseAction history = 2;</code>
          */
-        public game.mode.GameBase.OperationHistoryOrBuilder getHistoryOrBuilder(
+        public game.mode.GameBase.BaseActionOrBuilder getHistoryOrBuilder(
                 int index) {
             return history_.get(index);
         }
@@ -996,6 +1228,54 @@ public final class Songjianghe {
             return getResult();
         }
 
+        public static final int ROOMINFO_FIELD_NUMBER = 4;
+        private game.mode.GameBase.RoomCardIntoResponse roomInfo_;
+
+        /**
+         * <code>.RoomCardIntoResponse roomInfo = 4;</code>
+         */
+        public boolean hasRoomInfo() {
+            return roomInfo_ != null;
+        }
+
+        /**
+         * <code>.RoomCardIntoResponse roomInfo = 4;</code>
+         */
+        public game.mode.GameBase.RoomCardIntoResponse getRoomInfo() {
+            return roomInfo_ == null ? game.mode.GameBase.RoomCardIntoResponse.getDefaultInstance() : roomInfo_;
+        }
+
+        /**
+         * <code>.RoomCardIntoResponse roomInfo = 4;</code>
+         */
+        public game.mode.GameBase.RoomCardIntoResponseOrBuilder getRoomInfoOrBuilder() {
+            return getRoomInfo();
+        }
+
+        public static final int SEATINFO_FIELD_NUMBER = 5;
+        private game.mode.GameBase.RoomSeatsInfo seatInfo_;
+
+        /**
+         * <code>.RoomSeatsInfo seatInfo = 5;</code>
+         */
+        public boolean hasSeatInfo() {
+            return seatInfo_ != null;
+        }
+
+        /**
+         * <code>.RoomSeatsInfo seatInfo = 5;</code>
+         */
+        public game.mode.GameBase.RoomSeatsInfo getSeatInfo() {
+            return seatInfo_ == null ? game.mode.GameBase.RoomSeatsInfo.getDefaultInstance() : seatInfo_;
+        }
+
+        /**
+         * <code>.RoomSeatsInfo seatInfo = 5;</code>
+         */
+        public game.mode.GameBase.RoomSeatsInfoOrBuilder getSeatInfoOrBuilder() {
+            return getSeatInfo();
+        }
+
         private byte memoizedIsInitialized = -1;
 
         public final boolean isInitialized() {
@@ -1009,14 +1289,20 @@ public final class Songjianghe {
 
         public void writeTo(com.google.protobuf.CodedOutputStream output)
                 throws java.io.IOException {
-            if (start_ != null) {
-                output.writeMessage(1, getStart());
+            if (gameInfo_ != null) {
+                output.writeMessage(1, getGameInfo());
             }
             for (int i = 0; i < history_.size(); i++) {
                 output.writeMessage(2, history_.get(i));
             }
             if (result_ != null) {
                 output.writeMessage(3, getResult());
+            }
+            if (roomInfo_ != null) {
+                output.writeMessage(4, getRoomInfo());
+            }
+            if (seatInfo_ != null) {
+                output.writeMessage(5, getSeatInfo());
             }
         }
 
@@ -1025,9 +1311,9 @@ public final class Songjianghe {
             if (size != -1) return size;
 
             size = 0;
-            if (start_ != null) {
+            if (gameInfo_ != null) {
                 size += com.google.protobuf.CodedOutputStream
-                        .computeMessageSize(1, getStart());
+                        .computeMessageSize(1, getGameInfo());
             }
             for (int i = 0; i < history_.size(); i++) {
                 size += com.google.protobuf.CodedOutputStream
@@ -1036,6 +1322,14 @@ public final class Songjianghe {
             if (result_ != null) {
                 size += com.google.protobuf.CodedOutputStream
                         .computeMessageSize(3, getResult());
+            }
+            if (roomInfo_ != null) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeMessageSize(4, getRoomInfo());
+            }
+            if (seatInfo_ != null) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeMessageSize(5, getSeatInfo());
             }
             memoizedSize = size;
             return size;
@@ -1054,10 +1348,10 @@ public final class Songjianghe {
             game.mode.Songjianghe.SongjiangheMahjongReplayResponse other = (game.mode.Songjianghe.SongjiangheMahjongReplayResponse) obj;
 
             boolean result = true;
-            result = result && (hasStart() == other.hasStart());
-            if (hasStart()) {
-                result = result && getStart()
-                        .equals(other.getStart());
+            result = result && (hasGameInfo() == other.hasGameInfo());
+            if (hasGameInfo()) {
+                result = result && getGameInfo()
+                        .equals(other.getGameInfo());
             }
             result = result && getHistoryList()
                     .equals(other.getHistoryList());
@@ -1065,6 +1359,16 @@ public final class Songjianghe {
             if (hasResult()) {
                 result = result && getResult()
                         .equals(other.getResult());
+            }
+            result = result && (hasRoomInfo() == other.hasRoomInfo());
+            if (hasRoomInfo()) {
+                result = result && getRoomInfo()
+                        .equals(other.getRoomInfo());
+            }
+            result = result && (hasSeatInfo() == other.hasSeatInfo());
+            if (hasSeatInfo()) {
+                result = result && getSeatInfo()
+                        .equals(other.getSeatInfo());
             }
             return result;
         }
@@ -1076,9 +1380,9 @@ public final class Songjianghe {
             }
             int hash = 41;
             hash = (19 * hash) + getDescriptor().hashCode();
-            if (hasStart()) {
-                hash = (37 * hash) + START_FIELD_NUMBER;
-                hash = (53 * hash) + getStart().hashCode();
+            if (hasGameInfo()) {
+                hash = (37 * hash) + GAMEINFO_FIELD_NUMBER;
+                hash = (53 * hash) + getGameInfo().hashCode();
             }
             if (getHistoryCount() > 0) {
                 hash = (37 * hash) + HISTORY_FIELD_NUMBER;
@@ -1087,6 +1391,14 @@ public final class Songjianghe {
             if (hasResult()) {
                 hash = (37 * hash) + RESULT_FIELD_NUMBER;
                 hash = (53 * hash) + getResult().hashCode();
+            }
+            if (hasRoomInfo()) {
+                hash = (37 * hash) + ROOMINFO_FIELD_NUMBER;
+                hash = (53 * hash) + getRoomInfo().hashCode();
+            }
+            if (hasSeatInfo()) {
+                hash = (37 * hash) + SEATINFO_FIELD_NUMBER;
+                hash = (53 * hash) + getSeatInfo().hashCode();
             }
             hash = (29 * hash) + unknownFields.hashCode();
             memoizedHashCode = hash;
@@ -1241,11 +1553,11 @@ public final class Songjianghe {
 
             public Builder clear() {
                 super.clear();
-                if (startBuilder_ == null) {
-                    start_ = null;
+                if (gameInfoBuilder_ == null) {
+                    gameInfo_ = null;
                 } else {
-                    start_ = null;
-                    startBuilder_ = null;
+                    gameInfo_ = null;
+                    gameInfoBuilder_ = null;
                 }
                 if (historyBuilder_ == null) {
                     history_ = java.util.Collections.emptyList();
@@ -1258,6 +1570,18 @@ public final class Songjianghe {
                 } else {
                     result_ = null;
                     resultBuilder_ = null;
+                }
+                if (roomInfoBuilder_ == null) {
+                    roomInfo_ = null;
+                } else {
+                    roomInfo_ = null;
+                    roomInfoBuilder_ = null;
+                }
+                if (seatInfoBuilder_ == null) {
+                    seatInfo_ = null;
+                } else {
+                    seatInfo_ = null;
+                    seatInfoBuilder_ = null;
                 }
                 return this;
             }
@@ -1283,10 +1607,10 @@ public final class Songjianghe {
                 game.mode.Songjianghe.SongjiangheMahjongReplayResponse result = new game.mode.Songjianghe.SongjiangheMahjongReplayResponse(this);
                 int from_bitField0_ = bitField0_;
                 int to_bitField0_ = 0;
-                if (startBuilder_ == null) {
-                    result.start_ = start_;
+                if (gameInfoBuilder_ == null) {
+                    result.gameInfo_ = gameInfo_;
                 } else {
-                    result.start_ = startBuilder_.build();
+                    result.gameInfo_ = gameInfoBuilder_.build();
                 }
                 if (historyBuilder_ == null) {
                     if (((bitField0_ & 0x00000002) == 0x00000002)) {
@@ -1301,6 +1625,16 @@ public final class Songjianghe {
                     result.result_ = result_;
                 } else {
                     result.result_ = resultBuilder_.build();
+                }
+                if (roomInfoBuilder_ == null) {
+                    result.roomInfo_ = roomInfo_;
+                } else {
+                    result.roomInfo_ = roomInfoBuilder_.build();
+                }
+                if (seatInfoBuilder_ == null) {
+                    result.seatInfo_ = seatInfo_;
+                } else {
+                    result.seatInfo_ = seatInfoBuilder_.build();
                 }
                 result.bitField0_ = to_bitField0_;
                 onBuilt();
@@ -1350,8 +1684,8 @@ public final class Songjianghe {
 
             public Builder mergeFrom(game.mode.Songjianghe.SongjiangheMahjongReplayResponse other) {
                 if (other == game.mode.Songjianghe.SongjiangheMahjongReplayResponse.getDefaultInstance()) return this;
-                if (other.hasStart()) {
-                    mergeStart(other.getStart());
+                if (other.hasGameInfo()) {
+                    mergeGameInfo(other.getGameInfo());
                 }
                 if (historyBuilder_ == null) {
                     if (!other.history_.isEmpty()) {
@@ -1382,6 +1716,12 @@ public final class Songjianghe {
                 if (other.hasResult()) {
                     mergeResult(other.getResult());
                 }
+                if (other.hasRoomInfo()) {
+                    mergeRoomInfo(other.getRoomInfo());
+                }
+                if (other.hasSeatInfo()) {
+                    mergeSeatInfo(other.getSeatInfo());
+                }
                 onChanged();
                 return this;
             }
@@ -1410,153 +1750,153 @@ public final class Songjianghe {
 
             private int bitField0_;
 
-            private game.mode.Mahjong.MahjongStartResponse start_ = null;
+            private game.mode.Mahjong.MahjongGameInfo gameInfo_ = null;
             private com.google.protobuf.SingleFieldBuilderV3<
-                    game.mode.Mahjong.MahjongStartResponse, game.mode.Mahjong.MahjongStartResponse.Builder, game.mode.Mahjong.MahjongStartResponseOrBuilder> startBuilder_;
+                    game.mode.Mahjong.MahjongGameInfo, game.mode.Mahjong.MahjongGameInfo.Builder, game.mode.Mahjong.MahjongGameInfoOrBuilder> gameInfoBuilder_;
 
             /**
-             * <code>.MahjongStartResponse start = 1;</code>
+             * <code>.MahjongGameInfo gameInfo = 1;</code>
              */
-            public boolean hasStart() {
-                return startBuilder_ != null || start_ != null;
+            public boolean hasGameInfo() {
+                return gameInfoBuilder_ != null || gameInfo_ != null;
             }
 
             /**
-             * <code>.MahjongStartResponse start = 1;</code>
+             * <code>.MahjongGameInfo gameInfo = 1;</code>
              */
-            public game.mode.Mahjong.MahjongStartResponse getStart() {
-                if (startBuilder_ == null) {
-                    return start_ == null ? game.mode.Mahjong.MahjongStartResponse.getDefaultInstance() : start_;
+            public game.mode.Mahjong.MahjongGameInfo getGameInfo() {
+                if (gameInfoBuilder_ == null) {
+                    return gameInfo_ == null ? game.mode.Mahjong.MahjongGameInfo.getDefaultInstance() : gameInfo_;
                 } else {
-                    return startBuilder_.getMessage();
+                    return gameInfoBuilder_.getMessage();
                 }
             }
 
             /**
-             * <code>.MahjongStartResponse start = 1;</code>
+             * <code>.MahjongGameInfo gameInfo = 1;</code>
              */
-            public Builder setStart(game.mode.Mahjong.MahjongStartResponse value) {
-                if (startBuilder_ == null) {
+            public Builder setGameInfo(game.mode.Mahjong.MahjongGameInfo value) {
+                if (gameInfoBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
                     }
-                    start_ = value;
+                    gameInfo_ = value;
                     onChanged();
                 } else {
-                    startBuilder_.setMessage(value);
+                    gameInfoBuilder_.setMessage(value);
                 }
 
                 return this;
             }
 
             /**
-             * <code>.MahjongStartResponse start = 1;</code>
+             * <code>.MahjongGameInfo gameInfo = 1;</code>
              */
-            public Builder setStart(
-                    game.mode.Mahjong.MahjongStartResponse.Builder builderForValue) {
-                if (startBuilder_ == null) {
-                    start_ = builderForValue.build();
+            public Builder setGameInfo(
+                    game.mode.Mahjong.MahjongGameInfo.Builder builderForValue) {
+                if (gameInfoBuilder_ == null) {
+                    gameInfo_ = builderForValue.build();
                     onChanged();
                 } else {
-                    startBuilder_.setMessage(builderForValue.build());
+                    gameInfoBuilder_.setMessage(builderForValue.build());
                 }
 
                 return this;
             }
 
             /**
-             * <code>.MahjongStartResponse start = 1;</code>
+             * <code>.MahjongGameInfo gameInfo = 1;</code>
              */
-            public Builder mergeStart(game.mode.Mahjong.MahjongStartResponse value) {
-                if (startBuilder_ == null) {
-                    if (start_ != null) {
-                        start_ =
-                                game.mode.Mahjong.MahjongStartResponse.newBuilder(start_).mergeFrom(value).buildPartial();
+            public Builder mergeGameInfo(game.mode.Mahjong.MahjongGameInfo value) {
+                if (gameInfoBuilder_ == null) {
+                    if (gameInfo_ != null) {
+                        gameInfo_ =
+                                game.mode.Mahjong.MahjongGameInfo.newBuilder(gameInfo_).mergeFrom(value).buildPartial();
                     } else {
-                        start_ = value;
+                        gameInfo_ = value;
                     }
                     onChanged();
                 } else {
-                    startBuilder_.mergeFrom(value);
+                    gameInfoBuilder_.mergeFrom(value);
                 }
 
                 return this;
             }
 
             /**
-             * <code>.MahjongStartResponse start = 1;</code>
+             * <code>.MahjongGameInfo gameInfo = 1;</code>
              */
-            public Builder clearStart() {
-                if (startBuilder_ == null) {
-                    start_ = null;
+            public Builder clearGameInfo() {
+                if (gameInfoBuilder_ == null) {
+                    gameInfo_ = null;
                     onChanged();
                 } else {
-                    start_ = null;
-                    startBuilder_ = null;
+                    gameInfo_ = null;
+                    gameInfoBuilder_ = null;
                 }
 
                 return this;
             }
 
             /**
-             * <code>.MahjongStartResponse start = 1;</code>
+             * <code>.MahjongGameInfo gameInfo = 1;</code>
              */
-            public game.mode.Mahjong.MahjongStartResponse.Builder getStartBuilder() {
+            public game.mode.Mahjong.MahjongGameInfo.Builder getGameInfoBuilder() {
 
                 onChanged();
-                return getStartFieldBuilder().getBuilder();
+                return getGameInfoFieldBuilder().getBuilder();
             }
 
             /**
-             * <code>.MahjongStartResponse start = 1;</code>
+             * <code>.MahjongGameInfo gameInfo = 1;</code>
              */
-            public game.mode.Mahjong.MahjongStartResponseOrBuilder getStartOrBuilder() {
-                if (startBuilder_ != null) {
-                    return startBuilder_.getMessageOrBuilder();
+            public game.mode.Mahjong.MahjongGameInfoOrBuilder getGameInfoOrBuilder() {
+                if (gameInfoBuilder_ != null) {
+                    return gameInfoBuilder_.getMessageOrBuilder();
                 } else {
-                    return start_ == null ?
-                            game.mode.Mahjong.MahjongStartResponse.getDefaultInstance() : start_;
+                    return gameInfo_ == null ?
+                            game.mode.Mahjong.MahjongGameInfo.getDefaultInstance() : gameInfo_;
                 }
             }
 
             /**
-             * <code>.MahjongStartResponse start = 1;</code>
+             * <code>.MahjongGameInfo gameInfo = 1;</code>
              */
             private com.google.protobuf.SingleFieldBuilderV3<
-                    game.mode.Mahjong.MahjongStartResponse, game.mode.Mahjong.MahjongStartResponse.Builder, game.mode.Mahjong.MahjongStartResponseOrBuilder>
-            getStartFieldBuilder() {
-                if (startBuilder_ == null) {
-                    startBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-                            game.mode.Mahjong.MahjongStartResponse, game.mode.Mahjong.MahjongStartResponse.Builder, game.mode.Mahjong.MahjongStartResponseOrBuilder>(
-                            getStart(),
+                    game.mode.Mahjong.MahjongGameInfo, game.mode.Mahjong.MahjongGameInfo.Builder, game.mode.Mahjong.MahjongGameInfoOrBuilder>
+            getGameInfoFieldBuilder() {
+                if (gameInfoBuilder_ == null) {
+                    gameInfoBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+                            game.mode.Mahjong.MahjongGameInfo, game.mode.Mahjong.MahjongGameInfo.Builder, game.mode.Mahjong.MahjongGameInfoOrBuilder>(
+                            getGameInfo(),
                             getParentForChildren(),
                             isClean());
-                    start_ = null;
+                    gameInfo_ = null;
                 }
-                return startBuilder_;
+                return gameInfoBuilder_;
             }
 
-            private java.util.List<game.mode.GameBase.OperationHistory> history_ =
+            private java.util.List<game.mode.GameBase.BaseAction> history_ =
                     java.util.Collections.emptyList();
 
             private void ensureHistoryIsMutable() {
                 if (!((bitField0_ & 0x00000002) == 0x00000002)) {
-                    history_ = new java.util.ArrayList<game.mode.GameBase.OperationHistory>(history_);
+                    history_ = new java.util.ArrayList<game.mode.GameBase.BaseAction>(history_);
                     bitField0_ |= 0x00000002;
                 }
             }
 
             private com.google.protobuf.RepeatedFieldBuilderV3<
-                    game.mode.GameBase.OperationHistory, game.mode.GameBase.OperationHistory.Builder, game.mode.GameBase.OperationHistoryOrBuilder> historyBuilder_;
+                    game.mode.GameBase.BaseAction, game.mode.GameBase.BaseAction.Builder, game.mode.GameBase.BaseActionOrBuilder> historyBuilder_;
 
             /**
              * <pre>
              * 操作记录
              * </pre>
              * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
+             * <code>repeated .BaseAction history = 2;</code>
              */
-            public java.util.List<game.mode.GameBase.OperationHistory> getHistoryList() {
+            public java.util.List<game.mode.GameBase.BaseAction> getHistoryList() {
                 if (historyBuilder_ == null) {
                     return java.util.Collections.unmodifiableList(history_);
                 } else {
@@ -1569,7 +1909,7 @@ public final class Songjianghe {
              * 操作记录
              * </pre>
              * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
+             * <code>repeated .BaseAction history = 2;</code>
              */
             public int getHistoryCount() {
                 if (historyBuilder_ == null) {
@@ -1584,9 +1924,9 @@ public final class Songjianghe {
              * 操作记录
              * </pre>
              * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
+             * <code>repeated .BaseAction history = 2;</code>
              */
-            public game.mode.GameBase.OperationHistory getHistory(int index) {
+            public game.mode.GameBase.BaseAction getHistory(int index) {
                 if (historyBuilder_ == null) {
                     return history_.get(index);
                 } else {
@@ -1599,10 +1939,10 @@ public final class Songjianghe {
              * 操作记录
              * </pre>
              * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
+             * <code>repeated .BaseAction history = 2;</code>
              */
             public Builder setHistory(
-                    int index, game.mode.GameBase.OperationHistory value) {
+                    int index, game.mode.GameBase.BaseAction value) {
                 if (historyBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -1621,10 +1961,10 @@ public final class Songjianghe {
              * 操作记录
              * </pre>
              * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
+             * <code>repeated .BaseAction history = 2;</code>
              */
             public Builder setHistory(
-                    int index, game.mode.GameBase.OperationHistory.Builder builderForValue) {
+                    int index, game.mode.GameBase.BaseAction.Builder builderForValue) {
                 if (historyBuilder_ == null) {
                     ensureHistoryIsMutable();
                     history_.set(index, builderForValue.build());
@@ -1640,9 +1980,9 @@ public final class Songjianghe {
              * 操作记录
              * </pre>
              * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
+             * <code>repeated .BaseAction history = 2;</code>
              */
-            public Builder addHistory(game.mode.GameBase.OperationHistory value) {
+            public Builder addHistory(game.mode.GameBase.BaseAction value) {
                 if (historyBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -1661,10 +2001,10 @@ public final class Songjianghe {
              * 操作记录
              * </pre>
              * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
+             * <code>repeated .BaseAction history = 2;</code>
              */
             public Builder addHistory(
-                    int index, game.mode.GameBase.OperationHistory value) {
+                    int index, game.mode.GameBase.BaseAction value) {
                 if (historyBuilder_ == null) {
                     if (value == null) {
                         throw new NullPointerException();
@@ -1683,10 +2023,10 @@ public final class Songjianghe {
              * 操作记录
              * </pre>
              * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
+             * <code>repeated .BaseAction history = 2;</code>
              */
             public Builder addHistory(
-                    game.mode.GameBase.OperationHistory.Builder builderForValue) {
+                    game.mode.GameBase.BaseAction.Builder builderForValue) {
                 if (historyBuilder_ == null) {
                     ensureHistoryIsMutable();
                     history_.add(builderForValue.build());
@@ -1702,10 +2042,10 @@ public final class Songjianghe {
              * 操作记录
              * </pre>
              * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
+             * <code>repeated .BaseAction history = 2;</code>
              */
             public Builder addHistory(
-                    int index, game.mode.GameBase.OperationHistory.Builder builderForValue) {
+                    int index, game.mode.GameBase.BaseAction.Builder builderForValue) {
                 if (historyBuilder_ == null) {
                     ensureHistoryIsMutable();
                     history_.add(index, builderForValue.build());
@@ -1721,10 +2061,10 @@ public final class Songjianghe {
              * 操作记录
              * </pre>
              * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
+             * <code>repeated .BaseAction history = 2;</code>
              */
             public Builder addAllHistory(
-                    java.lang.Iterable<? extends game.mode.GameBase.OperationHistory> values) {
+                    java.lang.Iterable<? extends game.mode.GameBase.BaseAction> values) {
                 if (historyBuilder_ == null) {
                     ensureHistoryIsMutable();
                     com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -1741,7 +2081,7 @@ public final class Songjianghe {
              * 操作记录
              * </pre>
              * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
+             * <code>repeated .BaseAction history = 2;</code>
              */
             public Builder clearHistory() {
                 if (historyBuilder_ == null) {
@@ -1759,7 +2099,7 @@ public final class Songjianghe {
              * 操作记录
              * </pre>
              * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
+             * <code>repeated .BaseAction history = 2;</code>
              */
             public Builder removeHistory(int index) {
                 if (historyBuilder_ == null) {
@@ -1777,9 +2117,9 @@ public final class Songjianghe {
              * 操作记录
              * </pre>
              * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
+             * <code>repeated .BaseAction history = 2;</code>
              */
-            public game.mode.GameBase.OperationHistory.Builder getHistoryBuilder(
+            public game.mode.GameBase.BaseAction.Builder getHistoryBuilder(
                     int index) {
                 return getHistoryFieldBuilder().getBuilder(index);
             }
@@ -1789,9 +2129,9 @@ public final class Songjianghe {
              * 操作记录
              * </pre>
              * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
+             * <code>repeated .BaseAction history = 2;</code>
              */
-            public game.mode.GameBase.OperationHistoryOrBuilder getHistoryOrBuilder(
+            public game.mode.GameBase.BaseActionOrBuilder getHistoryOrBuilder(
                     int index) {
                 if (historyBuilder_ == null) {
                     return history_.get(index);
@@ -1805,9 +2145,9 @@ public final class Songjianghe {
              * 操作记录
              * </pre>
              * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
+             * <code>repeated .BaseAction history = 2;</code>
              */
-            public java.util.List<? extends game.mode.GameBase.OperationHistoryOrBuilder>
+            public java.util.List<? extends game.mode.GameBase.BaseActionOrBuilder>
             getHistoryOrBuilderList() {
                 if (historyBuilder_ != null) {
                     return historyBuilder_.getMessageOrBuilderList();
@@ -1821,11 +2161,11 @@ public final class Songjianghe {
              * 操作记录
              * </pre>
              * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
+             * <code>repeated .BaseAction history = 2;</code>
              */
-            public game.mode.GameBase.OperationHistory.Builder addHistoryBuilder() {
+            public game.mode.GameBase.BaseAction.Builder addHistoryBuilder() {
                 return getHistoryFieldBuilder().addBuilder(
-                        game.mode.GameBase.OperationHistory.getDefaultInstance());
+                        game.mode.GameBase.BaseAction.getDefaultInstance());
             }
 
             /**
@@ -1833,12 +2173,12 @@ public final class Songjianghe {
              * 操作记录
              * </pre>
              * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
+             * <code>repeated .BaseAction history = 2;</code>
              */
-            public game.mode.GameBase.OperationHistory.Builder addHistoryBuilder(
+            public game.mode.GameBase.BaseAction.Builder addHistoryBuilder(
                     int index) {
                 return getHistoryFieldBuilder().addBuilder(
-                        index, game.mode.GameBase.OperationHistory.getDefaultInstance());
+                        index, game.mode.GameBase.BaseAction.getDefaultInstance());
             }
 
             /**
@@ -1846,19 +2186,19 @@ public final class Songjianghe {
              * 操作记录
              * </pre>
              * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
+             * <code>repeated .BaseAction history = 2;</code>
              */
-            public java.util.List<game.mode.GameBase.OperationHistory.Builder>
+            public java.util.List<game.mode.GameBase.BaseAction.Builder>
             getHistoryBuilderList() {
                 return getHistoryFieldBuilder().getBuilderList();
             }
 
             private com.google.protobuf.RepeatedFieldBuilderV3<
-                    game.mode.GameBase.OperationHistory, game.mode.GameBase.OperationHistory.Builder, game.mode.GameBase.OperationHistoryOrBuilder>
+                    game.mode.GameBase.BaseAction, game.mode.GameBase.BaseAction.Builder, game.mode.GameBase.BaseActionOrBuilder>
             getHistoryFieldBuilder() {
                 if (historyBuilder_ == null) {
                     historyBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-                            game.mode.GameBase.OperationHistory, game.mode.GameBase.OperationHistory.Builder, game.mode.GameBase.OperationHistoryOrBuilder>(
+                            game.mode.GameBase.BaseAction, game.mode.GameBase.BaseAction.Builder, game.mode.GameBase.BaseActionOrBuilder>(
                             history_,
                             ((bitField0_ & 0x00000002) == 0x00000002),
                             getParentForChildren(),
@@ -1994,6 +2334,258 @@ public final class Songjianghe {
                 return resultBuilder_;
             }
 
+            private game.mode.GameBase.RoomCardIntoResponse roomInfo_ = null;
+            private com.google.protobuf.SingleFieldBuilderV3<
+                    game.mode.GameBase.RoomCardIntoResponse, game.mode.GameBase.RoomCardIntoResponse.Builder, game.mode.GameBase.RoomCardIntoResponseOrBuilder> roomInfoBuilder_;
+
+            /**
+             * <code>.RoomCardIntoResponse roomInfo = 4;</code>
+             */
+            public boolean hasRoomInfo() {
+                return roomInfoBuilder_ != null || roomInfo_ != null;
+            }
+
+            /**
+             * <code>.RoomCardIntoResponse roomInfo = 4;</code>
+             */
+            public game.mode.GameBase.RoomCardIntoResponse getRoomInfo() {
+                if (roomInfoBuilder_ == null) {
+                    return roomInfo_ == null ? game.mode.GameBase.RoomCardIntoResponse.getDefaultInstance() : roomInfo_;
+                } else {
+                    return roomInfoBuilder_.getMessage();
+                }
+            }
+
+            /**
+             * <code>.RoomCardIntoResponse roomInfo = 4;</code>
+             */
+            public Builder setRoomInfo(game.mode.GameBase.RoomCardIntoResponse value) {
+                if (roomInfoBuilder_ == null) {
+                    if (value == null) {
+                        throw new NullPointerException();
+                    }
+                    roomInfo_ = value;
+                    onChanged();
+                } else {
+                    roomInfoBuilder_.setMessage(value);
+                }
+
+                return this;
+            }
+
+            /**
+             * <code>.RoomCardIntoResponse roomInfo = 4;</code>
+             */
+            public Builder setRoomInfo(
+                    game.mode.GameBase.RoomCardIntoResponse.Builder builderForValue) {
+                if (roomInfoBuilder_ == null) {
+                    roomInfo_ = builderForValue.build();
+                    onChanged();
+                } else {
+                    roomInfoBuilder_.setMessage(builderForValue.build());
+                }
+
+                return this;
+            }
+
+            /**
+             * <code>.RoomCardIntoResponse roomInfo = 4;</code>
+             */
+            public Builder mergeRoomInfo(game.mode.GameBase.RoomCardIntoResponse value) {
+                if (roomInfoBuilder_ == null) {
+                    if (roomInfo_ != null) {
+                        roomInfo_ =
+                                game.mode.GameBase.RoomCardIntoResponse.newBuilder(roomInfo_).mergeFrom(value).buildPartial();
+                    } else {
+                        roomInfo_ = value;
+                    }
+                    onChanged();
+                } else {
+                    roomInfoBuilder_.mergeFrom(value);
+                }
+
+                return this;
+            }
+
+            /**
+             * <code>.RoomCardIntoResponse roomInfo = 4;</code>
+             */
+            public Builder clearRoomInfo() {
+                if (roomInfoBuilder_ == null) {
+                    roomInfo_ = null;
+                    onChanged();
+                } else {
+                    roomInfo_ = null;
+                    roomInfoBuilder_ = null;
+                }
+
+                return this;
+            }
+
+            /**
+             * <code>.RoomCardIntoResponse roomInfo = 4;</code>
+             */
+            public game.mode.GameBase.RoomCardIntoResponse.Builder getRoomInfoBuilder() {
+
+                onChanged();
+                return getRoomInfoFieldBuilder().getBuilder();
+            }
+
+            /**
+             * <code>.RoomCardIntoResponse roomInfo = 4;</code>
+             */
+            public game.mode.GameBase.RoomCardIntoResponseOrBuilder getRoomInfoOrBuilder() {
+                if (roomInfoBuilder_ != null) {
+                    return roomInfoBuilder_.getMessageOrBuilder();
+                } else {
+                    return roomInfo_ == null ?
+                            game.mode.GameBase.RoomCardIntoResponse.getDefaultInstance() : roomInfo_;
+                }
+            }
+
+            /**
+             * <code>.RoomCardIntoResponse roomInfo = 4;</code>
+             */
+            private com.google.protobuf.SingleFieldBuilderV3<
+                    game.mode.GameBase.RoomCardIntoResponse, game.mode.GameBase.RoomCardIntoResponse.Builder, game.mode.GameBase.RoomCardIntoResponseOrBuilder>
+            getRoomInfoFieldBuilder() {
+                if (roomInfoBuilder_ == null) {
+                    roomInfoBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+                            game.mode.GameBase.RoomCardIntoResponse, game.mode.GameBase.RoomCardIntoResponse.Builder, game.mode.GameBase.RoomCardIntoResponseOrBuilder>(
+                            getRoomInfo(),
+                            getParentForChildren(),
+                            isClean());
+                    roomInfo_ = null;
+                }
+                return roomInfoBuilder_;
+            }
+
+            private game.mode.GameBase.RoomSeatsInfo seatInfo_ = null;
+            private com.google.protobuf.SingleFieldBuilderV3<
+                    game.mode.GameBase.RoomSeatsInfo, game.mode.GameBase.RoomSeatsInfo.Builder, game.mode.GameBase.RoomSeatsInfoOrBuilder> seatInfoBuilder_;
+
+            /**
+             * <code>.RoomSeatsInfo seatInfo = 5;</code>
+             */
+            public boolean hasSeatInfo() {
+                return seatInfoBuilder_ != null || seatInfo_ != null;
+            }
+
+            /**
+             * <code>.RoomSeatsInfo seatInfo = 5;</code>
+             */
+            public game.mode.GameBase.RoomSeatsInfo getSeatInfo() {
+                if (seatInfoBuilder_ == null) {
+                    return seatInfo_ == null ? game.mode.GameBase.RoomSeatsInfo.getDefaultInstance() : seatInfo_;
+                } else {
+                    return seatInfoBuilder_.getMessage();
+                }
+            }
+
+            /**
+             * <code>.RoomSeatsInfo seatInfo = 5;</code>
+             */
+            public Builder setSeatInfo(game.mode.GameBase.RoomSeatsInfo value) {
+                if (seatInfoBuilder_ == null) {
+                    if (value == null) {
+                        throw new NullPointerException();
+                    }
+                    seatInfo_ = value;
+                    onChanged();
+                } else {
+                    seatInfoBuilder_.setMessage(value);
+                }
+
+                return this;
+            }
+
+            /**
+             * <code>.RoomSeatsInfo seatInfo = 5;</code>
+             */
+            public Builder setSeatInfo(
+                    game.mode.GameBase.RoomSeatsInfo.Builder builderForValue) {
+                if (seatInfoBuilder_ == null) {
+                    seatInfo_ = builderForValue.build();
+                    onChanged();
+                } else {
+                    seatInfoBuilder_.setMessage(builderForValue.build());
+                }
+
+                return this;
+            }
+
+            /**
+             * <code>.RoomSeatsInfo seatInfo = 5;</code>
+             */
+            public Builder mergeSeatInfo(game.mode.GameBase.RoomSeatsInfo value) {
+                if (seatInfoBuilder_ == null) {
+                    if (seatInfo_ != null) {
+                        seatInfo_ =
+                                game.mode.GameBase.RoomSeatsInfo.newBuilder(seatInfo_).mergeFrom(value).buildPartial();
+                    } else {
+                        seatInfo_ = value;
+                    }
+                    onChanged();
+                } else {
+                    seatInfoBuilder_.mergeFrom(value);
+                }
+
+                return this;
+            }
+
+            /**
+             * <code>.RoomSeatsInfo seatInfo = 5;</code>
+             */
+            public Builder clearSeatInfo() {
+                if (seatInfoBuilder_ == null) {
+                    seatInfo_ = null;
+                    onChanged();
+                } else {
+                    seatInfo_ = null;
+                    seatInfoBuilder_ = null;
+                }
+
+                return this;
+            }
+
+            /**
+             * <code>.RoomSeatsInfo seatInfo = 5;</code>
+             */
+            public game.mode.GameBase.RoomSeatsInfo.Builder getSeatInfoBuilder() {
+
+                onChanged();
+                return getSeatInfoFieldBuilder().getBuilder();
+            }
+
+            /**
+             * <code>.RoomSeatsInfo seatInfo = 5;</code>
+             */
+            public game.mode.GameBase.RoomSeatsInfoOrBuilder getSeatInfoOrBuilder() {
+                if (seatInfoBuilder_ != null) {
+                    return seatInfoBuilder_.getMessageOrBuilder();
+                } else {
+                    return seatInfo_ == null ?
+                            game.mode.GameBase.RoomSeatsInfo.getDefaultInstance() : seatInfo_;
+                }
+            }
+
+            /**
+             * <code>.RoomSeatsInfo seatInfo = 5;</code>
+             */
+            private com.google.protobuf.SingleFieldBuilderV3<
+                    game.mode.GameBase.RoomSeatsInfo, game.mode.GameBase.RoomSeatsInfo.Builder, game.mode.GameBase.RoomSeatsInfoOrBuilder>
+            getSeatInfoFieldBuilder() {
+                if (seatInfoBuilder_ == null) {
+                    seatInfoBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+                            game.mode.GameBase.RoomSeatsInfo, game.mode.GameBase.RoomSeatsInfo.Builder, game.mode.GameBase.RoomSeatsInfoOrBuilder>(
+                            getSeatInfo(),
+                            getParentForChildren(),
+                            isClean());
+                    seatInfo_ = null;
+                }
+                return seatInfoBuilder_;
+            }
+
             public final Builder setUnknownFields(
                     final com.google.protobuf.UnknownFieldSet unknownFields) {
                 return this;
@@ -2016,63 +2608,64 @@ public final class Songjianghe {
         }
 
         public static game.mode.Songjianghe.SongjiangheMahjongReplayResponse getDefaultInstance() {
-            return DEFAULT_INSTANCE;
-        }
+      return DEFAULT_INSTANCE;
+    }
 
-        private static final com.google.protobuf.Parser<SongjiangheMahjongReplayResponse>
-                PARSER = new com.google.protobuf.AbstractParser<SongjiangheMahjongReplayResponse>() {
-            public SongjiangheMahjongReplayResponse parsePartialFrom(
-                    com.google.protobuf.CodedInputStream input,
-                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                    throws com.google.protobuf.InvalidProtocolBufferException {
-                return new SongjiangheMahjongReplayResponse(input, extensionRegistry);
-            }
-        };
+    private static final com.google.protobuf.Parser<SongjiangheMahjongReplayResponse>
+        PARSER = new com.google.protobuf.AbstractParser<SongjiangheMahjongReplayResponse>() {
+      public SongjiangheMahjongReplayResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new SongjiangheMahjongReplayResponse(input, extensionRegistry);
+      }
+    };
 
-        public static com.google.protobuf.Parser<SongjiangheMahjongReplayResponse> parser() {
-            return PARSER;
-        }
+    public static com.google.protobuf.Parser<SongjiangheMahjongReplayResponse> parser() {
+      return PARSER;
+    }
 
-        @java.lang.Override
-        public com.google.protobuf.Parser<SongjiangheMahjongReplayResponse> getParserForType() {
-            return PARSER;
-        }
+    @java.lang.Override
+    public com.google.protobuf.Parser<SongjiangheMahjongReplayResponse> getParserForType() {
+      return PARSER;
+    }
 
-        public game.mode.Songjianghe.SongjiangheMahjongReplayResponse getDefaultInstanceForType() {
-            return DEFAULT_INSTANCE;
-        }
+    public game.mode.Songjianghe.SongjiangheMahjongReplayResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
 
     }
 
     private static final com.google.protobuf.Descriptors.Descriptor
-            internal_static_SongjiangheMahjongIntoResponse_descriptor;
+    internal_static_SongjiangheMahjongIntoResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_SongjiangheMahjongIntoResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_SongjiangheMahjongReplayResponse_descriptor;
     private static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-            internal_static_SongjiangheMahjongIntoResponse_fieldAccessorTable;
-    private static final com.google.protobuf.Descriptors.Descriptor
-            internal_static_SongjiangheMahjongReplayResponse_descriptor;
-    private static final
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-            internal_static_SongjiangheMahjongReplayResponse_fieldAccessorTable;
+      internal_static_SongjiangheMahjongReplayResponse_fieldAccessorTable;
 
-    public static com.google.protobuf.Descriptors.FileDescriptor
-    getDescriptor() {
-        return descriptor;
-    }
-
-    private static com.google.protobuf.Descriptors.FileDescriptor
-            descriptor;
-
-    static {
-        java.lang.String[] descriptorData = {
-                "\n\021songjianghe.proto\032\016gameBase.proto\032\rmah" +
-                        "jong.proto\"U\n\036SongjiangheMahjongIntoResp" +
-                        "onse\022\021\n\tgameTimes\030\001 \001(\r\022\021\n\tgameRules\030\002 \001" +
-                        "(\r\022\r\n\005count\030\003 \001(\r\"\224\001\n SongjiangheMahjong" +
-      "ReplayResponse\022$\n\005start\030\001 \001(\0132\025.MahjongS" +
-      "tartResponse\022\"\n\007history\030\002 \003(\0132\021.Operatio" +
-      "nHistory\022&\n\006result\030\003 \001(\0132\026.MahjongResult" +
-      "ResponseB\013\n\tgame.modeb\006proto3"
+  public static com.google.protobuf.Descriptors.FileDescriptor
+      getDescriptor() {
+    return descriptor;
+  }
+  private static  com.google.protobuf.Descriptors.FileDescriptor
+      descriptor;
+  static {
+    java.lang.String[] descriptorData = {
+      "\n\021songjianghe.proto\032\016gameBase.proto\032\rmah" +
+      "jong.proto\"x\n\036SongjiangheMahjongIntoResp" +
+      "onse\022\021\n\tgameTimes\030\001 \001(\r\022\016\n\006normal\030\002 \001(\010\022" +
+      "\021\n\tsingleFan\030\003 \001(\010\022\021\n\tgameRules\030\004 \001(\r\022\r\n" +
+      "\005count\030\005 \001(\r\"\327\001\n SongjiangheMahjongRepla" +
+      "yResponse\022\"\n\010gameInfo\030\001 \001(\0132\020.MahjongGam" +
+      "eInfo\022\034\n\007history\030\002 \003(\0132\013.BaseAction\022&\n\006r" +
+      "esult\030\003 \001(\0132\026.MahjongResultResponse\022\'\n\010r" +
+      "oomInfo\030\004 \001(\0132\025.RoomCardIntoResponse\022 \n\010" +
+      "seatInfo\030\005 \001(\0132\016.RoomSeatsInfoB\013\n\tgame.m",
+      "odeb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -2093,13 +2686,13 @@ public final class Songjianghe {
     internal_static_SongjiangheMahjongIntoResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_SongjiangheMahjongIntoResponse_descriptor,
-        new java.lang.String[] { "GameTimes", "GameRules", "Count", });
+        new java.lang.String[] { "GameTimes", "Normal", "SingleFan", "GameRules", "Count", });
     internal_static_SongjiangheMahjongReplayResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_SongjiangheMahjongReplayResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_SongjiangheMahjongReplayResponse_descriptor,
-        new java.lang.String[] { "Start", "History", "Result", });
+        new java.lang.String[] { "GameInfo", "History", "Result", "RoomInfo", "SeatInfo", });
     game.mode.GameBase.getDescriptor();
     game.mode.Mahjong.getDescriptor();
   }

@@ -41,8 +41,8 @@ public class RedisService {
         }
     }
 
-    public void lock(String key) {
-        redisClientTemplate.lock(key);
+    public boolean lock(String key) {
+        return redisClientTemplate.lock(key, 6000);
     }
 
     public void lock(String key, long timeout) {
