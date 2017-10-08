@@ -16,6 +16,8 @@ import java.io.*;
 import java.net.Socket;
 import java.net.URLDecoder;
 import java.security.Key;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by pengyi
@@ -144,6 +146,39 @@ public class NoticeReceive implements Runnable {
                         HallTcpService.userClients.get(socketRequest.getUserId()).send(GameBase.BaseConnection.newBuilder().setOperationType(GameBase.OperationType.AGENT_ROOM_ITEM).setData(roomItem.toByteString()).build(), socketRequest.getUserId());
                     }
                 }
+                break;
+            case "/3"://更新代开房列表
+                while (!redisService.lock("lock_agent_rooms" + socketRequest.getUserId())) {
+                }
+                List<String> agentRooms;
+                if (redisService.exists("agent_rooms" + socketRequest.getUserId())) {
+                    agentRooms = JSON.parseArray(redisService.getCache("agent_rooms" + socketRequest.getUserId()), String.class);
+                } else {
+                    agentRooms = new ArrayList<>();
+                }
+                Hall.AgentRoomList.Builder agentRoomList = Hall.AgentRoomList.newBuilder();
+                List<String> removeRooms = new ArrayList<>();
+                for (String roomNo : agentRooms) {
+                    if (redisService.exists("room" + roomNo)) {
+                        Room room = JSON.parseObject(redisService.getCache("room" + roomNo), Room.class);
+                        agentRoomList.addRoomItem(Hall.AgentRoomItem.newBuilder().setCount(room.getCount())
+                                .setCurrentCount(room.getSeats().size()).setGameRules(room.getGameRules()).setGameTimes(room.getGameTimes())
+                                .setNormal(room.isNormal()).setSingleFan(room.isSingleFan()).setRoomNo(roomNo));
+                    } else {
+                        removeRooms.add(roomNo);
+                    }
+                }
+                agentRooms.removeAll(removeRooms);
+                if (HallTcpService.userClients.containsKey(socketRequest.getUserId())) {
+                    HallTcpService.userClients.get(socketRequest.getUserId()).send(GameBase.BaseConnection.newBuilder()
+                            .setOperationType(GameBase.OperationType.AGENT_ROOM_LIST).setData(agentRoomList.build().toByteString()).build(), socketRequest.getUserId());
+                }
+                if (0 < agentRooms.size()) {
+                    redisService.addCache("agent_rooms" + socketRequest.getUserId(), JSON.toJSONString(agentRooms));
+                } else {
+                    redisService.delete("agent_rooms" + socketRequest.getUserId());
+                }
+                redisService.unlock("lock_agent_rooms" + socketRequest.getUserId());
                 break;
         }
 
