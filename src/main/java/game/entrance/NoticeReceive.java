@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import game.mode.*;
+import game.mode.songjianghe.Room;
 import game.redis.RedisService;
 import game.utils.HttpUtil;
 import game.utils.RSAUtils;
@@ -119,7 +120,7 @@ public class NoticeReceive implements Runnable {
         SocketRequest socketRequest = JSON.parseObject(param, SocketRequest.class);
         ApiResponse apiResponse = new ApiResponse();
         switch (requestPath) {
-            case "1"://更新货币
+            case "/1"://更新货币
                 synchronized (this) {
                     wait(1000);
                 }
@@ -133,8 +134,16 @@ public class NoticeReceive implements Runnable {
                 }
                 apiResponse.setCode(0);
                 break;
-            case "2"://更新单个带开房
-//                if (redisService.exists())
+            case "/2"://更新单个代开房
+                if (redisService.exists("room" + socketRequest.getContent())) {
+                    Room room = JSON.parseObject(redisService.getCache("room" + socketRequest.getContent()), Room.class);
+                    Hall.AgentRoomItem roomItem = Hall.AgentRoomItem.newBuilder().setCount(room.getCount())
+                            .setCurrentCount(room.getSeats().size()).setGameRules(room.getGameRules()).setGameTimes(room.getGameTimes())
+                            .setNormal(room.isNormal()).setSingleFan(room.isSingleFan()).setRoomNo(socketRequest.getContent()).build();
+                    if (HallTcpService.userClients.containsKey(socketRequest.getUserId())) {
+                        HallTcpService.userClients.get(socketRequest.getUserId()).send(GameBase.BaseConnection.newBuilder().setOperationType(GameBase.OperationType.AGENT_ROOM_ITEM).setData(roomItem.toByteString()).build(), socketRequest.getUserId());
+                    }
+                }
                 break;
         }
 

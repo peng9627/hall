@@ -156,7 +156,7 @@ public final class Songjianghe {
 
         public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return game.mode.Songjianghe.internal_static_SongjiangheMahjongIntoResponse_descriptor;
+            return game.mode.Songjianghe.internal_static_SongjiangheMahjongIntoResponse_descriptor;
         }
 
         protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -1088,9 +1088,9 @@ public final class Songjianghe {
                             if (subBuilder != null) {
                                 subBuilder.mergeFrom(seatInfo_);
                                 seatInfo_ = subBuilder.buildPartial();
-                            }
+              }
 
-                            break;
+              break;
                         }
                     }
                 }
@@ -1891,9 +1891,9 @@ public final class Songjianghe {
 
             /**
              * <pre>
-             * 操作记录
+             *操作记录
              * </pre>
-             * <p>
+             *
              * <code>repeated .BaseAction history = 2;</code>
              */
             public java.util.List<game.mode.GameBase.BaseAction> getHistoryList() {
@@ -1906,9 +1906,9 @@ public final class Songjianghe {
 
             /**
              * <pre>
-             * 操作记录
+             *操作记录
              * </pre>
-             * <p>
+             *
              * <code>repeated .BaseAction history = 2;</code>
              */
             public int getHistoryCount() {
@@ -1921,9 +1921,9 @@ public final class Songjianghe {
 
             /**
              * <pre>
-             * 操作记录
+             *操作记录
              * </pre>
-             * <p>
+             *
              * <code>repeated .BaseAction history = 2;</code>
              */
             public game.mode.GameBase.BaseAction getHistory(int index) {
@@ -1936,9 +1936,9 @@ public final class Songjianghe {
 
             /**
              * <pre>
-             * 操作记录
+             *操作记录
              * </pre>
-             * <p>
+             *
              * <code>repeated .BaseAction history = 2;</code>
              */
             public Builder setHistory(
@@ -1958,9 +1958,9 @@ public final class Songjianghe {
 
             /**
              * <pre>
-             * 操作记录
+             *操作记录
              * </pre>
-             * <p>
+             *
              * <code>repeated .BaseAction history = 2;</code>
              */
             public Builder setHistory(
@@ -1977,9 +1977,9 @@ public final class Songjianghe {
 
             /**
              * <pre>
-             * 操作记录
+             *操作记录
              * </pre>
-             * <p>
+             *
              * <code>repeated .BaseAction history = 2;</code>
              */
             public Builder addHistory(game.mode.GameBase.BaseAction value) {
@@ -1998,9 +1998,9 @@ public final class Songjianghe {
 
             /**
              * <pre>
-             * 操作记录
+             *操作记录
              * </pre>
-             * <p>
+             *
              * <code>repeated .BaseAction history = 2;</code>
              */
             public Builder addHistory(
@@ -2020,9 +2020,9 @@ public final class Songjianghe {
 
             /**
              * <pre>
-             * 操作记录
+             *操作记录
              * </pre>
-             * <p>
+             *
              * <code>repeated .BaseAction history = 2;</code>
              */
             public Builder addHistory(
@@ -2039,9 +2039,9 @@ public final class Songjianghe {
 
             /**
              * <pre>
-             * 操作记录
+             *操作记录
              * </pre>
-             * <p>
+             *
              * <code>repeated .BaseAction history = 2;</code>
              */
             public Builder addHistory(
@@ -2058,9 +2058,9 @@ public final class Songjianghe {
 
             /**
              * <pre>
-             * 操作记录
+             *操作记录
              * </pre>
-             * <p>
+             *
              * <code>repeated .BaseAction history = 2;</code>
              */
             public Builder addAllHistory(
@@ -2078,9 +2078,9 @@ public final class Songjianghe {
 
             /**
              * <pre>
-             * 操作记录
+             *操作记录
              * </pre>
-             * <p>
+             *
              * <code>repeated .BaseAction history = 2;</code>
              */
             public Builder clearHistory() {
@@ -2096,9 +2096,9 @@ public final class Songjianghe {
 
             /**
              * <pre>
-             * 操作记录
+             *操作记录
              * </pre>
-             * <p>
+             *
              * <code>repeated .BaseAction history = 2;</code>
              */
             public Builder removeHistory(int index) {
@@ -2114,9 +2114,9 @@ public final class Songjianghe {
 
             /**
              * <pre>
-             * 操作记录
+             *操作记录
              * </pre>
-             * <p>
+             *
              * <code>repeated .BaseAction history = 2;</code>
              */
             public game.mode.GameBase.BaseAction.Builder getHistoryBuilder(
@@ -2126,9 +2126,9 @@ public final class Songjianghe {
 
             /**
              * <pre>
-             * 操作记录
+             *操作记录
              * </pre>
-             * <p>
+             *
              * <code>repeated .BaseAction history = 2;</code>
              */
             public game.mode.GameBase.BaseActionOrBuilder getHistoryOrBuilder(
@@ -2142,9 +2142,9 @@ public final class Songjianghe {
 
             /**
              * <pre>
-             * 操作记录
+             *操作记录
              * </pre>
-             * <p>
+             *
              * <code>repeated .BaseAction history = 2;</code>
              */
             public java.util.List<? extends game.mode.GameBase.BaseActionOrBuilder>
@@ -2158,9 +2158,9 @@ public final class Songjianghe {
 
             /**
              * <pre>
-             * 操作记录
+             *操作记录
              * </pre>
-             * <p>
+             *
              * <code>repeated .BaseAction history = 2;</code>
              */
             public game.mode.GameBase.BaseAction.Builder addHistoryBuilder() {
@@ -2170,9 +2170,9 @@ public final class Songjianghe {
 
             /**
              * <pre>
-             * 操作记录
+             *操作记录
              * </pre>
-             * <p>
+             *
              * <code>repeated .BaseAction history = 2;</code>
              */
             public game.mode.GameBase.BaseAction.Builder addHistoryBuilder(
@@ -2183,9 +2183,9 @@ public final class Songjianghe {
 
             /**
              * <pre>
-             * 操作记录
+             *操作记录
              * </pre>
-             * <p>
+             *
              * <code>repeated .BaseAction history = 2;</code>
              */
             public java.util.List<game.mode.GameBase.BaseAction.Builder>
@@ -2575,39 +2575,37 @@ public final class Songjianghe {
             private com.google.protobuf.SingleFieldBuilderV3<
                     game.mode.GameBase.RoomSeatsInfo, game.mode.GameBase.RoomSeatsInfo.Builder, game.mode.GameBase.RoomSeatsInfoOrBuilder>
             getSeatInfoFieldBuilder() {
-                if (seatInfoBuilder_ == null) {
-                    seatInfoBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-                            game.mode.GameBase.RoomSeatsInfo, game.mode.GameBase.RoomSeatsInfo.Builder, game.mode.GameBase.RoomSeatsInfoOrBuilder>(
-                            getSeatInfo(),
-                            getParentForChildren(),
-                            isClean());
-                    seatInfo_ = null;
-                }
-                return seatInfoBuilder_;
-            }
+        if (seatInfoBuilder_ == null) {
+          seatInfoBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              game.mode.GameBase.RoomSeatsInfo, game.mode.GameBase.RoomSeatsInfo.Builder, game.mode.GameBase.RoomSeatsInfoOrBuilder>(
+                  getSeatInfo(),
+                  getParentForChildren(),
+                  isClean());
+          seatInfo_ = null;
+        }
+        return seatInfoBuilder_;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
 
-            public final Builder setUnknownFields(
-                    final com.google.protobuf.UnknownFieldSet unknownFields) {
-                return this;
-            }
-
-            public final Builder mergeUnknownFields(
-                    final com.google.protobuf.UnknownFieldSet unknownFields) {
-                return this;
-            }
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return this;
+      }
 
 
             // @@protoc_insertion_point(builder_scope:SongjiangheMahjongReplayResponse)
-        }
+    }
 
-        // @@protoc_insertion_point(class_scope:SongjiangheMahjongReplayResponse)
-        private static final game.mode.Songjianghe.SongjiangheMahjongReplayResponse DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:SongjiangheMahjongReplayResponse)
+    private static final game.mode.Songjianghe.SongjiangheMahjongReplayResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new game.mode.Songjianghe.SongjiangheMahjongReplayResponse();
+    }
 
-        static {
-            DEFAULT_INSTANCE = new game.mode.Songjianghe.SongjiangheMahjongReplayResponse();
-        }
-
-        public static game.mode.Songjianghe.SongjiangheMahjongReplayResponse getDefaultInstance() {
+    public static game.mode.Songjianghe.SongjiangheMahjongReplayResponse getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -2634,16 +2632,16 @@ public final class Songjianghe {
       return DEFAULT_INSTANCE;
     }
 
-    }
+  }
 
-    private static final com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_SongjiangheMahjongIntoResponse_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_SongjiangheMahjongIntoResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_SongjiangheMahjongReplayResponse_descriptor;
-    private static final
+  private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_SongjiangheMahjongReplayResponse_fieldAccessorTable;
 

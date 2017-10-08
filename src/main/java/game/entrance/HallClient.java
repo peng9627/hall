@@ -208,6 +208,20 @@ public class HallClient {
                     if (redisService.exists("room" + addToRoomRequest.getRoomNo())) {
                         Room room = JSON.parseObject(redisService.getCache("room" + addToRoomRequest.getRoomNo()), Room.class);
 
+                        boolean sameIp = false;
+                        if (0 == (room.getGameRules() >> 3) % 2) {
+                            for (Seat seat : room.getSeats()) {
+                                if (seat.getIp().equals(ip)) {
+                                    messageReceive.send(this.response.setOperationType(GameBase.OperationType.ADD_ROOM).setData(Hall.RoomResponse.newBuilder()
+                                            .setError(GameBase.ErrorCode.SAME_IP).build().toByteString()).build(), userId);
+                                    sameIp = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if (sameIp) {
+                            break;
+                        }
                         if (0 != room.getGameStatus().compareTo(GameStatus.WAITING)) {
                             createRoomResponse.setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.GAME_START);
                         } else {

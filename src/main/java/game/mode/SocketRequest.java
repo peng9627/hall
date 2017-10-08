@@ -7,16 +7,8 @@ package game.mode;
  */
 public class SocketRequest {
 
-    private int noticeType;
     private int userId;
-
-    public int getNoticeType() {
-        return noticeType;
-    }
-
-    public void setNoticeType(int noticeType) {
-        this.noticeType = noticeType;
-    }
+    private String content;
 
     public int getUserId() {
         return userId;
@@ -24,5 +16,13 @@ public class SocketRequest {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }
