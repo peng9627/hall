@@ -119,7 +119,7 @@ public class NoticeReceive implements Runnable {
         SocketRequest socketRequest = JSON.parseObject(param, SocketRequest.class);
         ApiResponse apiResponse = new ApiResponse();
         switch (requestPath) {
-            case "1":
+            case "/1":
                 synchronized (this) {
                     wait(1000);
                 }
