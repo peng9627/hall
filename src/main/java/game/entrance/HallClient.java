@@ -513,7 +513,7 @@ public class HallClient {
                             seatResponse.setSeatNo(seatRecord.getSeatNo());
                             seatResponse.setID(seatRecord.getUserId());
                             seatResponse.setScore(seatRecord.getScore() - seatRecord.getWinOrLose());
-                            seatResponse.setReady(true);
+                            seatResponse.setReady(false);
                             seatResponse.setNickname(seatRecord.getNickname());
                             seatResponse.setHead(seatRecord.getHead());
                             seatResponse.setSex(seatRecord.isSex());
@@ -575,7 +575,7 @@ public class HallClient {
                         roomCardIntoResponseBuilder.setRoomOwner(infoRepresentation.getRoomOwner());
                         roomCardIntoResponseBuilder.setStarted(true);
                         Songjianghe.SongjiangheMahjongIntoResponse.Builder intoResponseBuilder = Songjianghe.SongjiangheMahjongIntoResponse.newBuilder();
-                        intoResponseBuilder.setCount(infoRepresentation.getGameCount());
+                        intoResponseBuilder.setCount(infoRepresentation.getPeopleCount());
                         intoResponseBuilder.setGameTimes(infoRepresentation.getGameTotal());
                         JSONObject jsonObject = JSON.parseObject(infoRepresentation.getGameRule());
                         intoResponseBuilder.setGameRules(jsonObject.getIntValue("gameRule"));
