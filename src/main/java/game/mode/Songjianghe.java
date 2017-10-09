@@ -863,10 +863,10 @@ public final class Songjianghe {
 
         @java.lang.Override
         public com.google.protobuf.Parser<SongjiangheMahjongIntoResponse> getParserForType() {
-            return PARSER;
-        }
+      return PARSER;
+    }
 
-        public game.mode.Songjianghe.SongjiangheMahjongIntoResponse getDefaultInstanceForType() {
+    public game.mode.Songjianghe.SongjiangheMahjongIntoResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
