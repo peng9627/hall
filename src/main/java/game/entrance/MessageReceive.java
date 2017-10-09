@@ -1,6 +1,8 @@
 package game.entrance;
 
+import game.constant.Constant;
 import game.mode.GameBase;
+import game.mode.Hall;
 import game.redis.RedisService;
 import game.timeout.MessageTimeout;
 import game.utils.ByteUtils;
@@ -131,6 +133,8 @@ public class MessageReceive implements Runnable {
     @Override
     public void run() {
         try {
+            send(GameBase.BaseConnection.newBuilder().setOperationType(GameBase.OperationType.VERSION)
+                    .setData(Hall.AppVersion.newBuilder().setVersion(Constant.appVersion).build().toByteString()).build(), 0);
             while (connect) {
                 int len = readInt(is);
                 String md5 = readString(is);
