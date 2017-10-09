@@ -488,7 +488,11 @@ public class HallClient {
                             for (GameResult gameResult : seatRecord.getAnGangResult()) {
                                 anGangScore += gameResult.getScore();
                             }
-                            mahjongUserResult.setGangScore(mingGangScore + anGangScore);
+                            int xfGangScore = 0;
+                            for (GameResult gameResult : seatRecord.getXfGangResult()) {
+                                xfGangScore += gameResult.getScore();
+                            }
+                            mahjongUserResult.setGangScore(mingGangScore + anGangScore + xfGangScore);
                             if (null != seatRecord.getChiCards()) {
                                 mahjongUserResult.addAllChiCards(seatRecord.getChiCards());
                             }

@@ -18,6 +18,7 @@ public class SeatRecord {
     private GameResult cardResult;              //结算
     private List<GameResult> mingGangResult = new ArrayList<>();        //明杠
     private List<GameResult> anGangResult = new ArrayList<>();        //暗杠
+    private List<GameResult> xfGangResult = new ArrayList<>();        //旋风杠
     private int huCard;
     private int score;
     private boolean sex;                        //性别
@@ -134,6 +135,14 @@ public class SeatRecord {
 
     public void setAnGangResult(List<GameResult> anGangResult) {
         this.anGangResult = anGangResult;
+    }
+
+    public List<GameResult> getXfGangResult() {
+        return xfGangResult;
+    }
+
+    public void setXfGangResult(List<GameResult> xfGangResult) {
+        this.xfGangResult = xfGangResult;
     }
 
     public int getHuCard() {
