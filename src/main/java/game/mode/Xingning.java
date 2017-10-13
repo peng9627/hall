@@ -17,107 +17,88 @@ public final class Xingning {
                 (com.google.protobuf.ExtensionRegistryLite) registry);
     }
 
-    public interface XingningMahjongReplayResponseOrBuilder extends
-            // @@protoc_insertion_point(interface_extends:XingningMahjongReplayResponse)
+    public interface XingningMahjongIntoResponseOrBuilder extends
+            // @@protoc_insertion_point(interface_extends:XingningMahjongIntoResponse)
             com.google.protobuf.MessageOrBuilder {
 
         /**
-         * <code>.MahjongStartResponse start = 1;</code>
+         * <pre>
+         * 基础分
+         * </pre>
+         * <p>
+         * <code>uint32 baseScore = 1;</code>
          */
-        boolean hasStart();
-
-        /**
-         * <code>.MahjongStartResponse start = 1;</code>
-         */
-        game.mode.Mahjong.MahjongStartResponse getStart();
-
-        /**
-         * <code>.MahjongStartResponse start = 1;</code>
-         */
-        game.mode.Mahjong.MahjongStartResponseOrBuilder getStartOrBuilder();
+        int getBaseScore();
 
         /**
          * <pre>
-         * 操作记录
+         * 游戏局数
          * </pre>
          * <p>
-         * <code>repeated .OperationHistory history = 2;</code>
+         * <code>uint32 gameTimes = 2;</code>
          */
-        java.util.List<game.mode.GameBase.OperationHistory>
-        getHistoryList();
+        int getGameTimes();
 
         /**
          * <pre>
-         * 操作记录
+         * 游戏规则  低位到高位到顺序（鸡胡，门清，天地和，幺九，全番，十三幺，对对胡，十八罗汉，七小对，清一色，混一色，海底捞，杠爆全包，庄硬，无鬼加倍）
          * </pre>
          * <p>
-         * <code>repeated .OperationHistory history = 2;</code>
+         * <code>uint32 gameRules = 3;</code>
          */
-        game.mode.GameBase.OperationHistory getHistory(int index);
+        int getGameRules();
 
         /**
          * <pre>
-         * 操作记录
+         * 1.红中做鬼，2.无鬼，3.翻鬼
          * </pre>
          * <p>
-         * <code>repeated .OperationHistory history = 2;</code>
+         * <code>uint32 ghost = 4;</code>
          */
-        int getHistoryCount();
+        int getGhost();
 
         /**
          * <pre>
-         * 操作记录
+         * 马数
          * </pre>
          * <p>
-         * <code>repeated .OperationHistory history = 2;</code>
+         * <code>uint32 maCount = 5;</code>
          */
-        java.util.List<? extends game.mode.GameBase.OperationHistoryOrBuilder>
-        getHistoryOrBuilderList();
+        int getMaCount();
 
         /**
          * <pre>
-         * 操作记录
+         * 人数
          * </pre>
          * <p>
-         * <code>repeated .OperationHistory history = 2;</code>
+         * <code>uint32 count = 6;</code>
          */
-        game.mode.GameBase.OperationHistoryOrBuilder getHistoryOrBuilder(
-                int index);
-
-        /**
-         * <code>.MahjongResultResponse result = 3;</code>
-         */
-        boolean hasResult();
-
-        /**
-         * <code>.MahjongResultResponse result = 3;</code>
-         */
-        game.mode.Mahjong.MahjongResultResponse getResult();
-
-        /**
-         * <code>.MahjongResultResponse result = 3;</code>
-         */
-        game.mode.Mahjong.MahjongResultResponseOrBuilder getResultOrBuilder();
+        int getCount();
     }
 
     /**
      * <pre>
-     * 回放    REPLAY
+     * 进入房间返回 ROOM_INFO
      * </pre>
      * <p>
-     * Protobuf type {@code XingningMahjongReplayResponse}
+     * Protobuf type {@code XingningMahjongIntoResponse}
      */
-    public static final class XingningMahjongReplayResponse extends
+    public static final class XingningMahjongIntoResponse extends
             com.google.protobuf.GeneratedMessageV3 implements
-            // @@protoc_insertion_point(message_implements:XingningMahjongReplayResponse)
-            XingningMahjongReplayResponseOrBuilder {
-        // Use XingningMahjongReplayResponse.newBuilder() to construct.
-        private XingningMahjongReplayResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+            // @@protoc_insertion_point(message_implements:XingningMahjongIntoResponse)
+            XingningMahjongIntoResponseOrBuilder {
+        // Use XingningMahjongIntoResponse.newBuilder() to construct.
+        private XingningMahjongIntoResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
             super(builder);
         }
 
-        private XingningMahjongReplayResponse() {
-            history_ = java.util.Collections.emptyList();
+        private XingningMahjongIntoResponse() {
+            baseScore_ = 0;
+            gameTimes_ = 0;
+            gameRules_ = 0;
+            ghost_ = 0;
+            maCount_ = 0;
+            count_ = 0;
         }
 
         @java.lang.Override
@@ -126,7 +107,7 @@ public final class Xingning {
             return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
         }
 
-        private XingningMahjongReplayResponse(
+        private XingningMahjongIntoResponse(
                 com.google.protobuf.CodedInputStream input,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws com.google.protobuf.InvalidProtocolBufferException {
@@ -146,39 +127,34 @@ public final class Xingning {
                             }
                             break;
                         }
-                        case 10: {
-                            game.mode.Mahjong.MahjongStartResponse.Builder subBuilder = null;
-                            if (start_ != null) {
-                                subBuilder = start_.toBuilder();
-                            }
-                            start_ = input.readMessage(game.mode.Mahjong.MahjongStartResponse.parser(), extensionRegistry);
-                            if (subBuilder != null) {
-                                subBuilder.mergeFrom(start_);
-                                start_ = subBuilder.buildPartial();
-                            }
+                        case 8: {
 
+                            baseScore_ = input.readUInt32();
                             break;
                         }
-                        case 18: {
-                            if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
-                                history_ = new java.util.ArrayList<game.mode.GameBase.OperationHistory>();
-                                mutable_bitField0_ |= 0x00000002;
-                            }
-                            history_.add(
-                                    input.readMessage(game.mode.GameBase.OperationHistory.parser(), extensionRegistry));
+                        case 16: {
+
+                            gameTimes_ = input.readUInt32();
                             break;
                         }
-                        case 26: {
-                            game.mode.Mahjong.MahjongResultResponse.Builder subBuilder = null;
-                            if (result_ != null) {
-                                subBuilder = result_.toBuilder();
-                            }
-                            result_ = input.readMessage(game.mode.Mahjong.MahjongResultResponse.parser(), extensionRegistry);
-                            if (subBuilder != null) {
-                                subBuilder.mergeFrom(result_);
-                                result_ = subBuilder.buildPartial();
-                            }
+                        case 24: {
 
+                            gameRules_ = input.readUInt32();
+                            break;
+                        }
+                        case 32: {
+
+                            ghost_ = input.readUInt32();
+                            break;
+                        }
+                        case 40: {
+
+                            maCount_ = input.readUInt32();
+                            break;
+                        }
+                        case 48: {
+
+                            count_ = input.readUInt32();
                             break;
                         }
                     }
@@ -189,132 +165,104 @@ public final class Xingning {
                 throw new com.google.protobuf.InvalidProtocolBufferException(
                         e).setUnfinishedMessage(this);
             } finally {
-                if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
-                    history_ = java.util.Collections.unmodifiableList(history_);
-                }
                 makeExtensionsImmutable();
             }
         }
 
         public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-            return game.mode.Xingning.internal_static_XingningMahjongReplayResponse_descriptor;
+      return game.mode.Xingning.internal_static_XingningMahjongIntoResponse_descriptor;
         }
 
         protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-            return game.mode.Xingning.internal_static_XingningMahjongReplayResponse_fieldAccessorTable
+            return game.mode.Xingning.internal_static_XingningMahjongIntoResponse_fieldAccessorTable
                     .ensureFieldAccessorsInitialized(
-                            game.mode.Xingning.XingningMahjongReplayResponse.class, game.mode.Xingning.XingningMahjongReplayResponse.Builder.class);
+                            game.mode.Xingning.XingningMahjongIntoResponse.class, game.mode.Xingning.XingningMahjongIntoResponse.Builder.class);
         }
 
-        private int bitField0_;
-        public static final int START_FIELD_NUMBER = 1;
-        private game.mode.Mahjong.MahjongStartResponse start_;
-
-        /**
-         * <code>.MahjongStartResponse start = 1;</code>
-         */
-        public boolean hasStart() {
-            return start_ != null;
-        }
-
-        /**
-         * <code>.MahjongStartResponse start = 1;</code>
-         */
-        public game.mode.Mahjong.MahjongStartResponse getStart() {
-            return start_ == null ? game.mode.Mahjong.MahjongStartResponse.getDefaultInstance() : start_;
-        }
-
-        /**
-         * <code>.MahjongStartResponse start = 1;</code>
-         */
-        public game.mode.Mahjong.MahjongStartResponseOrBuilder getStartOrBuilder() {
-            return getStart();
-        }
-
-        public static final int HISTORY_FIELD_NUMBER = 2;
-        private java.util.List<game.mode.GameBase.OperationHistory> history_;
+        public static final int BASESCORE_FIELD_NUMBER = 1;
+        private int baseScore_;
 
         /**
          * <pre>
-         * 操作记录
+         * 基础分
          * </pre>
          * <p>
-         * <code>repeated .OperationHistory history = 2;</code>
+         * <code>uint32 baseScore = 1;</code>
          */
-        public java.util.List<game.mode.GameBase.OperationHistory> getHistoryList() {
-            return history_;
+        public int getBaseScore() {
+            return baseScore_;
         }
+
+        public static final int GAMETIMES_FIELD_NUMBER = 2;
+        private int gameTimes_;
 
         /**
          * <pre>
-         * 操作记录
+         * 游戏局数
          * </pre>
          * <p>
-         * <code>repeated .OperationHistory history = 2;</code>
+         * <code>uint32 gameTimes = 2;</code>
          */
-        public java.util.List<? extends game.mode.GameBase.OperationHistoryOrBuilder>
-        getHistoryOrBuilderList() {
-            return history_;
+        public int getGameTimes() {
+            return gameTimes_;
         }
+
+        public static final int GAMERULES_FIELD_NUMBER = 3;
+        private int gameRules_;
 
         /**
          * <pre>
-         * 操作记录
+         * 游戏规则  低位到高位到顺序（鸡胡，门清，天地和，幺九，全番，十三幺，对对胡，十八罗汉，七小对，清一色，混一色，海底捞，杠爆全包，庄硬，无鬼加倍）
          * </pre>
          * <p>
-         * <code>repeated .OperationHistory history = 2;</code>
+         * <code>uint32 gameRules = 3;</code>
          */
-        public int getHistoryCount() {
-            return history_.size();
+        public int getGameRules() {
+            return gameRules_;
         }
+
+        public static final int GHOST_FIELD_NUMBER = 4;
+        private int ghost_;
 
         /**
          * <pre>
-         * 操作记录
+         * 1.红中做鬼，2.无鬼，3.翻鬼
          * </pre>
          * <p>
-         * <code>repeated .OperationHistory history = 2;</code>
+         * <code>uint32 ghost = 4;</code>
          */
-        public game.mode.GameBase.OperationHistory getHistory(int index) {
-            return history_.get(index);
+        public int getGhost() {
+            return ghost_;
         }
+
+        public static final int MACOUNT_FIELD_NUMBER = 5;
+        private int maCount_;
 
         /**
          * <pre>
-         * 操作记录
+         * 马数
          * </pre>
          * <p>
-         * <code>repeated .OperationHistory history = 2;</code>
+         * <code>uint32 maCount = 5;</code>
          */
-        public game.mode.GameBase.OperationHistoryOrBuilder getHistoryOrBuilder(
-                int index) {
-            return history_.get(index);
+        public int getMaCount() {
+            return maCount_;
         }
 
-        public static final int RESULT_FIELD_NUMBER = 3;
-        private game.mode.Mahjong.MahjongResultResponse result_;
+        public static final int COUNT_FIELD_NUMBER = 6;
+        private int count_;
 
         /**
-         * <code>.MahjongResultResponse result = 3;</code>
+         * <pre>
+         * 人数
+         * </pre>
+         * <p>
+         * <code>uint32 count = 6;</code>
          */
-        public boolean hasResult() {
-            return result_ != null;
-        }
-
-        /**
-         * <code>.MahjongResultResponse result = 3;</code>
-         */
-        public game.mode.Mahjong.MahjongResultResponse getResult() {
-            return result_ == null ? game.mode.Mahjong.MahjongResultResponse.getDefaultInstance() : result_;
-        }
-
-        /**
-         * <code>.MahjongResultResponse result = 3;</code>
-         */
-        public game.mode.Mahjong.MahjongResultResponseOrBuilder getResultOrBuilder() {
-            return getResult();
+        public int getCount() {
+            return count_;
         }
 
         private byte memoizedIsInitialized = -1;
@@ -330,14 +278,23 @@ public final class Xingning {
 
         public void writeTo(com.google.protobuf.CodedOutputStream output)
                 throws java.io.IOException {
-            if (start_ != null) {
-                output.writeMessage(1, getStart());
+            if (baseScore_ != 0) {
+                output.writeUInt32(1, baseScore_);
             }
-            for (int i = 0; i < history_.size(); i++) {
-                output.writeMessage(2, history_.get(i));
+            if (gameTimes_ != 0) {
+                output.writeUInt32(2, gameTimes_);
             }
-            if (result_ != null) {
-                output.writeMessage(3, getResult());
+            if (gameRules_ != 0) {
+                output.writeUInt32(3, gameRules_);
+            }
+            if (ghost_ != 0) {
+                output.writeUInt32(4, ghost_);
+            }
+            if (maCount_ != 0) {
+                output.writeUInt32(5, maCount_);
+            }
+            if (count_ != 0) {
+                output.writeUInt32(6, count_);
             }
         }
 
@@ -346,17 +303,29 @@ public final class Xingning {
             if (size != -1) return size;
 
             size = 0;
-            if (start_ != null) {
+            if (baseScore_ != 0) {
                 size += com.google.protobuf.CodedOutputStream
-                        .computeMessageSize(1, getStart());
+                        .computeUInt32Size(1, baseScore_);
             }
-            for (int i = 0; i < history_.size(); i++) {
+            if (gameTimes_ != 0) {
                 size += com.google.protobuf.CodedOutputStream
-                        .computeMessageSize(2, history_.get(i));
+                        .computeUInt32Size(2, gameTimes_);
             }
-            if (result_ != null) {
+            if (gameRules_ != 0) {
                 size += com.google.protobuf.CodedOutputStream
-                        .computeMessageSize(3, getResult());
+                        .computeUInt32Size(3, gameRules_);
+            }
+            if (ghost_ != 0) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeUInt32Size(4, ghost_);
+            }
+            if (maCount_ != 0) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeUInt32Size(5, maCount_);
+            }
+            if (count_ != 0) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeUInt32Size(6, count_);
             }
             memoizedSize = size;
             return size;
@@ -369,24 +338,24 @@ public final class Xingning {
             if (obj == this) {
                 return true;
             }
-            if (!(obj instanceof game.mode.Xingning.XingningMahjongReplayResponse)) {
+            if (!(obj instanceof game.mode.Xingning.XingningMahjongIntoResponse)) {
                 return super.equals(obj);
             }
-            game.mode.Xingning.XingningMahjongReplayResponse other = (game.mode.Xingning.XingningMahjongReplayResponse) obj;
+            game.mode.Xingning.XingningMahjongIntoResponse other = (game.mode.Xingning.XingningMahjongIntoResponse) obj;
 
             boolean result = true;
-            result = result && (hasStart() == other.hasStart());
-            if (hasStart()) {
-                result = result && getStart()
-                        .equals(other.getStart());
-            }
-            result = result && getHistoryList()
-                    .equals(other.getHistoryList());
-            result = result && (hasResult() == other.hasResult());
-            if (hasResult()) {
-                result = result && getResult()
-                        .equals(other.getResult());
-            }
+            result = result && (getBaseScore()
+                    == other.getBaseScore());
+            result = result && (getGameTimes()
+                    == other.getGameTimes());
+            result = result && (getGameRules()
+                    == other.getGameRules());
+            result = result && (getGhost()
+                    == other.getGhost());
+            result = result && (getMaCount()
+                    == other.getMaCount());
+            result = result && (getCount()
+                    == other.getCount());
             return result;
         }
 
@@ -397,68 +366,68 @@ public final class Xingning {
             }
             int hash = 41;
             hash = (19 * hash) + getDescriptor().hashCode();
-            if (hasStart()) {
-                hash = (37 * hash) + START_FIELD_NUMBER;
-                hash = (53 * hash) + getStart().hashCode();
-            }
-            if (getHistoryCount() > 0) {
-                hash = (37 * hash) + HISTORY_FIELD_NUMBER;
-                hash = (53 * hash) + getHistoryList().hashCode();
-            }
-            if (hasResult()) {
-                hash = (37 * hash) + RESULT_FIELD_NUMBER;
-                hash = (53 * hash) + getResult().hashCode();
-            }
+            hash = (37 * hash) + BASESCORE_FIELD_NUMBER;
+            hash = (53 * hash) + getBaseScore();
+            hash = (37 * hash) + GAMETIMES_FIELD_NUMBER;
+            hash = (53 * hash) + getGameTimes();
+            hash = (37 * hash) + GAMERULES_FIELD_NUMBER;
+            hash = (53 * hash) + getGameRules();
+            hash = (37 * hash) + GHOST_FIELD_NUMBER;
+            hash = (53 * hash) + getGhost();
+            hash = (37 * hash) + MACOUNT_FIELD_NUMBER;
+            hash = (53 * hash) + getMaCount();
+            hash = (37 * hash) + COUNT_FIELD_NUMBER;
+            hash = (53 * hash) + getCount();
             hash = (29 * hash) + unknownFields.hashCode();
             memoizedHashCode = hash;
             return hash;
         }
 
-        public static game.mode.Xingning.XingningMahjongReplayResponse parseFrom(
+        public static game.mode.Xingning.XingningMahjongIntoResponse parseFrom(
                 java.nio.ByteBuffer data)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data);
         }
 
-        public static game.mode.Xingning.XingningMahjongReplayResponse parseFrom(
+        public static game.mode.Xingning.XingningMahjongIntoResponse parseFrom(
                 java.nio.ByteBuffer data,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data, extensionRegistry);
         }
 
-        public static game.mode.Xingning.XingningMahjongReplayResponse parseFrom(
+        public static game.mode.Xingning.XingningMahjongIntoResponse parseFrom(
                 com.google.protobuf.ByteString data)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data);
         }
 
-        public static game.mode.Xingning.XingningMahjongReplayResponse parseFrom(
+        public static game.mode.Xingning.XingningMahjongIntoResponse parseFrom(
                 com.google.protobuf.ByteString data,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data, extensionRegistry);
         }
 
-        public static game.mode.Xingning.XingningMahjongReplayResponse parseFrom(byte[] data)
+        public static game.mode.Xingning.XingningMahjongIntoResponse parseFrom(byte[] data)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data);
         }
 
-        public static game.mode.Xingning.XingningMahjongReplayResponse parseFrom(
+        public static game.mode.Xingning.XingningMahjongIntoResponse parseFrom(
                 byte[] data,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data, extensionRegistry);
         }
 
-        public static game.mode.Xingning.XingningMahjongReplayResponse parseFrom(java.io.InputStream input)
+        public static game.mode.Xingning.XingningMahjongIntoResponse parseFrom(java.io.InputStream input)
                 throws java.io.IOException {
             return com.google.protobuf.GeneratedMessageV3
                     .parseWithIOException(PARSER, input);
         }
 
-        public static game.mode.Xingning.XingningMahjongReplayResponse parseFrom(
+        public static game.mode.Xingning.XingningMahjongIntoResponse parseFrom(
                 java.io.InputStream input,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws java.io.IOException {
@@ -466,13 +435,13 @@ public final class Xingning {
                     .parseWithIOException(PARSER, input, extensionRegistry);
         }
 
-        public static game.mode.Xingning.XingningMahjongReplayResponse parseDelimitedFrom(java.io.InputStream input)
+        public static game.mode.Xingning.XingningMahjongIntoResponse parseDelimitedFrom(java.io.InputStream input)
                 throws java.io.IOException {
             return com.google.protobuf.GeneratedMessageV3
                     .parseDelimitedWithIOException(PARSER, input);
         }
 
-        public static game.mode.Xingning.XingningMahjongReplayResponse parseDelimitedFrom(
+        public static game.mode.Xingning.XingningMahjongIntoResponse parseDelimitedFrom(
                 java.io.InputStream input,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws java.io.IOException {
@@ -480,14 +449,14 @@ public final class Xingning {
                     .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
         }
 
-        public static game.mode.Xingning.XingningMahjongReplayResponse parseFrom(
+        public static game.mode.Xingning.XingningMahjongIntoResponse parseFrom(
                 com.google.protobuf.CodedInputStream input)
                 throws java.io.IOException {
             return com.google.protobuf.GeneratedMessageV3
                     .parseWithIOException(PARSER, input);
         }
 
-        public static game.mode.Xingning.XingningMahjongReplayResponse parseFrom(
+        public static game.mode.Xingning.XingningMahjongIntoResponse parseFrom(
                 com.google.protobuf.CodedInputStream input,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws java.io.IOException {
@@ -503,7 +472,7 @@ public final class Xingning {
             return DEFAULT_INSTANCE.toBuilder();
         }
 
-        public static Builder newBuilder(game.mode.Xingning.XingningMahjongReplayResponse prototype) {
+        public static Builder newBuilder(game.mode.Xingning.XingningMahjongIntoResponse prototype) {
             return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
         }
 
@@ -521,28 +490,28 @@ public final class Xingning {
 
         /**
          * <pre>
-         * 回放    REPLAY
+         * 进入房间返回 ROOM_INFO
          * </pre>
          * <p>
-         * Protobuf type {@code XingningMahjongReplayResponse}
+         * Protobuf type {@code XingningMahjongIntoResponse}
          */
         public static final class Builder extends
                 com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-                // @@protoc_insertion_point(builder_implements:XingningMahjongReplayResponse)
-                game.mode.Xingning.XingningMahjongReplayResponseOrBuilder {
+                // @@protoc_insertion_point(builder_implements:XingningMahjongIntoResponse)
+                game.mode.Xingning.XingningMahjongIntoResponseOrBuilder {
             public static final com.google.protobuf.Descriptors.Descriptor
             getDescriptor() {
-                return game.mode.Xingning.internal_static_XingningMahjongReplayResponse_descriptor;
+                return game.mode.Xingning.internal_static_XingningMahjongIntoResponse_descriptor;
             }
 
             protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
             internalGetFieldAccessorTable() {
-                return game.mode.Xingning.internal_static_XingningMahjongReplayResponse_fieldAccessorTable
+                return game.mode.Xingning.internal_static_XingningMahjongIntoResponse_fieldAccessorTable
                         .ensureFieldAccessorsInitialized(
-                                game.mode.Xingning.XingningMahjongReplayResponse.class, game.mode.Xingning.XingningMahjongReplayResponse.Builder.class);
+                                game.mode.Xingning.XingningMahjongIntoResponse.class, game.mode.Xingning.XingningMahjongIntoResponse.Builder.class);
             }
 
-            // Construct using game.mode.Xingning.XingningMahjongReplayResponse.newBuilder()
+            // Construct using game.mode.Xingning.XingningMahjongIntoResponse.newBuilder()
             private Builder() {
                 maybeForceBuilderInitialization();
             }
@@ -556,74 +525,51 @@ public final class Xingning {
             private void maybeForceBuilderInitialization() {
                 if (com.google.protobuf.GeneratedMessageV3
                         .alwaysUseFieldBuilders) {
-                    getHistoryFieldBuilder();
                 }
             }
 
             public Builder clear() {
                 super.clear();
-                if (startBuilder_ == null) {
-                    start_ = null;
-                } else {
-                    start_ = null;
-                    startBuilder_ = null;
-                }
-                if (historyBuilder_ == null) {
-                    history_ = java.util.Collections.emptyList();
-                    bitField0_ = (bitField0_ & ~0x00000002);
-                } else {
-                    historyBuilder_.clear();
-                }
-                if (resultBuilder_ == null) {
-                    result_ = null;
-                } else {
-                    result_ = null;
-                    resultBuilder_ = null;
-                }
+                baseScore_ = 0;
+
+                gameTimes_ = 0;
+
+                gameRules_ = 0;
+
+                ghost_ = 0;
+
+                maCount_ = 0;
+
+                count_ = 0;
+
                 return this;
             }
 
             public com.google.protobuf.Descriptors.Descriptor
             getDescriptorForType() {
-                return game.mode.Xingning.internal_static_XingningMahjongReplayResponse_descriptor;
+                return game.mode.Xingning.internal_static_XingningMahjongIntoResponse_descriptor;
             }
 
-            public game.mode.Xingning.XingningMahjongReplayResponse getDefaultInstanceForType() {
-                return game.mode.Xingning.XingningMahjongReplayResponse.getDefaultInstance();
+            public game.mode.Xingning.XingningMahjongIntoResponse getDefaultInstanceForType() {
+                return game.mode.Xingning.XingningMahjongIntoResponse.getDefaultInstance();
             }
 
-            public game.mode.Xingning.XingningMahjongReplayResponse build() {
-                game.mode.Xingning.XingningMahjongReplayResponse result = buildPartial();
+            public game.mode.Xingning.XingningMahjongIntoResponse build() {
+                game.mode.Xingning.XingningMahjongIntoResponse result = buildPartial();
                 if (!result.isInitialized()) {
                     throw newUninitializedMessageException(result);
                 }
                 return result;
             }
 
-            public game.mode.Xingning.XingningMahjongReplayResponse buildPartial() {
-                game.mode.Xingning.XingningMahjongReplayResponse result = new game.mode.Xingning.XingningMahjongReplayResponse(this);
-                int from_bitField0_ = bitField0_;
-                int to_bitField0_ = 0;
-                if (startBuilder_ == null) {
-                    result.start_ = start_;
-                } else {
-                    result.start_ = startBuilder_.build();
-                }
-                if (historyBuilder_ == null) {
-                    if (((bitField0_ & 0x00000002) == 0x00000002)) {
-                        history_ = java.util.Collections.unmodifiableList(history_);
-                        bitField0_ = (bitField0_ & ~0x00000002);
-                    }
-                    result.history_ = history_;
-                } else {
-                    result.history_ = historyBuilder_.build();
-                }
-                if (resultBuilder_ == null) {
-                    result.result_ = result_;
-                } else {
-                    result.result_ = resultBuilder_.build();
-                }
-                result.bitField0_ = to_bitField0_;
+            public game.mode.Xingning.XingningMahjongIntoResponse buildPartial() {
+                game.mode.Xingning.XingningMahjongIntoResponse result = new game.mode.Xingning.XingningMahjongIntoResponse(this);
+                result.baseScore_ = baseScore_;
+                result.gameTimes_ = gameTimes_;
+                result.gameRules_ = gameRules_;
+                result.ghost_ = ghost_;
+                result.maCount_ = maCount_;
+                result.count_ = count_;
                 onBuilt();
                 return result;
             }
@@ -661,47 +607,33 @@ public final class Xingning {
             }
 
             public Builder mergeFrom(com.google.protobuf.Message other) {
-                if (other instanceof game.mode.Xingning.XingningMahjongReplayResponse) {
-                    return mergeFrom((game.mode.Xingning.XingningMahjongReplayResponse) other);
+                if (other instanceof game.mode.Xingning.XingningMahjongIntoResponse) {
+                    return mergeFrom((game.mode.Xingning.XingningMahjongIntoResponse) other);
                 } else {
                     super.mergeFrom(other);
                     return this;
                 }
             }
 
-            public Builder mergeFrom(game.mode.Xingning.XingningMahjongReplayResponse other) {
-                if (other == game.mode.Xingning.XingningMahjongReplayResponse.getDefaultInstance()) return this;
-                if (other.hasStart()) {
-                    mergeStart(other.getStart());
+            public Builder mergeFrom(game.mode.Xingning.XingningMahjongIntoResponse other) {
+                if (other == game.mode.Xingning.XingningMahjongIntoResponse.getDefaultInstance()) return this;
+                if (other.getBaseScore() != 0) {
+                    setBaseScore(other.getBaseScore());
                 }
-                if (historyBuilder_ == null) {
-                    if (!other.history_.isEmpty()) {
-                        if (history_.isEmpty()) {
-                            history_ = other.history_;
-                            bitField0_ = (bitField0_ & ~0x00000002);
-                        } else {
-                            ensureHistoryIsMutable();
-                            history_.addAll(other.history_);
-                        }
-                        onChanged();
-                    }
-                } else {
-                    if (!other.history_.isEmpty()) {
-                        if (historyBuilder_.isEmpty()) {
-                            historyBuilder_.dispose();
-                            historyBuilder_ = null;
-                            history_ = other.history_;
-                            bitField0_ = (bitField0_ & ~0x00000002);
-                            historyBuilder_ =
-                                    com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
-                                            getHistoryFieldBuilder() : null;
-                        } else {
-                            historyBuilder_.addAllMessages(other.history_);
-                        }
-                    }
+                if (other.getGameTimes() != 0) {
+                    setGameTimes(other.getGameTimes());
                 }
-                if (other.hasResult()) {
-                    mergeResult(other.getResult());
+                if (other.getGameRules() != 0) {
+                    setGameRules(other.getGameRules());
+                }
+                if (other.getGhost() != 0) {
+                    setGhost(other.getGhost());
+                }
+                if (other.getMaCount() != 0) {
+                    setMaCount(other.getMaCount());
+                }
+                if (other.getCount() != 0) {
+                    setCount(other.getCount());
                 }
                 onChanged();
                 return this;
@@ -715,11 +647,11 @@ public final class Xingning {
                     com.google.protobuf.CodedInputStream input,
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                     throws java.io.IOException {
-                game.mode.Xingning.XingningMahjongReplayResponse parsedMessage = null;
+                game.mode.Xingning.XingningMahjongIntoResponse parsedMessage = null;
                 try {
                     parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
                 } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-                    parsedMessage = (game.mode.Xingning.XingningMahjongReplayResponse) e.getUnfinishedMessage();
+                    parsedMessage = (game.mode.Xingning.XingningMahjongIntoResponse) e.getUnfinishedMessage();
                     throw e.unwrapIOException();
                 } finally {
                     if (parsedMessage != null) {
@@ -729,590 +661,250 @@ public final class Xingning {
                 return this;
             }
 
-            private int bitField0_;
-
-            private game.mode.Mahjong.MahjongStartResponse start_ = null;
-            private com.google.protobuf.SingleFieldBuilderV3<
-                    game.mode.Mahjong.MahjongStartResponse, game.mode.Mahjong.MahjongStartResponse.Builder, game.mode.Mahjong.MahjongStartResponseOrBuilder> startBuilder_;
+            private int baseScore_;
 
             /**
-             * <code>.MahjongStartResponse start = 1;</code>
+             * <pre>
+             * 基础分
+             * </pre>
+             * <p>
+             * <code>uint32 baseScore = 1;</code>
              */
-            public boolean hasStart() {
-                return startBuilder_ != null || start_ != null;
+            public int getBaseScore() {
+                return baseScore_;
             }
 
             /**
-             * <code>.MahjongStartResponse start = 1;</code>
+             * <pre>
+             * 基础分
+             * </pre>
+             * <p>
+             * <code>uint32 baseScore = 1;</code>
              */
-            public game.mode.Mahjong.MahjongStartResponse getStart() {
-                if (startBuilder_ == null) {
-                    return start_ == null ? game.mode.Mahjong.MahjongStartResponse.getDefaultInstance() : start_;
-                } else {
-                    return startBuilder_.getMessage();
-                }
-            }
+            public Builder setBaseScore(int value) {
 
-            /**
-             * <code>.MahjongStartResponse start = 1;</code>
-             */
-            public Builder setStart(game.mode.Mahjong.MahjongStartResponse value) {
-                if (startBuilder_ == null) {
-                    if (value == null) {
-                        throw new NullPointerException();
-                    }
-                    start_ = value;
-                    onChanged();
-                } else {
-                    startBuilder_.setMessage(value);
-                }
-
-                return this;
-            }
-
-            /**
-             * <code>.MahjongStartResponse start = 1;</code>
-             */
-            public Builder setStart(
-                    game.mode.Mahjong.MahjongStartResponse.Builder builderForValue) {
-                if (startBuilder_ == null) {
-                    start_ = builderForValue.build();
-                    onChanged();
-                } else {
-                    startBuilder_.setMessage(builderForValue.build());
-                }
-
-                return this;
-            }
-
-            /**
-             * <code>.MahjongStartResponse start = 1;</code>
-             */
-            public Builder mergeStart(game.mode.Mahjong.MahjongStartResponse value) {
-                if (startBuilder_ == null) {
-                    if (start_ != null) {
-                        start_ =
-                                game.mode.Mahjong.MahjongStartResponse.newBuilder(start_).mergeFrom(value).buildPartial();
-                    } else {
-                        start_ = value;
-                    }
-                    onChanged();
-                } else {
-                    startBuilder_.mergeFrom(value);
-                }
-
-                return this;
-            }
-
-            /**
-             * <code>.MahjongStartResponse start = 1;</code>
-             */
-            public Builder clearStart() {
-                if (startBuilder_ == null) {
-                    start_ = null;
-                    onChanged();
-                } else {
-                    start_ = null;
-                    startBuilder_ = null;
-                }
-
-                return this;
-            }
-
-            /**
-             * <code>.MahjongStartResponse start = 1;</code>
-             */
-            public game.mode.Mahjong.MahjongStartResponse.Builder getStartBuilder() {
-
+                baseScore_ = value;
                 onChanged();
-                return getStartFieldBuilder().getBuilder();
-            }
-
-            /**
-             * <code>.MahjongStartResponse start = 1;</code>
-             */
-            public game.mode.Mahjong.MahjongStartResponseOrBuilder getStartOrBuilder() {
-                if (startBuilder_ != null) {
-                    return startBuilder_.getMessageOrBuilder();
-                } else {
-                    return start_ == null ?
-                            game.mode.Mahjong.MahjongStartResponse.getDefaultInstance() : start_;
-                }
-            }
-
-            /**
-             * <code>.MahjongStartResponse start = 1;</code>
-             */
-            private com.google.protobuf.SingleFieldBuilderV3<
-                    game.mode.Mahjong.MahjongStartResponse, game.mode.Mahjong.MahjongStartResponse.Builder, game.mode.Mahjong.MahjongStartResponseOrBuilder>
-            getStartFieldBuilder() {
-                if (startBuilder_ == null) {
-                    startBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-                            game.mode.Mahjong.MahjongStartResponse, game.mode.Mahjong.MahjongStartResponse.Builder, game.mode.Mahjong.MahjongStartResponseOrBuilder>(
-                            getStart(),
-                            getParentForChildren(),
-                            isClean());
-                    start_ = null;
-                }
-                return startBuilder_;
-            }
-
-            private java.util.List<game.mode.GameBase.OperationHistory> history_ =
-                    java.util.Collections.emptyList();
-
-            private void ensureHistoryIsMutable() {
-                if (!((bitField0_ & 0x00000002) == 0x00000002)) {
-                    history_ = new java.util.ArrayList<game.mode.GameBase.OperationHistory>(history_);
-                    bitField0_ |= 0x00000002;
-                }
-            }
-
-            private com.google.protobuf.RepeatedFieldBuilderV3<
-                    game.mode.GameBase.OperationHistory, game.mode.GameBase.OperationHistory.Builder, game.mode.GameBase.OperationHistoryOrBuilder> historyBuilder_;
-
-            /**
-             * <pre>
-             * 操作记录
-             * </pre>
-             * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
-             */
-            public java.util.List<game.mode.GameBase.OperationHistory> getHistoryList() {
-                if (historyBuilder_ == null) {
-                    return java.util.Collections.unmodifiableList(history_);
-                } else {
-                    return historyBuilder_.getMessageList();
-                }
-            }
-
-            /**
-             * <pre>
-             * 操作记录
-             * </pre>
-             * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
-             */
-            public int getHistoryCount() {
-                if (historyBuilder_ == null) {
-                    return history_.size();
-                } else {
-                    return historyBuilder_.getCount();
-                }
-            }
-
-            /**
-             * <pre>
-             * 操作记录
-             * </pre>
-             * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
-             */
-            public game.mode.GameBase.OperationHistory getHistory(int index) {
-                if (historyBuilder_ == null) {
-                    return history_.get(index);
-                } else {
-                    return historyBuilder_.getMessage(index);
-                }
-            }
-
-            /**
-             * <pre>
-             * 操作记录
-             * </pre>
-             * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
-             */
-            public Builder setHistory(
-                    int index, game.mode.GameBase.OperationHistory value) {
-                if (historyBuilder_ == null) {
-                    if (value == null) {
-                        throw new NullPointerException();
-                    }
-                    ensureHistoryIsMutable();
-                    history_.set(index, value);
-                    onChanged();
-                } else {
-                    historyBuilder_.setMessage(index, value);
-                }
                 return this;
             }
 
             /**
              * <pre>
-             * 操作记录
+             * 基础分
              * </pre>
              * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
+             * <code>uint32 baseScore = 1;</code>
              */
-            public Builder setHistory(
-                    int index, game.mode.GameBase.OperationHistory.Builder builderForValue) {
-                if (historyBuilder_ == null) {
-                    ensureHistoryIsMutable();
-                    history_.set(index, builderForValue.build());
-                    onChanged();
-                } else {
-                    historyBuilder_.setMessage(index, builderForValue.build());
-                }
-                return this;
-            }
+            public Builder clearBaseScore() {
 
-            /**
-             * <pre>
-             * 操作记录
-             * </pre>
-             * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
-             */
-            public Builder addHistory(game.mode.GameBase.OperationHistory value) {
-                if (historyBuilder_ == null) {
-                    if (value == null) {
-                        throw new NullPointerException();
-                    }
-                    ensureHistoryIsMutable();
-                    history_.add(value);
-                    onChanged();
-                } else {
-                    historyBuilder_.addMessage(value);
-                }
-                return this;
-            }
-
-            /**
-             * <pre>
-             * 操作记录
-             * </pre>
-             * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
-             */
-            public Builder addHistory(
-                    int index, game.mode.GameBase.OperationHistory value) {
-                if (historyBuilder_ == null) {
-                    if (value == null) {
-                        throw new NullPointerException();
-                    }
-                    ensureHistoryIsMutable();
-                    history_.add(index, value);
-                    onChanged();
-                } else {
-                    historyBuilder_.addMessage(index, value);
-                }
-                return this;
-            }
-
-            /**
-             * <pre>
-             * 操作记录
-             * </pre>
-             * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
-             */
-            public Builder addHistory(
-                    game.mode.GameBase.OperationHistory.Builder builderForValue) {
-                if (historyBuilder_ == null) {
-                    ensureHistoryIsMutable();
-                    history_.add(builderForValue.build());
-                    onChanged();
-                } else {
-                    historyBuilder_.addMessage(builderForValue.build());
-                }
-                return this;
-            }
-
-            /**
-             * <pre>
-             * 操作记录
-             * </pre>
-             * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
-             */
-            public Builder addHistory(
-                    int index, game.mode.GameBase.OperationHistory.Builder builderForValue) {
-                if (historyBuilder_ == null) {
-                    ensureHistoryIsMutable();
-                    history_.add(index, builderForValue.build());
-                    onChanged();
-                } else {
-                    historyBuilder_.addMessage(index, builderForValue.build());
-                }
-                return this;
-            }
-
-            /**
-             * <pre>
-             * 操作记录
-             * </pre>
-             * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
-             */
-            public Builder addAllHistory(
-                    java.lang.Iterable<? extends game.mode.GameBase.OperationHistory> values) {
-                if (historyBuilder_ == null) {
-                    ensureHistoryIsMutable();
-                    com.google.protobuf.AbstractMessageLite.Builder.addAll(
-                            values, history_);
-                    onChanged();
-                } else {
-                    historyBuilder_.addAllMessages(values);
-                }
-                return this;
-            }
-
-            /**
-             * <pre>
-             * 操作记录
-             * </pre>
-             * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
-             */
-            public Builder clearHistory() {
-                if (historyBuilder_ == null) {
-                    history_ = java.util.Collections.emptyList();
-                    bitField0_ = (bitField0_ & ~0x00000002);
-                    onChanged();
-                } else {
-                    historyBuilder_.clear();
-                }
-                return this;
-            }
-
-            /**
-             * <pre>
-             * 操作记录
-             * </pre>
-             * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
-             */
-            public Builder removeHistory(int index) {
-                if (historyBuilder_ == null) {
-                    ensureHistoryIsMutable();
-                    history_.remove(index);
-                    onChanged();
-                } else {
-                    historyBuilder_.remove(index);
-                }
-                return this;
-            }
-
-            /**
-             * <pre>
-             * 操作记录
-             * </pre>
-             * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
-             */
-            public game.mode.GameBase.OperationHistory.Builder getHistoryBuilder(
-                    int index) {
-                return getHistoryFieldBuilder().getBuilder(index);
-            }
-
-            /**
-             * <pre>
-             * 操作记录
-             * </pre>
-             * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
-             */
-            public game.mode.GameBase.OperationHistoryOrBuilder getHistoryOrBuilder(
-                    int index) {
-                if (historyBuilder_ == null) {
-                    return history_.get(index);
-                } else {
-                    return historyBuilder_.getMessageOrBuilder(index);
-                }
-            }
-
-            /**
-             * <pre>
-             * 操作记录
-             * </pre>
-             * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
-             */
-            public java.util.List<? extends game.mode.GameBase.OperationHistoryOrBuilder>
-            getHistoryOrBuilderList() {
-                if (historyBuilder_ != null) {
-                    return historyBuilder_.getMessageOrBuilderList();
-                } else {
-                    return java.util.Collections.unmodifiableList(history_);
-                }
-            }
-
-            /**
-             * <pre>
-             * 操作记录
-             * </pre>
-             * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
-             */
-            public game.mode.GameBase.OperationHistory.Builder addHistoryBuilder() {
-                return getHistoryFieldBuilder().addBuilder(
-                        game.mode.GameBase.OperationHistory.getDefaultInstance());
-            }
-
-            /**
-             * <pre>
-             * 操作记录
-             * </pre>
-             * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
-             */
-            public game.mode.GameBase.OperationHistory.Builder addHistoryBuilder(
-                    int index) {
-                return getHistoryFieldBuilder().addBuilder(
-                        index, game.mode.GameBase.OperationHistory.getDefaultInstance());
-            }
-
-            /**
-             * <pre>
-             * 操作记录
-             * </pre>
-             * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
-             */
-            public java.util.List<game.mode.GameBase.OperationHistory.Builder>
-            getHistoryBuilderList() {
-                return getHistoryFieldBuilder().getBuilderList();
-            }
-
-            private com.google.protobuf.RepeatedFieldBuilderV3<
-                    game.mode.GameBase.OperationHistory, game.mode.GameBase.OperationHistory.Builder, game.mode.GameBase.OperationHistoryOrBuilder>
-            getHistoryFieldBuilder() {
-                if (historyBuilder_ == null) {
-                    historyBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-                            game.mode.GameBase.OperationHistory, game.mode.GameBase.OperationHistory.Builder, game.mode.GameBase.OperationHistoryOrBuilder>(
-                            history_,
-                            ((bitField0_ & 0x00000002) == 0x00000002),
-                            getParentForChildren(),
-                            isClean());
-                    history_ = null;
-                }
-                return historyBuilder_;
-            }
-
-            private game.mode.Mahjong.MahjongResultResponse result_ = null;
-            private com.google.protobuf.SingleFieldBuilderV3<
-                    game.mode.Mahjong.MahjongResultResponse, game.mode.Mahjong.MahjongResultResponse.Builder, game.mode.Mahjong.MahjongResultResponseOrBuilder> resultBuilder_;
-
-            /**
-             * <code>.MahjongResultResponse result = 3;</code>
-             */
-            public boolean hasResult() {
-                return resultBuilder_ != null || result_ != null;
-            }
-
-            /**
-             * <code>.MahjongResultResponse result = 3;</code>
-             */
-            public game.mode.Mahjong.MahjongResultResponse getResult() {
-                if (resultBuilder_ == null) {
-                    return result_ == null ? game.mode.Mahjong.MahjongResultResponse.getDefaultInstance() : result_;
-                } else {
-                    return resultBuilder_.getMessage();
-                }
-            }
-
-            /**
-             * <code>.MahjongResultResponse result = 3;</code>
-             */
-            public Builder setResult(game.mode.Mahjong.MahjongResultResponse value) {
-                if (resultBuilder_ == null) {
-                    if (value == null) {
-                        throw new NullPointerException();
-                    }
-                    result_ = value;
-                    onChanged();
-                } else {
-                    resultBuilder_.setMessage(value);
-                }
-
-                return this;
-            }
-
-            /**
-             * <code>.MahjongResultResponse result = 3;</code>
-             */
-            public Builder setResult(
-                    game.mode.Mahjong.MahjongResultResponse.Builder builderForValue) {
-                if (resultBuilder_ == null) {
-                    result_ = builderForValue.build();
-                    onChanged();
-                } else {
-                    resultBuilder_.setMessage(builderForValue.build());
-                }
-
-                return this;
-            }
-
-            /**
-             * <code>.MahjongResultResponse result = 3;</code>
-             */
-            public Builder mergeResult(game.mode.Mahjong.MahjongResultResponse value) {
-                if (resultBuilder_ == null) {
-                    if (result_ != null) {
-                        result_ =
-                                game.mode.Mahjong.MahjongResultResponse.newBuilder(result_).mergeFrom(value).buildPartial();
-                    } else {
-                        result_ = value;
-                    }
-                    onChanged();
-                } else {
-                    resultBuilder_.mergeFrom(value);
-                }
-
-                return this;
-            }
-
-            /**
-             * <code>.MahjongResultResponse result = 3;</code>
-             */
-            public Builder clearResult() {
-                if (resultBuilder_ == null) {
-                    result_ = null;
-                    onChanged();
-                } else {
-                    result_ = null;
-                    resultBuilder_ = null;
-                }
-
-                return this;
-            }
-
-            /**
-             * <code>.MahjongResultResponse result = 3;</code>
-             */
-            public game.mode.Mahjong.MahjongResultResponse.Builder getResultBuilder() {
-
+                baseScore_ = 0;
                 onChanged();
-                return getResultFieldBuilder().getBuilder();
+                return this;
+            }
+
+            private int gameTimes_;
+
+            /**
+             * <pre>
+             * 游戏局数
+             * </pre>
+             * <p>
+             * <code>uint32 gameTimes = 2;</code>
+             */
+            public int getGameTimes() {
+                return gameTimes_;
             }
 
             /**
-             * <code>.MahjongResultResponse result = 3;</code>
+             * <pre>
+             * 游戏局数
+             * </pre>
+             * <p>
+             * <code>uint32 gameTimes = 2;</code>
              */
-            public game.mode.Mahjong.MahjongResultResponseOrBuilder getResultOrBuilder() {
-                if (resultBuilder_ != null) {
-                    return resultBuilder_.getMessageOrBuilder();
-                } else {
-                    return result_ == null ?
-                            game.mode.Mahjong.MahjongResultResponse.getDefaultInstance() : result_;
-                }
+            public Builder setGameTimes(int value) {
+
+                gameTimes_ = value;
+                onChanged();
+                return this;
             }
 
             /**
-             * <code>.MahjongResultResponse result = 3;</code>
+             * <pre>
+             * 游戏局数
+             * </pre>
+             * <p>
+             * <code>uint32 gameTimes = 2;</code>
              */
-            private com.google.protobuf.SingleFieldBuilderV3<
-                    game.mode.Mahjong.MahjongResultResponse, game.mode.Mahjong.MahjongResultResponse.Builder, game.mode.Mahjong.MahjongResultResponseOrBuilder>
-            getResultFieldBuilder() {
-                if (resultBuilder_ == null) {
-                    resultBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-                            game.mode.Mahjong.MahjongResultResponse, game.mode.Mahjong.MahjongResultResponse.Builder, game.mode.Mahjong.MahjongResultResponseOrBuilder>(
-                            getResult(),
-                            getParentForChildren(),
-                            isClean());
-                    result_ = null;
-                }
-                return resultBuilder_;
+            public Builder clearGameTimes() {
+
+                gameTimes_ = 0;
+                onChanged();
+                return this;
+            }
+
+            private int gameRules_;
+
+            /**
+             * <pre>
+             * 游戏规则  低位到高位到顺序（鸡胡，门清，天地和，幺九，全番，十三幺，对对胡，十八罗汉，七小对，清一色，混一色，海底捞，杠爆全包，庄硬，无鬼加倍）
+             * </pre>
+             * <p>
+             * <code>uint32 gameRules = 3;</code>
+             */
+            public int getGameRules() {
+                return gameRules_;
+            }
+
+            /**
+             * <pre>
+             * 游戏规则  低位到高位到顺序（鸡胡，门清，天地和，幺九，全番，十三幺，对对胡，十八罗汉，七小对，清一色，混一色，海底捞，杠爆全包，庄硬，无鬼加倍）
+             * </pre>
+             * <p>
+             * <code>uint32 gameRules = 3;</code>
+             */
+            public Builder setGameRules(int value) {
+
+                gameRules_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 游戏规则  低位到高位到顺序（鸡胡，门清，天地和，幺九，全番，十三幺，对对胡，十八罗汉，七小对，清一色，混一色，海底捞，杠爆全包，庄硬，无鬼加倍）
+             * </pre>
+             * <p>
+             * <code>uint32 gameRules = 3;</code>
+             */
+            public Builder clearGameRules() {
+
+                gameRules_ = 0;
+                onChanged();
+                return this;
+            }
+
+            private int ghost_;
+
+            /**
+             * <pre>
+             * 1.红中做鬼，2.无鬼，3.翻鬼
+             * </pre>
+             * <p>
+             * <code>uint32 ghost = 4;</code>
+             */
+            public int getGhost() {
+                return ghost_;
+            }
+
+            /**
+             * <pre>
+             * 1.红中做鬼，2.无鬼，3.翻鬼
+             * </pre>
+             * <p>
+             * <code>uint32 ghost = 4;</code>
+             */
+            public Builder setGhost(int value) {
+
+                ghost_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 1.红中做鬼，2.无鬼，3.翻鬼
+             * </pre>
+             * <p>
+             * <code>uint32 ghost = 4;</code>
+             */
+            public Builder clearGhost() {
+
+                ghost_ = 0;
+                onChanged();
+                return this;
+            }
+
+            private int maCount_;
+
+            /**
+             * <pre>
+             * 马数
+             * </pre>
+             * <p>
+             * <code>uint32 maCount = 5;</code>
+             */
+            public int getMaCount() {
+                return maCount_;
+            }
+
+            /**
+             * <pre>
+             * 马数
+             * </pre>
+             * <p>
+             * <code>uint32 maCount = 5;</code>
+             */
+            public Builder setMaCount(int value) {
+
+                maCount_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 马数
+             * </pre>
+             * <p>
+             * <code>uint32 maCount = 5;</code>
+             */
+            public Builder clearMaCount() {
+
+                maCount_ = 0;
+                onChanged();
+                return this;
+            }
+
+            private int count_;
+
+            /**
+             * <pre>
+             * 人数
+             * </pre>
+             * <p>
+             * <code>uint32 count = 6;</code>
+             */
+            public int getCount() {
+                return count_;
+            }
+
+            /**
+             * <pre>
+             * 人数
+             * </pre>
+             * <p>
+             * <code>uint32 count = 6;</code>
+             */
+            public Builder setCount(int value) {
+
+                count_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 人数
+             * </pre>
+             * <p>
+             * <code>uint32 count = 6;</code>
+             */
+            public Builder clearCount() {
+
+                count_ = 0;
+                onChanged();
+                return this;
             }
 
             public final Builder setUnknownFields(
@@ -1326,50 +918,50 @@ public final class Xingning {
             }
 
 
-            // @@protoc_insertion_point(builder_scope:XingningMahjongReplayResponse)
+            // @@protoc_insertion_point(builder_scope:XingningMahjongIntoResponse)
         }
 
-        // @@protoc_insertion_point(class_scope:XingningMahjongReplayResponse)
-        private static final game.mode.Xingning.XingningMahjongReplayResponse DEFAULT_INSTANCE;
+        // @@protoc_insertion_point(class_scope:XingningMahjongIntoResponse)
+        private static final game.mode.Xingning.XingningMahjongIntoResponse DEFAULT_INSTANCE;
 
         static {
-            DEFAULT_INSTANCE = new game.mode.Xingning.XingningMahjongReplayResponse();
+            DEFAULT_INSTANCE = new game.mode.Xingning.XingningMahjongIntoResponse();
         }
 
-        public static game.mode.Xingning.XingningMahjongReplayResponse getDefaultInstance() {
+        public static game.mode.Xingning.XingningMahjongIntoResponse getDefaultInstance() {
             return DEFAULT_INSTANCE;
         }
 
-        private static final com.google.protobuf.Parser<XingningMahjongReplayResponse>
-                PARSER = new com.google.protobuf.AbstractParser<XingningMahjongReplayResponse>() {
-            public XingningMahjongReplayResponse parsePartialFrom(
+        private static final com.google.protobuf.Parser<XingningMahjongIntoResponse>
+                PARSER = new com.google.protobuf.AbstractParser<XingningMahjongIntoResponse>() {
+            public XingningMahjongIntoResponse parsePartialFrom(
                     com.google.protobuf.CodedInputStream input,
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                     throws com.google.protobuf.InvalidProtocolBufferException {
-                return new XingningMahjongReplayResponse(input, extensionRegistry);
+                return new XingningMahjongIntoResponse(input, extensionRegistry);
             }
         };
 
-        public static com.google.protobuf.Parser<XingningMahjongReplayResponse> parser() {
+        public static com.google.protobuf.Parser<XingningMahjongIntoResponse> parser() {
             return PARSER;
         }
 
         @java.lang.Override
-        public com.google.protobuf.Parser<XingningMahjongReplayResponse> getParserForType() {
+        public com.google.protobuf.Parser<XingningMahjongIntoResponse> getParserForType() {
             return PARSER;
         }
 
-        public game.mode.Xingning.XingningMahjongReplayResponse getDefaultInstanceForType() {
+        public game.mode.Xingning.XingningMahjongIntoResponse getDefaultInstanceForType() {
             return DEFAULT_INSTANCE;
         }
 
     }
 
     private static final com.google.protobuf.Descriptors.Descriptor
-            internal_static_XingningMahjongReplayResponse_descriptor;
+            internal_static_XingningMahjongIntoResponse_descriptor;
     private static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-            internal_static_XingningMahjongReplayResponse_fieldAccessorTable;
+            internal_static_XingningMahjongIntoResponse_fieldAccessorTable;
 
     public static com.google.protobuf.Descriptors.FileDescriptor
     getDescriptor() {
@@ -1381,36 +973,31 @@ public final class Xingning {
 
     static {
         java.lang.String[] descriptorData = {
-                "\n\016xingning.proto\032\016gameBase.proto\032\rmahjon" +
-                        "g.proto\"\221\001\n\035XingningMahjongReplayRespons" +
-                        "e\022$\n\005start\030\001 \001(\0132\025.MahjongStartResponse\022" +
-                        "\"\n\007history\030\002 \003(\0132\021.OperationHistory\022&\n\006r" +
-                        "esult\030\003 \001(\0132\026.MahjongResultResponseB\013\n\tg" +
-                        "ame.modeb\006proto3"
+                "\n\016xingning.proto\"\205\001\n\033XingningMahjongInto" +
+                        "Response\022\021\n\tbaseScore\030\001 \001(\r\022\021\n\tgameTimes" +
+                        "\030\002 \001(\r\022\021\n\tgameRules\030\003 \001(\r\022\r\n\005ghost\030\004 \001(\r" +
+                        "\022\017\n\007maCount\030\005 \001(\r\022\r\n\005count\030\006 \001(\rB\013\n\tgame" +
+      ".modeb\006proto3"
+    };
+    com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
+        new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
+          public com.google.protobuf.ExtensionRegistry assignDescriptors(
+              com.google.protobuf.Descriptors.FileDescriptor root) {
+            descriptor = root;
+            return null;
+          }
         };
-        com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-                new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
-                    public com.google.protobuf.ExtensionRegistry assignDescriptors(
-                            com.google.protobuf.Descriptors.FileDescriptor root) {
-                        descriptor = root;
-                        return null;
-                    }
-                };
-        com.google.protobuf.Descriptors.FileDescriptor
-                .internalBuildGeneratedFileFrom(descriptorData,
-                        new com.google.protobuf.Descriptors.FileDescriptor[]{
-                                game.mode.GameBase.getDescriptor(),
-                                game.mode.Mahjong.getDescriptor(),
-                        }, assigner);
-        internal_static_XingningMahjongReplayResponse_descriptor =
-                getDescriptor().getMessageTypes().get(0);
-        internal_static_XingningMahjongReplayResponse_fieldAccessorTable = new
-                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-                internal_static_XingningMahjongReplayResponse_descriptor,
-                new java.lang.String[]{"Start", "History", "Result",});
-        game.mode.GameBase.getDescriptor();
-        game.mode.Mahjong.getDescriptor();
-    }
+    com.google.protobuf.Descriptors.FileDescriptor
+      .internalBuildGeneratedFileFrom(descriptorData,
+        new com.google.protobuf.Descriptors.FileDescriptor[] {
+        }, assigner);
+    internal_static_XingningMahjongIntoResponse_descriptor =
+      getDescriptor().getMessageTypes().get(0);
+    internal_static_XingningMahjongIntoResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_XingningMahjongIntoResponse_descriptor,
+        new java.lang.String[] { "BaseScore", "GameTimes", "GameRules", "Ghost", "MaCount", "Count", });
+  }
 
-    // @@protoc_insertion_point(outer_class_scope)
+  // @@protoc_insertion_point(outer_class_scope)
 }

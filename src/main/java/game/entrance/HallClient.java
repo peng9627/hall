@@ -9,10 +9,7 @@ import game.mode.*;
 import game.mode.ruijin.RuijinMahjongRoom;
 import game.mode.runquickly.RunQuicklyRoom;
 import game.mode.sangong.SangongRoom;
-import game.mode.xingning.OperationHistory;
-import game.mode.xingning.Record;
-import game.mode.xingning.SeatRecord;
-import game.mode.xingning.XingningMahjongRoom;
+import game.mode.xingning.*;
 import game.redis.RedisService;
 import game.utils.HttpUtil;
 import game.utils.LoggerUtil;
@@ -816,98 +813,141 @@ public class HallClient {
                 new TypeReference<ApiResponse<GameRecordInfoRepresentation>>() {
                 });
         if (0 == gameRecordResponse.getCode()) {
+            GameRecordInfoRepresentation infoRepresentation = gameRecordResponse.getData();
             replayResponse.setErrorCode(GameBase.ErrorCode.SUCCESS);
-
             switch (gameRecordResponse.getData().getGameType()) {
                 case XINGNING_MAHJONG:
-                    if (null != gameRecordResponse.getData().getData()) {
-                        List<Record> records = JSON.parseArray(new String(gameRecordResponse.getData().getData(), Charset.forName("utf-8")), Record.class);
+                case RUIJIN_MAHJONG:
+                    if (null != infoRepresentation.getData()) {
+                        List<Record> records = JSON.parseArray(new String(infoRepresentation.getData(), Charset.forName("utf-8")), Record.class);
                         Record record = records.get(round);
 
-                        Xingning.XingningMahjongReplayResponse.Builder xingningReplayResponse = Xingning.XingningMahjongReplayResponse.newBuilder();
-                        Mahjong.MahjongStartResponse.Builder dealCard = Mahjong.MahjongStartResponse.newBuilder();
-                        dealCard.setBanker(record.getBanker()).addAllDice(Arrays.asList(record.getDice()));
-                        xingningReplayResponse.setStart(dealCard);
+                        Mahjong.MahjongReplayData.Builder mahjongReplayData = Mahjong.MahjongReplayData.newBuilder();
+
+                        Mahjong.GameInitInfo.Builder gameInfo = Mahjong.GameInitInfo.newBuilder();
+                        gameInfo.setSurplusCardsSize(135 - (record.getSeatRecordList().size() * 13));
+                        gameInfo.setBanker(record.getBanker());
+                        if (null != record.getDice() && 0 < record.getDice().length) {
+                            gameInfo.addAllDice(Arrays.asList(record.getDice()));
+                        }
+                        gameInfo.setGameCount(record.getGameCount());
+                        gameInfo.setGameTimes(infoRepresentation.getGameTotal());
+
+                        Mahjong.MahjongResultResponse.Builder resultResponse = Mahjong.MahjongResultResponse.newBuilder();
+                        resultResponse.setDateTime(new Date().getTime());
+                        GameBase.RoomSeatsInfo.Builder roomSeatsInfo = GameBase.RoomSeatsInfo.newBuilder();
+                        for (SeatRecord seatRecord : record.getSeatRecordList()) {
+                            Mahjong.MahjongSeatGameInitInfo.Builder gameSeatResponse = Mahjong.MahjongSeatGameInitInfo.newBuilder();
+                            Mahjong.MahjongUserResult.Builder mahjongUserResult = Mahjong.MahjongUserResult.newBuilder();
+                            GameBase.SeatResponse.Builder seatResponse = GameBase.SeatResponse.newBuilder();
+                            gameSeatResponse.setID(seatRecord.getUserId());
+                            if (null != seatRecord.getInitialCards()) {
+                                gameSeatResponse.addAllInitialCards(seatRecord.getInitialCards());
+                            }
+                            gameInfo.addSeats(gameSeatResponse);
+                            mahjongUserResult.setID(seatRecord.getUserId());
+                            mahjongUserResult.setScore(seatRecord.getWinOrLose());
+                            mahjongUserResult.setWinOrLose(seatRecord.getWinOrLose());
+                            if (null != seatRecord.getCardResult()) {
+                                mahjongUserResult.setCardScore(seatRecord.getCardResult().getScore());
+                                for (ScoreType scoreType : seatRecord.getCardResult().getScoreTypes()) {
+                                    mahjongUserResult.addScoreTypes(Mahjong.ScoreType.forNumber(scoreType.ordinal() - 3));
+                                }
+                            }
+                            int mingGangScore = 0;
+                            for (GameResult gameResult : seatRecord.getMingGangResult()) {
+                                mingGangScore += gameResult.getScore();
+                            }
+                            mahjongUserResult.setMingGangScore(mingGangScore);
+                            int anGangScore = 0;
+                            for (GameResult gameResult : seatRecord.getAnGangResult()) {
+                                anGangScore += gameResult.getScore();
+                            }
+                            mahjongUserResult.setAnGangScore(anGangScore);
+                            if (null != seatRecord.getChiCards()) {
+                                mahjongUserResult.addAllChiCards(seatRecord.getChiCards());
+                            }
+                            if (null != seatRecord.getPengCards()) {
+                                mahjongUserResult.addAllPengCards(seatRecord.getPengCards());
+                            }
+                            if (null != seatRecord.getMingGangCards()) {
+                                mahjongUserResult.addAllMingGangCards(seatRecord.getMingGangCards());
+                            }
+                            if (null != seatRecord.getAnGangCards()) {
+                                mahjongUserResult.addAllAnGangCards(seatRecord.getAnGangCards());
+                            }
+                            if (null != seatRecord.getCards()) {
+                                mahjongUserResult.addAllCards(seatRecord.getCards());
+                            }
+                            mahjongUserResult.setMaScore(seatRecord.getMaScore());
+                            mahjongUserResult.setHuCard(seatRecord.getHuCard());
+                            resultResponse.addUserResult(mahjongUserResult);
+
+                            seatResponse.setSeatNo(seatRecord.getSeatNo());
+                            seatResponse.setID(seatRecord.getUserId());
+                            seatResponse.setScore(seatRecord.getScore() - seatRecord.getWinOrLose());
+                            seatResponse.setReady(false);
+                            seatResponse.setNickname(seatRecord.getNickname());
+                            seatResponse.setHead(seatRecord.getHead());
+                            seatResponse.setSex(seatRecord.isSex());
+                            seatResponse.setOffline(false);
+                            seatResponse.setGameCount(seatRecord.getGameCount());
+                            seatResponse.setIsRobot(false);
+                            seatResponse.setIp(seatRecord.getIp());
+                            roomSeatsInfo.addSeats(seatResponse.build());
+                        }
+                        mahjongReplayData.setResult(resultResponse);
+                        replayResponse.setSeatInfo(roomSeatsInfo);
 
                         for (OperationHistory operationHistory : record.getHistoryList()) {
-                            GameBase.OperationHistory.Builder builder = GameBase.OperationHistory.newBuilder();
+                            GameBase.BaseAction.Builder builder = GameBase.BaseAction.newBuilder();
                             builder.setID(operationHistory.getUserId());
-                            builder.addCard(operationHistory.getCard());
-                            switch (operationHistory.getHistoryType()) {
-                                case GET_CARD:
-                                    builder.setOperationId(GameBase.ActionId.GET_CARD);
-                                    break;
-                                case PLAY_CARD:
-                                    builder.setOperationId(GameBase.ActionId.PLAY_CARD);
-                                    break;
-                                case PENG:
-                                    builder.setOperationId(GameBase.ActionId.PENG);
-                                    break;
-                                case AN_GANG:
-                                    builder.setOperationId(GameBase.ActionId.AN_GANG);
-                                    break;
-                                case DIAN_GANG:
-                                    builder.setOperationId(GameBase.ActionId.DIAN_GANG);
-                                    break;
-                                case BA_GANG:
-                                    builder.setOperationId(GameBase.ActionId.BA_GANG);
-                                    break;
-                                case HU:
-                                    builder.setOperationId(GameBase.ActionId.HU);
-                                    break;
-                                case CHI:
-                                    builder.setOperationId(GameBase.ActionId.CHI);
-                                    break;
+                            if (0 == operationHistory.getHistoryType().compareTo(OperationHistoryType.HU)) {
+                                builder.setOperationId(GameBase.ActionId.valueOf(operationHistory.getHistoryType().getName()));
+                                builder.setData(Mahjong.CardsData.newBuilder().addAllCards(operationHistory.getCards()).build().toByteString());
+                            } else {
+                                builder.setOperationId(GameBase.ActionId.valueOf(operationHistory.getHistoryType().getName()));
+                                builder.setData(Mahjong.MahjongHuResponse.newBuilder().addAllCards(operationHistory.getCards()).build().toByteString());
                             }
-                            xingningReplayResponse.addHistory(builder);
+                            mahjongReplayData.addHistory(builder);
                         }
-                        replayResponse.setReplay(xingningReplayResponse.build().toByteString());
+
+                        GameBase.RoomCardIntoResponse.Builder roomCardIntoResponseBuilder = GameBase.RoomCardIntoResponse.newBuilder();
+                        roomCardIntoResponseBuilder.setGameType(GameBase.GameType.valueOf(infoRepresentation.getGameType().getName()));
+                        roomCardIntoResponseBuilder.setRoomNo(infoRepresentation.getRoomNo().toString());
+                        roomCardIntoResponseBuilder.setRoomOwner(infoRepresentation.getRoomOwner());
+                        roomCardIntoResponseBuilder.setStarted(true);
+                        if (0 == infoRepresentation.getGameType().compareTo(GameType.XINGNING_MAHJONG)) {
+                            Xingning.XingningMahjongIntoResponse.Builder intoResponseBuilder = Xingning.XingningMahjongIntoResponse.newBuilder();
+                            intoResponseBuilder.setCount(infoRepresentation.getPeopleCount());
+                            intoResponseBuilder.setGameTimes(infoRepresentation.getGameTotal());
+
+                            JSONObject gameRule = JSON.parseObject(infoRepresentation.getGameRule());
+                            intoResponseBuilder.setBaseScore(gameRule.getIntValue("baseScore"));
+                            intoResponseBuilder.setGameRules(gameRule.getIntValue("gameRule"));
+                            intoResponseBuilder.setGhost(gameRule.getIntValue("ghost"));
+                            intoResponseBuilder.setMaCount(gameRule.getIntValue("initMaCount"));
+                            gameInfo.setRogue(gameRule.getIntValue("rogue"));
+                            roomCardIntoResponseBuilder.setData(intoResponseBuilder.build().toByteString());
+                            resultResponse.addAllMaCard(JSON.parseArray(gameRule.getString("maCards"), Integer.class));
+                        } else {
+                            Ruijin.RuijinMahjongIntoResponse.Builder intoResponseBuilder = Ruijin.RuijinMahjongIntoResponse.newBuilder();
+                            intoResponseBuilder.setCount(infoRepresentation.getPeopleCount());
+                            intoResponseBuilder.setGameTimes(infoRepresentation.getGameTotal());
+
+                            JSONObject gameRule = JSON.parseObject(infoRepresentation.getGameRule());
+                            intoResponseBuilder.setBaseScore(gameRule.getIntValue("baseScore"));
+                            intoResponseBuilder.setDianpao(gameRule.getBooleanValue("dianpao"));
+                            intoResponseBuilder.setZhuangxian(gameRule.getIntValue("zhuangxian"));
+                            gameInfo.setRogue(gameRule.getIntValue("rogue"));
+                            roomCardIntoResponseBuilder.setData(intoResponseBuilder.build().toByteString());
+                        }
+                        mahjongReplayData.setGameInitInfo(gameInfo);
+                        replayResponse.setRoomInfo(roomCardIntoResponseBuilder);
+                        replayResponse.setGameData(mahjongReplayData.build().toByteString());
                     }
                     break;
                 case RUN_QUICKLY:
-                    break;
-                case RUIJIN_MAHJONG:
-                    if (null != gameRecordResponse.getData().getData()) {
-                        List<Record> records = JSON.parseArray(new String(gameRecordResponse.getData().getData(), Charset.forName("utf-8")), Record.class);
-                        Record record = records.get(round);
-
-                        Ruijin.RuijinMahjongReplayResponse.Builder ruijinReplayResponse = Ruijin.RuijinMahjongReplayResponse.newBuilder();
-                        Mahjong.MahjongStartResponse.Builder dealCard = Mahjong.MahjongStartResponse.newBuilder();
-                        Ruijin.RuijinStartResponse.Builder ruijinDealCard = Ruijin.RuijinStartResponse.newBuilder();
-                        dealCard.setBanker(record.getBanker()).addAllDice(Arrays.asList(record.getDice()));
-                        ruijinDealCard.setRogue(record.getJiabao());
-                        ruijinReplayResponse.setStart(ruijinDealCard);
-
-                        for (OperationHistory operationHistory : record.getHistoryList()) {
-                            GameBase.OperationHistory.Builder builder = GameBase.OperationHistory.newBuilder();
-                            builder.setID(operationHistory.getUserId());
-                            builder.addCard(operationHistory.getCard());
-                            switch (operationHistory.getHistoryType()) {
-                                case GET_CARD:
-                                    builder.setOperationId(GameBase.ActionId.GET_CARD);
-                                    break;
-                                case PLAY_CARD:
-                                    builder.setOperationId(GameBase.ActionId.PLAY_CARD);
-                                    break;
-                                case PENG:
-                                    builder.setOperationId(GameBase.ActionId.PENG);
-                                    break;
-                                case AN_GANG:
-                                    builder.setOperationId(GameBase.ActionId.AN_GANG);
-                                    break;
-                                case DIAN_GANG:
-                                    builder.setOperationId(GameBase.ActionId.DIAN_GANG);
-                                    break;
-                                case BA_GANG:
-                                    builder.setOperationId(GameBase.ActionId.BA_GANG);
-                                    break;
-                                case HU:
-                                    builder.setOperationId(GameBase.ActionId.HU);
-                                    break;
-                            }
-                            ruijinReplayResponse.addHistory(builder);
-                        }
-                    }
                     break;
                 case SANGONG:
                     break;

@@ -17,53 +17,78 @@ public final class Ruijin {
                 (com.google.protobuf.ExtensionRegistryLite) registry);
     }
 
-    public interface RuijinStartResponseOrBuilder extends
-            // @@protoc_insertion_point(interface_extends:RuijinStartResponse)
+    public interface RuijinMahjongIntoResponseOrBuilder extends
+            // @@protoc_insertion_point(interface_extends:RuijinMahjongIntoResponse)
             com.google.protobuf.MessageOrBuilder {
 
         /**
-         * <code>.MahjongStartResponse mahjongStartResponse = 1;</code>
+         * <pre>
+         * 底分
+         * </pre>
+         * <p>
+         * <code>uint32 baseScore = 1;</code>
          */
-        boolean hasMahjongStartResponse();
+        int getBaseScore();
 
         /**
-         * <code>.MahjongStartResponse mahjongStartResponse = 1;</code>
+     * <pre>
+         *游戏局数
+         * </pre>
+         *
+         * <code>uint32 gameTimes = 2;</code>
          */
-        game.mode.Mahjong.MahjongStartResponse getMahjongStartResponse();
-
-        /**
-         * <code>.MahjongStartResponse mahjongStartResponse = 1;</code>
-         */
-        game.mode.Mahjong.MahjongStartResponseOrBuilder getMahjongStartResponseOrBuilder();
+        int getGameTimes();
 
         /**
          * <pre>
-         * 赖子
+         * 人数
          * </pre>
          * <p>
-         * <code>int32 rogue = 2;</code>
+         * <code>uint32 count = 3;</code>
          */
-        int getRogue();
+        int getCount();
+
+        /**
+         * <pre>
+         * 点炮
+         * </pre>
+         * <p>
+         * <code>bool dianpao = 4;</code>
+         */
+        boolean getDianpao();
+
+        /**
+         * <pre>
+         * 庄闲
+         * </pre>
+         * <p>
+         * <code>uint32 zhuangxian = 5;</code>
+         */
+        int getZhuangxian();
     }
 
     /**
      * <pre>
-     * 游戏开始 发牌 START
+     * 进入房间返回 ROOM_INFO
      * </pre>
      * <p>
-     * Protobuf type {@code RuijinStartResponse}
+     * Protobuf type {@code RuijinMahjongIntoResponse}
      */
-    public static final class RuijinStartResponse extends
+    public static final class RuijinMahjongIntoResponse extends
             com.google.protobuf.GeneratedMessageV3 implements
-            // @@protoc_insertion_point(message_implements:RuijinStartResponse)
-            RuijinStartResponseOrBuilder {
-        // Use RuijinStartResponse.newBuilder() to construct.
-        private RuijinStartResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+            // @@protoc_insertion_point(message_implements:RuijinMahjongIntoResponse)
+            RuijinMahjongIntoResponseOrBuilder {
+        // Use RuijinMahjongIntoResponse.newBuilder() to construct.
+        private RuijinMahjongIntoResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
             super(builder);
         }
 
-        private RuijinStartResponse() {
-            rogue_ = 0;
+        private RuijinMahjongIntoResponse() {
+            baseScore_ = 0;
+            gameTimes_ = 0;
+            count_ = 0;
+            dianpao_ = false;
+            zhuangxian_ = 0;
         }
 
         @java.lang.Override
@@ -72,7 +97,7 @@ public final class Ruijin {
             return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
         }
 
-        private RuijinStartResponse(
+        private RuijinMahjongIntoResponse(
                 com.google.protobuf.CodedInputStream input,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws com.google.protobuf.InvalidProtocolBufferException {
@@ -92,22 +117,29 @@ public final class Ruijin {
                             }
                             break;
                         }
-                        case 10: {
-                            game.mode.Mahjong.MahjongStartResponse.Builder subBuilder = null;
-                            if (mahjongStartResponse_ != null) {
-                                subBuilder = mahjongStartResponse_.toBuilder();
-                            }
-                            mahjongStartResponse_ = input.readMessage(game.mode.Mahjong.MahjongStartResponse.parser(), extensionRegistry);
-                            if (subBuilder != null) {
-                                subBuilder.mergeFrom(mahjongStartResponse_);
-                                mahjongStartResponse_ = subBuilder.buildPartial();
-                            }
+                        case 8: {
 
+                            baseScore_ = input.readUInt32();
                             break;
                         }
                         case 16: {
 
-                            rogue_ = input.readInt32();
+                            gameTimes_ = input.readUInt32();
+                            break;
+                        }
+                        case 24: {
+
+                            count_ = input.readUInt32();
+                            break;
+                        }
+                        case 32: {
+
+                            dianpao_ = input.readBool();
+                            break;
+                        }
+                        case 40: {
+
+                            zhuangxian_ = input.readUInt32();
                             break;
                         }
                     }
@@ -118,58 +150,90 @@ public final class Ruijin {
                 throw new com.google.protobuf.InvalidProtocolBufferException(
                         e).setUnfinishedMessage(this);
             } finally {
-                makeExtensionsImmutable();
+        makeExtensionsImmutable();
             }
         }
 
         public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-            return game.mode.Ruijin.internal_static_RuijinStartResponse_descriptor;
+            return game.mode.Ruijin.internal_static_RuijinMahjongIntoResponse_descriptor;
         }
 
         protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-            return game.mode.Ruijin.internal_static_RuijinStartResponse_fieldAccessorTable
+            return game.mode.Ruijin.internal_static_RuijinMahjongIntoResponse_fieldAccessorTable
                     .ensureFieldAccessorsInitialized(
-                            game.mode.Ruijin.RuijinStartResponse.class, game.mode.Ruijin.RuijinStartResponse.Builder.class);
+                            game.mode.Ruijin.RuijinMahjongIntoResponse.class, game.mode.Ruijin.RuijinMahjongIntoResponse.Builder.class);
         }
 
-        public static final int MAHJONGSTARTRESPONSE_FIELD_NUMBER = 1;
-        private game.mode.Mahjong.MahjongStartResponse mahjongStartResponse_;
-
-        /**
-         * <code>.MahjongStartResponse mahjongStartResponse = 1;</code>
-         */
-        public boolean hasMahjongStartResponse() {
-            return mahjongStartResponse_ != null;
-        }
-
-        /**
-         * <code>.MahjongStartResponse mahjongStartResponse = 1;</code>
-         */
-        public game.mode.Mahjong.MahjongStartResponse getMahjongStartResponse() {
-            return mahjongStartResponse_ == null ? game.mode.Mahjong.MahjongStartResponse.getDefaultInstance() : mahjongStartResponse_;
-        }
-
-        /**
-         * <code>.MahjongStartResponse mahjongStartResponse = 1;</code>
-         */
-        public game.mode.Mahjong.MahjongStartResponseOrBuilder getMahjongStartResponseOrBuilder() {
-            return getMahjongStartResponse();
-        }
-
-        public static final int ROGUE_FIELD_NUMBER = 2;
-        private int rogue_;
+        public static final int BASESCORE_FIELD_NUMBER = 1;
+        private int baseScore_;
 
         /**
          * <pre>
-         * 赖子
+         * 底分
          * </pre>
          * <p>
-         * <code>int32 rogue = 2;</code>
+         * <code>uint32 baseScore = 1;</code>
          */
-        public int getRogue() {
-            return rogue_;
+        public int getBaseScore() {
+            return baseScore_;
+        }
+
+        public static final int GAMETIMES_FIELD_NUMBER = 2;
+        private int gameTimes_;
+
+        /**
+         * <pre>
+         * 游戏局数
+         * </pre>
+         * <p>
+         * <code>uint32 gameTimes = 2;</code>
+         */
+        public int getGameTimes() {
+            return gameTimes_;
+        }
+
+        public static final int COUNT_FIELD_NUMBER = 3;
+        private int count_;
+
+        /**
+         * <pre>
+         * 人数
+         * </pre>
+         * <p>
+         * <code>uint32 count = 3;</code>
+         */
+        public int getCount() {
+            return count_;
+        }
+
+        public static final int DIANPAO_FIELD_NUMBER = 4;
+        private boolean dianpao_;
+
+        /**
+         * <pre>
+         * 点炮
+         * </pre>
+         * <p>
+         * <code>bool dianpao = 4;</code>
+         */
+        public boolean getDianpao() {
+            return dianpao_;
+        }
+
+        public static final int ZHUANGXIAN_FIELD_NUMBER = 5;
+        private int zhuangxian_;
+
+        /**
+         * <pre>
+         * 庄闲
+         * </pre>
+         * <p>
+         * <code>uint32 zhuangxian = 5;</code>
+         */
+        public int getZhuangxian() {
+            return zhuangxian_;
         }
 
         private byte memoizedIsInitialized = -1;
@@ -185,11 +249,20 @@ public final class Ruijin {
 
         public void writeTo(com.google.protobuf.CodedOutputStream output)
                 throws java.io.IOException {
-            if (mahjongStartResponse_ != null) {
-                output.writeMessage(1, getMahjongStartResponse());
+            if (baseScore_ != 0) {
+                output.writeUInt32(1, baseScore_);
             }
-            if (rogue_ != 0) {
-                output.writeInt32(2, rogue_);
+            if (gameTimes_ != 0) {
+                output.writeUInt32(2, gameTimes_);
+            }
+            if (count_ != 0) {
+                output.writeUInt32(3, count_);
+            }
+            if (dianpao_ != false) {
+                output.writeBool(4, dianpao_);
+            }
+            if (zhuangxian_ != 0) {
+                output.writeUInt32(5, zhuangxian_);
             }
         }
 
@@ -198,13 +271,25 @@ public final class Ruijin {
             if (size != -1) return size;
 
             size = 0;
-            if (mahjongStartResponse_ != null) {
+            if (baseScore_ != 0) {
                 size += com.google.protobuf.CodedOutputStream
-                        .computeMessageSize(1, getMahjongStartResponse());
+                        .computeUInt32Size(1, baseScore_);
             }
-            if (rogue_ != 0) {
+            if (gameTimes_ != 0) {
                 size += com.google.protobuf.CodedOutputStream
-                        .computeInt32Size(2, rogue_);
+                        .computeUInt32Size(2, gameTimes_);
+            }
+            if (count_ != 0) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeUInt32Size(3, count_);
+            }
+            if (dianpao_ != false) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeBoolSize(4, dianpao_);
+            }
+            if (zhuangxian_ != 0) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeUInt32Size(5, zhuangxian_);
             }
             memoizedSize = size;
             return size;
@@ -217,19 +302,22 @@ public final class Ruijin {
             if (obj == this) {
                 return true;
             }
-            if (!(obj instanceof game.mode.Ruijin.RuijinStartResponse)) {
+            if (!(obj instanceof game.mode.Ruijin.RuijinMahjongIntoResponse)) {
                 return super.equals(obj);
             }
-            game.mode.Ruijin.RuijinStartResponse other = (game.mode.Ruijin.RuijinStartResponse) obj;
+            game.mode.Ruijin.RuijinMahjongIntoResponse other = (game.mode.Ruijin.RuijinMahjongIntoResponse) obj;
 
             boolean result = true;
-            result = result && (hasMahjongStartResponse() == other.hasMahjongStartResponse());
-            if (hasMahjongStartResponse()) {
-                result = result && getMahjongStartResponse()
-                        .equals(other.getMahjongStartResponse());
-            }
-            result = result && (getRogue()
-                    == other.getRogue());
+            result = result && (getBaseScore()
+                    == other.getBaseScore());
+            result = result && (getGameTimes()
+                    == other.getGameTimes());
+            result = result && (getCount()
+                    == other.getCount());
+            result = result && (getDianpao()
+                    == other.getDianpao());
+            result = result && (getZhuangxian()
+                    == other.getZhuangxian());
             return result;
         }
 
@@ -240,62 +328,67 @@ public final class Ruijin {
             }
             int hash = 41;
             hash = (19 * hash) + getDescriptor().hashCode();
-            if (hasMahjongStartResponse()) {
-                hash = (37 * hash) + MAHJONGSTARTRESPONSE_FIELD_NUMBER;
-                hash = (53 * hash) + getMahjongStartResponse().hashCode();
-            }
-            hash = (37 * hash) + ROGUE_FIELD_NUMBER;
-            hash = (53 * hash) + getRogue();
+            hash = (37 * hash) + BASESCORE_FIELD_NUMBER;
+            hash = (53 * hash) + getBaseScore();
+            hash = (37 * hash) + GAMETIMES_FIELD_NUMBER;
+            hash = (53 * hash) + getGameTimes();
+            hash = (37 * hash) + COUNT_FIELD_NUMBER;
+            hash = (53 * hash) + getCount();
+            hash = (37 * hash) + DIANPAO_FIELD_NUMBER;
+            hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+                    getDianpao());
+            hash = (37 * hash) + ZHUANGXIAN_FIELD_NUMBER;
+            hash = (53 * hash) + getZhuangxian();
             hash = (29 * hash) + unknownFields.hashCode();
             memoizedHashCode = hash;
             return hash;
         }
 
-        public static game.mode.Ruijin.RuijinStartResponse parseFrom(
+        public static game.mode.Ruijin.RuijinMahjongIntoResponse parseFrom(
                 java.nio.ByteBuffer data)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data);
         }
 
-        public static game.mode.Ruijin.RuijinStartResponse parseFrom(
+        public static game.mode.Ruijin.RuijinMahjongIntoResponse parseFrom(
                 java.nio.ByteBuffer data,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data, extensionRegistry);
         }
 
-        public static game.mode.Ruijin.RuijinStartResponse parseFrom(
+        public static game.mode.Ruijin.RuijinMahjongIntoResponse parseFrom(
                 com.google.protobuf.ByteString data)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data);
         }
 
-        public static game.mode.Ruijin.RuijinStartResponse parseFrom(
+        public static game.mode.Ruijin.RuijinMahjongIntoResponse parseFrom(
                 com.google.protobuf.ByteString data,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data, extensionRegistry);
         }
 
-        public static game.mode.Ruijin.RuijinStartResponse parseFrom(byte[] data)
+        public static game.mode.Ruijin.RuijinMahjongIntoResponse parseFrom(byte[] data)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data);
         }
 
-        public static game.mode.Ruijin.RuijinStartResponse parseFrom(
+        public static game.mode.Ruijin.RuijinMahjongIntoResponse parseFrom(
                 byte[] data,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data, extensionRegistry);
         }
 
-        public static game.mode.Ruijin.RuijinStartResponse parseFrom(java.io.InputStream input)
+        public static game.mode.Ruijin.RuijinMahjongIntoResponse parseFrom(java.io.InputStream input)
                 throws java.io.IOException {
             return com.google.protobuf.GeneratedMessageV3
                     .parseWithIOException(PARSER, input);
         }
 
-        public static game.mode.Ruijin.RuijinStartResponse parseFrom(
+        public static game.mode.Ruijin.RuijinMahjongIntoResponse parseFrom(
                 java.io.InputStream input,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws java.io.IOException {
@@ -303,13 +396,13 @@ public final class Ruijin {
                     .parseWithIOException(PARSER, input, extensionRegistry);
         }
 
-        public static game.mode.Ruijin.RuijinStartResponse parseDelimitedFrom(java.io.InputStream input)
+        public static game.mode.Ruijin.RuijinMahjongIntoResponse parseDelimitedFrom(java.io.InputStream input)
                 throws java.io.IOException {
             return com.google.protobuf.GeneratedMessageV3
                     .parseDelimitedWithIOException(PARSER, input);
         }
 
-        public static game.mode.Ruijin.RuijinStartResponse parseDelimitedFrom(
+        public static game.mode.Ruijin.RuijinMahjongIntoResponse parseDelimitedFrom(
                 java.io.InputStream input,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws java.io.IOException {
@@ -317,14 +410,14 @@ public final class Ruijin {
                     .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
         }
 
-        public static game.mode.Ruijin.RuijinStartResponse parseFrom(
+        public static game.mode.Ruijin.RuijinMahjongIntoResponse parseFrom(
                 com.google.protobuf.CodedInputStream input)
                 throws java.io.IOException {
             return com.google.protobuf.GeneratedMessageV3
                     .parseWithIOException(PARSER, input);
         }
 
-        public static game.mode.Ruijin.RuijinStartResponse parseFrom(
+        public static game.mode.Ruijin.RuijinMahjongIntoResponse parseFrom(
                 com.google.protobuf.CodedInputStream input,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws java.io.IOException {
@@ -340,7 +433,7 @@ public final class Ruijin {
             return DEFAULT_INSTANCE.toBuilder();
         }
 
-        public static Builder newBuilder(game.mode.Ruijin.RuijinStartResponse prototype) {
+        public static Builder newBuilder(game.mode.Ruijin.RuijinMahjongIntoResponse prototype) {
             return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
         }
 
@@ -358,28 +451,28 @@ public final class Ruijin {
 
         /**
          * <pre>
-         * 游戏开始 发牌 START
+         * 进入房间返回 ROOM_INFO
          * </pre>
          * <p>
-         * Protobuf type {@code RuijinStartResponse}
+         * Protobuf type {@code RuijinMahjongIntoResponse}
          */
         public static final class Builder extends
                 com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-                // @@protoc_insertion_point(builder_implements:RuijinStartResponse)
-                game.mode.Ruijin.RuijinStartResponseOrBuilder {
+                // @@protoc_insertion_point(builder_implements:RuijinMahjongIntoResponse)
+                game.mode.Ruijin.RuijinMahjongIntoResponseOrBuilder {
             public static final com.google.protobuf.Descriptors.Descriptor
             getDescriptor() {
-                return game.mode.Ruijin.internal_static_RuijinStartResponse_descriptor;
+                return game.mode.Ruijin.internal_static_RuijinMahjongIntoResponse_descriptor;
             }
 
             protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
             internalGetFieldAccessorTable() {
-                return game.mode.Ruijin.internal_static_RuijinStartResponse_fieldAccessorTable
+                return game.mode.Ruijin.internal_static_RuijinMahjongIntoResponse_fieldAccessorTable
                         .ensureFieldAccessorsInitialized(
-                                game.mode.Ruijin.RuijinStartResponse.class, game.mode.Ruijin.RuijinStartResponse.Builder.class);
+                                game.mode.Ruijin.RuijinMahjongIntoResponse.class, game.mode.Ruijin.RuijinMahjongIntoResponse.Builder.class);
             }
 
-            // Construct using game.mode.Ruijin.RuijinStartResponse.newBuilder()
+            // Construct using game.mode.Ruijin.RuijinMahjongIntoResponse.newBuilder()
             private Builder() {
                 maybeForceBuilderInitialization();
             }
@@ -398,42 +491,43 @@ public final class Ruijin {
 
             public Builder clear() {
                 super.clear();
-                if (mahjongStartResponseBuilder_ == null) {
-                    mahjongStartResponse_ = null;
-                } else {
-                    mahjongStartResponse_ = null;
-                    mahjongStartResponseBuilder_ = null;
-                }
-                rogue_ = 0;
+                baseScore_ = 0;
+
+                gameTimes_ = 0;
+
+                count_ = 0;
+
+                dianpao_ = false;
+
+                zhuangxian_ = 0;
 
                 return this;
             }
 
             public com.google.protobuf.Descriptors.Descriptor
             getDescriptorForType() {
-                return game.mode.Ruijin.internal_static_RuijinStartResponse_descriptor;
+                return game.mode.Ruijin.internal_static_RuijinMahjongIntoResponse_descriptor;
             }
 
-            public game.mode.Ruijin.RuijinStartResponse getDefaultInstanceForType() {
-                return game.mode.Ruijin.RuijinStartResponse.getDefaultInstance();
+            public game.mode.Ruijin.RuijinMahjongIntoResponse getDefaultInstanceForType() {
+                return game.mode.Ruijin.RuijinMahjongIntoResponse.getDefaultInstance();
             }
 
-            public game.mode.Ruijin.RuijinStartResponse build() {
-                game.mode.Ruijin.RuijinStartResponse result = buildPartial();
+            public game.mode.Ruijin.RuijinMahjongIntoResponse build() {
+                game.mode.Ruijin.RuijinMahjongIntoResponse result = buildPartial();
                 if (!result.isInitialized()) {
                     throw newUninitializedMessageException(result);
                 }
                 return result;
             }
 
-            public game.mode.Ruijin.RuijinStartResponse buildPartial() {
-                game.mode.Ruijin.RuijinStartResponse result = new game.mode.Ruijin.RuijinStartResponse(this);
-                if (mahjongStartResponseBuilder_ == null) {
-                    result.mahjongStartResponse_ = mahjongStartResponse_;
-                } else {
-                    result.mahjongStartResponse_ = mahjongStartResponseBuilder_.build();
-                }
-                result.rogue_ = rogue_;
+            public game.mode.Ruijin.RuijinMahjongIntoResponse buildPartial() {
+                game.mode.Ruijin.RuijinMahjongIntoResponse result = new game.mode.Ruijin.RuijinMahjongIntoResponse(this);
+                result.baseScore_ = baseScore_;
+                result.gameTimes_ = gameTimes_;
+                result.count_ = count_;
+                result.dianpao_ = dianpao_;
+                result.zhuangxian_ = zhuangxian_;
                 onBuilt();
                 return result;
             }
@@ -471,21 +565,30 @@ public final class Ruijin {
             }
 
             public Builder mergeFrom(com.google.protobuf.Message other) {
-                if (other instanceof game.mode.Ruijin.RuijinStartResponse) {
-                    return mergeFrom((game.mode.Ruijin.RuijinStartResponse) other);
+                if (other instanceof game.mode.Ruijin.RuijinMahjongIntoResponse) {
+                    return mergeFrom((game.mode.Ruijin.RuijinMahjongIntoResponse) other);
                 } else {
                     super.mergeFrom(other);
                     return this;
                 }
             }
 
-            public Builder mergeFrom(game.mode.Ruijin.RuijinStartResponse other) {
-                if (other == game.mode.Ruijin.RuijinStartResponse.getDefaultInstance()) return this;
-                if (other.hasMahjongStartResponse()) {
-                    mergeMahjongStartResponse(other.getMahjongStartResponse());
+            public Builder mergeFrom(game.mode.Ruijin.RuijinMahjongIntoResponse other) {
+                if (other == game.mode.Ruijin.RuijinMahjongIntoResponse.getDefaultInstance()) return this;
+                if (other.getBaseScore() != 0) {
+                    setBaseScore(other.getBaseScore());
                 }
-                if (other.getRogue() != 0) {
-                    setRogue(other.getRogue());
+                if (other.getGameTimes() != 0) {
+                    setGameTimes(other.getGameTimes());
+                }
+                if (other.getCount() != 0) {
+                    setCount(other.getCount());
+                }
+                if (other.getDianpao() != false) {
+                    setDianpao(other.getDianpao());
+                }
+                if (other.getZhuangxian() != 0) {
+                    setZhuangxian(other.getZhuangxian());
                 }
                 onChanged();
                 return this;
@@ -499,11 +602,11 @@ public final class Ruijin {
                     com.google.protobuf.CodedInputStream input,
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                     throws java.io.IOException {
-                game.mode.Ruijin.RuijinStartResponse parsedMessage = null;
+                game.mode.Ruijin.RuijinMahjongIntoResponse parsedMessage = null;
                 try {
                     parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
                 } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-                    parsedMessage = (game.mode.Ruijin.RuijinStartResponse) e.getUnfinishedMessage();
+                    parsedMessage = (game.mode.Ruijin.RuijinMahjongIntoResponse) e.getUnfinishedMessage();
                     throw e.unwrapIOException();
                 } finally {
                     if (parsedMessage != null) {
@@ -513,169 +616,207 @@ public final class Ruijin {
                 return this;
             }
 
-            private game.mode.Mahjong.MahjongStartResponse mahjongStartResponse_ = null;
-            private com.google.protobuf.SingleFieldBuilderV3<
-                    game.mode.Mahjong.MahjongStartResponse, game.mode.Mahjong.MahjongStartResponse.Builder, game.mode.Mahjong.MahjongStartResponseOrBuilder> mahjongStartResponseBuilder_;
-
-            /**
-             * <code>.MahjongStartResponse mahjongStartResponse = 1;</code>
-             */
-            public boolean hasMahjongStartResponse() {
-                return mahjongStartResponseBuilder_ != null || mahjongStartResponse_ != null;
-            }
-
-            /**
-             * <code>.MahjongStartResponse mahjongStartResponse = 1;</code>
-             */
-            public game.mode.Mahjong.MahjongStartResponse getMahjongStartResponse() {
-                if (mahjongStartResponseBuilder_ == null) {
-                    return mahjongStartResponse_ == null ? game.mode.Mahjong.MahjongStartResponse.getDefaultInstance() : mahjongStartResponse_;
-                } else {
-                    return mahjongStartResponseBuilder_.getMessage();
-                }
-            }
-
-            /**
-             * <code>.MahjongStartResponse mahjongStartResponse = 1;</code>
-             */
-            public Builder setMahjongStartResponse(game.mode.Mahjong.MahjongStartResponse value) {
-                if (mahjongStartResponseBuilder_ == null) {
-                    if (value == null) {
-                        throw new NullPointerException();
-                    }
-                    mahjongStartResponse_ = value;
-                    onChanged();
-                } else {
-                    mahjongStartResponseBuilder_.setMessage(value);
-                }
-
-                return this;
-            }
-
-            /**
-             * <code>.MahjongStartResponse mahjongStartResponse = 1;</code>
-             */
-            public Builder setMahjongStartResponse(
-                    game.mode.Mahjong.MahjongStartResponse.Builder builderForValue) {
-                if (mahjongStartResponseBuilder_ == null) {
-                    mahjongStartResponse_ = builderForValue.build();
-                    onChanged();
-                } else {
-                    mahjongStartResponseBuilder_.setMessage(builderForValue.build());
-                }
-
-                return this;
-            }
-
-            /**
-             * <code>.MahjongStartResponse mahjongStartResponse = 1;</code>
-             */
-            public Builder mergeMahjongStartResponse(game.mode.Mahjong.MahjongStartResponse value) {
-                if (mahjongStartResponseBuilder_ == null) {
-                    if (mahjongStartResponse_ != null) {
-                        mahjongStartResponse_ =
-                                game.mode.Mahjong.MahjongStartResponse.newBuilder(mahjongStartResponse_).mergeFrom(value).buildPartial();
-                    } else {
-                        mahjongStartResponse_ = value;
-                    }
-                    onChanged();
-                } else {
-                    mahjongStartResponseBuilder_.mergeFrom(value);
-                }
-
-                return this;
-            }
-
-            /**
-             * <code>.MahjongStartResponse mahjongStartResponse = 1;</code>
-             */
-            public Builder clearMahjongStartResponse() {
-                if (mahjongStartResponseBuilder_ == null) {
-                    mahjongStartResponse_ = null;
-                    onChanged();
-                } else {
-                    mahjongStartResponse_ = null;
-                    mahjongStartResponseBuilder_ = null;
-                }
-
-                return this;
-            }
-
-            /**
-             * <code>.MahjongStartResponse mahjongStartResponse = 1;</code>
-             */
-            public game.mode.Mahjong.MahjongStartResponse.Builder getMahjongStartResponseBuilder() {
-
-                onChanged();
-                return getMahjongStartResponseFieldBuilder().getBuilder();
-            }
-
-            /**
-             * <code>.MahjongStartResponse mahjongStartResponse = 1;</code>
-             */
-            public game.mode.Mahjong.MahjongStartResponseOrBuilder getMahjongStartResponseOrBuilder() {
-                if (mahjongStartResponseBuilder_ != null) {
-                    return mahjongStartResponseBuilder_.getMessageOrBuilder();
-                } else {
-                    return mahjongStartResponse_ == null ?
-                            game.mode.Mahjong.MahjongStartResponse.getDefaultInstance() : mahjongStartResponse_;
-                }
-            }
-
-            /**
-             * <code>.MahjongStartResponse mahjongStartResponse = 1;</code>
-             */
-            private com.google.protobuf.SingleFieldBuilderV3<
-                    game.mode.Mahjong.MahjongStartResponse, game.mode.Mahjong.MahjongStartResponse.Builder, game.mode.Mahjong.MahjongStartResponseOrBuilder>
-            getMahjongStartResponseFieldBuilder() {
-                if (mahjongStartResponseBuilder_ == null) {
-                    mahjongStartResponseBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-                            game.mode.Mahjong.MahjongStartResponse, game.mode.Mahjong.MahjongStartResponse.Builder, game.mode.Mahjong.MahjongStartResponseOrBuilder>(
-                            getMahjongStartResponse(),
-                            getParentForChildren(),
-                            isClean());
-                    mahjongStartResponse_ = null;
-                }
-                return mahjongStartResponseBuilder_;
-            }
-
-            private int rogue_;
+            private int baseScore_;
 
             /**
              * <pre>
-             * 赖子
+             * 底分
              * </pre>
              * <p>
-             * <code>int32 rogue = 2;</code>
+             * <code>uint32 baseScore = 1;</code>
              */
-            public int getRogue() {
-                return rogue_;
+            public int getBaseScore() {
+                return baseScore_;
             }
 
             /**
              * <pre>
-             * 赖子
+             * 底分
              * </pre>
              * <p>
-             * <code>int32 rogue = 2;</code>
+             * <code>uint32 baseScore = 1;</code>
              */
-            public Builder setRogue(int value) {
+            public Builder setBaseScore(int value) {
 
-                rogue_ = value;
+                baseScore_ = value;
                 onChanged();
                 return this;
             }
 
             /**
              * <pre>
-             * 赖子
+             * 底分
              * </pre>
              * <p>
-             * <code>int32 rogue = 2;</code>
+             * <code>uint32 baseScore = 1;</code>
              */
-            public Builder clearRogue() {
+            public Builder clearBaseScore() {
 
-                rogue_ = 0;
+                baseScore_ = 0;
+                onChanged();
+                return this;
+            }
+
+            private int gameTimes_;
+
+            /**
+             * <pre>
+             * 游戏局数
+             * </pre>
+             * <p>
+             * <code>uint32 gameTimes = 2;</code>
+             */
+            public int getGameTimes() {
+                return gameTimes_;
+            }
+
+            /**
+             * <pre>
+             * 游戏局数
+             * </pre>
+             * <p>
+             * <code>uint32 gameTimes = 2;</code>
+             */
+            public Builder setGameTimes(int value) {
+
+                gameTimes_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 游戏局数
+             * </pre>
+             * <p>
+             * <code>uint32 gameTimes = 2;</code>
+             */
+            public Builder clearGameTimes() {
+
+                gameTimes_ = 0;
+                onChanged();
+                return this;
+            }
+
+            private int count_;
+
+            /**
+             * <pre>
+             * 人数
+             * </pre>
+             * <p>
+             * <code>uint32 count = 3;</code>
+             */
+            public int getCount() {
+                return count_;
+            }
+
+            /**
+             * <pre>
+             * 人数
+             * </pre>
+             * <p>
+             * <code>uint32 count = 3;</code>
+             */
+            public Builder setCount(int value) {
+
+                count_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 人数
+             * </pre>
+             * <p>
+             * <code>uint32 count = 3;</code>
+             */
+            public Builder clearCount() {
+
+                count_ = 0;
+                onChanged();
+                return this;
+            }
+
+            private boolean dianpao_;
+
+            /**
+             * <pre>
+             * 点炮
+             * </pre>
+             * <p>
+             * <code>bool dianpao = 4;</code>
+             */
+            public boolean getDianpao() {
+                return dianpao_;
+            }
+
+            /**
+             * <pre>
+             * 点炮
+             * </pre>
+             * <p>
+             * <code>bool dianpao = 4;</code>
+             */
+            public Builder setDianpao(boolean value) {
+
+                dianpao_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 点炮
+             * </pre>
+             * <p>
+             * <code>bool dianpao = 4;</code>
+             */
+            public Builder clearDianpao() {
+
+                dianpao_ = false;
+                onChanged();
+                return this;
+            }
+
+            private int zhuangxian_;
+
+            /**
+             * <pre>
+             * 庄闲
+             * </pre>
+             * <p>
+             * <code>uint32 zhuangxian = 5;</code>
+             */
+            public int getZhuangxian() {
+                return zhuangxian_;
+            }
+
+            /**
+             * <pre>
+             * 庄闲
+             * </pre>
+             * <p>
+             * <code>uint32 zhuangxian = 5;</code>
+             */
+            public Builder setZhuangxian(int value) {
+
+                zhuangxian_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <pre>
+             * 庄闲
+             * </pre>
+             * <p>
+             * <code>uint32 zhuangxian = 5;</code>
+             */
+            public Builder clearZhuangxian() {
+
+                zhuangxian_ = 0;
                 onChanged();
                 return this;
             }
@@ -691,2121 +832,50 @@ public final class Ruijin {
             }
 
 
-            // @@protoc_insertion_point(builder_scope:RuijinStartResponse)
+            // @@protoc_insertion_point(builder_scope:RuijinMahjongIntoResponse)
         }
 
-        // @@protoc_insertion_point(class_scope:RuijinStartResponse)
-        private static final game.mode.Ruijin.RuijinStartResponse DEFAULT_INSTANCE;
+        // @@protoc_insertion_point(class_scope:RuijinMahjongIntoResponse)
+        private static final game.mode.Ruijin.RuijinMahjongIntoResponse DEFAULT_INSTANCE;
 
         static {
-            DEFAULT_INSTANCE = new game.mode.Ruijin.RuijinStartResponse();
+            DEFAULT_INSTANCE = new game.mode.Ruijin.RuijinMahjongIntoResponse();
         }
 
-        public static game.mode.Ruijin.RuijinStartResponse getDefaultInstance() {
+        public static game.mode.Ruijin.RuijinMahjongIntoResponse getDefaultInstance() {
             return DEFAULT_INSTANCE;
         }
 
-        private static final com.google.protobuf.Parser<RuijinStartResponse>
-                PARSER = new com.google.protobuf.AbstractParser<RuijinStartResponse>() {
-            public RuijinStartResponse parsePartialFrom(
+        private static final com.google.protobuf.Parser<RuijinMahjongIntoResponse>
+                PARSER = new com.google.protobuf.AbstractParser<RuijinMahjongIntoResponse>() {
+            public RuijinMahjongIntoResponse parsePartialFrom(
                     com.google.protobuf.CodedInputStream input,
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                     throws com.google.protobuf.InvalidProtocolBufferException {
-                return new RuijinStartResponse(input, extensionRegistry);
+                return new RuijinMahjongIntoResponse(input, extensionRegistry);
             }
         };
 
-        public static com.google.protobuf.Parser<RuijinStartResponse> parser() {
+        public static com.google.protobuf.Parser<RuijinMahjongIntoResponse> parser() {
             return PARSER;
         }
 
         @java.lang.Override
-        public com.google.protobuf.Parser<RuijinStartResponse> getParserForType() {
+        public com.google.protobuf.Parser<RuijinMahjongIntoResponse> getParserForType() {
             return PARSER;
         }
 
-        public game.mode.Ruijin.RuijinStartResponse getDefaultInstanceForType() {
-            return DEFAULT_INSTANCE;
-        }
-
-    }
-
-    public interface RuijinMahjongGameInfoOrBuilder extends
-            // @@protoc_insertion_point(interface_extends:RuijinMahjongGameInfo)
-            com.google.protobuf.MessageOrBuilder {
-
-        /**
-         * <code>.MahjongGameInfo mahjongGameInfo = 1;</code>
-         */
-        boolean hasMahjongGameInfo();
-
-        /**
-         * <code>.MahjongGameInfo mahjongGameInfo = 1;</code>
-         */
-        game.mode.Mahjong.MahjongGameInfo getMahjongGameInfo();
-
-        /**
-         * <code>.MahjongGameInfo mahjongGameInfo = 1;</code>
-         */
-        game.mode.Mahjong.MahjongGameInfoOrBuilder getMahjongGameInfoOrBuilder();
-
-        /**
-         * <pre>
-         * 赖子
-         * </pre>
-         * <p>
-         * <code>int32 rogue = 2;</code>
-         */
-        int getRogue();
-    }
-
-    /**
-     * <pre>
-     * 游戏信息  GAME_INFO
-     * </pre>
-     * <p>
-     * Protobuf type {@code RuijinMahjongGameInfo}
-     */
-    public static final class RuijinMahjongGameInfo extends
-            com.google.protobuf.GeneratedMessageV3 implements
-            // @@protoc_insertion_point(message_implements:RuijinMahjongGameInfo)
-            RuijinMahjongGameInfoOrBuilder {
-        // Use RuijinMahjongGameInfo.newBuilder() to construct.
-        private RuijinMahjongGameInfo(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-            super(builder);
-        }
-
-        private RuijinMahjongGameInfo() {
-            rogue_ = 0;
-        }
-
-        @java.lang.Override
-        public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
-            return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
-        }
-
-        private RuijinMahjongGameInfo(
-                com.google.protobuf.CodedInputStream input,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws com.google.protobuf.InvalidProtocolBufferException {
-            this();
-            int mutable_bitField0_ = 0;
-            try {
-                boolean done = false;
-                while (!done) {
-                    int tag = input.readTag();
-                    switch (tag) {
-                        case 0:
-                            done = true;
-                            break;
-                        default: {
-                            if (!input.skipField(tag)) {
-                                done = true;
-                            }
-                            break;
-                        }
-                        case 10: {
-                            game.mode.Mahjong.MahjongGameInfo.Builder subBuilder = null;
-                            if (mahjongGameInfo_ != null) {
-                                subBuilder = mahjongGameInfo_.toBuilder();
-                            }
-                            mahjongGameInfo_ = input.readMessage(game.mode.Mahjong.MahjongGameInfo.parser(), extensionRegistry);
-                            if (subBuilder != null) {
-                                subBuilder.mergeFrom(mahjongGameInfo_);
-                                mahjongGameInfo_ = subBuilder.buildPartial();
-                            }
-
-                            break;
-                        }
-                        case 16: {
-
-                            rogue_ = input.readInt32();
-                            break;
-                        }
-                    }
-                }
-            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-                throw e.setUnfinishedMessage(this);
-            } catch (java.io.IOException e) {
-                throw new com.google.protobuf.InvalidProtocolBufferException(
-                        e).setUnfinishedMessage(this);
-            } finally {
-                makeExtensionsImmutable();
-            }
-        }
-
-        public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-            return game.mode.Ruijin.internal_static_RuijinMahjongGameInfo_descriptor;
-        }
-
-        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-            return game.mode.Ruijin.internal_static_RuijinMahjongGameInfo_fieldAccessorTable
-                    .ensureFieldAccessorsInitialized(
-                            game.mode.Ruijin.RuijinMahjongGameInfo.class, game.mode.Ruijin.RuijinMahjongGameInfo.Builder.class);
-        }
-
-        public static final int MAHJONGGAMEINFO_FIELD_NUMBER = 1;
-        private game.mode.Mahjong.MahjongGameInfo mahjongGameInfo_;
-
-        /**
-         * <code>.MahjongGameInfo mahjongGameInfo = 1;</code>
-         */
-        public boolean hasMahjongGameInfo() {
-            return mahjongGameInfo_ != null;
-        }
-
-        /**
-         * <code>.MahjongGameInfo mahjongGameInfo = 1;</code>
-         */
-        public game.mode.Mahjong.MahjongGameInfo getMahjongGameInfo() {
-            return mahjongGameInfo_ == null ? game.mode.Mahjong.MahjongGameInfo.getDefaultInstance() : mahjongGameInfo_;
-        }
-
-        /**
-         * <code>.MahjongGameInfo mahjongGameInfo = 1;</code>
-         */
-        public game.mode.Mahjong.MahjongGameInfoOrBuilder getMahjongGameInfoOrBuilder() {
-            return getMahjongGameInfo();
-        }
-
-        public static final int ROGUE_FIELD_NUMBER = 2;
-        private int rogue_;
-
-        /**
-         * <pre>
-         * 赖子
-         * </pre>
-         * <p>
-         * <code>int32 rogue = 2;</code>
-         */
-        public int getRogue() {
-            return rogue_;
-        }
-
-        private byte memoizedIsInitialized = -1;
-
-        public final boolean isInitialized() {
-            byte isInitialized = memoizedIsInitialized;
-            if (isInitialized == 1) return true;
-            if (isInitialized == 0) return false;
-
-            memoizedIsInitialized = 1;
-            return true;
-        }
-
-        public void writeTo(com.google.protobuf.CodedOutputStream output)
-                throws java.io.IOException {
-            if (mahjongGameInfo_ != null) {
-                output.writeMessage(1, getMahjongGameInfo());
-            }
-            if (rogue_ != 0) {
-                output.writeInt32(2, rogue_);
-            }
-        }
-
-        public int getSerializedSize() {
-            int size = memoizedSize;
-            if (size != -1) return size;
-
-            size = 0;
-            if (mahjongGameInfo_ != null) {
-                size += com.google.protobuf.CodedOutputStream
-                        .computeMessageSize(1, getMahjongGameInfo());
-            }
-            if (rogue_ != 0) {
-                size += com.google.protobuf.CodedOutputStream
-                        .computeInt32Size(2, rogue_);
-            }
-            memoizedSize = size;
-            return size;
-        }
-
-        private static final long serialVersionUID = 0L;
-
-        @java.lang.Override
-        public boolean equals(final java.lang.Object obj) {
-            if (obj == this) {
-                return true;
-            }
-            if (!(obj instanceof game.mode.Ruijin.RuijinMahjongGameInfo)) {
-                return super.equals(obj);
-            }
-            game.mode.Ruijin.RuijinMahjongGameInfo other = (game.mode.Ruijin.RuijinMahjongGameInfo) obj;
-
-            boolean result = true;
-            result = result && (hasMahjongGameInfo() == other.hasMahjongGameInfo());
-            if (hasMahjongGameInfo()) {
-                result = result && getMahjongGameInfo()
-                        .equals(other.getMahjongGameInfo());
-            }
-            result = result && (getRogue()
-                    == other.getRogue());
-            return result;
-        }
-
-        @java.lang.Override
-        public int hashCode() {
-            if (memoizedHashCode != 0) {
-                return memoizedHashCode;
-            }
-            int hash = 41;
-            hash = (19 * hash) + getDescriptor().hashCode();
-            if (hasMahjongGameInfo()) {
-                hash = (37 * hash) + MAHJONGGAMEINFO_FIELD_NUMBER;
-                hash = (53 * hash) + getMahjongGameInfo().hashCode();
-            }
-            hash = (37 * hash) + ROGUE_FIELD_NUMBER;
-            hash = (53 * hash) + getRogue();
-            hash = (29 * hash) + unknownFields.hashCode();
-            memoizedHashCode = hash;
-            return hash;
-        }
-
-        public static game.mode.Ruijin.RuijinMahjongGameInfo parseFrom(
-                java.nio.ByteBuffer data)
-                throws com.google.protobuf.InvalidProtocolBufferException {
-            return PARSER.parseFrom(data);
-        }
-
-        public static game.mode.Ruijin.RuijinMahjongGameInfo parseFrom(
-                java.nio.ByteBuffer data,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws com.google.protobuf.InvalidProtocolBufferException {
-            return PARSER.parseFrom(data, extensionRegistry);
-        }
-
-        public static game.mode.Ruijin.RuijinMahjongGameInfo parseFrom(
-                com.google.protobuf.ByteString data)
-                throws com.google.protobuf.InvalidProtocolBufferException {
-            return PARSER.parseFrom(data);
-        }
-
-        public static game.mode.Ruijin.RuijinMahjongGameInfo parseFrom(
-                com.google.protobuf.ByteString data,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws com.google.protobuf.InvalidProtocolBufferException {
-            return PARSER.parseFrom(data, extensionRegistry);
-        }
-
-        public static game.mode.Ruijin.RuijinMahjongGameInfo parseFrom(byte[] data)
-                throws com.google.protobuf.InvalidProtocolBufferException {
-            return PARSER.parseFrom(data);
-        }
-
-        public static game.mode.Ruijin.RuijinMahjongGameInfo parseFrom(
-                byte[] data,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws com.google.protobuf.InvalidProtocolBufferException {
-            return PARSER.parseFrom(data, extensionRegistry);
-        }
-
-        public static game.mode.Ruijin.RuijinMahjongGameInfo parseFrom(java.io.InputStream input)
-                throws java.io.IOException {
-            return com.google.protobuf.GeneratedMessageV3
-                    .parseWithIOException(PARSER, input);
-        }
-
-        public static game.mode.Ruijin.RuijinMahjongGameInfo parseFrom(
-                java.io.InputStream input,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws java.io.IOException {
-            return com.google.protobuf.GeneratedMessageV3
-                    .parseWithIOException(PARSER, input, extensionRegistry);
-        }
-
-        public static game.mode.Ruijin.RuijinMahjongGameInfo parseDelimitedFrom(java.io.InputStream input)
-                throws java.io.IOException {
-            return com.google.protobuf.GeneratedMessageV3
-                    .parseDelimitedWithIOException(PARSER, input);
-        }
-
-        public static game.mode.Ruijin.RuijinMahjongGameInfo parseDelimitedFrom(
-                java.io.InputStream input,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws java.io.IOException {
-            return com.google.protobuf.GeneratedMessageV3
-                    .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-        }
-
-        public static game.mode.Ruijin.RuijinMahjongGameInfo parseFrom(
-                com.google.protobuf.CodedInputStream input)
-                throws java.io.IOException {
-            return com.google.protobuf.GeneratedMessageV3
-                    .parseWithIOException(PARSER, input);
-        }
-
-        public static game.mode.Ruijin.RuijinMahjongGameInfo parseFrom(
-                com.google.protobuf.CodedInputStream input,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws java.io.IOException {
-            return com.google.protobuf.GeneratedMessageV3
-                    .parseWithIOException(PARSER, input, extensionRegistry);
-        }
-
-        public Builder newBuilderForType() {
-            return newBuilder();
-        }
-
-        public static Builder newBuilder() {
-            return DEFAULT_INSTANCE.toBuilder();
-        }
-
-        public static Builder newBuilder(game.mode.Ruijin.RuijinMahjongGameInfo prototype) {
-            return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-        }
-
-        public Builder toBuilder() {
-            return this == DEFAULT_INSTANCE
-                    ? new Builder() : new Builder().mergeFrom(this);
-        }
-
-        @java.lang.Override
-        protected Builder newBuilderForType(
-                com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-            Builder builder = new Builder(parent);
-            return builder;
-        }
-
-        /**
-         * <pre>
-         * 游戏信息  GAME_INFO
-         * </pre>
-         * <p>
-         * Protobuf type {@code RuijinMahjongGameInfo}
-         */
-        public static final class Builder extends
-                com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-                // @@protoc_insertion_point(builder_implements:RuijinMahjongGameInfo)
-                game.mode.Ruijin.RuijinMahjongGameInfoOrBuilder {
-            public static final com.google.protobuf.Descriptors.Descriptor
-            getDescriptor() {
-                return game.mode.Ruijin.internal_static_RuijinMahjongGameInfo_descriptor;
-            }
-
-            protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-            internalGetFieldAccessorTable() {
-                return game.mode.Ruijin.internal_static_RuijinMahjongGameInfo_fieldAccessorTable
-                        .ensureFieldAccessorsInitialized(
-                                game.mode.Ruijin.RuijinMahjongGameInfo.class, game.mode.Ruijin.RuijinMahjongGameInfo.Builder.class);
-            }
-
-            // Construct using game.mode.Ruijin.RuijinMahjongGameInfo.newBuilder()
-            private Builder() {
-                maybeForceBuilderInitialization();
-            }
-
-            private Builder(
-                    com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-                super(parent);
-                maybeForceBuilderInitialization();
-            }
-
-            private void maybeForceBuilderInitialization() {
-                if (com.google.protobuf.GeneratedMessageV3
-                        .alwaysUseFieldBuilders) {
-                }
-            }
-
-            public Builder clear() {
-                super.clear();
-                if (mahjongGameInfoBuilder_ == null) {
-                    mahjongGameInfo_ = null;
-                } else {
-                    mahjongGameInfo_ = null;
-                    mahjongGameInfoBuilder_ = null;
-                }
-                rogue_ = 0;
-
-                return this;
-            }
-
-            public com.google.protobuf.Descriptors.Descriptor
-            getDescriptorForType() {
-                return game.mode.Ruijin.internal_static_RuijinMahjongGameInfo_descriptor;
-            }
-
-            public game.mode.Ruijin.RuijinMahjongGameInfo getDefaultInstanceForType() {
-                return game.mode.Ruijin.RuijinMahjongGameInfo.getDefaultInstance();
-            }
-
-            public game.mode.Ruijin.RuijinMahjongGameInfo build() {
-                game.mode.Ruijin.RuijinMahjongGameInfo result = buildPartial();
-                if (!result.isInitialized()) {
-                    throw newUninitializedMessageException(result);
-                }
-                return result;
-            }
-
-            public game.mode.Ruijin.RuijinMahjongGameInfo buildPartial() {
-                game.mode.Ruijin.RuijinMahjongGameInfo result = new game.mode.Ruijin.RuijinMahjongGameInfo(this);
-                if (mahjongGameInfoBuilder_ == null) {
-                    result.mahjongGameInfo_ = mahjongGameInfo_;
-                } else {
-                    result.mahjongGameInfo_ = mahjongGameInfoBuilder_.build();
-                }
-                result.rogue_ = rogue_;
-                onBuilt();
-                return result;
-            }
-
-            public Builder clone() {
-                return (Builder) super.clone();
-            }
-
-            public Builder setField(
-                    com.google.protobuf.Descriptors.FieldDescriptor field,
-                    Object value) {
-                return (Builder) super.setField(field, value);
-            }
-
-            public Builder clearField(
-                    com.google.protobuf.Descriptors.FieldDescriptor field) {
-                return (Builder) super.clearField(field);
-            }
-
-            public Builder clearOneof(
-                    com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-                return (Builder) super.clearOneof(oneof);
-            }
-
-            public Builder setRepeatedField(
-                    com.google.protobuf.Descriptors.FieldDescriptor field,
-                    int index, Object value) {
-                return (Builder) super.setRepeatedField(field, index, value);
-            }
-
-            public Builder addRepeatedField(
-                    com.google.protobuf.Descriptors.FieldDescriptor field,
-                    Object value) {
-                return (Builder) super.addRepeatedField(field, value);
-            }
-
-            public Builder mergeFrom(com.google.protobuf.Message other) {
-                if (other instanceof game.mode.Ruijin.RuijinMahjongGameInfo) {
-                    return mergeFrom((game.mode.Ruijin.RuijinMahjongGameInfo) other);
-                } else {
-                    super.mergeFrom(other);
-                    return this;
-                }
-            }
-
-            public Builder mergeFrom(game.mode.Ruijin.RuijinMahjongGameInfo other) {
-                if (other == game.mode.Ruijin.RuijinMahjongGameInfo.getDefaultInstance()) return this;
-                if (other.hasMahjongGameInfo()) {
-                    mergeMahjongGameInfo(other.getMahjongGameInfo());
-                }
-                if (other.getRogue() != 0) {
-                    setRogue(other.getRogue());
-                }
-                onChanged();
-                return this;
-            }
-
-            public final boolean isInitialized() {
-                return true;
-            }
-
-            public Builder mergeFrom(
-                    com.google.protobuf.CodedInputStream input,
-                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                    throws java.io.IOException {
-                game.mode.Ruijin.RuijinMahjongGameInfo parsedMessage = null;
-                try {
-                    parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-                } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-                    parsedMessage = (game.mode.Ruijin.RuijinMahjongGameInfo) e.getUnfinishedMessage();
-                    throw e.unwrapIOException();
-                } finally {
-                    if (parsedMessage != null) {
-                        mergeFrom(parsedMessage);
-                    }
-                }
-                return this;
-            }
-
-            private game.mode.Mahjong.MahjongGameInfo mahjongGameInfo_ = null;
-            private com.google.protobuf.SingleFieldBuilderV3<
-                    game.mode.Mahjong.MahjongGameInfo, game.mode.Mahjong.MahjongGameInfo.Builder, game.mode.Mahjong.MahjongGameInfoOrBuilder> mahjongGameInfoBuilder_;
-
-            /**
-             * <code>.MahjongGameInfo mahjongGameInfo = 1;</code>
-             */
-            public boolean hasMahjongGameInfo() {
-                return mahjongGameInfoBuilder_ != null || mahjongGameInfo_ != null;
-            }
-
-            /**
-             * <code>.MahjongGameInfo mahjongGameInfo = 1;</code>
-             */
-            public game.mode.Mahjong.MahjongGameInfo getMahjongGameInfo() {
-                if (mahjongGameInfoBuilder_ == null) {
-                    return mahjongGameInfo_ == null ? game.mode.Mahjong.MahjongGameInfo.getDefaultInstance() : mahjongGameInfo_;
-                } else {
-                    return mahjongGameInfoBuilder_.getMessage();
-                }
-            }
-
-            /**
-             * <code>.MahjongGameInfo mahjongGameInfo = 1;</code>
-             */
-            public Builder setMahjongGameInfo(game.mode.Mahjong.MahjongGameInfo value) {
-                if (mahjongGameInfoBuilder_ == null) {
-                    if (value == null) {
-                        throw new NullPointerException();
-                    }
-                    mahjongGameInfo_ = value;
-                    onChanged();
-                } else {
-                    mahjongGameInfoBuilder_.setMessage(value);
-                }
-
-                return this;
-            }
-
-            /**
-             * <code>.MahjongGameInfo mahjongGameInfo = 1;</code>
-             */
-            public Builder setMahjongGameInfo(
-                    game.mode.Mahjong.MahjongGameInfo.Builder builderForValue) {
-                if (mahjongGameInfoBuilder_ == null) {
-                    mahjongGameInfo_ = builderForValue.build();
-                    onChanged();
-                } else {
-                    mahjongGameInfoBuilder_.setMessage(builderForValue.build());
-                }
-
-                return this;
-            }
-
-            /**
-             * <code>.MahjongGameInfo mahjongGameInfo = 1;</code>
-             */
-            public Builder mergeMahjongGameInfo(game.mode.Mahjong.MahjongGameInfo value) {
-                if (mahjongGameInfoBuilder_ == null) {
-                    if (mahjongGameInfo_ != null) {
-                        mahjongGameInfo_ =
-                                game.mode.Mahjong.MahjongGameInfo.newBuilder(mahjongGameInfo_).mergeFrom(value).buildPartial();
-                    } else {
-                        mahjongGameInfo_ = value;
-                    }
-                    onChanged();
-                } else {
-                    mahjongGameInfoBuilder_.mergeFrom(value);
-                }
-
-                return this;
-            }
-
-            /**
-             * <code>.MahjongGameInfo mahjongGameInfo = 1;</code>
-             */
-            public Builder clearMahjongGameInfo() {
-                if (mahjongGameInfoBuilder_ == null) {
-                    mahjongGameInfo_ = null;
-                    onChanged();
-                } else {
-                    mahjongGameInfo_ = null;
-                    mahjongGameInfoBuilder_ = null;
-                }
-
-                return this;
-            }
-
-            /**
-             * <code>.MahjongGameInfo mahjongGameInfo = 1;</code>
-             */
-            public game.mode.Mahjong.MahjongGameInfo.Builder getMahjongGameInfoBuilder() {
-
-                onChanged();
-                return getMahjongGameInfoFieldBuilder().getBuilder();
-            }
-
-            /**
-             * <code>.MahjongGameInfo mahjongGameInfo = 1;</code>
-             */
-            public game.mode.Mahjong.MahjongGameInfoOrBuilder getMahjongGameInfoOrBuilder() {
-                if (mahjongGameInfoBuilder_ != null) {
-                    return mahjongGameInfoBuilder_.getMessageOrBuilder();
-                } else {
-                    return mahjongGameInfo_ == null ?
-                            game.mode.Mahjong.MahjongGameInfo.getDefaultInstance() : mahjongGameInfo_;
-                }
-            }
-
-            /**
-             * <code>.MahjongGameInfo mahjongGameInfo = 1;</code>
-             */
-            private com.google.protobuf.SingleFieldBuilderV3<
-                    game.mode.Mahjong.MahjongGameInfo, game.mode.Mahjong.MahjongGameInfo.Builder, game.mode.Mahjong.MahjongGameInfoOrBuilder>
-            getMahjongGameInfoFieldBuilder() {
-                if (mahjongGameInfoBuilder_ == null) {
-                    mahjongGameInfoBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-                            game.mode.Mahjong.MahjongGameInfo, game.mode.Mahjong.MahjongGameInfo.Builder, game.mode.Mahjong.MahjongGameInfoOrBuilder>(
-                            getMahjongGameInfo(),
-                            getParentForChildren(),
-                            isClean());
-                    mahjongGameInfo_ = null;
-                }
-                return mahjongGameInfoBuilder_;
-            }
-
-            private int rogue_;
-
-            /**
-             * <pre>
-             * 赖子
-             * </pre>
-             * <p>
-             * <code>int32 rogue = 2;</code>
-             */
-            public int getRogue() {
-                return rogue_;
-            }
-
-            /**
-             * <pre>
-             * 赖子
-             * </pre>
-             * <p>
-             * <code>int32 rogue = 2;</code>
-             */
-            public Builder setRogue(int value) {
-
-                rogue_ = value;
-                onChanged();
-                return this;
-            }
-
-            /**
-             * <pre>
-             * 赖子
-             * </pre>
-             * <p>
-             * <code>int32 rogue = 2;</code>
-             */
-            public Builder clearRogue() {
-
-                rogue_ = 0;
-                onChanged();
-                return this;
-            }
-
-            public final Builder setUnknownFields(
-                    final com.google.protobuf.UnknownFieldSet unknownFields) {
-                return this;
-            }
-
-            public final Builder mergeUnknownFields(
-                    final com.google.protobuf.UnknownFieldSet unknownFields) {
-                return this;
-            }
-
-
-            // @@protoc_insertion_point(builder_scope:RuijinMahjongGameInfo)
-        }
-
-        // @@protoc_insertion_point(class_scope:RuijinMahjongGameInfo)
-        private static final game.mode.Ruijin.RuijinMahjongGameInfo DEFAULT_INSTANCE;
-
-        static {
-            DEFAULT_INSTANCE = new game.mode.Ruijin.RuijinMahjongGameInfo();
-        }
-
-        public static game.mode.Ruijin.RuijinMahjongGameInfo getDefaultInstance() {
-            return DEFAULT_INSTANCE;
-        }
-
-        private static final com.google.protobuf.Parser<RuijinMahjongGameInfo>
-                PARSER = new com.google.protobuf.AbstractParser<RuijinMahjongGameInfo>() {
-            public RuijinMahjongGameInfo parsePartialFrom(
-                    com.google.protobuf.CodedInputStream input,
-                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                    throws com.google.protobuf.InvalidProtocolBufferException {
-                return new RuijinMahjongGameInfo(input, extensionRegistry);
-            }
-        };
-
-        public static com.google.protobuf.Parser<RuijinMahjongGameInfo> parser() {
-            return PARSER;
-        }
-
-        @java.lang.Override
-        public com.google.protobuf.Parser<RuijinMahjongGameInfo> getParserForType() {
-            return PARSER;
-        }
-
-        public game.mode.Ruijin.RuijinMahjongGameInfo getDefaultInstanceForType() {
-            return DEFAULT_INSTANCE;
-        }
-
-    }
-
-    public interface RuijinMahjongReplayResponseOrBuilder extends
-            // @@protoc_insertion_point(interface_extends:RuijinMahjongReplayResponse)
-            com.google.protobuf.MessageOrBuilder {
-
-        /**
-         * <code>.RuijinStartResponse start = 1;</code>
-         */
-        boolean hasStart();
-
-        /**
-         * <code>.RuijinStartResponse start = 1;</code>
-         */
-        game.mode.Ruijin.RuijinStartResponse getStart();
-
-        /**
-         * <code>.RuijinStartResponse start = 1;</code>
-         */
-        game.mode.Ruijin.RuijinStartResponseOrBuilder getStartOrBuilder();
-
-        /**
-         * <pre>
-         * 操作记录
-         * </pre>
-         * <p>
-         * <code>repeated .OperationHistory history = 2;</code>
-         */
-        java.util.List<game.mode.GameBase.OperationHistory>
-        getHistoryList();
-
-        /**
-         * <pre>
-         * 操作记录
-         * </pre>
-         * <p>
-         * <code>repeated .OperationHistory history = 2;</code>
-         */
-        game.mode.GameBase.OperationHistory getHistory(int index);
-
-        /**
-         * <pre>
-         * 操作记录
-         * </pre>
-         * <p>
-         * <code>repeated .OperationHistory history = 2;</code>
-         */
-        int getHistoryCount();
-
-        /**
-         * <pre>
-         * 操作记录
-         * </pre>
-         * <p>
-         * <code>repeated .OperationHistory history = 2;</code>
-         */
-        java.util.List<? extends game.mode.GameBase.OperationHistoryOrBuilder>
-        getHistoryOrBuilderList();
-
-        /**
-         * <pre>
-         * 操作记录
-         * </pre>
-         * <p>
-         * <code>repeated .OperationHistory history = 2;</code>
-         */
-        game.mode.GameBase.OperationHistoryOrBuilder getHistoryOrBuilder(
-                int index);
-
-        /**
-         * <code>.MahjongResultResponse result = 3;</code>
-         */
-        boolean hasResult();
-
-        /**
-         * <code>.MahjongResultResponse result = 3;</code>
-         */
-        game.mode.Mahjong.MahjongResultResponse getResult();
-
-        /**
-         * <code>.MahjongResultResponse result = 3;</code>
-         */
-        game.mode.Mahjong.MahjongResultResponseOrBuilder getResultOrBuilder();
-    }
-
-    /**
-     * <pre>
-     * 回放    REPLAY
-     * </pre>
-     * <p>
-     * Protobuf type {@code RuijinMahjongReplayResponse}
-     */
-    public static final class RuijinMahjongReplayResponse extends
-            com.google.protobuf.GeneratedMessageV3 implements
-            // @@protoc_insertion_point(message_implements:RuijinMahjongReplayResponse)
-            RuijinMahjongReplayResponseOrBuilder {
-        // Use RuijinMahjongReplayResponse.newBuilder() to construct.
-        private RuijinMahjongReplayResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-            super(builder);
-        }
-
-        private RuijinMahjongReplayResponse() {
-            history_ = java.util.Collections.emptyList();
-        }
-
-        @java.lang.Override
-        public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
-            return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
-        }
-
-        private RuijinMahjongReplayResponse(
-                com.google.protobuf.CodedInputStream input,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws com.google.protobuf.InvalidProtocolBufferException {
-            this();
-            int mutable_bitField0_ = 0;
-            try {
-                boolean done = false;
-                while (!done) {
-                    int tag = input.readTag();
-                    switch (tag) {
-                        case 0:
-                            done = true;
-                            break;
-                        default: {
-                            if (!input.skipField(tag)) {
-                                done = true;
-                            }
-                            break;
-                        }
-                        case 10: {
-                            game.mode.Ruijin.RuijinStartResponse.Builder subBuilder = null;
-                            if (start_ != null) {
-                                subBuilder = start_.toBuilder();
-                            }
-                            start_ = input.readMessage(game.mode.Ruijin.RuijinStartResponse.parser(), extensionRegistry);
-                            if (subBuilder != null) {
-                                subBuilder.mergeFrom(start_);
-                                start_ = subBuilder.buildPartial();
-                            }
-
-                            break;
-                        }
-                        case 18: {
-                            if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
-                                history_ = new java.util.ArrayList<game.mode.GameBase.OperationHistory>();
-                                mutable_bitField0_ |= 0x00000002;
-                            }
-                            history_.add(
-                                    input.readMessage(game.mode.GameBase.OperationHistory.parser(), extensionRegistry));
-                            break;
-                        }
-                        case 26: {
-                            game.mode.Mahjong.MahjongResultResponse.Builder subBuilder = null;
-                            if (result_ != null) {
-                                subBuilder = result_.toBuilder();
-                            }
-                            result_ = input.readMessage(game.mode.Mahjong.MahjongResultResponse.parser(), extensionRegistry);
-                            if (subBuilder != null) {
-                                subBuilder.mergeFrom(result_);
-                                result_ = subBuilder.buildPartial();
-                            }
-
-                            break;
-                        }
-                    }
-                }
-            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-                throw e.setUnfinishedMessage(this);
-            } catch (java.io.IOException e) {
-                throw new com.google.protobuf.InvalidProtocolBufferException(
-                        e).setUnfinishedMessage(this);
-            } finally {
-                if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
-                    history_ = java.util.Collections.unmodifiableList(history_);
-                }
-                makeExtensionsImmutable();
-            }
-        }
-
-        public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-            return game.mode.Ruijin.internal_static_RuijinMahjongReplayResponse_descriptor;
-        }
-
-        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-            return game.mode.Ruijin.internal_static_RuijinMahjongReplayResponse_fieldAccessorTable
-                    .ensureFieldAccessorsInitialized(
-                            game.mode.Ruijin.RuijinMahjongReplayResponse.class, game.mode.Ruijin.RuijinMahjongReplayResponse.Builder.class);
-        }
-
-        private int bitField0_;
-        public static final int START_FIELD_NUMBER = 1;
-        private game.mode.Ruijin.RuijinStartResponse start_;
-
-        /**
-         * <code>.RuijinStartResponse start = 1;</code>
-         */
-        public boolean hasStart() {
-            return start_ != null;
-        }
-
-        /**
-         * <code>.RuijinStartResponse start = 1;</code>
-         */
-        public game.mode.Ruijin.RuijinStartResponse getStart() {
-            return start_ == null ? game.mode.Ruijin.RuijinStartResponse.getDefaultInstance() : start_;
-        }
-
-        /**
-         * <code>.RuijinStartResponse start = 1;</code>
-         */
-        public game.mode.Ruijin.RuijinStartResponseOrBuilder getStartOrBuilder() {
-            return getStart();
-        }
-
-        public static final int HISTORY_FIELD_NUMBER = 2;
-        private java.util.List<game.mode.GameBase.OperationHistory> history_;
-
-        /**
-         * <pre>
-         * 操作记录
-         * </pre>
-         * <p>
-         * <code>repeated .OperationHistory history = 2;</code>
-         */
-        public java.util.List<game.mode.GameBase.OperationHistory> getHistoryList() {
-            return history_;
-        }
-
-        /**
-         * <pre>
-         * 操作记录
-         * </pre>
-         * <p>
-         * <code>repeated .OperationHistory history = 2;</code>
-         */
-        public java.util.List<? extends game.mode.GameBase.OperationHistoryOrBuilder>
-        getHistoryOrBuilderList() {
-            return history_;
-        }
-
-        /**
-         * <pre>
-         * 操作记录
-         * </pre>
-         * <p>
-         * <code>repeated .OperationHistory history = 2;</code>
-         */
-        public int getHistoryCount() {
-            return history_.size();
-        }
-
-        /**
-         * <pre>
-         * 操作记录
-         * </pre>
-         * <p>
-         * <code>repeated .OperationHistory history = 2;</code>
-         */
-        public game.mode.GameBase.OperationHistory getHistory(int index) {
-            return history_.get(index);
-        }
-
-        /**
-         * <pre>
-         * 操作记录
-         * </pre>
-         * <p>
-         * <code>repeated .OperationHistory history = 2;</code>
-         */
-        public game.mode.GameBase.OperationHistoryOrBuilder getHistoryOrBuilder(
-                int index) {
-            return history_.get(index);
-        }
-
-        public static final int RESULT_FIELD_NUMBER = 3;
-        private game.mode.Mahjong.MahjongResultResponse result_;
-
-        /**
-         * <code>.MahjongResultResponse result = 3;</code>
-         */
-        public boolean hasResult() {
-            return result_ != null;
-        }
-
-        /**
-         * <code>.MahjongResultResponse result = 3;</code>
-         */
-        public game.mode.Mahjong.MahjongResultResponse getResult() {
-            return result_ == null ? game.mode.Mahjong.MahjongResultResponse.getDefaultInstance() : result_;
-        }
-
-        /**
-         * <code>.MahjongResultResponse result = 3;</code>
-         */
-        public game.mode.Mahjong.MahjongResultResponseOrBuilder getResultOrBuilder() {
-            return getResult();
-        }
-
-        private byte memoizedIsInitialized = -1;
-
-        public final boolean isInitialized() {
-            byte isInitialized = memoizedIsInitialized;
-            if (isInitialized == 1) return true;
-            if (isInitialized == 0) return false;
-
-            memoizedIsInitialized = 1;
-            return true;
-        }
-
-        public void writeTo(com.google.protobuf.CodedOutputStream output)
-                throws java.io.IOException {
-            if (start_ != null) {
-                output.writeMessage(1, getStart());
-            }
-            for (int i = 0; i < history_.size(); i++) {
-                output.writeMessage(2, history_.get(i));
-            }
-            if (result_ != null) {
-                output.writeMessage(3, getResult());
-            }
-        }
-
-        public int getSerializedSize() {
-            int size = memoizedSize;
-            if (size != -1) return size;
-
-            size = 0;
-            if (start_ != null) {
-                size += com.google.protobuf.CodedOutputStream
-                        .computeMessageSize(1, getStart());
-            }
-            for (int i = 0; i < history_.size(); i++) {
-                size += com.google.protobuf.CodedOutputStream
-                        .computeMessageSize(2, history_.get(i));
-            }
-            if (result_ != null) {
-                size += com.google.protobuf.CodedOutputStream
-                        .computeMessageSize(3, getResult());
-            }
-            memoizedSize = size;
-            return size;
-        }
-
-        private static final long serialVersionUID = 0L;
-
-        @java.lang.Override
-        public boolean equals(final java.lang.Object obj) {
-            if (obj == this) {
-                return true;
-            }
-            if (!(obj instanceof game.mode.Ruijin.RuijinMahjongReplayResponse)) {
-                return super.equals(obj);
-            }
-            game.mode.Ruijin.RuijinMahjongReplayResponse other = (game.mode.Ruijin.RuijinMahjongReplayResponse) obj;
-
-            boolean result = true;
-            result = result && (hasStart() == other.hasStart());
-            if (hasStart()) {
-                result = result && getStart()
-                        .equals(other.getStart());
-            }
-            result = result && getHistoryList()
-                    .equals(other.getHistoryList());
-            result = result && (hasResult() == other.hasResult());
-            if (hasResult()) {
-                result = result && getResult()
-                        .equals(other.getResult());
-            }
-            return result;
-        }
-
-        @java.lang.Override
-        public int hashCode() {
-            if (memoizedHashCode != 0) {
-                return memoizedHashCode;
-            }
-            int hash = 41;
-            hash = (19 * hash) + getDescriptor().hashCode();
-            if (hasStart()) {
-                hash = (37 * hash) + START_FIELD_NUMBER;
-                hash = (53 * hash) + getStart().hashCode();
-            }
-            if (getHistoryCount() > 0) {
-                hash = (37 * hash) + HISTORY_FIELD_NUMBER;
-                hash = (53 * hash) + getHistoryList().hashCode();
-            }
-            if (hasResult()) {
-                hash = (37 * hash) + RESULT_FIELD_NUMBER;
-                hash = (53 * hash) + getResult().hashCode();
-            }
-            hash = (29 * hash) + unknownFields.hashCode();
-            memoizedHashCode = hash;
-            return hash;
-        }
-
-        public static game.mode.Ruijin.RuijinMahjongReplayResponse parseFrom(
-                java.nio.ByteBuffer data)
-                throws com.google.protobuf.InvalidProtocolBufferException {
-            return PARSER.parseFrom(data);
-        }
-
-        public static game.mode.Ruijin.RuijinMahjongReplayResponse parseFrom(
-                java.nio.ByteBuffer data,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws com.google.protobuf.InvalidProtocolBufferException {
-            return PARSER.parseFrom(data, extensionRegistry);
-        }
-
-        public static game.mode.Ruijin.RuijinMahjongReplayResponse parseFrom(
-                com.google.protobuf.ByteString data)
-                throws com.google.protobuf.InvalidProtocolBufferException {
-            return PARSER.parseFrom(data);
-        }
-
-        public static game.mode.Ruijin.RuijinMahjongReplayResponse parseFrom(
-                com.google.protobuf.ByteString data,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws com.google.protobuf.InvalidProtocolBufferException {
-            return PARSER.parseFrom(data, extensionRegistry);
-        }
-
-        public static game.mode.Ruijin.RuijinMahjongReplayResponse parseFrom(byte[] data)
-                throws com.google.protobuf.InvalidProtocolBufferException {
-            return PARSER.parseFrom(data);
-        }
-
-        public static game.mode.Ruijin.RuijinMahjongReplayResponse parseFrom(
-                byte[] data,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws com.google.protobuf.InvalidProtocolBufferException {
-            return PARSER.parseFrom(data, extensionRegistry);
-        }
-
-        public static game.mode.Ruijin.RuijinMahjongReplayResponse parseFrom(java.io.InputStream input)
-                throws java.io.IOException {
-            return com.google.protobuf.GeneratedMessageV3
-                    .parseWithIOException(PARSER, input);
-        }
-
-        public static game.mode.Ruijin.RuijinMahjongReplayResponse parseFrom(
-                java.io.InputStream input,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws java.io.IOException {
-            return com.google.protobuf.GeneratedMessageV3
-                    .parseWithIOException(PARSER, input, extensionRegistry);
-        }
-
-        public static game.mode.Ruijin.RuijinMahjongReplayResponse parseDelimitedFrom(java.io.InputStream input)
-                throws java.io.IOException {
-            return com.google.protobuf.GeneratedMessageV3
-                    .parseDelimitedWithIOException(PARSER, input);
-        }
-
-        public static game.mode.Ruijin.RuijinMahjongReplayResponse parseDelimitedFrom(
-                java.io.InputStream input,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws java.io.IOException {
-            return com.google.protobuf.GeneratedMessageV3
-                    .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-        }
-
-        public static game.mode.Ruijin.RuijinMahjongReplayResponse parseFrom(
-                com.google.protobuf.CodedInputStream input)
-                throws java.io.IOException {
-            return com.google.protobuf.GeneratedMessageV3
-                    .parseWithIOException(PARSER, input);
-        }
-
-        public static game.mode.Ruijin.RuijinMahjongReplayResponse parseFrom(
-                com.google.protobuf.CodedInputStream input,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws java.io.IOException {
-            return com.google.protobuf.GeneratedMessageV3
-                    .parseWithIOException(PARSER, input, extensionRegistry);
-        }
-
-        public Builder newBuilderForType() {
-            return newBuilder();
-        }
-
-        public static Builder newBuilder() {
-            return DEFAULT_INSTANCE.toBuilder();
-        }
-
-        public static Builder newBuilder(game.mode.Ruijin.RuijinMahjongReplayResponse prototype) {
-            return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-        }
-
-        public Builder toBuilder() {
-            return this == DEFAULT_INSTANCE
-                    ? new Builder() : new Builder().mergeFrom(this);
-        }
-
-        @java.lang.Override
-        protected Builder newBuilderForType(
-                com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-            Builder builder = new Builder(parent);
-            return builder;
-        }
-
-        /**
-         * <pre>
-         * 回放    REPLAY
-         * </pre>
-         * <p>
-         * Protobuf type {@code RuijinMahjongReplayResponse}
-         */
-        public static final class Builder extends
-                com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-                // @@protoc_insertion_point(builder_implements:RuijinMahjongReplayResponse)
-                game.mode.Ruijin.RuijinMahjongReplayResponseOrBuilder {
-            public static final com.google.protobuf.Descriptors.Descriptor
-            getDescriptor() {
-                return game.mode.Ruijin.internal_static_RuijinMahjongReplayResponse_descriptor;
-            }
-
-            protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-            internalGetFieldAccessorTable() {
-                return game.mode.Ruijin.internal_static_RuijinMahjongReplayResponse_fieldAccessorTable
-                        .ensureFieldAccessorsInitialized(
-                                game.mode.Ruijin.RuijinMahjongReplayResponse.class, game.mode.Ruijin.RuijinMahjongReplayResponse.Builder.class);
-            }
-
-            // Construct using game.mode.Ruijin.RuijinMahjongReplayResponse.newBuilder()
-            private Builder() {
-                maybeForceBuilderInitialization();
-            }
-
-            private Builder(
-                    com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-                super(parent);
-                maybeForceBuilderInitialization();
-            }
-
-            private void maybeForceBuilderInitialization() {
-                if (com.google.protobuf.GeneratedMessageV3
-                        .alwaysUseFieldBuilders) {
-                    getHistoryFieldBuilder();
-                }
-            }
-
-            public Builder clear() {
-                super.clear();
-                if (startBuilder_ == null) {
-                    start_ = null;
-                } else {
-                    start_ = null;
-                    startBuilder_ = null;
-                }
-                if (historyBuilder_ == null) {
-                    history_ = java.util.Collections.emptyList();
-                    bitField0_ = (bitField0_ & ~0x00000002);
-                } else {
-                    historyBuilder_.clear();
-                }
-                if (resultBuilder_ == null) {
-                    result_ = null;
-                } else {
-                    result_ = null;
-                    resultBuilder_ = null;
-                }
-                return this;
-            }
-
-            public com.google.protobuf.Descriptors.Descriptor
-            getDescriptorForType() {
-                return game.mode.Ruijin.internal_static_RuijinMahjongReplayResponse_descriptor;
-            }
-
-            public game.mode.Ruijin.RuijinMahjongReplayResponse getDefaultInstanceForType() {
-                return game.mode.Ruijin.RuijinMahjongReplayResponse.getDefaultInstance();
-            }
-
-            public game.mode.Ruijin.RuijinMahjongReplayResponse build() {
-                game.mode.Ruijin.RuijinMahjongReplayResponse result = buildPartial();
-                if (!result.isInitialized()) {
-                    throw newUninitializedMessageException(result);
-                }
-                return result;
-            }
-
-            public game.mode.Ruijin.RuijinMahjongReplayResponse buildPartial() {
-                game.mode.Ruijin.RuijinMahjongReplayResponse result = new game.mode.Ruijin.RuijinMahjongReplayResponse(this);
-                int from_bitField0_ = bitField0_;
-                int to_bitField0_ = 0;
-                if (startBuilder_ == null) {
-                    result.start_ = start_;
-                } else {
-                    result.start_ = startBuilder_.build();
-                }
-                if (historyBuilder_ == null) {
-                    if (((bitField0_ & 0x00000002) == 0x00000002)) {
-                        history_ = java.util.Collections.unmodifiableList(history_);
-                        bitField0_ = (bitField0_ & ~0x00000002);
-                    }
-                    result.history_ = history_;
-                } else {
-                    result.history_ = historyBuilder_.build();
-                }
-                if (resultBuilder_ == null) {
-                    result.result_ = result_;
-                } else {
-                    result.result_ = resultBuilder_.build();
-                }
-                result.bitField0_ = to_bitField0_;
-                onBuilt();
-                return result;
-            }
-
-            public Builder clone() {
-                return (Builder) super.clone();
-            }
-
-            public Builder setField(
-                    com.google.protobuf.Descriptors.FieldDescriptor field,
-                    Object value) {
-                return (Builder) super.setField(field, value);
-            }
-
-            public Builder clearField(
-                    com.google.protobuf.Descriptors.FieldDescriptor field) {
-                return (Builder) super.clearField(field);
-            }
-
-            public Builder clearOneof(
-                    com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-                return (Builder) super.clearOneof(oneof);
-            }
-
-            public Builder setRepeatedField(
-                    com.google.protobuf.Descriptors.FieldDescriptor field,
-                    int index, Object value) {
-                return (Builder) super.setRepeatedField(field, index, value);
-            }
-
-            public Builder addRepeatedField(
-                    com.google.protobuf.Descriptors.FieldDescriptor field,
-                    Object value) {
-                return (Builder) super.addRepeatedField(field, value);
-            }
-
-            public Builder mergeFrom(com.google.protobuf.Message other) {
-                if (other instanceof game.mode.Ruijin.RuijinMahjongReplayResponse) {
-                    return mergeFrom((game.mode.Ruijin.RuijinMahjongReplayResponse) other);
-                } else {
-                    super.mergeFrom(other);
-                    return this;
-                }
-            }
-
-            public Builder mergeFrom(game.mode.Ruijin.RuijinMahjongReplayResponse other) {
-                if (other == game.mode.Ruijin.RuijinMahjongReplayResponse.getDefaultInstance()) return this;
-                if (other.hasStart()) {
-                    mergeStart(other.getStart());
-                }
-                if (historyBuilder_ == null) {
-                    if (!other.history_.isEmpty()) {
-                        if (history_.isEmpty()) {
-                            history_ = other.history_;
-                            bitField0_ = (bitField0_ & ~0x00000002);
-                        } else {
-                            ensureHistoryIsMutable();
-                            history_.addAll(other.history_);
-                        }
-                        onChanged();
-                    }
-                } else {
-                    if (!other.history_.isEmpty()) {
-                        if (historyBuilder_.isEmpty()) {
-                            historyBuilder_.dispose();
-                            historyBuilder_ = null;
-                            history_ = other.history_;
-                            bitField0_ = (bitField0_ & ~0x00000002);
-                            historyBuilder_ =
-                                    com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
-                                            getHistoryFieldBuilder() : null;
-                        } else {
-                            historyBuilder_.addAllMessages(other.history_);
-                        }
-                    }
-                }
-                if (other.hasResult()) {
-                    mergeResult(other.getResult());
-                }
-                onChanged();
-                return this;
-            }
-
-            public final boolean isInitialized() {
-                return true;
-            }
-
-            public Builder mergeFrom(
-                    com.google.protobuf.CodedInputStream input,
-                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                    throws java.io.IOException {
-                game.mode.Ruijin.RuijinMahjongReplayResponse parsedMessage = null;
-                try {
-                    parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-                } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-                    parsedMessage = (game.mode.Ruijin.RuijinMahjongReplayResponse) e.getUnfinishedMessage();
-                    throw e.unwrapIOException();
-                } finally {
-                    if (parsedMessage != null) {
-                        mergeFrom(parsedMessage);
-                    }
-                }
-                return this;
-            }
-
-            private int bitField0_;
-
-            private game.mode.Ruijin.RuijinStartResponse start_ = null;
-            private com.google.protobuf.SingleFieldBuilderV3<
-                    game.mode.Ruijin.RuijinStartResponse, game.mode.Ruijin.RuijinStartResponse.Builder, game.mode.Ruijin.RuijinStartResponseOrBuilder> startBuilder_;
-
-            /**
-             * <code>.RuijinStartResponse start = 1;</code>
-             */
-            public boolean hasStart() {
-                return startBuilder_ != null || start_ != null;
-            }
-
-            /**
-             * <code>.RuijinStartResponse start = 1;</code>
-             */
-            public game.mode.Ruijin.RuijinStartResponse getStart() {
-                if (startBuilder_ == null) {
-                    return start_ == null ? game.mode.Ruijin.RuijinStartResponse.getDefaultInstance() : start_;
-                } else {
-                    return startBuilder_.getMessage();
-                }
-            }
-
-            /**
-             * <code>.RuijinStartResponse start = 1;</code>
-             */
-            public Builder setStart(game.mode.Ruijin.RuijinStartResponse value) {
-                if (startBuilder_ == null) {
-                    if (value == null) {
-                        throw new NullPointerException();
-                    }
-                    start_ = value;
-                    onChanged();
-                } else {
-                    startBuilder_.setMessage(value);
-                }
-
-                return this;
-            }
-
-            /**
-             * <code>.RuijinStartResponse start = 1;</code>
-             */
-            public Builder setStart(
-                    game.mode.Ruijin.RuijinStartResponse.Builder builderForValue) {
-                if (startBuilder_ == null) {
-                    start_ = builderForValue.build();
-                    onChanged();
-                } else {
-                    startBuilder_.setMessage(builderForValue.build());
-                }
-
-                return this;
-            }
-
-            /**
-             * <code>.RuijinStartResponse start = 1;</code>
-             */
-            public Builder mergeStart(game.mode.Ruijin.RuijinStartResponse value) {
-                if (startBuilder_ == null) {
-                    if (start_ != null) {
-                        start_ =
-                                game.mode.Ruijin.RuijinStartResponse.newBuilder(start_).mergeFrom(value).buildPartial();
-                    } else {
-                        start_ = value;
-                    }
-                    onChanged();
-                } else {
-                    startBuilder_.mergeFrom(value);
-                }
-
-                return this;
-            }
-
-            /**
-             * <code>.RuijinStartResponse start = 1;</code>
-             */
-            public Builder clearStart() {
-                if (startBuilder_ == null) {
-                    start_ = null;
-                    onChanged();
-                } else {
-                    start_ = null;
-                    startBuilder_ = null;
-                }
-
-                return this;
-            }
-
-            /**
-             * <code>.RuijinStartResponse start = 1;</code>
-             */
-            public game.mode.Ruijin.RuijinStartResponse.Builder getStartBuilder() {
-
-                onChanged();
-                return getStartFieldBuilder().getBuilder();
-            }
-
-            /**
-             * <code>.RuijinStartResponse start = 1;</code>
-             */
-            public game.mode.Ruijin.RuijinStartResponseOrBuilder getStartOrBuilder() {
-                if (startBuilder_ != null) {
-                    return startBuilder_.getMessageOrBuilder();
-                } else {
-                    return start_ == null ?
-                            game.mode.Ruijin.RuijinStartResponse.getDefaultInstance() : start_;
-                }
-            }
-
-            /**
-             * <code>.RuijinStartResponse start = 1;</code>
-             */
-            private com.google.protobuf.SingleFieldBuilderV3<
-                    game.mode.Ruijin.RuijinStartResponse, game.mode.Ruijin.RuijinStartResponse.Builder, game.mode.Ruijin.RuijinStartResponseOrBuilder>
-            getStartFieldBuilder() {
-                if (startBuilder_ == null) {
-                    startBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-                            game.mode.Ruijin.RuijinStartResponse, game.mode.Ruijin.RuijinStartResponse.Builder, game.mode.Ruijin.RuijinStartResponseOrBuilder>(
-                            getStart(),
-                            getParentForChildren(),
-                            isClean());
-                    start_ = null;
-                }
-                return startBuilder_;
-            }
-
-            private java.util.List<game.mode.GameBase.OperationHistory> history_ =
-                    java.util.Collections.emptyList();
-
-            private void ensureHistoryIsMutable() {
-                if (!((bitField0_ & 0x00000002) == 0x00000002)) {
-                    history_ = new java.util.ArrayList<game.mode.GameBase.OperationHistory>(history_);
-                    bitField0_ |= 0x00000002;
-                }
-            }
-
-            private com.google.protobuf.RepeatedFieldBuilderV3<
-                    game.mode.GameBase.OperationHistory, game.mode.GameBase.OperationHistory.Builder, game.mode.GameBase.OperationHistoryOrBuilder> historyBuilder_;
-
-            /**
-             * <pre>
-             * 操作记录
-             * </pre>
-             * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
-             */
-            public java.util.List<game.mode.GameBase.OperationHistory> getHistoryList() {
-                if (historyBuilder_ == null) {
-                    return java.util.Collections.unmodifiableList(history_);
-                } else {
-                    return historyBuilder_.getMessageList();
-                }
-            }
-
-            /**
-             * <pre>
-             * 操作记录
-             * </pre>
-             * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
-             */
-            public int getHistoryCount() {
-                if (historyBuilder_ == null) {
-                    return history_.size();
-                } else {
-                    return historyBuilder_.getCount();
-                }
-            }
-
-            /**
-             * <pre>
-             * 操作记录
-             * </pre>
-             * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
-             */
-            public game.mode.GameBase.OperationHistory getHistory(int index) {
-                if (historyBuilder_ == null) {
-                    return history_.get(index);
-                } else {
-                    return historyBuilder_.getMessage(index);
-                }
-            }
-
-            /**
-             * <pre>
-             * 操作记录
-             * </pre>
-             * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
-             */
-            public Builder setHistory(
-                    int index, game.mode.GameBase.OperationHistory value) {
-                if (historyBuilder_ == null) {
-                    if (value == null) {
-                        throw new NullPointerException();
-                    }
-                    ensureHistoryIsMutable();
-                    history_.set(index, value);
-                    onChanged();
-                } else {
-                    historyBuilder_.setMessage(index, value);
-                }
-                return this;
-            }
-
-            /**
-             * <pre>
-             * 操作记录
-             * </pre>
-             * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
-             */
-            public Builder setHistory(
-                    int index, game.mode.GameBase.OperationHistory.Builder builderForValue) {
-                if (historyBuilder_ == null) {
-                    ensureHistoryIsMutable();
-                    history_.set(index, builderForValue.build());
-                    onChanged();
-                } else {
-                    historyBuilder_.setMessage(index, builderForValue.build());
-                }
-                return this;
-            }
-
-            /**
-             * <pre>
-             * 操作记录
-             * </pre>
-             * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
-             */
-            public Builder addHistory(game.mode.GameBase.OperationHistory value) {
-                if (historyBuilder_ == null) {
-                    if (value == null) {
-                        throw new NullPointerException();
-                    }
-                    ensureHistoryIsMutable();
-                    history_.add(value);
-                    onChanged();
-                } else {
-                    historyBuilder_.addMessage(value);
-                }
-                return this;
-            }
-
-            /**
-             * <pre>
-             * 操作记录
-             * </pre>
-             * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
-             */
-            public Builder addHistory(
-                    int index, game.mode.GameBase.OperationHistory value) {
-                if (historyBuilder_ == null) {
-                    if (value == null) {
-                        throw new NullPointerException();
-                    }
-                    ensureHistoryIsMutable();
-                    history_.add(index, value);
-                    onChanged();
-                } else {
-                    historyBuilder_.addMessage(index, value);
-                }
-                return this;
-            }
-
-            /**
-             * <pre>
-             * 操作记录
-             * </pre>
-             * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
-             */
-            public Builder addHistory(
-                    game.mode.GameBase.OperationHistory.Builder builderForValue) {
-                if (historyBuilder_ == null) {
-                    ensureHistoryIsMutable();
-                    history_.add(builderForValue.build());
-                    onChanged();
-                } else {
-                    historyBuilder_.addMessage(builderForValue.build());
-                }
-                return this;
-            }
-
-            /**
-             * <pre>
-             * 操作记录
-             * </pre>
-             * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
-             */
-            public Builder addHistory(
-                    int index, game.mode.GameBase.OperationHistory.Builder builderForValue) {
-                if (historyBuilder_ == null) {
-                    ensureHistoryIsMutable();
-                    history_.add(index, builderForValue.build());
-                    onChanged();
-                } else {
-                    historyBuilder_.addMessage(index, builderForValue.build());
-                }
-                return this;
-            }
-
-            /**
-             * <pre>
-             * 操作记录
-             * </pre>
-             * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
-             */
-            public Builder addAllHistory(
-                    java.lang.Iterable<? extends game.mode.GameBase.OperationHistory> values) {
-                if (historyBuilder_ == null) {
-                    ensureHistoryIsMutable();
-                    com.google.protobuf.AbstractMessageLite.Builder.addAll(
-                            values, history_);
-                    onChanged();
-                } else {
-                    historyBuilder_.addAllMessages(values);
-                }
-                return this;
-            }
-
-            /**
-             * <pre>
-             * 操作记录
-             * </pre>
-             * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
-             */
-            public Builder clearHistory() {
-                if (historyBuilder_ == null) {
-                    history_ = java.util.Collections.emptyList();
-                    bitField0_ = (bitField0_ & ~0x00000002);
-                    onChanged();
-                } else {
-                    historyBuilder_.clear();
-                }
-                return this;
-            }
-
-            /**
-             * <pre>
-             * 操作记录
-             * </pre>
-             * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
-             */
-            public Builder removeHistory(int index) {
-                if (historyBuilder_ == null) {
-                    ensureHistoryIsMutable();
-                    history_.remove(index);
-                    onChanged();
-                } else {
-                    historyBuilder_.remove(index);
-                }
-                return this;
-            }
-
-            /**
-             * <pre>
-             * 操作记录
-             * </pre>
-             * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
-             */
-            public game.mode.GameBase.OperationHistory.Builder getHistoryBuilder(
-                    int index) {
-                return getHistoryFieldBuilder().getBuilder(index);
-            }
-
-            /**
-             * <pre>
-             * 操作记录
-             * </pre>
-             * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
-             */
-            public game.mode.GameBase.OperationHistoryOrBuilder getHistoryOrBuilder(
-                    int index) {
-                if (historyBuilder_ == null) {
-                    return history_.get(index);
-                } else {
-                    return historyBuilder_.getMessageOrBuilder(index);
-                }
-            }
-
-            /**
-             * <pre>
-             * 操作记录
-             * </pre>
-             * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
-             */
-            public java.util.List<? extends game.mode.GameBase.OperationHistoryOrBuilder>
-            getHistoryOrBuilderList() {
-                if (historyBuilder_ != null) {
-                    return historyBuilder_.getMessageOrBuilderList();
-                } else {
-                    return java.util.Collections.unmodifiableList(history_);
-                }
-            }
-
-            /**
-             * <pre>
-             * 操作记录
-             * </pre>
-             * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
-             */
-            public game.mode.GameBase.OperationHistory.Builder addHistoryBuilder() {
-                return getHistoryFieldBuilder().addBuilder(
-                        game.mode.GameBase.OperationHistory.getDefaultInstance());
-            }
-
-            /**
-             * <pre>
-             * 操作记录
-             * </pre>
-             * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
-             */
-            public game.mode.GameBase.OperationHistory.Builder addHistoryBuilder(
-                    int index) {
-                return getHistoryFieldBuilder().addBuilder(
-                        index, game.mode.GameBase.OperationHistory.getDefaultInstance());
-            }
-
-            /**
-             * <pre>
-             * 操作记录
-             * </pre>
-             * <p>
-             * <code>repeated .OperationHistory history = 2;</code>
-             */
-            public java.util.List<game.mode.GameBase.OperationHistory.Builder>
-            getHistoryBuilderList() {
-                return getHistoryFieldBuilder().getBuilderList();
-            }
-
-            private com.google.protobuf.RepeatedFieldBuilderV3<
-                    game.mode.GameBase.OperationHistory, game.mode.GameBase.OperationHistory.Builder, game.mode.GameBase.OperationHistoryOrBuilder>
-            getHistoryFieldBuilder() {
-                if (historyBuilder_ == null) {
-                    historyBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-                            game.mode.GameBase.OperationHistory, game.mode.GameBase.OperationHistory.Builder, game.mode.GameBase.OperationHistoryOrBuilder>(
-                            history_,
-                            ((bitField0_ & 0x00000002) == 0x00000002),
-                            getParentForChildren(),
-                            isClean());
-                    history_ = null;
-                }
-                return historyBuilder_;
-            }
-
-            private game.mode.Mahjong.MahjongResultResponse result_ = null;
-            private com.google.protobuf.SingleFieldBuilderV3<
-                    game.mode.Mahjong.MahjongResultResponse, game.mode.Mahjong.MahjongResultResponse.Builder, game.mode.Mahjong.MahjongResultResponseOrBuilder> resultBuilder_;
-
-            /**
-             * <code>.MahjongResultResponse result = 3;</code>
-             */
-            public boolean hasResult() {
-                return resultBuilder_ != null || result_ != null;
-            }
-
-            /**
-             * <code>.MahjongResultResponse result = 3;</code>
-             */
-            public game.mode.Mahjong.MahjongResultResponse getResult() {
-                if (resultBuilder_ == null) {
-                    return result_ == null ? game.mode.Mahjong.MahjongResultResponse.getDefaultInstance() : result_;
-                } else {
-                    return resultBuilder_.getMessage();
-                }
-            }
-
-            /**
-             * <code>.MahjongResultResponse result = 3;</code>
-             */
-            public Builder setResult(game.mode.Mahjong.MahjongResultResponse value) {
-                if (resultBuilder_ == null) {
-                    if (value == null) {
-                        throw new NullPointerException();
-                    }
-                    result_ = value;
-                    onChanged();
-                } else {
-                    resultBuilder_.setMessage(value);
-                }
-
-                return this;
-            }
-
-            /**
-             * <code>.MahjongResultResponse result = 3;</code>
-             */
-            public Builder setResult(
-                    game.mode.Mahjong.MahjongResultResponse.Builder builderForValue) {
-                if (resultBuilder_ == null) {
-                    result_ = builderForValue.build();
-                    onChanged();
-                } else {
-                    resultBuilder_.setMessage(builderForValue.build());
-                }
-
-                return this;
-            }
-
-            /**
-             * <code>.MahjongResultResponse result = 3;</code>
-             */
-            public Builder mergeResult(game.mode.Mahjong.MahjongResultResponse value) {
-                if (resultBuilder_ == null) {
-                    if (result_ != null) {
-                        result_ =
-                                game.mode.Mahjong.MahjongResultResponse.newBuilder(result_).mergeFrom(value).buildPartial();
-                    } else {
-                        result_ = value;
-                    }
-                    onChanged();
-                } else {
-                    resultBuilder_.mergeFrom(value);
-                }
-
-                return this;
-            }
-
-            /**
-             * <code>.MahjongResultResponse result = 3;</code>
-             */
-            public Builder clearResult() {
-                if (resultBuilder_ == null) {
-                    result_ = null;
-                    onChanged();
-                } else {
-                    result_ = null;
-                    resultBuilder_ = null;
-                }
-
-                return this;
-            }
-
-            /**
-             * <code>.MahjongResultResponse result = 3;</code>
-             */
-            public game.mode.Mahjong.MahjongResultResponse.Builder getResultBuilder() {
-
-                onChanged();
-                return getResultFieldBuilder().getBuilder();
-            }
-
-            /**
-             * <code>.MahjongResultResponse result = 3;</code>
-             */
-            public game.mode.Mahjong.MahjongResultResponseOrBuilder getResultOrBuilder() {
-                if (resultBuilder_ != null) {
-                    return resultBuilder_.getMessageOrBuilder();
-                } else {
-                    return result_ == null ?
-                            game.mode.Mahjong.MahjongResultResponse.getDefaultInstance() : result_;
-                }
-            }
-
-            /**
-             * <code>.MahjongResultResponse result = 3;</code>
-             */
-            private com.google.protobuf.SingleFieldBuilderV3<
-                    game.mode.Mahjong.MahjongResultResponse, game.mode.Mahjong.MahjongResultResponse.Builder, game.mode.Mahjong.MahjongResultResponseOrBuilder>
-            getResultFieldBuilder() {
-                if (resultBuilder_ == null) {
-                    resultBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-                            game.mode.Mahjong.MahjongResultResponse, game.mode.Mahjong.MahjongResultResponse.Builder, game.mode.Mahjong.MahjongResultResponseOrBuilder>(
-                            getResult(),
-                            getParentForChildren(),
-                            isClean());
-                    result_ = null;
-                }
-                return resultBuilder_;
-            }
-
-            public final Builder setUnknownFields(
-                    final com.google.protobuf.UnknownFieldSet unknownFields) {
-                return this;
-            }
-
-            public final Builder mergeUnknownFields(
-                    final com.google.protobuf.UnknownFieldSet unknownFields) {
-                return this;
-            }
-
-
-            // @@protoc_insertion_point(builder_scope:RuijinMahjongReplayResponse)
-        }
-
-        // @@protoc_insertion_point(class_scope:RuijinMahjongReplayResponse)
-        private static final game.mode.Ruijin.RuijinMahjongReplayResponse DEFAULT_INSTANCE;
-
-        static {
-            DEFAULT_INSTANCE = new game.mode.Ruijin.RuijinMahjongReplayResponse();
-        }
-
-        public static game.mode.Ruijin.RuijinMahjongReplayResponse getDefaultInstance() {
-            return DEFAULT_INSTANCE;
-        }
-
-        private static final com.google.protobuf.Parser<RuijinMahjongReplayResponse>
-                PARSER = new com.google.protobuf.AbstractParser<RuijinMahjongReplayResponse>() {
-            public RuijinMahjongReplayResponse parsePartialFrom(
-                    com.google.protobuf.CodedInputStream input,
-                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                    throws com.google.protobuf.InvalidProtocolBufferException {
-                return new RuijinMahjongReplayResponse(input, extensionRegistry);
-            }
-        };
-
-        public static com.google.protobuf.Parser<RuijinMahjongReplayResponse> parser() {
-            return PARSER;
-        }
-
-        @java.lang.Override
-        public com.google.protobuf.Parser<RuijinMahjongReplayResponse> getParserForType() {
-            return PARSER;
-        }
-
-        public game.mode.Ruijin.RuijinMahjongReplayResponse getDefaultInstanceForType() {
+        public game.mode.Ruijin.RuijinMahjongIntoResponse getDefaultInstanceForType() {
             return DEFAULT_INSTANCE;
         }
 
     }
 
     private static final com.google.protobuf.Descriptors.Descriptor
-            internal_static_RuijinStartResponse_descriptor;
+            internal_static_RuijinMahjongIntoResponse_descriptor;
     private static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-            internal_static_RuijinStartResponse_fieldAccessorTable;
-    private static final com.google.protobuf.Descriptors.Descriptor
-            internal_static_RuijinMahjongGameInfo_descriptor;
-    private static final
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-            internal_static_RuijinMahjongGameInfo_fieldAccessorTable;
-    private static final com.google.protobuf.Descriptors.Descriptor
-            internal_static_RuijinMahjongReplayResponse_descriptor;
-    private static final
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-            internal_static_RuijinMahjongReplayResponse_fieldAccessorTable;
+            internal_static_RuijinMahjongIntoResponse_fieldAccessorTable;
 
     public static com.google.protobuf.Descriptors.FileDescriptor
     getDescriptor() {
@@ -2817,52 +887,30 @@ public final class Ruijin {
 
     static {
         java.lang.String[] descriptorData = {
-                "\n\014ruijin.proto\032\016gameBase.proto\032\rmahjong." +
-                        "proto\"Y\n\023RuijinStartResponse\0223\n\024mahjongS" +
-                        "tartResponse\030\001 \001(\0132\025.MahjongStartRespons" +
-                        "e\022\r\n\005rogue\030\002 \001(\005\"Q\n\025RuijinMahjongGameInf" +
-                        "o\022)\n\017mahjongGameInfo\030\001 \001(\0132\020.MahjongGame" +
-                        "Info\022\r\n\005rogue\030\002 \001(\005\"\216\001\n\033RuijinMahjongRep" +
-                        "layResponse\022#\n\005start\030\001 \001(\0132\024.RuijinStart" +
-                        "Response\022\"\n\007history\030\002 \003(\0132\021.OperationHis" +
-                        "tory\022&\n\006result\030\003 \001(\0132\026.MahjongResultResp" +
-                        "onseB\013\n\tgame.modeb\006proto3"
+                "\n\014ruijin.proto\"u\n\031RuijinMahjongIntoRespo" +
+                        "nse\022\021\n\tbaseScore\030\001 \001(\r\022\021\n\tgameTimes\030\002 \001(" +
+                        "\r\022\r\n\005count\030\003 \001(\r\022\017\n\007dianpao\030\004 \001(\010\022\022\n\nzhu" +
+                        "angxian\030\005 \001(\rB\013\n\tgame.modeb\006proto3"
         };
         com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-                new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
-                    public com.google.protobuf.ExtensionRegistry assignDescriptors(
-                            com.google.protobuf.Descriptors.FileDescriptor root) {
-                        descriptor = root;
-                        return null;
-                    }
-                };
-        com.google.protobuf.Descriptors.FileDescriptor
-                .internalBuildGeneratedFileFrom(descriptorData,
-                        new com.google.protobuf.Descriptors.FileDescriptor[]{
-                                game.mode.GameBase.getDescriptor(),
-                                game.mode.Mahjong.getDescriptor(),
-                        }, assigner);
-        internal_static_RuijinStartResponse_descriptor =
-                getDescriptor().getMessageTypes().get(0);
-        internal_static_RuijinStartResponse_fieldAccessorTable = new
-                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-                internal_static_RuijinStartResponse_descriptor,
-                new java.lang.String[]{"MahjongStartResponse", "Rogue",});
-        internal_static_RuijinMahjongGameInfo_descriptor =
-                getDescriptor().getMessageTypes().get(1);
-        internal_static_RuijinMahjongGameInfo_fieldAccessorTable = new
-                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-                internal_static_RuijinMahjongGameInfo_descriptor,
-                new java.lang.String[]{"MahjongGameInfo", "Rogue",});
-        internal_static_RuijinMahjongReplayResponse_descriptor =
-                getDescriptor().getMessageTypes().get(2);
-        internal_static_RuijinMahjongReplayResponse_fieldAccessorTable = new
-                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-                internal_static_RuijinMahjongReplayResponse_descriptor,
-                new java.lang.String[]{"Start", "History", "Result",});
-        game.mode.GameBase.getDescriptor();
-        game.mode.Mahjong.getDescriptor();
-    }
+                new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
+          public com.google.protobuf.ExtensionRegistry assignDescriptors(
+              com.google.protobuf.Descriptors.FileDescriptor root) {
+            descriptor = root;
+            return null;
+          }
+        };
+    com.google.protobuf.Descriptors.FileDescriptor
+      .internalBuildGeneratedFileFrom(descriptorData,
+        new com.google.protobuf.Descriptors.FileDescriptor[] {
+        }, assigner);
+    internal_static_RuijinMahjongIntoResponse_descriptor =
+      getDescriptor().getMessageTypes().get(0);
+    internal_static_RuijinMahjongIntoResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_RuijinMahjongIntoResponse_descriptor,
+        new java.lang.String[] { "BaseScore", "GameTimes", "Count", "Dianpao", "Zhuangxian", });
+  }
 
-    // @@protoc_insertion_point(outer_class_scope)
+  // @@protoc_insertion_point(outer_class_scope)
 }
