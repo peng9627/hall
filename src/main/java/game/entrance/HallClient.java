@@ -92,7 +92,7 @@ public class HallClient {
                                 userInfoResponse.setLastLoginIp(ip);
                                 userInfoResponse.setLastLoginAgent(loginRequest.getAgent());
                                 userInfoResponse.setGameCount(user.getGameCount());
-                                userInfoResponse.setSex(user.getSex().equals("SEX"));
+                                userInfoResponse.setSex(user.getSex().equals("MAN"));
                                 userInfoResponse.setTodayGameCount(user.getTodayGameCount());
                                 messageReceive.send(this.response.setOperationType(GameBase.OperationType.USER_INFO).setData(userInfoResponse.build().toByteString()).build(), userId);
 
@@ -119,7 +119,7 @@ public class HallClient {
                         userInfoResponse.setLastLoginIp(ip);
                         userInfoResponse.setLastLoginAgent(loginRequest.getAgent());
                         userInfoResponse.setGameCount(user.getGameCount());
-                        userInfoResponse.setSex(user.getSex().equals("SEX"));
+                        userInfoResponse.setSex(user.getSex().equals("MAN"));
                         userInfoResponse.setTodayGameCount(user.getTodayGameCount());
                         messageReceive.send(this.response.setOperationType(GameBase.OperationType.USER_INFO).setData(userInfoResponse.build().toByteString()).build(), userId);
 
@@ -263,7 +263,7 @@ public class HallClient {
                         userInfoResponse.setLastLoginIp(ip);
                         userInfoResponse.setLastLoginAgent(Hall.Agent.forNumber(Integer.valueOf(user.getAgent())));
                         userInfoResponse.setGameCount(user.getGameCount());
-                        userInfoResponse.setSex(user.getSex().equals("SEX"));
+                        userInfoResponse.setSex(user.getSex().equals("MAN"));
                         userInfoResponse.setTodayGameCount(user.getTodayGameCount());
                         messageReceive.send(this.response.setOperationType(GameBase.OperationType.USER_INFO).setData(userInfoResponse.build().toByteString()).build(), userId);
 
@@ -389,7 +389,7 @@ public class HallClient {
                 if (null != gameRecordRepresentation.getsData()) {
                     List<TotalScore> totalScores = JSON.parseArray(new String(gameRecordRepresentation.getsData(), Charset.forName("utf-8")), TotalScore.class);
                     for (TotalScore totalScore : totalScores) {
-                        record.addUserRecord(GameBase.UserRecord.newBuilder().setNickname(totalScore.getNickname())
+                        record.addUserRecord(0, GameBase.UserRecord.newBuilder().setNickname(totalScore.getNickname())
                                 .setHead(totalScore.getHead()).setID(totalScore.getUserId()).setScore(totalScore.getScore()));
                     }
                 }
@@ -461,6 +461,7 @@ public class HallClient {
                         gameInfo.setGameCount(record.getGameCount());
 
                         Mahjong.MahjongResultResponse.Builder resultResponse = Mahjong.MahjongResultResponse.newBuilder();
+                        resultResponse.setDateTime(new Date().getTime());
                         GameBase.RoomSeatsInfo.Builder roomSeatsInfo = GameBase.RoomSeatsInfo.newBuilder();
                         for (SeatRecord seatRecord : record.getSeatRecordList()) {
                             Mahjong.MahjongSeatGameInitInfo.Builder gameSeatResponse = Mahjong.MahjongSeatGameInitInfo.newBuilder();

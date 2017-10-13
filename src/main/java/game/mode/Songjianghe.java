@@ -858,11 +858,11 @@ public final class Songjianghe {
         };
 
         public static com.google.protobuf.Parser<SongjiangheMahjongIntoResponse> parser() {
-            return PARSER;
-        }
+      return PARSER;
+    }
 
-        @java.lang.Override
-        public com.google.protobuf.Parser<SongjiangheMahjongIntoResponse> getParserForType() {
+    @java.lang.Override
+    public com.google.protobuf.Parser<SongjiangheMahjongIntoResponse> getParserForType() {
       return PARSER;
     }
 

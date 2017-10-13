@@ -4,8 +4,8 @@
 package game.mode;
 
 public final class Hall {
-  private Hall() {
-  }
+    private Hall() {
+    }
   public static void registerAllExtensions(
           com.google.protobuf.ExtensionRegistryLite registry) {
   }
@@ -56,13 +56,13 @@ public final class Hall {
      * <code>OTHER = 3;</code>
      */
     OTHER(3),
-    UNRECOGNIZED(-1),;
+      UNRECOGNIZED(-1),;
 
     /**
      * <pre>
-     * 安卓
+     *安卓
      * </pre>
-     * <p>
+     *
      * <code>ANDROID = 0;</code>
      */
     public static final int ANDROID_VALUE = 0;
@@ -84,9 +84,9 @@ public final class Hall {
     public static final int PC_VALUE = 2;
     /**
      * <pre>
-     * 其它
+     *其它
      * </pre>
-     * <p>
+     *
      * <code>OTHER = 3;</code>
      */
     public static final int OTHER_VALUE = 3;
@@ -278,7 +278,6 @@ public final class Hall {
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
-
     private LoginRequest(
             com.google.protobuf.CodedInputStream input,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -621,20 +620,17 @@ public final class Hall {
             throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-
     public static game.mode.Hall.LoginRequest parseFrom(
             java.nio.ByteBuffer data,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
             throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-
     public static game.mode.Hall.LoginRequest parseFrom(
             com.google.protobuf.ByteString data)
             throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-
     public static game.mode.Hall.LoginRequest parseFrom(
             com.google.protobuf.ByteString data,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -645,7 +641,6 @@ public final class Hall {
             throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-
     public static game.mode.Hall.LoginRequest parseFrom(
             byte[] data,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -657,7 +652,6 @@ public final class Hall {
       return com.google.protobuf.GeneratedMessageV3
               .parseWithIOException(PARSER, input);
     }
-
     public static game.mode.Hall.LoginRequest parseFrom(
             java.io.InputStream input,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -677,14 +671,12 @@ public final class Hall {
       return com.google.protobuf.GeneratedMessageV3
               .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-
     public static game.mode.Hall.LoginRequest parseFrom(
             com.google.protobuf.CodedInputStream input)
             throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
               .parseWithIOException(PARSER, input);
     }
-
     public static game.mode.Hall.LoginRequest parseFrom(
             com.google.protobuf.CodedInputStream input,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -700,7 +692,6 @@ public final class Hall {
     public static Builder newBuilder(game.mode.Hall.LoginRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
               ? new Builder() : new Builder().mergeFrom(this);
@@ -796,32 +787,27 @@ public final class Hall {
       public Builder clone() {
         return (Builder) super.clone();
       }
-
       public Builder setField(
               com.google.protobuf.Descriptors.FieldDescriptor field,
               Object value) {
         return (Builder) super.setField(field, value);
       }
-
       public Builder clearField(
               com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-
       public Builder clearOneof(
               com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-
       public Builder setRepeatedField(
               com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
+              int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-
       public Builder addRepeatedField(
               com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+              Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -910,8 +896,8 @@ public final class Hall {
       getUsernameBytes() {
         java.lang.Object ref = username_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b =
-                  com.google.protobuf.ByteString.copyFromUtf8(
+            com.google.protobuf.ByteString b =
+                    com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
           username_ = b;
           return b;
@@ -999,8 +985,8 @@ public final class Hall {
       getNicknameBytes() {
         java.lang.Object ref = nickname_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b =
-                  com.google.protobuf.ByteString.copyFromUtf8(
+            com.google.protobuf.ByteString b =
+                    com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
           nickname_ = b;
           return b;
@@ -1088,8 +1074,8 @@ public final class Hall {
       getHeadBytes() {
         java.lang.Object ref = head_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b =
-                  com.google.protobuf.ByteString.copyFromUtf8(
+            com.google.protobuf.ByteString b =
+                    com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
           head_ = b;
           return b;
@@ -1243,11 +1229,10 @@ public final class Hall {
        */
       public Builder clearSex() {
 
-        sex_ = false;
+          sex_ = false;
         onChanged();
         return this;
       }
-
       public final Builder setUnknownFields(
               final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
@@ -1352,7 +1337,6 @@ public final class Hall {
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
-
     private LoginResponse(
             com.google.protobuf.CodedInputStream input,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -1521,20 +1505,17 @@ public final class Hall {
             throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-
     public static game.mode.Hall.LoginResponse parseFrom(
             java.nio.ByteBuffer data,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
             throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-
     public static game.mode.Hall.LoginResponse parseFrom(
             com.google.protobuf.ByteString data)
             throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-
     public static game.mode.Hall.LoginResponse parseFrom(
             com.google.protobuf.ByteString data,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -1545,7 +1526,6 @@ public final class Hall {
             throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-
     public static game.mode.Hall.LoginResponse parseFrom(
             byte[] data,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -1557,7 +1537,6 @@ public final class Hall {
       return com.google.protobuf.GeneratedMessageV3
               .parseWithIOException(PARSER, input);
     }
-
     public static game.mode.Hall.LoginResponse parseFrom(
             java.io.InputStream input,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -1577,14 +1556,12 @@ public final class Hall {
       return com.google.protobuf.GeneratedMessageV3
               .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-
     public static game.mode.Hall.LoginResponse parseFrom(
             com.google.protobuf.CodedInputStream input)
             throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
               .parseWithIOException(PARSER, input);
     }
-
     public static game.mode.Hall.LoginResponse parseFrom(
             com.google.protobuf.CodedInputStream input,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -1600,7 +1577,6 @@ public final class Hall {
     public static Builder newBuilder(game.mode.Hall.LoginResponse prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
               ? new Builder() : new Builder().mergeFrom(this);
@@ -1687,32 +1663,27 @@ public final class Hall {
       public Builder clone() {
         return (Builder) super.clone();
       }
-
       public Builder setField(
               com.google.protobuf.Descriptors.FieldDescriptor field,
               Object value) {
         return (Builder) super.setField(field, value);
       }
-
       public Builder clearField(
               com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-
       public Builder clearOneof(
               com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-
       public Builder setRepeatedField(
               com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
+              int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-
       public Builder addRepeatedField(
               com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+              Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -1855,11 +1826,10 @@ public final class Hall {
        */
       public Builder clearInGame() {
 
-        inGame_ = false;
+          inGame_ = false;
         onChanged();
         return this;
       }
-
       public final Builder setUnknownFields(
               final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
@@ -2526,7 +2496,6 @@ public final class Hall {
             throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-
     public static game.mode.Hall.UserInfoResponse parseFrom(
             com.google.protobuf.ByteString data)
             throws com.google.protobuf.InvalidProtocolBufferException {
@@ -2542,7 +2511,6 @@ public final class Hall {
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-
     public static game.mode.Hall.UserInfoResponse parseFrom(
             byte[] data,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -2554,7 +2522,6 @@ public final class Hall {
       return com.google.protobuf.GeneratedMessageV3
               .parseWithIOException(PARSER, input);
     }
-
     public static game.mode.Hall.UserInfoResponse parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -2574,14 +2541,12 @@ public final class Hall {
       return com.google.protobuf.GeneratedMessageV3
               .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-
     public static game.mode.Hall.UserInfoResponse parseFrom(
             com.google.protobuf.CodedInputStream input)
             throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
               .parseWithIOException(PARSER, input);
     }
-
     public static game.mode.Hall.UserInfoResponse parseFrom(
             com.google.protobuf.CodedInputStream input,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -3079,8 +3044,8 @@ public final class Hall {
       getLastLoginIpBytes() {
         java.lang.Object ref = lastLoginIp_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b =
-                  com.google.protobuf.ByteString.copyFromUtf8(
+            com.google.protobuf.ByteString b =
+                    com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
           lastLoginIp_ = b;
           return b;
@@ -3310,11 +3275,10 @@ public final class Hall {
        */
       public Builder clearTodayGameCount() {
 
-        todayGameCount_ = 0;
+          todayGameCount_ = 0;
         onChanged();
         return this;
       }
-
       public final Builder setUnknownFields(
               final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
@@ -3417,7 +3381,6 @@ public final class Hall {
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
-
     private CurrencyResponse(
             com.google.protobuf.CodedInputStream input,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -3603,20 +3566,17 @@ public final class Hall {
             throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-
     public static game.mode.Hall.CurrencyResponse parseFrom(
             java.nio.ByteBuffer data,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
             throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-
     public static game.mode.Hall.CurrencyResponse parseFrom(
             com.google.protobuf.ByteString data)
             throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-
     public static game.mode.Hall.CurrencyResponse parseFrom(
             com.google.protobuf.ByteString data,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -3627,7 +3587,6 @@ public final class Hall {
             throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-
     public static game.mode.Hall.CurrencyResponse parseFrom(
             byte[] data,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -3639,7 +3598,6 @@ public final class Hall {
       return com.google.protobuf.GeneratedMessageV3
               .parseWithIOException(PARSER, input);
     }
-
     public static game.mode.Hall.CurrencyResponse parseFrom(
             java.io.InputStream input,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -3659,14 +3617,12 @@ public final class Hall {
       return com.google.protobuf.GeneratedMessageV3
               .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-
     public static game.mode.Hall.CurrencyResponse parseFrom(
             com.google.protobuf.CodedInputStream input)
             throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
               .parseWithIOException(PARSER, input);
     }
-
     public static game.mode.Hall.CurrencyResponse parseFrom(
             com.google.protobuf.CodedInputStream input,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -3682,7 +3638,6 @@ public final class Hall {
     public static Builder newBuilder(game.mode.Hall.CurrencyResponse prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
               ? new Builder() : new Builder().mergeFrom(this);
@@ -3771,32 +3726,27 @@ public final class Hall {
       public Builder clone() {
         return (Builder) super.clone();
       }
-
       public Builder setField(
               com.google.protobuf.Descriptors.FieldDescriptor field,
               Object value) {
         return (Builder) super.setField(field, value);
       }
-
       public Builder clearField(
               com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-
       public Builder clearOneof(
               com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-
       public Builder setRepeatedField(
               com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
+              int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-
       public Builder addRepeatedField(
               com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+              Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -3940,7 +3890,6 @@ public final class Hall {
         onChanged();
         return this;
       }
-
       public final Builder setUnknownFields(
               final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
@@ -4192,20 +4141,17 @@ public final class Hall {
             throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-
     public static game.mode.Hall.AddToRoomRequest parseFrom(
             java.nio.ByteBuffer data,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
             throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-
     public static game.mode.Hall.AddToRoomRequest parseFrom(
             com.google.protobuf.ByteString data)
             throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-
     public static game.mode.Hall.AddToRoomRequest parseFrom(
             com.google.protobuf.ByteString data,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -4246,7 +4192,6 @@ public final class Hall {
       return com.google.protobuf.GeneratedMessageV3
               .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-
     public static game.mode.Hall.AddToRoomRequest parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
@@ -4356,7 +4301,6 @@ public final class Hall {
           Object value) {
         return (Builder) super.setField(field, value);
       }
-
       public Builder clearField(
               com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
@@ -4370,10 +4314,9 @@ public final class Hall {
           int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-
       public Builder addRepeatedField(
               com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+              Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -4448,8 +4391,8 @@ public final class Hall {
       getRoomNoBytes() {
         java.lang.Object ref = roomNo_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b =
-                  com.google.protobuf.ByteString.copyFromUtf8(
+            com.google.protobuf.ByteString b =
+                    com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
           roomNo_ = b;
           return b;
@@ -4603,12 +4546,11 @@ public final class Hall {
      */
     int getCount();
   }
-
   /**
    * <pre>
-   * 松江河创建房间  CREATE_ROOM
+   *松江河创建房间  CREATE_ROOM
    * </pre>
-   * <p>
+   *
    * Protobuf type {@code SongjiangheCreateRoomRequest}
    */
   public static final class SongjiangheCreateRoomRequest extends
@@ -4688,7 +4630,6 @@ public final class Hall {
         makeExtensionsImmutable();
       }
     }
-
     public static final com.google.protobuf.Descriptors.Descriptor
     getDescriptor() {
       return game.mode.Hall.internal_static_SongjiangheCreateRoomRequest_descriptor;
@@ -4729,12 +4670,11 @@ public final class Hall {
 
     public static final int SINGLEFAN_FIELD_NUMBER = 3;
     private boolean singleFan_;
-
     /**
      * <pre>
-     * true1翻封，false 16翻
+     *true1翻封，false 16翻
      * </pre>
-     * <p>
+     *
      * <code>bool singleFan = 3;</code>
      */
     public boolean getSingleFan() {
@@ -4768,7 +4708,6 @@ public final class Hall {
     }
 
     private byte memoizedIsInitialized = -1;
-
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -4827,11 +4766,10 @@ public final class Hall {
     }
 
     private static final long serialVersionUID = 0L;
-
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
-        return true;
+          return true;
       }
       if (!(obj instanceof game.mode.Hall.SongjiangheCreateRoomRequest)) {
         return super.equals(obj);
@@ -4902,7 +4840,6 @@ public final class Hall {
             throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-
     public static game.mode.Hall.SongjiangheCreateRoomRequest parseFrom(
             byte[] data,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -4914,7 +4851,6 @@ public final class Hall {
       return com.google.protobuf.GeneratedMessageV3
               .parseWithIOException(PARSER, input);
     }
-
     public static game.mode.Hall.SongjiangheCreateRoomRequest parseFrom(
             java.io.InputStream input,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -4922,7 +4858,6 @@ public final class Hall {
       return com.google.protobuf.GeneratedMessageV3
               .parseWithIOException(PARSER, input, extensionRegistry);
     }
-
     public static game.mode.Hall.SongjiangheCreateRoomRequest parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
@@ -5005,7 +4940,6 @@ public final class Hall {
                 .alwaysUseFieldBuilders) {
         }
       }
-
       public Builder clear() {
         super.clear();
         gameTimes_ = 0;
@@ -5065,7 +4999,6 @@ public final class Hall {
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-
       public Builder setRepeatedField(
               com.google.protobuf.Descriptors.FieldDescriptor field,
               int index, Object value) {
@@ -5076,7 +5009,6 @@ public final class Hall {
           Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
-
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof game.mode.Hall.SongjiangheCreateRoomRequest) {
           return mergeFrom((game.mode.Hall.SongjiangheCreateRoomRequest)other);
@@ -5187,48 +5119,45 @@ public final class Hall {
        */
       public Builder setNormal(boolean value) {
 
-        normal_ = value;
+          normal_ = value;
         onChanged();
         return this;
       }
-
       /**
        * <pre>
-       * true正常结算 false点炮包自己
+       *true正常结算 false点炮包自己
        * </pre>
-       * <p>
+       *
        * <code>bool normal = 2;</code>
        */
       public Builder clearNormal() {
 
-        normal_ = false;
+          normal_ = false;
         onChanged();
         return this;
       }
 
-      private boolean singleFan_;
-
+        private boolean singleFan_;
       /**
        * <pre>
-       * true1翻封，false 16翻
+       *true1翻封，false 16翻
        * </pre>
-       * <p>
+       *
        * <code>bool singleFan = 3;</code>
        */
       public boolean getSingleFan() {
         return singleFan_;
       }
-
       /**
        * <pre>
-       * true1翻封，false 16翻
+       *true1翻封，false 16翻
        * </pre>
-       * <p>
+       *
        * <code>bool singleFan = 3;</code>
        */
       public Builder setSingleFan(boolean value) {
 
-        singleFan_ = value;
+          singleFan_ = value;
         onChanged();
         return this;
       }
@@ -5284,19 +5213,17 @@ public final class Hall {
         return this;
       }
 
-      private int count_;
-
+        private int count_;
       /**
        * <pre>
-       * 人数
+       *人数
        * </pre>
-       * <p>
+       *
        * <code>uint32 count = 5;</code>
        */
       public int getCount() {
         return count_;
       }
-
       /**
        * <pre>
        *人数
@@ -5310,7 +5237,6 @@ public final class Hall {
         onChanged();
         return this;
       }
-
       /**
        * <pre>
        *人数
@@ -6091,7 +6017,6 @@ public final class Hall {
           return (com.google.protobuf.ByteString) ref;
         }
       }
-
       /**
        * <pre>
        *桌号
@@ -6365,7 +6290,6 @@ public final class Hall {
      */
     int getPort();
   }
-
   /**
    * <pre>
    *重连 RECONNECTION
@@ -6496,7 +6420,6 @@ public final class Hall {
 
     public static final int INTOIP_FIELD_NUMBER = 2;
     private volatile java.lang.Object intoIp_;
-
     /**
      * <pre>
      *进入ip
@@ -6516,7 +6439,6 @@ public final class Hall {
         return s;
       }
     }
-
     /**
      * <pre>
      *进入ip
@@ -6528,9 +6450,9 @@ public final class Hall {
         getIntoIpBytes() {
       java.lang.Object ref = intoIp_;
       if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b =
-                com.google.protobuf.ByteString.copyFromUtf8(
-                        (java.lang.String) ref);
+          com.google.protobuf.ByteString b =
+                  com.google.protobuf.ByteString.copyFromUtf8(
+                          (java.lang.String) ref);
         intoIp_ = b;
         return b;
       } else {
@@ -6540,7 +6462,6 @@ public final class Hall {
 
     public static final int PORT_FIELD_NUMBER = 3;
     private int port_;
-
     /**
      * <pre>
      *进入端口
@@ -6871,7 +6792,6 @@ public final class Hall {
       }
 
       private java.lang.Object roomNo_ = "";
-
       /**
        * <pre>
        *桌号
@@ -6911,7 +6831,6 @@ public final class Hall {
           return (com.google.protobuf.ByteString) ref;
         }
       }
-
       /**
        * <pre>
        *桌号
@@ -6962,7 +6881,6 @@ public final class Hall {
       }
 
       private java.lang.Object intoIp_ = "";
-
       /**
        * <pre>
        *进入ip
@@ -7253,12 +7171,11 @@ public final class Hall {
         return s;
       }
     }
-
     /**
      * <pre>
-     * 回到大厅的码
+     *回到大厅的码
      * </pre>
-     * <p>
+     *
      * <code>string backKey = 1;</code>
      */
     public com.google.protobuf.ByteString
@@ -7579,12 +7496,11 @@ public final class Hall {
           return (java.lang.String) ref;
         }
       }
-
       /**
        * <pre>
-       * 回到大厅的码
+       *回到大厅的码
        * </pre>
-       * <p>
+       *
        * <code>string backKey = 1;</code>
        */
       public com.google.protobuf.ByteString
@@ -7630,7 +7546,6 @@ public final class Hall {
         onChanged();
         return this;
       }
-
       /**
        * <pre>
        *回到大厅的码
@@ -7786,14 +7701,12 @@ public final class Hall {
 
     public static final int ERROR_FIELD_NUMBER = 1;
     private int error_;
-
     /**
      * <code>.ErrorCode error = 1;</code>
      */
     public int getErrorValue() {
       return error_;
     }
-
     /**
      * <code>.ErrorCode error = 1;</code>
      */
@@ -7803,7 +7716,6 @@ public final class Hall {
     }
 
     private byte memoizedIsInitialized = -1;
-
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -7834,11 +7746,10 @@ public final class Hall {
     }
 
     private static final long serialVersionUID = 0L;
-
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
-        return true;
+          return true;
       }
       if (!(obj instanceof game.mode.Hall.RebackResponse)) {
         return super.equals(obj);
@@ -7869,7 +7780,6 @@ public final class Hall {
             throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-
     public static game.mode.Hall.RebackResponse parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -7881,10 +7791,9 @@ public final class Hall {
             throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-
     public static game.mode.Hall.RebackResponse parseFrom(
             com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
@@ -7892,7 +7801,6 @@ public final class Hall {
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-
     public static game.mode.Hall.RebackResponse parseFrom(
             byte[] data,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -7904,10 +7812,9 @@ public final class Hall {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-
     public static game.mode.Hall.RebackResponse parseFrom(
             java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
@@ -7930,10 +7837,9 @@ public final class Hall {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-
     public static game.mode.Hall.RebackResponse parseFrom(
             com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
@@ -7957,12 +7863,11 @@ public final class Hall {
       Builder builder = new Builder(parent);
       return builder;
     }
-
     /**
      * <pre>
-     * 重回大厅 REBACK
+     *重回大厅 REBACK
      * </pre>
-     * <p>
+     *
      * Protobuf type {@code RebackResponse}
      */
     public static final class Builder extends
@@ -8053,10 +7958,9 @@ public final class Hall {
           Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
-
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof game.mode.Hall.RebackResponse) {
-          return mergeFrom((game.mode.Hall.RebackResponse) other);
+            return mergeFrom((game.mode.Hall.RebackResponse) other);
         } else {
           super.mergeFrom(other);
           return this;
@@ -8116,7 +8020,6 @@ public final class Hall {
         game.mode.GameBase.ErrorCode result = game.mode.GameBase.ErrorCode.valueOf(error_);
         return result == null ? game.mode.GameBase.ErrorCode.UNRECOGNIZED : result;
       }
-
       /**
        * <code>.ErrorCode error = 1;</code>
        */
@@ -8275,14 +8178,12 @@ public final class Hall {
 
     public static final int ERROR_FIELD_NUMBER = 1;
     private int error_;
-
     /**
      * <code>.ErrorCode error = 1;</code>
      */
     public int getErrorValue() {
       return error_;
     }
-
     /**
      * <code>.ErrorCode error = 1;</code>
      */
@@ -8292,7 +8193,6 @@ public final class Hall {
     }
 
     private byte memoizedIsInitialized = -1;
-
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -8326,7 +8226,7 @@ public final class Hall {
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
-        return true;
+          return true;
       }
       if (!(obj instanceof game.mode.Hall.ShareSuccessResponse)) {
         return super.equals(obj);
@@ -8357,10 +8257,9 @@ public final class Hall {
             throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-
     public static game.mode.Hall.ShareSuccessResponse parseFrom(
             java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
@@ -8369,14 +8268,12 @@ public final class Hall {
             throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-
     public static game.mode.Hall.ShareSuccessResponse parseFrom(
             com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-
     public static game.mode.Hall.ShareSuccessResponse parseFrom(byte[] data)
             throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
@@ -8392,7 +8289,6 @@ public final class Hall {
       return com.google.protobuf.GeneratedMessageV3
               .parseWithIOException(PARSER, input);
     }
-
     public static game.mode.Hall.ShareSuccessResponse parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -8400,7 +8296,6 @@ public final class Hall {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-
     public static game.mode.Hall.ShareSuccessResponse parseDelimitedFrom(java.io.InputStream input)
             throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
@@ -8445,12 +8340,11 @@ public final class Hall {
       Builder builder = new Builder(parent);
       return builder;
     }
-
     /**
      * <pre>
-     * 分享成功 SHARESUCCESS
+     *分享成功 SHARESUCCESS
      * </pre>
-     * <p>
+     *
      * Protobuf type {@code ShareSuccessResponse}
      */
     public static final class Builder extends
@@ -8484,7 +8378,6 @@ public final class Hall {
                 .alwaysUseFieldBuilders) {
         }
       }
-
       public Builder clear() {
         super.clear();
         error_ = 0;
@@ -8621,7 +8514,7 @@ public final class Hall {
        */
       public Builder clearError() {
 
-        error_ = 0;
+          error_ = 0;
         onChanged();
         return this;
       }
@@ -8641,7 +8534,6 @@ public final class Hall {
 
     // @@protoc_insertion_point(class_scope:ShareSuccessResponse)
     private static final game.mode.Hall.ShareSuccessResponse DEFAULT_INSTANCE;
-
     static {
       DEFAULT_INSTANCE = new game.mode.Hall.ShareSuccessResponse();
     }
@@ -8656,7 +8548,7 @@ public final class Hall {
               com.google.protobuf.CodedInputStream input,
               com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new ShareSuccessResponse(input, extensionRegistry);
+          return new ShareSuccessResponse(input, extensionRegistry);
       }
     };
 
@@ -8770,7 +8662,6 @@ public final class Hall {
         makeExtensionsImmutable();
       }
     }
-
     public static final com.google.protobuf.Descriptors.Descriptor
     getDescriptor() {
       return game.mode.Hall.internal_static_AgentRoomList_descriptor;
@@ -8791,7 +8682,6 @@ public final class Hall {
     public java.util.List<game.mode.Hall.AgentRoomItem> getRoomItemList() {
       return roomItem_;
     }
-
     /**
      * <code>repeated .AgentRoomItem roomItem = 1;</code>
      */
@@ -8799,14 +8689,12 @@ public final class Hall {
     getRoomItemOrBuilderList() {
       return roomItem_;
     }
-
     /**
      * <code>repeated .AgentRoomItem roomItem = 1;</code>
      */
     public int getRoomItemCount() {
       return roomItem_.size();
     }
-
     /**
      * <code>repeated .AgentRoomItem roomItem = 1;</code>
      */
@@ -8822,7 +8710,6 @@ public final class Hall {
     }
 
     private byte memoizedIsInitialized = -1;
-
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -8853,11 +8740,10 @@ public final class Hall {
     }
 
     private static final long serialVersionUID = 0L;
-
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
-        return true;
+          return true;
       }
       if (!(obj instanceof game.mode.Hall.AgentRoomList)) {
         return super.equals(obj);
@@ -8897,7 +8783,6 @@ public final class Hall {
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-
     public static game.mode.Hall.AgentRoomList parseFrom(
             com.google.protobuf.ByteString data)
             throws com.google.protobuf.InvalidProtocolBufferException {
@@ -8909,25 +8794,21 @@ public final class Hall {
             throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-
     public static game.mode.Hall.AgentRoomList parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-
     public static game.mode.Hall.AgentRoomList parseFrom(
             byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-
     public static game.mode.Hall.AgentRoomList parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
               .parseWithIOException(PARSER, input);
     }
-
     public static game.mode.Hall.AgentRoomList parseFrom(
             java.io.InputStream input,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -8961,10 +8842,9 @@ public final class Hall {
               .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public Builder newBuilderForType() {
-      return newBuilder();
-    }
-
+      public Builder newBuilderForType() {
+          return newBuilder();
+      }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
@@ -8982,12 +8862,11 @@ public final class Hall {
       Builder builder = new Builder(parent);
       return builder;
     }
-
     /**
      * <pre>
-     * 房间列表 AGENT_ROOM_LIST
+     *房间列表 AGENT_ROOM_LIST
      * </pre>
-     * <p>
+     *
      * Protobuf type {@code AgentRoomList}
      */
     public static final class Builder extends
@@ -9016,7 +8895,6 @@ public final class Hall {
         super(parent);
         maybeForceBuilderInitialization();
       }
-
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
@@ -9070,29 +8948,24 @@ public final class Hall {
       public Builder clone() {
         return (Builder) super.clone();
       }
-
       public Builder setField(
               com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+              Object value) {
         return (Builder) super.setField(field, value);
       }
-
       public Builder clearField(
               com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-
       public Builder clearOneof(
               com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           Object value) {
@@ -9160,12 +9033,10 @@ public final class Hall {
         }
         return this;
       }
-
       private int bitField0_;
 
       private java.util.List<game.mode.Hall.AgentRoomItem> roomItem_ =
               java.util.Collections.emptyList();
-
       private void ensureRoomItemIsMutable() {
         if (!((bitField0_ & 0x00000001) == 0x00000001)) {
           roomItem_ = new java.util.ArrayList<game.mode.Hall.AgentRoomItem>(roomItem_);
@@ -9186,7 +9057,6 @@ public final class Hall {
           return roomItemBuilder_.getMessageList();
         }
       }
-
       /**
        * <code>repeated .AgentRoomItem roomItem = 1;</code>
        */
@@ -9197,7 +9067,6 @@ public final class Hall {
           return roomItemBuilder_.getCount();
         }
       }
-
       /**
        * <code>repeated .AgentRoomItem roomItem = 1;</code>
        */
@@ -9208,7 +9077,6 @@ public final class Hall {
           return roomItemBuilder_.getMessage(index);
         }
       }
-
       /**
        * <code>repeated .AgentRoomItem roomItem = 1;</code>
        */
@@ -9226,7 +9094,6 @@ public final class Hall {
         }
         return this;
       }
-
       /**
        * <code>repeated .AgentRoomItem roomItem = 1;</code>
        */
@@ -9241,7 +9108,6 @@ public final class Hall {
         }
         return this;
       }
-
       /**
        * <code>repeated .AgentRoomItem roomItem = 1;</code>
        */
@@ -9258,7 +9124,6 @@ public final class Hall {
         }
         return this;
       }
-
       /**
        * <code>repeated .AgentRoomItem roomItem = 1;</code>
        */
@@ -9276,7 +9141,6 @@ public final class Hall {
         }
         return this;
       }
-
       /**
        * <code>repeated .AgentRoomItem roomItem = 1;</code>
        */
@@ -9291,7 +9155,6 @@ public final class Hall {
         }
         return this;
       }
-
       /**
        * <code>repeated .AgentRoomItem roomItem = 1;</code>
        */
@@ -9306,7 +9169,6 @@ public final class Hall {
         }
         return this;
       }
-
       /**
        * <code>repeated .AgentRoomItem roomItem = 1;</code>
        */
@@ -9322,7 +9184,6 @@ public final class Hall {
         }
         return this;
       }
-
       /**
        * <code>repeated .AgentRoomItem roomItem = 1;</code>
        */
@@ -9336,7 +9197,6 @@ public final class Hall {
         }
         return this;
       }
-
       /**
        * <code>repeated .AgentRoomItem roomItem = 1;</code>
        */
@@ -9350,7 +9210,6 @@ public final class Hall {
         }
         return this;
       }
-
       /**
        * <code>repeated .AgentRoomItem roomItem = 1;</code>
        */
@@ -9358,19 +9217,17 @@ public final class Hall {
               int index) {
         return getRoomItemFieldBuilder().getBuilder(index);
       }
-
       /**
        * <code>repeated .AgentRoomItem roomItem = 1;</code>
        */
       public game.mode.Hall.AgentRoomItemOrBuilder getRoomItemOrBuilder(
               int index) {
         if (roomItemBuilder_ == null) {
-          return roomItem_.get(index);
+            return roomItem_.get(index);
         } else {
           return roomItemBuilder_.getMessageOrBuilder(index);
         }
       }
-
       /**
        * <code>repeated .AgentRoomItem roomItem = 1;</code>
        */
@@ -9382,7 +9239,6 @@ public final class Hall {
           return java.util.Collections.unmodifiableList(roomItem_);
         }
       }
-
       /**
        * <code>repeated .AgentRoomItem roomItem = 1;</code>
        */
@@ -9390,7 +9246,6 @@ public final class Hall {
         return getRoomItemFieldBuilder().addBuilder(
                 game.mode.Hall.AgentRoomItem.getDefaultInstance());
       }
-
       /**
        * <code>repeated .AgentRoomItem roomItem = 1;</code>
        */
@@ -9406,9 +9261,8 @@ public final class Hall {
            getRoomItemBuilderList() {
         return getRoomItemFieldBuilder().getBuilderList();
       }
-
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          game.mode.Hall.AgentRoomItem, game.mode.Hall.AgentRoomItem.Builder, game.mode.Hall.AgentRoomItemOrBuilder>
+              game.mode.Hall.AgentRoomItem, game.mode.Hall.AgentRoomItem.Builder, game.mode.Hall.AgentRoomItemOrBuilder>
       getRoomItemFieldBuilder() {
         if (roomItemBuilder_ == null) {
           roomItemBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
@@ -9437,7 +9291,6 @@ public final class Hall {
 
     // @@protoc_insertion_point(class_scope:AgentRoomList)
     private static final game.mode.Hall.AgentRoomList DEFAULT_INSTANCE;
-
     static {
       DEFAULT_INSTANCE = new game.mode.Hall.AgentRoomList();
     }
@@ -9452,7 +9305,7 @@ public final class Hall {
               com.google.protobuf.CodedInputStream input,
               com.google.protobuf.ExtensionRegistryLite extensionRegistry)
               throws com.google.protobuf.InvalidProtocolBufferException {
-        return new AgentRoomList(input, extensionRegistry);
+          return new AgentRoomList(input, extensionRegistry);
       }
     };
 
@@ -9513,27 +9366,27 @@ public final class Hall {
 
     /**
      * <pre>
-     * true1翻封，false 16翻
+     *true1翻封，false 16翻
      * </pre>
-     * <p>
+     *
      * <code>bool singleFan = 4;</code>
      */
     boolean getSingleFan();
 
     /**
      * <pre>
-     * 游戏规则  低位到高位到顺序（一炮多响，旋风杠，飘，允许相同ip，代开房）
+     *游戏规则  低位到高位到顺序（一炮多响，旋风杠，飘，允许相同ip，代开房）
      * </pre>
-     * <p>
+     *
      * <code>uint32 gameRules = 5;</code>
      */
     int getGameRules();
 
     /**
      * <pre>
-     * 人数
+     *人数
      * </pre>
-     * <p>
+     *
      * <code>uint32 count = 6;</code>
      */
     int getCount();
@@ -9547,7 +9400,6 @@ public final class Hall {
      */
     int getCurrentCount();
   }
-
   /**
    * <pre>
    *房间信息 AGENT_ROOM_ITEM
@@ -9563,7 +9415,6 @@ public final class Hall {
     private AgentRoomItem(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-
     private AgentRoomItem() {
       roomNo_ = "";
       gameTimes_ = 0;
@@ -9579,7 +9430,6 @@ public final class Hall {
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
-
     private AgentRoomItem(
             com.google.protobuf.CodedInputStream input,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -9647,7 +9497,6 @@ public final class Hall {
         makeExtensionsImmutable();
       }
     }
-
     public static final com.google.protobuf.Descriptors.Descriptor
     getDescriptor() {
       return game.mode.Hall.internal_static_AgentRoomItem_descriptor;
@@ -9662,12 +9511,11 @@ public final class Hall {
 
     public static final int ROOMNO_FIELD_NUMBER = 1;
     private volatile java.lang.Object roomNo_;
-
     /**
      * <pre>
-     * 桌号
+     *桌号
      * </pre>
-     * <p>
+     *
      * <code>string roomNo = 1;</code>
      */
     public java.lang.String getRoomNo() {
@@ -9675,28 +9523,27 @@ public final class Hall {
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
-        com.google.protobuf.ByteString bs =
-                (com.google.protobuf.ByteString) ref;
+          com.google.protobuf.ByteString bs =
+                  (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
         roomNo_ = s;
         return s;
       }
     }
-
     /**
      * <pre>
-     * 桌号
+     *桌号
      * </pre>
-     * <p>
+     *
      * <code>string roomNo = 1;</code>
      */
     public com.google.protobuf.ByteString
     getRoomNoBytes() {
       java.lang.Object ref = roomNo_;
       if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b =
-                com.google.protobuf.ByteString.copyFromUtf8(
-                        (java.lang.String) ref);
+          com.google.protobuf.ByteString b =
+                  com.google.protobuf.ByteString.copyFromUtf8(
+                          (java.lang.String) ref);
         roomNo_ = b;
         return b;
       } else {
@@ -9706,12 +9553,11 @@ public final class Hall {
 
     public static final int GAMETIMES_FIELD_NUMBER = 2;
     private int gameTimes_;
-
     /**
      * <pre>
-     * 游戏局数
+     *游戏局数
      * </pre>
-     * <p>
+     *
      * <code>uint32 gameTimes = 2;</code>
      */
     public int getGameTimes() {
@@ -9720,12 +9566,11 @@ public final class Hall {
 
     public static final int NORMAL_FIELD_NUMBER = 3;
     private boolean normal_;
-
     /**
      * <pre>
-     * true正常结算 false点炮包自己
+     *true正常结算 false点炮包自己
      * </pre>
-     * <p>
+     *
      * <code>bool normal = 3;</code>
      */
     public boolean getNormal() {
@@ -9734,12 +9579,11 @@ public final class Hall {
 
     public static final int SINGLEFAN_FIELD_NUMBER = 4;
     private boolean singleFan_;
-
     /**
      * <pre>
-     * true1翻封，false 16翻
+     *true1翻封，false 16翻
      * </pre>
-     * <p>
+     *
      * <code>bool singleFan = 4;</code>
      */
     public boolean getSingleFan() {
@@ -9748,7 +9592,6 @@ public final class Hall {
 
     public static final int GAMERULES_FIELD_NUMBER = 5;
     private int gameRules_;
-
     /**
      * <pre>
      *游戏规则  低位到高位到顺序（一炮多响，旋风杠，飘，允许相同ip，代开房）
@@ -9762,12 +9605,11 @@ public final class Hall {
 
     public static final int COUNT_FIELD_NUMBER = 6;
     private int count_;
-
     /**
      * <pre>
-     * 人数
+     *人数
      * </pre>
-     * <p>
+     *
      * <code>uint32 count = 6;</code>
      */
     public int getCount() {
@@ -9776,12 +9618,11 @@ public final class Hall {
 
     public static final int CURRENTCOUNT_FIELD_NUMBER = 7;
     private int currentCount_;
-
     /**
      * <pre>
-     * 当前人数
+     *当前人数
      * </pre>
-     * <p>
+     *
      * <code>uint32 currentCount = 7;</code>
      */
     public int getCurrentCount() {
@@ -9789,7 +9630,6 @@ public final class Hall {
     }
 
     private byte memoizedIsInitialized = -1;
-
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -9861,11 +9701,10 @@ public final class Hall {
     }
 
     private static final long serialVersionUID = 0L;
-
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
-        return true;
+          return true;
       }
       if (!(obj instanceof game.mode.Hall.AgentRoomItem)) {
         return super.equals(obj);
@@ -9923,45 +9762,38 @@ public final class Hall {
             throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-
     public static game.mode.Hall.AgentRoomItem parseFrom(
             java.nio.ByteBuffer data,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
             throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-
     public static game.mode.Hall.AgentRoomItem parseFrom(
             com.google.protobuf.ByteString data)
             throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-
     public static game.mode.Hall.AgentRoomItem parseFrom(
             com.google.protobuf.ByteString data,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
             throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-
     public static game.mode.Hall.AgentRoomItem parseFrom(byte[] data)
             throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-
     public static game.mode.Hall.AgentRoomItem parseFrom(
             byte[] data,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
             throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-
     public static game.mode.Hall.AgentRoomItem parseFrom(java.io.InputStream input)
             throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
               .parseWithIOException(PARSER, input);
     }
-
     public static game.mode.Hall.AgentRoomItem parseFrom(
             java.io.InputStream input,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -9969,13 +9801,11 @@ public final class Hall {
       return com.google.protobuf.GeneratedMessageV3
               .parseWithIOException(PARSER, input, extensionRegistry);
     }
-
     public static game.mode.Hall.AgentRoomItem parseDelimitedFrom(java.io.InputStream input)
             throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
               .parseDelimitedWithIOException(PARSER, input);
     }
-
     public static game.mode.Hall.AgentRoomItem parseDelimitedFrom(
             java.io.InputStream input,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -9983,14 +9813,12 @@ public final class Hall {
       return com.google.protobuf.GeneratedMessageV3
               .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-
     public static game.mode.Hall.AgentRoomItem parseFrom(
             com.google.protobuf.CodedInputStream input)
             throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
               .parseWithIOException(PARSER, input);
     }
-
     public static game.mode.Hall.AgentRoomItem parseFrom(
             com.google.protobuf.CodedInputStream input,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -9999,18 +9827,15 @@ public final class Hall {
               .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public Builder newBuilderForType() {
-      return newBuilder();
-    }
-
+      public Builder newBuilderForType() {
+          return newBuilder();
+      }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-
     public static Builder newBuilder(game.mode.Hall.AgentRoomItem prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
               ? new Builder() : new Builder().mergeFrom(this);
@@ -10022,7 +9847,6 @@ public final class Hall {
       Builder builder = new Builder(parent);
       return builder;
     }
-
     /**
      * <pre>
      *房间信息 AGENT_ROOM_ITEM
@@ -10056,13 +9880,11 @@ public final class Hall {
         super(parent);
         maybeForceBuilderInitialization();
       }
-
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
         }
       }
-
       public Builder clear() {
         super.clear();
         roomNo_ = "";
@@ -10115,35 +9937,29 @@ public final class Hall {
       public Builder clone() {
         return (Builder) super.clone();
       }
-
       public Builder setField(
               com.google.protobuf.Descriptors.FieldDescriptor field,
               Object value) {
         return (Builder) super.setField(field, value);
       }
-
       public Builder clearField(
               com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-
       public Builder clearOneof(
               com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-
       public Builder setRepeatedField(
               com.google.protobuf.Descriptors.FieldDescriptor field,
               int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-
       public Builder addRepeatedField(
               com.google.protobuf.Descriptors.FieldDescriptor field,
               Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
-
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof game.mode.Hall.AgentRoomItem) {
           return mergeFrom((game.mode.Hall.AgentRoomItem)other);
@@ -10204,7 +10020,6 @@ public final class Hall {
       }
 
       private java.lang.Object roomNo_ = "";
-
       /**
        * <pre>
        *桌号
@@ -10224,92 +10039,86 @@ public final class Hall {
           return (java.lang.String) ref;
         }
       }
-
       /**
        * <pre>
-       * 桌号
+       *桌号
        * </pre>
-       * <p>
+       *
        * <code>string roomNo = 1;</code>
        */
       public com.google.protobuf.ByteString
       getRoomNoBytes() {
         java.lang.Object ref = roomNo_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b =
-                  com.google.protobuf.ByteString.copyFromUtf8(
-                          (java.lang.String) ref);
+            com.google.protobuf.ByteString b =
+                    com.google.protobuf.ByteString.copyFromUtf8(
+                            (java.lang.String) ref);
           roomNo_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
-
       /**
        * <pre>
-       * 桌号
+       *桌号
        * </pre>
-       * <p>
+       *
        * <code>string roomNo = 1;</code>
        */
       public Builder setRoomNo(
               java.lang.String value) {
         if (value == null) {
-          throw new NullPointerException();
+            throw new NullPointerException();
         }
-
+  
         roomNo_ = value;
         onChanged();
         return this;
       }
-
       /**
        * <pre>
-       * 桌号
+       *桌号
        * </pre>
-       * <p>
+       *
        * <code>string roomNo = 1;</code>
        */
       public Builder clearRoomNo() {
 
-        roomNo_ = getDefaultInstance().getRoomNo();
+          roomNo_ = getDefaultInstance().getRoomNo();
         onChanged();
         return this;
       }
-
       /**
        * <pre>
-       * 桌号
+       *桌号
        * </pre>
-       * <p>
+       *
        * <code>string roomNo = 1;</code>
        */
       public Builder setRoomNoBytes(
               com.google.protobuf.ByteString value) {
         if (value == null) {
-          throw new NullPointerException();
+            throw new NullPointerException();
         }
-        checkByteStringIsUtf8(value);
-
+          checkByteStringIsUtf8(value);
+        
         roomNo_ = value;
         onChanged();
         return this;
       }
 
-      private int gameTimes_;
-
+        private int gameTimes_;
       /**
        * <pre>
-       * 游戏局数
+       *游戏局数
        * </pre>
-       * <p>
+       *
        * <code>uint32 gameTimes = 2;</code>
        */
       public int getGameTimes() {
         return gameTimes_;
       }
-
       /**
        * <pre>
        *游戏局数
@@ -10319,11 +10128,10 @@ public final class Hall {
        */
       public Builder setGameTimes(int value) {
 
-        gameTimes_ = value;
+          gameTimes_ = value;
         onChanged();
         return this;
       }
-
       /**
        * <pre>
        *游戏局数
@@ -10333,13 +10141,12 @@ public final class Hall {
        */
       public Builder clearGameTimes() {
 
-        gameTimes_ = 0;
+          gameTimes_ = 0;
         onChanged();
         return this;
       }
 
-      private boolean normal_;
-
+        private boolean normal_;
       /**
        * <pre>
        *true正常结算 false点炮包自己
@@ -10350,21 +10157,19 @@ public final class Hall {
       public boolean getNormal() {
         return normal_;
       }
-
       /**
        * <pre>
-       * true正常结算 false点炮包自己
+       *true正常结算 false点炮包自己
        * </pre>
-       * <p>
+       *
        * <code>bool normal = 3;</code>
        */
       public Builder setNormal(boolean value) {
 
-        normal_ = value;
+          normal_ = value;
         onChanged();
         return this;
       }
-
       /**
        * <pre>
        *true正常结算 false点炮包自己
@@ -10374,24 +10179,22 @@ public final class Hall {
        */
       public Builder clearNormal() {
 
-        normal_ = false;
+          normal_ = false;
         onChanged();
         return this;
       }
 
-      private boolean singleFan_;
-
+        private boolean singleFan_;
       /**
        * <pre>
-       * true1翻封，false 16翻
+       *true1翻封，false 16翻
        * </pre>
-       * <p>
+       *
        * <code>bool singleFan = 4;</code>
        */
       public boolean getSingleFan() {
         return singleFan_;
       }
-
       /**
        * <pre>
        *true1翻封，false 16翻
@@ -10401,11 +10204,10 @@ public final class Hall {
        */
       public Builder setSingleFan(boolean value) {
 
-        singleFan_ = value;
+          singleFan_ = value;
         onChanged();
         return this;
       }
-
       /**
        * <pre>
        *true1翻封，false 16翻
@@ -10415,13 +10217,12 @@ public final class Hall {
        */
       public Builder clearSingleFan() {
 
-        singleFan_ = false;
+          singleFan_ = false;
         onChanged();
         return this;
       }
 
       private int gameRules_ ;
-
       /**
        * <pre>
        *游戏规则  低位到高位到顺序（一炮多响，旋风杠，飘，允许相同ip，代开房）
@@ -10432,7 +10233,6 @@ public final class Hall {
       public int getGameRules() {
         return gameRules_;
       }
-
       /**
        * <pre>
        *游戏规则  低位到高位到顺序（一炮多响，旋风杠，飘，允许相同ip，代开房）
@@ -10442,11 +10242,10 @@ public final class Hall {
        */
       public Builder setGameRules(int value) {
 
-        gameRules_ = value;
+          gameRules_ = value;
         onChanged();
         return this;
       }
-
       /**
        * <pre>
        *游戏规则  低位到高位到顺序（一炮多响，旋风杠，飘，允许相同ip，代开房）
@@ -10456,24 +10255,22 @@ public final class Hall {
        */
       public Builder clearGameRules() {
 
-        gameRules_ = 0;
+          gameRules_ = 0;
         onChanged();
         return this;
       }
 
-      private int count_;
-
+        private int count_;
       /**
        * <pre>
-       * 人数
+       *人数
        * </pre>
-       * <p>
+       *
        * <code>uint32 count = 6;</code>
        */
       public int getCount() {
         return count_;
       }
-
       /**
        * <pre>
        *人数
@@ -10483,11 +10280,10 @@ public final class Hall {
        */
       public Builder setCount(int value) {
 
-        count_ = value;
+          count_ = value;
         onChanged();
         return this;
       }
-
       /**
        * <pre>
        *人数
@@ -10497,13 +10293,12 @@ public final class Hall {
        */
       public Builder clearCount() {
 
-        count_ = 0;
+          count_ = 0;
         onChanged();
         return this;
       }
 
       private int currentCount_ ;
-
       /**
        * <pre>
        *当前人数
@@ -10514,7 +10309,6 @@ public final class Hall {
       public int getCurrentCount() {
         return currentCount_;
       }
-
       /**
        * <pre>
        *当前人数
@@ -10524,11 +10318,10 @@ public final class Hall {
        */
       public Builder setCurrentCount(int value) {
 
-        currentCount_ = value;
+          currentCount_ = value;
         onChanged();
         return this;
       }
-
       /**
        * <pre>
        *当前人数
@@ -10538,11 +10331,10 @@ public final class Hall {
        */
       public Builder clearCurrentCount() {
 
-        currentCount_ = 0;
+          currentCount_ = 0;
         onChanged();
         return this;
       }
-
       public final Builder setUnknownFields(
               final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
@@ -10559,7 +10351,6 @@ public final class Hall {
 
     // @@protoc_insertion_point(class_scope:AgentRoomItem)
     private static final game.mode.Hall.AgentRoomItem DEFAULT_INSTANCE;
-
     static {
       DEFAULT_INSTANCE = new game.mode.Hall.AgentRoomItem();
     }
@@ -10574,7 +10365,7 @@ public final class Hall {
               com.google.protobuf.CodedInputStream input,
               com.google.protobuf.ExtensionRegistryLite extensionRegistry)
               throws com.google.protobuf.InvalidProtocolBufferException {
-        return new AgentRoomItem(input, extensionRegistry);
+          return new AgentRoomItem(input, extensionRegistry);
       }
     };
 
@@ -10602,12 +10393,11 @@ public final class Hall {
      */
     int getVersion();
   }
-
   /**
    * <pre>
-   * APP版本信息
+   *APP版本信息
    * </pre>
-   * <p>
+   *
    * Protobuf type {@code AppVersion}
    */
   public static final class AppVersion extends
@@ -10618,7 +10408,6 @@ public final class Hall {
     private AppVersion(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-
     private AppVersion() {
       version_ = 0;
     }
@@ -10628,7 +10417,6 @@ public final class Hall {
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
-
     private AppVersion(
             com.google.protobuf.CodedInputStream input,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -10665,7 +10453,6 @@ public final class Hall {
         makeExtensionsImmutable();
       }
     }
-
     public static final com.google.protobuf.Descriptors.Descriptor
     getDescriptor() {
       return game.mode.Hall.internal_static_AppVersion_descriptor;
@@ -10680,7 +10467,6 @@ public final class Hall {
 
     public static final int VERSION_FIELD_NUMBER = 1;
     private int version_;
-
     /**
      * <code>int32 version = 1;</code>
      */
@@ -10689,7 +10475,6 @@ public final class Hall {
     }
 
     private byte memoizedIsInitialized = -1;
-
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -10720,11 +10505,10 @@ public final class Hall {
     }
 
     private static final long serialVersionUID = 0L;
-
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
-        return true;
+          return true;
       }
       if (!(obj instanceof game.mode.Hall.AppVersion)) {
         return super.equals(obj);
@@ -10756,45 +10540,38 @@ public final class Hall {
             throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-
     public static game.mode.Hall.AppVersion parseFrom(
             java.nio.ByteBuffer data,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
             throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-
     public static game.mode.Hall.AppVersion parseFrom(
             com.google.protobuf.ByteString data)
             throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-
     public static game.mode.Hall.AppVersion parseFrom(
             com.google.protobuf.ByteString data,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
             throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-
     public static game.mode.Hall.AppVersion parseFrom(byte[] data)
             throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-
     public static game.mode.Hall.AppVersion parseFrom(
             byte[] data,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
             throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-
     public static game.mode.Hall.AppVersion parseFrom(java.io.InputStream input)
             throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
               .parseWithIOException(PARSER, input);
     }
-
     public static game.mode.Hall.AppVersion parseFrom(
             java.io.InputStream input,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -10802,13 +10579,11 @@ public final class Hall {
       return com.google.protobuf.GeneratedMessageV3
               .parseWithIOException(PARSER, input, extensionRegistry);
     }
-
     public static game.mode.Hall.AppVersion parseDelimitedFrom(java.io.InputStream input)
             throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
               .parseDelimitedWithIOException(PARSER, input);
     }
-
     public static game.mode.Hall.AppVersion parseDelimitedFrom(
             java.io.InputStream input,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -10816,14 +10591,12 @@ public final class Hall {
       return com.google.protobuf.GeneratedMessageV3
               .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-
     public static game.mode.Hall.AppVersion parseFrom(
             com.google.protobuf.CodedInputStream input)
             throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
               .parseWithIOException(PARSER, input);
     }
-
     public static game.mode.Hall.AppVersion parseFrom(
             com.google.protobuf.CodedInputStream input,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -10832,18 +10605,15 @@ public final class Hall {
               .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public Builder newBuilderForType() {
-      return newBuilder();
-    }
-
+      public Builder newBuilderForType() {
+          return newBuilder();
+      }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-
     public static Builder newBuilder(game.mode.Hall.AppVersion prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
               ? new Builder() : new Builder().mergeFrom(this);
@@ -10855,7 +10625,6 @@ public final class Hall {
       Builder builder = new Builder(parent);
       return builder;
     }
-
     /**
      * <pre>
      *APP版本信息
@@ -10889,13 +10658,11 @@ public final class Hall {
         super(parent);
         maybeForceBuilderInitialization();
       }
-
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
         }
       }
-
       public Builder clear() {
         super.clear();
         version_ = 0;
@@ -10930,38 +10697,32 @@ public final class Hall {
       public Builder clone() {
         return (Builder) super.clone();
       }
-
       public Builder setField(
               com.google.protobuf.Descriptors.FieldDescriptor field,
               Object value) {
         return (Builder) super.setField(field, value);
       }
-
       public Builder clearField(
               com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-
       public Builder clearOneof(
               com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-
       public Builder setRepeatedField(
               com.google.protobuf.Descriptors.FieldDescriptor field,
               int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-
       public Builder addRepeatedField(
               com.google.protobuf.Descriptors.FieldDescriptor field,
               Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
-
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof game.mode.Hall.AppVersion) {
-          return mergeFrom((game.mode.Hall.AppVersion) other);
+            return mergeFrom((game.mode.Hall.AppVersion) other);
         } else {
           super.mergeFrom(other);
           return this;
@@ -10999,35 +10760,31 @@ public final class Hall {
         return this;
       }
 
-      private int version_;
-
+        private int version_;
       /**
        * <code>int32 version = 1;</code>
        */
       public int getVersion() {
         return version_;
       }
-
       /**
        * <code>int32 version = 1;</code>
        */
       public Builder setVersion(int value) {
 
-        version_ = value;
+          version_ = value;
         onChanged();
         return this;
       }
-
       /**
        * <code>int32 version = 1;</code>
        */
       public Builder clearVersion() {
 
-        version_ = 0;
+          version_ = 0;
         onChanged();
         return this;
       }
-
       public final Builder setUnknownFields(
               final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
@@ -11044,7 +10801,6 @@ public final class Hall {
 
     // @@protoc_insertion_point(class_scope:AppVersion)
     private static final game.mode.Hall.AppVersion DEFAULT_INSTANCE;
-
     static {
       DEFAULT_INSTANCE = new game.mode.Hall.AppVersion();
     }
@@ -11059,7 +10815,7 @@ public final class Hall {
               com.google.protobuf.CodedInputStream input,
               com.google.protobuf.ExtensionRegistryLite extensionRegistry)
               throws com.google.protobuf.InvalidProtocolBufferException {
-        return new AppVersion(input, extensionRegistry);
+          return new AppVersion(input, extensionRegistry);
       }
     };
 
@@ -11080,49 +10836,49 @@ public final class Hall {
 
   private static final com.google.protobuf.Descriptors.Descriptor
           internal_static_LoginRequest_descriptor;
-  private static final
-  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_LoginRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
           internal_static_LoginResponse_descriptor;
-  private static final
-  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_LoginResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
           internal_static_UserInfoResponse_descriptor;
-  private static final
-  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_UserInfoResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
           internal_static_CurrencyResponse_descriptor;
-  private static final
-  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_CurrencyResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
           internal_static_AddToRoomRequest_descriptor;
-  private static final
-  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_AddToRoomRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
           internal_static_SongjiangheCreateRoomRequest_descriptor;
-  private static final
-  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_SongjiangheCreateRoomRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
           internal_static_RoomResponse_descriptor;
-  private static final
-  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_RoomResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
           internal_static_Reconnect_descriptor;
-  private static final
-  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_Reconnect_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
           internal_static_RebackRequest_descriptor;
-  private static final
-  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internal_static_RebackRequest_fieldAccessorTable;
+    private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internal_static_RebackRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_RebackResponse_descriptor;
   private static final 
@@ -11130,9 +10886,9 @@ public final class Hall {
       internal_static_RebackResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_ShareSuccessResponse_descriptor;
-  private static final
-  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internal_static_ShareSuccessResponse_fieldAccessorTable;
+    private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internal_static_ShareSuccessResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
           internal_static_AgentRoomList_descriptor;
   private static final 
@@ -11140,14 +10896,14 @@ public final class Hall {
       internal_static_AgentRoomList_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_AgentRoomItem_descriptor;
-  private static final
-  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internal_static_AgentRoomItem_fieldAccessorTable;
+    private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internal_static_AgentRoomItem_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
           internal_static_AppVersion_descriptor;
-  private static final
-  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internal_static_AppVersion_fieldAccessorTable;
+    private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internal_static_AppVersion_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
   getDescriptor() {
@@ -11155,7 +10911,6 @@ public final class Hall {
   }
   private static  com.google.protobuf.Descriptors.FileDescriptor
           descriptor;
-
   static {
     java.lang.String[] descriptorData = {
             "\n\nhall.proto\032\016gameBase.proto\"d\n\014LoginReq" +
@@ -11190,11 +10945,11 @@ public final class Hall {
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
             new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
-              public com.google.protobuf.ExtensionRegistry assignDescriptors(
-                      com.google.protobuf.Descriptors.FileDescriptor root) {
-                descriptor = root;
-                return null;
-              }
+                public com.google.protobuf.ExtensionRegistry assignDescriptors(
+                        com.google.protobuf.Descriptors.FileDescriptor root) {
+                    descriptor = root;
+                    return null;
+                }
             };
     com.google.protobuf.Descriptors.FileDescriptor
             .internalBuildGeneratedFileFrom(descriptorData,
