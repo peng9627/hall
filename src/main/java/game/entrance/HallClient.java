@@ -92,7 +92,7 @@ public class HallClient {
                                 userInfoResponse.setLastLoginIp(ip);
                                 userInfoResponse.setLastLoginAgent(loginRequest.getAgent());
                                 userInfoResponse.setGameCount(user.getGameCount());
-                                userInfoResponse.setSex(user.getSex().equals("MAN"));
+                                userInfoResponse.setSex(user.getSex().equals("1"));
                                 userInfoResponse.setTodayGameCount(user.getTodayGameCount());
                                 messageReceive.send(this.response.setOperationType(GameBase.OperationType.USER_INFO).setData(userInfoResponse.build().toByteString()).build(), userId);
 
@@ -119,7 +119,7 @@ public class HallClient {
                         userInfoResponse.setLastLoginIp(ip);
                         userInfoResponse.setLastLoginAgent(loginRequest.getAgent());
                         userInfoResponse.setGameCount(user.getGameCount());
-                        userInfoResponse.setSex(user.getSex().equals("MAN"));
+                        userInfoResponse.setSex(user.getSex().equals("1"));
                         userInfoResponse.setTodayGameCount(user.getTodayGameCount());
                         messageReceive.send(this.response.setOperationType(GameBase.OperationType.USER_INFO).setData(userInfoResponse.build().toByteString()).build(), userId);
 
@@ -263,7 +263,7 @@ public class HallClient {
                         userInfoResponse.setLastLoginIp(ip);
                         userInfoResponse.setLastLoginAgent(Hall.Agent.forNumber(Integer.valueOf(user.getAgent())));
                         userInfoResponse.setGameCount(user.getGameCount());
-                        userInfoResponse.setSex(user.getSex().equals("MAN"));
+                        userInfoResponse.setSex(user.getSex().equals("1"));
                         userInfoResponse.setTodayGameCount(user.getTodayGameCount());
                         messageReceive.send(this.response.setOperationType(GameBase.OperationType.USER_INFO).setData(userInfoResponse.build().toByteString()).build(), userId);
 
