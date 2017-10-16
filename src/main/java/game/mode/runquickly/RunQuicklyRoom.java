@@ -138,7 +138,7 @@ public class RunQuicklyRoom {
             seat.setAreaString("");
             seat.setHead(user.getHead());
             seat.setNickname(user.getNickname());
-            seat.setSex(user.getSex().equals("MAN"));
+            seat.setSex(user.getSex().equals("1"));
             seat.setScore(1000);
             seat.setIp(user.getLastLoginIp());
             seat.setGameCount(user.getGameCount());

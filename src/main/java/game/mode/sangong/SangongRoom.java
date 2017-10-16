@@ -145,7 +145,7 @@ public class SangongRoom {
             seat.setUserId(user.getUserId());
             seat.setHead(user.getHead());
             seat.setNickname(user.getNickname());
-            seat.setSex(user.getSex().equals("MAN"));
+            seat.setSex(user.getSex().equals("1"));
             seats.add(seat);
         }
     }

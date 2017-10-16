@@ -96,7 +96,7 @@ public class HallClient {
                                 userInfoResponse.setLastLoginIp(ip);
                                 userInfoResponse.setLastLoginAgent(loginRequest.getAgent());
                                 userInfoResponse.setGameCount(user.getGameCount());
-                                userInfoResponse.setSex(user.getSex().equals("SEX"));
+                                userInfoResponse.setSex(user.getSex().equals("1"));
                                 userInfoResponse.setTodayGameCount(user.getTodayGameCount());
                                 messageReceive.send(this.response.setOperationType(GameBase.OperationType.USER_INFO).setData(userInfoResponse.build().toByteString()).build(), userId);
 
@@ -144,7 +144,7 @@ public class HallClient {
                         userInfoResponse.setLastLoginIp(ip);
                         userInfoResponse.setLastLoginAgent(loginRequest.getAgent());
                         userInfoResponse.setGameCount(user.getGameCount());
-                        userInfoResponse.setSex(user.getSex().equals("SEX"));
+                        userInfoResponse.setSex(user.getSex().equals("1"));
                         userInfoResponse.setTodayGameCount(user.getTodayGameCount());
                         messageReceive.send(this.response.setOperationType(GameBase.OperationType.USER_INFO).setData(userInfoResponse.build().toByteString()).build(), userId);
 
@@ -417,7 +417,7 @@ public class HallClient {
                         userInfoResponse.setLastLoginIp(ip);
                         userInfoResponse.setLastLoginAgent(Hall.Agent.forNumber(Integer.valueOf(user.getAgent())));
                         userInfoResponse.setGameCount(user.getGameCount());
-                        userInfoResponse.setSex(user.getSex().equals("SEX"));
+                        userInfoResponse.setSex(user.getSex().equals("1"));
                         userInfoResponse.setTodayGameCount(user.getTodayGameCount());
                         messageReceive.send(this.response.setOperationType(GameBase.OperationType.USER_INFO).setData(userInfoResponse.build().toByteString()).build(), userId);
 
@@ -536,7 +536,7 @@ public class HallClient {
                                         //三公优先6人一桌，其它游戏4人
                                         while (userList.size() > 0) {
                                             switch (arena.getGameType()) {
-                                                case XINGNING_MAHJONG:
+                                                case MAHJONG_XINGNING:
                                                     XingningMahjongRoom xingningMahjongRoom = new XingningMahjongRoom(1, roomNo(), userList.get(0).getUserId(), 1, 4, 0, 1, 16382);
                                                     Hall.RoomResponse roomResponse = Hall.RoomResponse.newBuilder().setIntoIp(Constant.gameServerIp)
                                                             .setPort(10001).setRoomNo(String.valueOf(xingningMahjongRoom.getRoomNo())).build();
@@ -582,7 +582,7 @@ public class HallClient {
                                                     redisService.addCache("room_type" + runQuicklyRoom.getRoomNo(), "run_quickly");
                                                     redisService.addCache("room_match" + runQuicklyRoom.getRoomNo(), String.valueOf(matchNo));
                                                     break;
-                                                case RUIJIN_MAHJONG:
+                                                case MAHJONG_RUIJIN:
                                                     RuijinMahjongRoom ruijinMahjongRoom = new RuijinMahjongRoom(1, roomNo(), userList.get(0).getUserId(), 1, 4, true, 1);
                                                     roomResponse = Hall.RoomResponse.newBuilder().setIntoIp(Constant.gameServerIp)
                                                             .setPort(10003).setRoomNo(String.valueOf(ruijinMahjongRoom.getRoomNo())).build();
@@ -816,8 +816,8 @@ public class HallClient {
             GameRecordInfoRepresentation infoRepresentation = gameRecordResponse.getData();
             replayResponse.setErrorCode(GameBase.ErrorCode.SUCCESS);
             switch (gameRecordResponse.getData().getGameType()) {
-                case XINGNING_MAHJONG:
-                case RUIJIN_MAHJONG:
+                case MAHJONG_XINGNING:
+                case MAHJONG_RUIJIN:
                     if (null != infoRepresentation.getData()) {
                         List<Record> records = JSON.parseArray(new String(infoRepresentation.getData(), Charset.forName("utf-8")), Record.class);
                         Record record = records.get(round);
@@ -903,21 +903,21 @@ public class HallClient {
                             GameBase.BaseAction.Builder builder = GameBase.BaseAction.newBuilder();
                             builder.setID(operationHistory.getUserId());
                             if (0 == operationHistory.getHistoryType().compareTo(OperationHistoryType.HU)) {
-                                builder.setOperationId(GameBase.ActionId.valueOf(operationHistory.getHistoryType().getName()));
+                                builder.setOperationId(GameBase.ActionId.valueOf(operationHistory.getHistoryType().name()));
                                 builder.setData(Mahjong.CardsData.newBuilder().addAllCards(operationHistory.getCards()).build().toByteString());
                             } else {
-                                builder.setOperationId(GameBase.ActionId.valueOf(operationHistory.getHistoryType().getName()));
+                                builder.setOperationId(GameBase.ActionId.valueOf(operationHistory.getHistoryType().name()));
                                 builder.setData(Mahjong.MahjongHuResponse.newBuilder().addAllCards(operationHistory.getCards()).build().toByteString());
                             }
                             mahjongReplayData.addHistory(builder);
                         }
 
                         GameBase.RoomCardIntoResponse.Builder roomCardIntoResponseBuilder = GameBase.RoomCardIntoResponse.newBuilder();
-                        roomCardIntoResponseBuilder.setGameType(GameBase.GameType.valueOf(infoRepresentation.getGameType().getName()));
+                        roomCardIntoResponseBuilder.setGameType(GameBase.GameType.valueOf(infoRepresentation.getGameType().name()));
                         roomCardIntoResponseBuilder.setRoomNo(infoRepresentation.getRoomNo().toString());
                         roomCardIntoResponseBuilder.setRoomOwner(infoRepresentation.getRoomOwner());
                         roomCardIntoResponseBuilder.setStarted(true);
-                        if (0 == infoRepresentation.getGameType().compareTo(GameType.XINGNING_MAHJONG)) {
+                        if (0 == infoRepresentation.getGameType().compareTo(GameType.MAHJONG_XINGNING)) {
                             Xingning.XingningMahjongIntoResponse.Builder intoResponseBuilder = Xingning.XingningMahjongIntoResponse.newBuilder();
                             intoResponseBuilder.setCount(infoRepresentation.getPeopleCount());
                             intoResponseBuilder.setGameTimes(infoRepresentation.getGameTotal());
