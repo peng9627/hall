@@ -10834,130 +10834,723 @@ public final class Hall {
 
   }
 
+    public interface HallDissolveApplyOrBuilder extends
+            // @@protoc_insertion_point(interface_extends:HallDissolveApply)
+            com.google.protobuf.MessageOrBuilder {
+
+        /**
+         * <code>.ErrorCode error = 1;</code>
+         */
+        int getErrorValue();
+
+        /**
+         * <code>.ErrorCode error = 1;</code>
+         */
+        game.mode.GameBase.ErrorCode getError();
+
+        /**
+         * <code>uint32 roomNo = 2;</code>
+         */
+        int getRoomNo();
+    }
+
+    /**
+     * <pre>
+     * 申请解散 DISSOLVE
+     * </pre>
+     * <p>
+     * Protobuf type {@code HallDissolveApply}
+     */
+    public static final class HallDissolveApply extends
+            com.google.protobuf.GeneratedMessageV3 implements
+            // @@protoc_insertion_point(message_implements:HallDissolveApply)
+            HallDissolveApplyOrBuilder {
+        // Use HallDissolveApply.newBuilder() to construct.
+        private HallDissolveApply(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+            super(builder);
+        }
+
+        private HallDissolveApply() {
+            error_ = 0;
+            roomNo_ = 0;
+        }
+
+        @java.lang.Override
+        public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+            return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+        }
+
+        private HallDissolveApply(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            this();
+            int mutable_bitField0_ = 0;
+            try {
+                boolean done = false;
+                while (!done) {
+                    int tag = input.readTag();
+                    switch (tag) {
+                        case 0:
+                            done = true;
+                            break;
+                        default: {
+                            if (!input.skipField(tag)) {
+                                done = true;
+                            }
+                            break;
+                        }
+                        case 8: {
+                            int rawValue = input.readEnum();
+
+                            error_ = rawValue;
+                            break;
+                        }
+                        case 16: {
+
+                            roomNo_ = input.readUInt32();
+                            break;
+                        }
+                    }
+                }
+            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                throw e.setUnfinishedMessage(this);
+            } catch (java.io.IOException e) {
+                throw new com.google.protobuf.InvalidProtocolBufferException(
+                        e).setUnfinishedMessage(this);
+            } finally {
+                makeExtensionsImmutable();
+            }
+        }
+
+        public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+            return game.mode.Hall.internal_static_HallDissolveApply_descriptor;
+        }
+
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+            return game.mode.Hall.internal_static_HallDissolveApply_fieldAccessorTable
+                    .ensureFieldAccessorsInitialized(
+                            game.mode.Hall.HallDissolveApply.class, game.mode.Hall.HallDissolveApply.Builder.class);
+        }
+
+        public static final int ERROR_FIELD_NUMBER = 1;
+        private int error_;
+
+        /**
+         * <code>.ErrorCode error = 1;</code>
+         */
+        public int getErrorValue() {
+            return error_;
+        }
+
+        /**
+         * <code>.ErrorCode error = 1;</code>
+         */
+        public game.mode.GameBase.ErrorCode getError() {
+            game.mode.GameBase.ErrorCode result = game.mode.GameBase.ErrorCode.valueOf(error_);
+            return result == null ? game.mode.GameBase.ErrorCode.UNRECOGNIZED : result;
+        }
+
+        public static final int ROOMNO_FIELD_NUMBER = 2;
+        private int roomNo_;
+
+        /**
+         * <code>uint32 roomNo = 2;</code>
+         */
+        public int getRoomNo() {
+            return roomNo_;
+        }
+
+        private byte memoizedIsInitialized = -1;
+
+        public final boolean isInitialized() {
+            byte isInitialized = memoizedIsInitialized;
+            if (isInitialized == 1) return true;
+            if (isInitialized == 0) return false;
+
+            memoizedIsInitialized = 1;
+            return true;
+        }
+
+        public void writeTo(com.google.protobuf.CodedOutputStream output)
+                throws java.io.IOException {
+            if (error_ != game.mode.GameBase.ErrorCode.SUCCESS.getNumber()) {
+                output.writeEnum(1, error_);
+            }
+            if (roomNo_ != 0) {
+                output.writeUInt32(2, roomNo_);
+            }
+        }
+
+        public int getSerializedSize() {
+            int size = memoizedSize;
+            if (size != -1) return size;
+
+            size = 0;
+            if (error_ != game.mode.GameBase.ErrorCode.SUCCESS.getNumber()) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeEnumSize(1, error_);
+            }
+            if (roomNo_ != 0) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeUInt32Size(2, roomNo_);
+            }
+            memoizedSize = size;
+            return size;
+        }
+
+        private static final long serialVersionUID = 0L;
+
+        @java.lang.Override
+        public boolean equals(final java.lang.Object obj) {
+            if (obj == this) {
+                return true;
+            }
+            if (!(obj instanceof game.mode.Hall.HallDissolveApply)) {
+                return super.equals(obj);
+            }
+            game.mode.Hall.HallDissolveApply other = (game.mode.Hall.HallDissolveApply) obj;
+
+            boolean result = true;
+            result = result && error_ == other.error_;
+            result = result && (getRoomNo()
+                    == other.getRoomNo());
+            return result;
+        }
+
+        @java.lang.Override
+        public int hashCode() {
+            if (memoizedHashCode != 0) {
+                return memoizedHashCode;
+            }
+            int hash = 41;
+            hash = (19 * hash) + getDescriptor().hashCode();
+            hash = (37 * hash) + ERROR_FIELD_NUMBER;
+            hash = (53 * hash) + error_;
+            hash = (37 * hash) + ROOMNO_FIELD_NUMBER;
+            hash = (53 * hash) + getRoomNo();
+            hash = (29 * hash) + unknownFields.hashCode();
+            memoizedHashCode = hash;
+            return hash;
+        }
+
+        public static game.mode.Hall.HallDissolveApply parseFrom(
+                java.nio.ByteBuffer data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static game.mode.Hall.HallDissolveApply parseFrom(
+                java.nio.ByteBuffer data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static game.mode.Hall.HallDissolveApply parseFrom(
+                com.google.protobuf.ByteString data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static game.mode.Hall.HallDissolveApply parseFrom(
+                com.google.protobuf.ByteString data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static game.mode.Hall.HallDissolveApply parseFrom(byte[] data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static game.mode.Hall.HallDissolveApply parseFrom(
+                byte[] data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static game.mode.Hall.HallDissolveApply parseFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static game.mode.Hall.HallDissolveApply parseFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static game.mode.Hall.HallDissolveApply parseDelimitedFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input);
+        }
+
+        public static game.mode.Hall.HallDissolveApply parseDelimitedFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static game.mode.Hall.HallDissolveApply parseFrom(
+                com.google.protobuf.CodedInputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static game.mode.Hall.HallDissolveApply parseFrom(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public Builder newBuilderForType() {
+            return newBuilder();
+        }
+
+        public static Builder newBuilder() {
+            return DEFAULT_INSTANCE.toBuilder();
+        }
+
+        public static Builder newBuilder(game.mode.Hall.HallDissolveApply prototype) {
+            return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+        }
+
+        public Builder toBuilder() {
+            return this == DEFAULT_INSTANCE
+                    ? new Builder() : new Builder().mergeFrom(this);
+        }
+
+        @java.lang.Override
+        protected Builder newBuilderForType(
+                com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+            Builder builder = new Builder(parent);
+            return builder;
+        }
+
+        /**
+         * <pre>
+         * 申请解散 DISSOLVE
+         * </pre>
+         * <p>
+         * Protobuf type {@code HallDissolveApply}
+         */
+        public static final class Builder extends
+                com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+                // @@protoc_insertion_point(builder_implements:HallDissolveApply)
+                game.mode.Hall.HallDissolveApplyOrBuilder {
+            public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+                return game.mode.Hall.internal_static_HallDissolveApply_descriptor;
+            }
+
+            protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+                return game.mode.Hall.internal_static_HallDissolveApply_fieldAccessorTable
+                        .ensureFieldAccessorsInitialized(
+                                game.mode.Hall.HallDissolveApply.class, game.mode.Hall.HallDissolveApply.Builder.class);
+            }
+
+            // Construct using game.mode.Hall.HallDissolveApply.newBuilder()
+            private Builder() {
+                maybeForceBuilderInitialization();
+            }
+
+            private Builder(
+                    com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+                super(parent);
+                maybeForceBuilderInitialization();
+            }
+
+            private void maybeForceBuilderInitialization() {
+                if (com.google.protobuf.GeneratedMessageV3
+                        .alwaysUseFieldBuilders) {
+                }
+            }
+
+            public Builder clear() {
+                super.clear();
+                error_ = 0;
+
+                roomNo_ = 0;
+
+                return this;
+            }
+
+            public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+                return game.mode.Hall.internal_static_HallDissolveApply_descriptor;
+            }
+
+            public game.mode.Hall.HallDissolveApply getDefaultInstanceForType() {
+                return game.mode.Hall.HallDissolveApply.getDefaultInstance();
+            }
+
+            public game.mode.Hall.HallDissolveApply build() {
+                game.mode.Hall.HallDissolveApply result = buildPartial();
+                if (!result.isInitialized()) {
+                    throw newUninitializedMessageException(result);
+                }
+                return result;
+            }
+
+            public game.mode.Hall.HallDissolveApply buildPartial() {
+                game.mode.Hall.HallDissolveApply result = new game.mode.Hall.HallDissolveApply(this);
+                result.error_ = error_;
+                result.roomNo_ = roomNo_;
+                onBuilt();
+                return result;
+            }
+
+            public Builder clone() {
+                return (Builder) super.clone();
+            }
+
+            public Builder setField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    Object value) {
+                return (Builder) super.setField(field, value);
+            }
+
+            public Builder clearField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field) {
+                return (Builder) super.clearField(field);
+            }
+
+            public Builder clearOneof(
+                    com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+                return (Builder) super.clearOneof(oneof);
+            }
+
+            public Builder setRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    int index, Object value) {
+                return (Builder) super.setRepeatedField(field, index, value);
+            }
+
+            public Builder addRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    Object value) {
+                return (Builder) super.addRepeatedField(field, value);
+            }
+
+            public Builder mergeFrom(com.google.protobuf.Message other) {
+                if (other instanceof game.mode.Hall.HallDissolveApply) {
+                    return mergeFrom((game.mode.Hall.HallDissolveApply) other);
+                } else {
+                    super.mergeFrom(other);
+                    return this;
+                }
+            }
+
+            public Builder mergeFrom(game.mode.Hall.HallDissolveApply other) {
+                if (other == game.mode.Hall.HallDissolveApply.getDefaultInstance()) return this;
+                if (other.error_ != 0) {
+                    setErrorValue(other.getErrorValue());
+                }
+                if (other.getRoomNo() != 0) {
+                    setRoomNo(other.getRoomNo());
+                }
+                onChanged();
+                return this;
+            }
+
+            public final boolean isInitialized() {
+                return true;
+            }
+
+            public Builder mergeFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws java.io.IOException {
+                game.mode.Hall.HallDissolveApply parsedMessage = null;
+                try {
+                    parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+                } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                    parsedMessage = (game.mode.Hall.HallDissolveApply) e.getUnfinishedMessage();
+                    throw e.unwrapIOException();
+                } finally {
+                    if (parsedMessage != null) {
+                        mergeFrom(parsedMessage);
+                    }
+                }
+                return this;
+            }
+
+            private int error_ = 0;
+
+            /**
+             * <code>.ErrorCode error = 1;</code>
+             */
+            public int getErrorValue() {
+                return error_;
+            }
+
+            /**
+             * <code>.ErrorCode error = 1;</code>
+             */
+            public Builder setErrorValue(int value) {
+                error_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>.ErrorCode error = 1;</code>
+             */
+            public game.mode.GameBase.ErrorCode getError() {
+                game.mode.GameBase.ErrorCode result = game.mode.GameBase.ErrorCode.valueOf(error_);
+                return result == null ? game.mode.GameBase.ErrorCode.UNRECOGNIZED : result;
+            }
+
+            /**
+             * <code>.ErrorCode error = 1;</code>
+             */
+            public Builder setError(game.mode.GameBase.ErrorCode value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+
+                error_ = value.getNumber();
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>.ErrorCode error = 1;</code>
+             */
+            public Builder clearError() {
+
+                error_ = 0;
+                onChanged();
+                return this;
+            }
+
+            private int roomNo_;
+
+            /**
+             * <code>uint32 roomNo = 2;</code>
+             */
+            public int getRoomNo() {
+                return roomNo_;
+            }
+
+            /**
+             * <code>uint32 roomNo = 2;</code>
+             */
+            public Builder setRoomNo(int value) {
+
+                roomNo_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>uint32 roomNo = 2;</code>
+             */
+            public Builder clearRoomNo() {
+
+                roomNo_ = 0;
+                onChanged();
+                return this;
+            }
+
+            public final Builder setUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return this;
+            }
+
+            public final Builder mergeUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return this;
+            }
+
+
+            // @@protoc_insertion_point(builder_scope:HallDissolveApply)
+        }
+
+        // @@protoc_insertion_point(class_scope:HallDissolveApply)
+        private static final game.mode.Hall.HallDissolveApply DEFAULT_INSTANCE;
+
+        static {
+            DEFAULT_INSTANCE = new game.mode.Hall.HallDissolveApply();
+        }
+
+        public static game.mode.Hall.HallDissolveApply getDefaultInstance() {
+            return DEFAULT_INSTANCE;
+        }
+
+        private static final com.google.protobuf.Parser<HallDissolveApply>
+                PARSER = new com.google.protobuf.AbstractParser<HallDissolveApply>() {
+            public HallDissolveApply parsePartialFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws com.google.protobuf.InvalidProtocolBufferException {
+                return new HallDissolveApply(input, extensionRegistry);
+            }
+        };
+
+        public static com.google.protobuf.Parser<HallDissolveApply> parser() {
+            return PARSER;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Parser<HallDissolveApply> getParserForType() {
+            return PARSER;
+        }
+
+        public game.mode.Hall.HallDissolveApply getDefaultInstanceForType() {
+            return DEFAULT_INSTANCE;
+        }
+
+    }
+
   private static final com.google.protobuf.Descriptors.Descriptor
-          internal_static_LoginRequest_descriptor;
-    private static final
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    internal_static_LoginRequest_descriptor;
+  private static final
+  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_LoginRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-          internal_static_LoginResponse_descriptor;
-    private static final
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_LoginResponse_fieldAccessorTable;
+    internal_static_LoginResponse_descriptor;
+  private static final
+  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internal_static_LoginResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-          internal_static_UserInfoResponse_descriptor;
-    private static final
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_UserInfoResponse_fieldAccessorTable;
+    internal_static_UserInfoResponse_descriptor;
+  private static final
+  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internal_static_UserInfoResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-          internal_static_CurrencyResponse_descriptor;
-    private static final
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_CurrencyResponse_fieldAccessorTable;
+    internal_static_CurrencyResponse_descriptor;
+  private static final
+  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internal_static_CurrencyResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-          internal_static_AddToRoomRequest_descriptor;
-    private static final
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_AddToRoomRequest_fieldAccessorTable;
+    internal_static_AddToRoomRequest_descriptor;
+  private static final
+  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internal_static_AddToRoomRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-          internal_static_SongjiangheCreateRoomRequest_descriptor;
-    private static final
+    internal_static_SongjiangheCreateRoomRequest_descriptor;
+  private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_SongjiangheCreateRoomRequest_fieldAccessorTable;
+          internal_static_SongjiangheCreateRoomRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-          internal_static_RoomResponse_descriptor;
-    private static final
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    internal_static_RoomResponse_descriptor;
+  private static final
+  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_RoomResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-          internal_static_Reconnect_descriptor;
-    private static final
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    internal_static_Reconnect_descriptor;
+  private static final
+  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_Reconnect_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-          internal_static_RebackRequest_descriptor;
-    private static final
+    internal_static_RebackRequest_descriptor;
+  private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-            internal_static_RebackRequest_fieldAccessorTable;
+      internal_static_RebackRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_RebackResponse_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_RebackResponse_fieldAccessorTable;
+          internal_static_RebackResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_ShareSuccessResponse_descriptor;
-    private static final
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-            internal_static_ShareSuccessResponse_fieldAccessorTable;
+          internal_static_ShareSuccessResponse_descriptor;
+  private static final
+  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ShareSuccessResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-          internal_static_AgentRoomList_descriptor;
+    internal_static_AgentRoomList_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_AgentRoomList_fieldAccessorTable;
+          internal_static_AgentRoomList_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_AgentRoomItem_descriptor;
-    private static final
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-            internal_static_AgentRoomItem_fieldAccessorTable;
+  private static final
+  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_AgentRoomItem_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
           internal_static_AppVersion_descriptor;
     private static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
             internal_static_AppVersion_fieldAccessorTable;
+    private static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_HallDissolveApply_descriptor;
+  private static final
+  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_HallDissolveApply_fieldAccessorTable;
 
-  public static com.google.protobuf.Descriptors.FileDescriptor
-  getDescriptor() {
-    return descriptor;
-  }
-  private static  com.google.protobuf.Descriptors.FileDescriptor
-          descriptor;
+    public static com.google.protobuf.Descriptors.FileDescriptor
+    getDescriptor() {
+        return descriptor;
+    }
+
+    private static  com.google.protobuf.Descriptors.FileDescriptor
+      descriptor;
   static {
     java.lang.String[] descriptorData = {
             "\n\nhall.proto\032\016gameBase.proto\"d\n\014LoginReq" +
-      "uest\022\020\n\010username\030\001 \001(\t\022\020\n\010nickname\030\002 \001(\t" +
+                    "uest\022\020\n\010username\030\001 \001(\t\022\020\n\010nickname\030\002 \001(\t" +
                     "\022\014\n\004head\030\003 \001(\t\022\025\n\005agent\030\004 \001(\0162\006.Agent\022\013\n" +
                     "\003sex\030\005 \001(\010\">\n\rLoginResponse\022\035\n\terrorCode" +
-                    "\030\001 \001(\0162\n.ErrorCode\022\016\n\006inGame\030\002 \001(\010\"\302\001\n\020U" +
+      "\030\001 \001(\0162\n.ErrorCode\022\016\n\006inGame\030\002 \001(\010\"\302\001\n\020U" +
                     "serInfoResponse\022\n\n\002ID\030\001 \001(\r\022\020\n\010nickname\030" +
-      "\002 \001(\t\022\014\n\004head\030\003 \001(\t\022\025\n\rlastLoginDate\030\004 \001" +
-                    "(\004\022\023\n\013lastLoginIp\030\005 \001(\t\022\036\n\016lastLoginAgen" +
-                    "t\030\006 \001(\0162\006.Agent\022\013\n\003sex\030\007 \001(\010\022\021\n\tgameCoun" +
+                    "\002 \001(\t\022\014\n\004head\030\003 \001(\t\022\025\n\rlastLoginDate\030\004 \001" +
+      "(\004\022\023\n\013lastLoginIp\030\005 \001(\t\022\036\n\016lastLoginAgen" +
+      "t\030\006 \001(\0162\006.Agent\022\013\n\003sex\030\007 \001(\010\022\021\n\tgameCoun" +
       "t\030\010 \001(\r\022\026\n\016todayGameCount\030\t \001(\r\"$\n\020Curre",
-      "ncyResponse\022\020\n\010currency\030\001 \003(\005\"\"\n\020AddToRo" +
-      "omRequest\022\016\n\006roomNo\030\001 \001(\t\"v\n\034Songjianghe" +
-              "CreateRoomRequest\022\021\n\tgameTimes\030\001 \001(\r\022\016\n\006" +
-              "normal\030\002 \001(\010\022\021\n\tsingleFan\030\003 \001(\010\022\021\n\tgameR" +
-              "ules\030\004 \001(\r\022\r\n\005count\030\005 \001(\r\"W\n\014RoomRespons" +
-      "e\022\031\n\005error\030\001 \001(\0162\n.ErrorCode\022\016\n\006roomNo\030\002" +
-              " \001(\t\022\016\n\006intoIp\030\003 \001(\t\022\014\n\004port\030\004 \001(\r\"9\n\tRe" +
-              "connect\022\016\n\006roomNo\030\001 \001(\t\022\016\n\006intoIp\030\002 \001(\t\022" +
-      "\014\n\004port\030\003 \001(\r\" \n\rRebackRequest\022\017\n\007backKe" +
-      "y\030\001 \001(\t\"+\n\016RebackResponse\022\031\n\005error\030\001 \001(\016",
-            "2\n.ErrorCode\"1\n\024ShareSuccessResponse\022\031\n\005" +
-                    "error\030\001 \001(\0162\n.ErrorCode\"1\n\rAgentRoomList" +
-      "\022 \n\010roomItem\030\001 \003(\0132\016.AgentRoomItem\"\215\001\n\rA" +
-      "gentRoomItem\022\016\n\006roomNo\030\001 \001(\t\022\021\n\tgameTime" +
-                    "s\030\002 \001(\r\022\016\n\006normal\030\003 \001(\010\022\021\n\tsingleFan\030\004 \001" +
-                    "(\010\022\021\n\tgameRules\030\005 \001(\r\022\r\n\005count\030\006 \001(\r\022\024\n\014" +
-                    "currentCount\030\007 \001(\r\"\035\n\nAppVersion\022\017\n\007vers" +
-                    "ion\030\001 \001(\005*0\n\005Agent\022\013\n\007ANDROID\020\000\022\007\n\003IOS\020\001" +
-                    "\022\006\n\002PC\020\002\022\t\n\005OTHER\020\003B\013\n\tgame.modeb\006proto3"
+            "ncyResponse\022\020\n\010currency\030\001 \003(\005\"\"\n\020AddToRo" +
+                    "omRequest\022\016\n\006roomNo\030\001 \001(\t\"v\n\034Songjianghe" +
+                    "CreateRoomRequest\022\021\n\tgameTimes\030\001 \001(\r\022\016\n\006" +
+      "normal\030\002 \001(\010\022\021\n\tsingleFan\030\003 \001(\010\022\021\n\tgameR" +
+                    "ules\030\004 \001(\r\022\r\n\005count\030\005 \001(\r\"W\n\014RoomRespons" +
+                    "e\022\031\n\005error\030\001 \001(\0162\n.ErrorCode\022\016\n\006roomNo\030\002" +
+                    " \001(\t\022\016\n\006intoIp\030\003 \001(\t\022\014\n\004port\030\004 \001(\r\"9\n\tRe" +
+      "connect\022\016\n\006roomNo\030\001 \001(\t\022\016\n\006intoIp\030\002 \001(\t\022" +
+                    "\014\n\004port\030\003 \001(\r\" \n\rRebackRequest\022\017\n\007backKe" +
+                    "y\030\001 \001(\t\"+\n\016RebackResponse\022\031\n\005error\030\001 \001(\016",
+      "2\n.ErrorCode\"1\n\024ShareSuccessResponse\022\031\n\005" +
+      "error\030\001 \001(\0162\n.ErrorCode\"1\n\rAgentRoomList" +
+              "\022 \n\010roomItem\030\001 \003(\0132\016.AgentRoomItem\"\215\001\n\rA" +
+              "gentRoomItem\022\016\n\006roomNo\030\001 \001(\t\022\021\n\tgameTime" +
+              "s\030\002 \001(\r\022\016\n\006normal\030\003 \001(\010\022\021\n\tsingleFan\030\004 \001" +
+              "(\010\022\021\n\tgameRules\030\005 \001(\r\022\r\n\005count\030\006 \001(\r\022\024\n\014" +
+              "currentCount\030\007 \001(\r\"\035\n\nAppVersion\022\017\n\007vers" +
+              "ion\030\001 \001(\005\">\n\021HallDissolveApply\022\031\n\005error\030" +
+              "\001 \001(\0162\n.ErrorCode\022\016\n\006roomNo\030\002 \001(\r*0\n\005Age" +
+      "nt\022\013\n\007ANDROID\020\000\022\007\n\003IOS\020\001\022\006\n\002PC\020\002\022\t\n\005OTHE",
+            "R\020\003B\013\n\tgame.modeb\006proto3"
     };
-    com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-            new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
-                public com.google.protobuf.ExtensionRegistry assignDescriptors(
-                        com.google.protobuf.Descriptors.FileDescriptor root) {
-                    descriptor = root;
-                    return null;
-                }
-            };
-    com.google.protobuf.Descriptors.FileDescriptor
-            .internalBuildGeneratedFileFrom(descriptorData,
-                    new com.google.protobuf.Descriptors.FileDescriptor[]{
-                            game.mode.GameBase.getDescriptor(),
-                    }, assigner);
+      com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
+              new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
+                  public com.google.protobuf.ExtensionRegistry assignDescriptors(
+                          com.google.protobuf.Descriptors.FileDescriptor root) {
+                      descriptor = root;
+                      return null;
+                  }
+              };
+      com.google.protobuf.Descriptors.FileDescriptor
+      .internalBuildGeneratedFileFrom(descriptorData,
+              new com.google.protobuf.Descriptors.FileDescriptor[] {
+          game.mode.GameBase.getDescriptor(),
+        }, assigner);
     internal_static_LoginRequest_descriptor =
-            getDescriptor().getMessageTypes().get(0);
+      getDescriptor().getMessageTypes().get(0);
     internal_static_LoginRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_LoginRequest_descriptor,
@@ -11009,15 +11602,15 @@ public final class Hall {
     internal_static_RebackRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_RebackRequest_descriptor,
-        new java.lang.String[] { "BackKey", });
-    internal_static_RebackResponse_descriptor =
-      getDescriptor().getMessageTypes().get(9);
-    internal_static_RebackResponse_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-            internal_static_RebackResponse_descriptor,
-            new java.lang.String[]{"Error",});
+        new java.lang.String[]{"BackKey",});
+      internal_static_RebackResponse_descriptor =
+              getDescriptor().getMessageTypes().get(9);
+      internal_static_RebackResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+              internal_static_RebackResponse_descriptor,
+        new java.lang.String[] { "Error", });
     internal_static_ShareSuccessResponse_descriptor =
-            getDescriptor().getMessageTypes().get(10);
+      getDescriptor().getMessageTypes().get(10);
     internal_static_ShareSuccessResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ShareSuccessResponse_descriptor,
@@ -11037,9 +11630,15 @@ public final class Hall {
     internal_static_AppVersion_descriptor =
       getDescriptor().getMessageTypes().get(13);
     internal_static_AppVersion_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_AppVersion_descriptor,
-        new java.lang.String[] { "Version", });
+            com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+            internal_static_AppVersion_descriptor,
+            new java.lang.String[]{"Version",});
+      internal_static_HallDissolveApply_descriptor =
+              getDescriptor().getMessageTypes().get(14);
+      internal_static_HallDissolveApply_fieldAccessorTable = new
+              com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+              internal_static_HallDissolveApply_descriptor,
+              new java.lang.String[] { "Error", "RoomNo", });
     game.mode.GameBase.getDescriptor();
   }
 

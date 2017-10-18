@@ -854,10 +854,10 @@ public final class Songjianghe {
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                     throws com.google.protobuf.InvalidProtocolBufferException {
                 return new SongjiangheMahjongIntoResponse(input, extensionRegistry);
-            }
-        };
+      }
+    };
 
-        public static com.google.protobuf.Parser<SongjiangheMahjongIntoResponse> parser() {
+    public static com.google.protobuf.Parser<SongjiangheMahjongIntoResponse> parser() {
       return PARSER;
     }
 

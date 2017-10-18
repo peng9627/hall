@@ -1,5 +1,6 @@
 package game.entrance;
 
+import game.constant.Constant;
 import game.redis.RedisService;
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.JedisShardInfo;
@@ -14,6 +15,7 @@ import java.util.List;
  */
 public class StartGame {
     public static void main(String[] args) {
+        Constant.init();
         JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
         jedisPoolConfig.setMaxTotal(50000);
         jedisPoolConfig.setMaxIdle(20000);

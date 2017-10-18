@@ -3,11 +3,13 @@ package game.entrance;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.google.protobuf.InvalidProtocolBufferException;
 import game.constant.Constant;
 import game.mode.*;
 import game.mode.songjianghe.*;
 import game.redis.RedisService;
+import game.utils.CoreStringUtils;
 import game.utils.HttpUtil;
 import game.utils.LoggerUtil;
 import org.slf4j.Logger;
@@ -235,6 +237,38 @@ public class HallClient {
                     }
 
                     break;
+                case DISSOLVE:
+                    Hall.HallDissolveApply dissolveApplyRequest = Hall.HallDissolveApply.parseFrom(request.getData());
+                    SerializerFeature[] features = new SerializerFeature[]{SerializerFeature.WriteNullListAsEmpty,
+                            SerializerFeature.WriteMapNullValue, SerializerFeature.DisableCircularReferenceDetect,
+                            SerializerFeature.WriteNullStringAsEmpty, SerializerFeature.WriteNullNumberAsZero,
+                            SerializerFeature.WriteNullBooleanAsFalse};
+                    int ss = SerializerFeature.config(JSON.DEFAULT_GENERATE_FEATURE, SerializerFeature.WriteEnumUsingName, false);
+                    SocketRequest socketRequest = new SocketRequest();
+                    socketRequest.setUserId(userId);
+                    socketRequest.setContent(String.valueOf(dissolveApplyRequest.getRoomNo()));
+                    String s = HttpUtil.urlConnectionByRsa("http://127.0.0.1:10111/1", JSON.toJSONString(socketRequest, ss, features));
+                    Hall.HallDissolveApply.Builder dissolveApplyResponse = Hall.HallDissolveApply.newBuilder();
+                    if (!CoreStringUtils.isEmpty(s)) {
+                        ApiResponse apiResponse = JSON.parseObject(s, ApiResponse.class);
+                        switch (apiResponse.getCode()) {
+                            case 0:
+                                dissolveApplyResponse.setError(GameBase.ErrorCode.SUCCESS);
+                                sendAgentRoomList();
+                                break;
+                            case 1:
+                                dissolveApplyResponse.setError(GameBase.ErrorCode.GAME_START);
+                                break;
+                            case 2:
+                                dissolveApplyResponse.setError(GameBase.ErrorCode.SHOUND_NOT_OPERATION);
+                                break;
+                        }
+                    } else {
+                        dissolveApplyResponse.setError(GameBase.ErrorCode.ERROR_UNKNOW);
+                    }
+                    this.response.setOperationType(GameBase.OperationType.DISSOLVE).setData(dissolveApplyResponse.build().toByteString());
+                    messageReceive.send(this.response.build(), userId);
+                    break;
                 case REBACK:
                     Hall.RebackRequest rebackRequest = Hall.RebackRequest.parseFrom(request.getData());
 
@@ -450,7 +484,7 @@ public class HallClient {
                         List<Record> records = JSON.parseArray(new String(infoRepresentation.getData(), Charset.forName("utf-8")), Record.class);
                         Record record = records.get(round);
 
-                        Mahjong.MahjongReplayResponse.Builder sonfjiangheReplayResponse = Mahjong.MahjongReplayResponse.newBuilder();
+                        Mahjong.MahjongReplayData.Builder mahjongReplayData = Mahjong.MahjongReplayData.newBuilder();
 
                         Mahjong.GameInitInfo.Builder gameInfo = Mahjong.GameInitInfo.newBuilder();
                         gameInfo.setSurplusCardsSize(135 - (record.getSeatRecordList().size() * 13));
@@ -527,52 +561,16 @@ public class HallClient {
                             seatResponse.setIp(seatRecord.getIp());
                             roomSeatsInfo.addSeats(seatResponse.build());
                         }
-                        sonfjiangheReplayResponse.setGameInitInfo(gameInfo);
-                        sonfjiangheReplayResponse.setResult(resultResponse);
-                        sonfjiangheReplayResponse.setSeatInfo(roomSeatsInfo);
+                        mahjongReplayData.setGameInitInfo(gameInfo);
+                        mahjongReplayData.setResult(resultResponse);
+                        replayResponse.setSeatInfo(roomSeatsInfo);
 
                         for (OperationHistory operationHistory : record.getHistoryList()) {
                             GameBase.BaseAction.Builder builder = GameBase.BaseAction.newBuilder();
                             builder.setID(operationHistory.getUserId());
-                            switch (operationHistory.getHistoryType()) {
-                                case GET_CARD:
-                                    builder.setOperationId(GameBase.ActionId.GET_CARD);
-                                    builder.setData(Mahjong.MahjongGetCardResponse.newBuilder().setCard(operationHistory.getCards().get(0)).build().toByteString());
-                                    break;
-                                case PLAY_CARD:
-                                    builder.setOperationId(GameBase.ActionId.PLAY_CARD);
-                                    builder.setData(Mahjong.MahjongPlayCard.newBuilder().setCard(operationHistory.getCards().get(0)).build().toByteString());
-                                    break;
-                                case PENG:
-                                    builder.setOperationId(GameBase.ActionId.PENG);
-                                    builder.setData(Mahjong.MahjongPengResponse.newBuilder().setCard(operationHistory.getCards().get(0)).build().toByteString());
-                                    break;
-                                case AN_GANG:
-                                    builder.setOperationId(GameBase.ActionId.AN_GANG);
-                                    builder.setData(Mahjong.MahjongGang.newBuilder().addAllCard(operationHistory.getCards()).build().toByteString());
-                                    break;
-                                case DIAN_GANG:
-                                    builder.setOperationId(GameBase.ActionId.DIAN_GANG);
-                                    builder.setData(Mahjong.MahjongGang.newBuilder().addAllCard(operationHistory.getCards()).build().toByteString());
-                                    break;
-                                case BA_GANG:
-                                    builder.setOperationId(GameBase.ActionId.BA_GANG);
-                                    builder.setData(Mahjong.MahjongGang.newBuilder().addAllCard(operationHistory.getCards()).build().toByteString());
-                                    break;
-                                case HU:
-                                    builder.setOperationId(GameBase.ActionId.HU);
-                                    builder.setData(Mahjong.MahjongHuResponse.newBuilder().setCard(operationHistory.getCards().get(0)).build().toByteString());
-                                    break;
-                                case CHI:
-                                    builder.setOperationId(GameBase.ActionId.CHI);
-                                    builder.setData(Mahjong.MahjongChi.newBuilder().addAllCards(operationHistory.getCards()).build().toByteString());
-                                    break;
-                                case XF_GANG:
-                                    builder.setOperationId(GameBase.ActionId.XF_GANG);
-                                    builder.setData(Mahjong.MahjongGang.newBuilder().addAllCard(operationHistory.getCards()).build().toByteString());
-                                    break;
-                            }
-                            sonfjiangheReplayResponse.addHistory(builder);
+                            builder.setOperationId(GameBase.ActionId.valueOf(operationHistory.getHistoryType().name()));
+                            builder.setData(Mahjong.CardsData.newBuilder().addAllCards(operationHistory.getCards()).build().toByteString());
+                            mahjongReplayData.addHistory(builder);
                         }
 
                         GameBase.RoomCardIntoResponse.Builder roomCardIntoResponseBuilder = GameBase.RoomCardIntoResponse.newBuilder();
@@ -588,8 +586,8 @@ public class HallClient {
                         intoResponseBuilder.setSingleFan(jsonObject.getBooleanValue("singleFan"));
                         roomCardIntoResponseBuilder.setError(GameBase.ErrorCode.SUCCESS);
                         roomCardIntoResponseBuilder.setData(intoResponseBuilder.build().toByteString());
-                        sonfjiangheReplayResponse.setRoomInfo(roomCardIntoResponseBuilder);
-                        replayResponse.setReplay(sonfjiangheReplayResponse.build().toByteString());
+                        replayResponse.setRoomInfo(roomCardIntoResponseBuilder);
+                        replayResponse.setGameData(mahjongReplayData.build().toByteString());
                     }
                     break;
             }
