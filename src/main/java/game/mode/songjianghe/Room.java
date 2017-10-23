@@ -118,7 +118,7 @@ public class Room {
     public Room() {
     }
 
-    public Room(String roomNo, int banker, int gameTimes, int count, int gameRules) {
+    public Room(String roomNo, int banker, int gameTimes, int count, int gameRules, boolean singleFan, boolean normal) {
         this.roomNo = roomNo;
         this.banker = banker;
         this.roomOwner = banker;
@@ -126,6 +126,8 @@ public class Room {
         this.count = count;
         this.gameRules = gameRules;
         this.gameStatus = GameStatus.WAITING;
+        this.singleFan = singleFan;
+        this.normal = normal;
         seatNos = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             seatNos.add(i + 1);

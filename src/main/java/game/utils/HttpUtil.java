@@ -28,9 +28,9 @@ public class HttpUtil {
             byte[] bytes = RSAUtils.encrypt(publicKey, pa.getBytes("utf-8"));
             return new String(RSAUtils.decrypt(publicKey, urlConnection(url, URLEncoder.encode(new String(bytes, "utf-8"), "utf-8"), "utf-8").getBytes("utf-8")), "utf-8");
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            logger.error(e.toString(), e);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e.toString(), e);
         }
         return null;
     }
@@ -75,7 +75,7 @@ public class HttpUtil {
 
             conn.disconnect();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e.toString(), e);
         }
         return response;
     }

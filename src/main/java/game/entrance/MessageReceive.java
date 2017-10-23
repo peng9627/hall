@@ -72,7 +72,7 @@ public class MessageReceive implements Runnable {
             logger.info("socket.server.sendMessage.fail.message" + e.getMessage());
 //            client.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e.toString(), e);
         }
     }
 
@@ -164,7 +164,7 @@ public class MessageReceive implements Runnable {
             close();
         } catch (Exception e) {
             logger.info("socket.dirty.shutdown.message" + hallClient.userId);
-            e.printStackTrace();
+            logger.error(e.toString(), e);
             close();
         }
     }

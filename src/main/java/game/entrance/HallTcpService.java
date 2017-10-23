@@ -39,7 +39,7 @@ public class HallTcpService implements Runnable {
             logger.info("麻将tcp开启成功，端口[" + port + "]");
         } catch (IOException e) {
             logger.error("socket.open.fail.message");
-            e.printStackTrace();
+            logger.error(e.toString(), e);
         }
 
         try {
@@ -49,12 +49,12 @@ public class HallTcpService implements Runnable {
             }
         } catch (IOException e) {
             logger.error("socket.server.dirty.shutdown.message");
-            e.printStackTrace();
+            logger.error(e.toString(), e);
         } finally {
             try {
                 serverSocket.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error(e.toString(), e);
             }
         }
     }

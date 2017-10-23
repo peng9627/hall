@@ -71,7 +71,7 @@ public class HallClient {
                             try {
                                 wait(10);
                             } catch (InterruptedException e) {
-                                e.printStackTrace();
+                                logger.error(e.toString(), e);
                             }
                         }
                         HallTcpService.userClients.put(user.getUserId(), messageReceive);
@@ -148,7 +148,8 @@ public class HallClient {
                         jsonObject.clear();
                         jsonObject.put("userId", userId);
                         jsonObject.put("flowType", 2);
-                        Room room = new Room(roomNo(), userId, createRoomRequest.getGameTimes(), createRoomRequest.getCount(), createRoomRequest.getGameRules());
+                        Room room = new Room(roomNo(), userId, createRoomRequest.getGameTimes(), createRoomRequest.getCount(),
+                                createRoomRequest.getGameRules(), createRoomRequest.getSingleFan(), createRoomRequest.getNormal());
                         Hall.RoomResponse.Builder createRoomResponse = Hall.RoomResponse.newBuilder();
                         if (0 == room.getCount()) {
                             createRoomResponse.setRoomNo(room.getRoomNo()).setError(GameBase.ErrorCode.ERROR_UNKNOW)
@@ -341,7 +342,7 @@ public class HallClient {
                     break;
             }
         } catch (InvalidProtocolBufferException e) {
-            e.printStackTrace();
+            logger.error(e.toString(), e);
         }
 
     }

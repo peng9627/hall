@@ -15,4 +15,8 @@ public class LoggerUtil {
     public static void logger(String content) {
         logger.info(content);
     }
+
+    public static void error(String content, Throwable e) {
+        logger.error(content, e);
+    }
 }

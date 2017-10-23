@@ -50,7 +50,7 @@ public class NoticeReceive implements Runnable {
             logger.info("socket.connection.fail.message" + e.getMessage());
             close();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e.toString(), e);
         }
         is = inputStream;
         os = outputStream;
@@ -82,10 +82,8 @@ public class NoticeReceive implements Runnable {
             if ("POST".equalsIgnoreCase(method)) {
                 this.doPost(reader);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e.toString(), e);
         } finally {
             this.close();
         }
@@ -200,10 +198,8 @@ public class NoticeReceive implements Runnable {
             if (bytes != null) {
                 os.write(bytes);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e.toString(), e);
         }
     }
 }
