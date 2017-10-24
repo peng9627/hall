@@ -25,7 +25,8 @@ public enum ScoreType {
     DIANPAO("点炮", 17),
     ZIMO("自摸", 18),
     ZUOZHUANG("坐庄", 19),
-    XUANFENGGANG("旋风杠", 20);
+    XUANFENGGANG("旋风杠", 20),
+    GANGHOUPAO("杠后炮", 21);
 
     private String name;
     private Integer values;
