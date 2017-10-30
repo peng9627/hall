@@ -158,10 +158,22 @@ public class HallClient {
                             break;
                         }
                         jsonObject.put("description", "开房间" + room.getRoomNo());
-                        if (8 == createRoomRequest.getGameTimes()) {
-                            jsonObject.put("money", 1);
-                        } else {
-                            jsonObject.put("money", 2);
+                        switch (createRoomRequest.getGameTimes()) {
+                            case 2:
+                            case 12:
+                                jsonObject.put("money", 1);
+                                break;
+                            case 4:
+                            case 24:
+                                jsonObject.put("money", 2);
+                                break;
+                            case 8:
+                            case 48:
+                                jsonObject.put("money", 4);
+                                break;
+                            default:
+                                jsonObject.put("money", 1000000);
+                                break;
                         }
                         if (userResponse.getData().getMoney() < jsonObject.getIntValue("money")) {
                             createRoomResponse.setError(GameBase.ErrorCode.MONEY_NOT_ENOUGH);
@@ -496,6 +508,7 @@ public class HallClient {
                         gameInfo.setGameCount(record.getGameCount());
 
                         Mahjong.MahjongResultResponse.Builder resultResponse = Mahjong.MahjongResultResponse.newBuilder();
+                        resultResponse.setOver(true);
                         resultResponse.setDateTime(new Date().getTime());
                         GameBase.RoomSeatsInfo.Builder roomSeatsInfo = GameBase.RoomSeatsInfo.newBuilder();
                         for (SeatRecord seatRecord : record.getSeatRecordList()) {
@@ -528,7 +541,7 @@ public class HallClient {
                             for (GameResult gameResult : seatRecord.getXfGangResult()) {
                                 xfGangScore += gameResult.getScore();
                             }
-                            mahjongUserResult.setGangScore(mingGangScore + anGangScore + xfGangScore);
+                            mahjongUserResult.setGangScore(mingGangScore + anGangScore + xfGangScore + seatRecord.getGangHuScore());
                             if (null != seatRecord.getChiCards()) {
                                 mahjongUserResult.addAllChiCards(seatRecord.getChiCards());
                             }

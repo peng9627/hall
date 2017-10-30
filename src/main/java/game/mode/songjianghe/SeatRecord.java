@@ -24,6 +24,7 @@ public class SeatRecord {
     private boolean sex;                        //性别
     private String ip;
     private int seatNo;
+    private int gangHuScore;
 
     public int getUserId() {
         return userId;
@@ -183,5 +184,13 @@ public class SeatRecord {
 
     public void setSeatNo(int seatNo) {
         this.seatNo = seatNo;
+    }
+
+    public int getGangHuScore() {
+        return gangHuScore;
+    }
+
+    public void setGangHuScore(int gangHuScore) {
+        this.gangHuScore = gangHuScore;
     }
 }

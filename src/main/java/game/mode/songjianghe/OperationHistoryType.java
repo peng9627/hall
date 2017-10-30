@@ -14,7 +14,9 @@ public enum OperationHistoryType {
     BA_GANG("扒杠", 6),
     HU("胡", 7),
     CHI("吃", 8),
-    XF_GANG("旋风杠", 9);
+    XF_GANG("旋风杠", 9),
+    QIANG_GANG_PENG("抢杠碰", 10),
+    QIANG_GANG_HU("抢杠胡", 11);
 
     private String name;
     private Integer values;

@@ -11419,45 +11419,45 @@ public final class Hall {
 
     }
 
-  private static final com.google.protobuf.Descriptors.Descriptor
+    private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_LoginRequest_descriptor;
-  private static final
-  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_LoginRequest_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internal_static_LoginRequest_fieldAccessorTable;
+    private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_LoginResponse_descriptor;
-  private static final
-  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internal_static_LoginResponse_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_UserInfoResponse_descriptor;
-  private static final
-  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    private static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_UserInfoResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internal_static_UserInfoResponse_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_CurrencyResponse_descriptor;
-  private static final
-  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    private static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_CurrencyResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internal_static_CurrencyResponse_fieldAccessorTable;
+    private static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_AddToRoomRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_AddToRoomRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_AddToRoomRequest_descriptor;
-  private static final
-  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internal_static_AddToRoomRequest_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_SongjiangheCreateRoomRequest_descriptor;
+          internal_static_SongjiangheCreateRoomRequest_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internal_static_SongjiangheCreateRoomRequest_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
+    private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_RoomResponse_descriptor;
-  private static final
-  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_RoomResponse_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internal_static_RoomResponse_fieldAccessorTable;
+    private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_Reconnect_descriptor;
-  private static final
-  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_Reconnect_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_RebackRequest_descriptor;
@@ -11466,20 +11466,20 @@ public final class Hall {
       internal_static_RebackRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_RebackResponse_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internal_static_RebackResponse_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-          internal_static_ShareSuccessResponse_descriptor;
   private static final
   com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internal_static_RebackResponse_fieldAccessorTable;
+    private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ShareSuccessResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_ShareSuccessResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_AgentRoomList_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internal_static_AgentRoomList_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
+    private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_AgentRoomItem_descriptor;
   private static final
   com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -11490,63 +11490,64 @@ public final class Hall {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
             internal_static_AppVersion_fieldAccessorTable;
     private static final com.google.protobuf.Descriptors.Descriptor
-            internal_static_HallDissolveApply_descriptor;
-  private static final
-  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_HallDissolveApply_fieldAccessorTable;
+    internal_static_HallDissolveApply_descriptor;
+    private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internal_static_HallDissolveApply_fieldAccessorTable;
 
-    public static com.google.protobuf.Descriptors.FileDescriptor
-    getDescriptor() {
-        return descriptor;
-    }
+  public static com.google.protobuf.Descriptors.FileDescriptor
+  getDescriptor() {
+      return descriptor;
+  }
 
-    private static  com.google.protobuf.Descriptors.FileDescriptor
-      descriptor;
-  static {
-    java.lang.String[] descriptorData = {
-            "\n\nhall.proto\032\016gameBase.proto\"d\n\014LoginReq" +
-                    "uest\022\020\n\010username\030\001 \001(\t\022\020\n\010nickname\030\002 \001(\t" +
-                    "\022\014\n\004head\030\003 \001(\t\022\025\n\005agent\030\004 \001(\0162\006.Agent\022\013\n" +
-                    "\003sex\030\005 \001(\010\">\n\rLoginResponse\022\035\n\terrorCode" +
-      "\030\001 \001(\0162\n.ErrorCode\022\016\n\006inGame\030\002 \001(\010\"\302\001\n\020U" +
-                    "serInfoResponse\022\n\n\002ID\030\001 \001(\r\022\020\n\010nickname\030" +
-                    "\002 \001(\t\022\014\n\004head\030\003 \001(\t\022\025\n\rlastLoginDate\030\004 \001" +
+    private static com.google.protobuf.Descriptors.FileDescriptor
+            descriptor;
+
+    static {
+        java.lang.String[] descriptorData = {
+                "\n\nhall.proto\032\016gameBase.proto\"d\n\014LoginReq" +
+                        "uest\022\020\n\010username\030\001 \001(\t\022\020\n\010nickname\030\002 \001(\t" +
+      "\022\014\n\004head\030\003 \001(\t\022\025\n\005agent\030\004 \001(\0162\006.Agent\022\013\n" +
+                        "\003sex\030\005 \001(\010\">\n\rLoginResponse\022\035\n\terrorCode" +
+                        "\030\001 \001(\0162\n.ErrorCode\022\016\n\006inGame\030\002 \001(\010\"\302\001\n\020U" +
+      "serInfoResponse\022\n\n\002ID\030\001 \001(\r\022\020\n\010nickname\030" +
+      "\002 \001(\t\022\014\n\004head\030\003 \001(\t\022\025\n\rlastLoginDate\030\004 \001" +
       "(\004\022\023\n\013lastLoginIp\030\005 \001(\t\022\036\n\016lastLoginAgen" +
-      "t\030\006 \001(\0162\006.Agent\022\013\n\003sex\030\007 \001(\010\022\021\n\tgameCoun" +
-      "t\030\010 \001(\r\022\026\n\016todayGameCount\030\t \001(\r\"$\n\020Curre",
-            "ncyResponse\022\020\n\010currency\030\001 \003(\005\"\"\n\020AddToRo" +
-                    "omRequest\022\016\n\006roomNo\030\001 \001(\t\"v\n\034Songjianghe" +
-                    "CreateRoomRequest\022\021\n\tgameTimes\030\001 \001(\r\022\016\n\006" +
-      "normal\030\002 \001(\010\022\021\n\tsingleFan\030\003 \001(\010\022\021\n\tgameR" +
-                    "ules\030\004 \001(\r\022\r\n\005count\030\005 \001(\r\"W\n\014RoomRespons" +
-                    "e\022\031\n\005error\030\001 \001(\0162\n.ErrorCode\022\016\n\006roomNo\030\002" +
-                    " \001(\t\022\016\n\006intoIp\030\003 \001(\t\022\014\n\004port\030\004 \001(\r\"9\n\tRe" +
-      "connect\022\016\n\006roomNo\030\001 \001(\t\022\016\n\006intoIp\030\002 \001(\t\022" +
-                    "\014\n\004port\030\003 \001(\r\" \n\rRebackRequest\022\017\n\007backKe" +
-                    "y\030\001 \001(\t\"+\n\016RebackResponse\022\031\n\005error\030\001 \001(\016",
-      "2\n.ErrorCode\"1\n\024ShareSuccessResponse\022\031\n\005" +
-      "error\030\001 \001(\0162\n.ErrorCode\"1\n\rAgentRoomList" +
-              "\022 \n\010roomItem\030\001 \003(\0132\016.AgentRoomItem\"\215\001\n\rA" +
-              "gentRoomItem\022\016\n\006roomNo\030\001 \001(\t\022\021\n\tgameTime" +
-              "s\030\002 \001(\r\022\016\n\006normal\030\003 \001(\010\022\021\n\tsingleFan\030\004 \001" +
-              "(\010\022\021\n\tgameRules\030\005 \001(\r\022\r\n\005count\030\006 \001(\r\022\024\n\014" +
-              "currentCount\030\007 \001(\r\"\035\n\nAppVersion\022\017\n\007vers" +
-              "ion\030\001 \001(\005\">\n\021HallDissolveApply\022\031\n\005error\030" +
-              "\001 \001(\0162\n.ErrorCode\022\016\n\006roomNo\030\002 \001(\r*0\n\005Age" +
-      "nt\022\013\n\007ANDROID\020\000\022\007\n\003IOS\020\001\022\006\n\002PC\020\002\022\t\n\005OTHE",
-            "R\020\003B\013\n\tgame.modeb\006proto3"
-    };
-      com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-              new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
-                  public com.google.protobuf.ExtensionRegistry assignDescriptors(
-                          com.google.protobuf.Descriptors.FileDescriptor root) {
-                      descriptor = root;
-                      return null;
-                  }
-              };
-      com.google.protobuf.Descriptors.FileDescriptor
+                        "t\030\006 \001(\0162\006.Agent\022\013\n\003sex\030\007 \001(\010\022\021\n\tgameCoun" +
+                        "t\030\010 \001(\r\022\026\n\016todayGameCount\030\t \001(\r\"$\n\020Curre",
+                "ncyResponse\022\020\n\010currency\030\001 \003(\005\"\"\n\020AddToRo" +
+      "omRequest\022\016\n\006roomNo\030\001 \001(\t\"v\n\034Songjianghe" +
+                        "CreateRoomRequest\022\021\n\tgameTimes\030\001 \001(\r\022\016\n\006" +
+                        "normal\030\002 \001(\010\022\021\n\tsingleFan\030\003 \001(\010\022\021\n\tgameR" +
+                        "ules\030\004 \001(\r\022\r\n\005count\030\005 \001(\r\"W\n\014RoomRespons" +
+      "e\022\031\n\005error\030\001 \001(\0162\n.ErrorCode\022\016\n\006roomNo\030\002" +
+                        " \001(\t\022\016\n\006intoIp\030\003 \001(\t\022\014\n\004port\030\004 \001(\r\"9\n\tRe" +
+                        "connect\022\016\n\006roomNo\030\001 \001(\t\022\016\n\006intoIp\030\002 \001(\t\022" +
+      "\014\n\004port\030\003 \001(\r\" \n\rRebackRequest\022\017\n\007backKe" +
+      "y\030\001 \001(\t\"+\n\016RebackResponse\022\031\n\005error\030\001 \001(\016",
+                "2\n.ErrorCode\"1\n\024ShareSuccessResponse\022\031\n\005" +
+                        "error\030\001 \001(\0162\n.ErrorCode\"1\n\rAgentRoomList" +
+                        "\022 \n\010roomItem\030\001 \003(\0132\016.AgentRoomItem\"\215\001\n\rA" +
+                        "gentRoomItem\022\016\n\006roomNo\030\001 \001(\t\022\021\n\tgameTime" +
+                        "s\030\002 \001(\r\022\016\n\006normal\030\003 \001(\010\022\021\n\tsingleFan\030\004 \001" +
+                        "(\010\022\021\n\tgameRules\030\005 \001(\r\022\r\n\005count\030\006 \001(\r\022\024\n\014" +
+                        "currentCount\030\007 \001(\r\"\035\n\nAppVersion\022\017\n\007vers" +
+      "ion\030\001 \001(\005\">\n\021HallDissolveApply\022\031\n\005error\030" +
+                        "\001 \001(\0162\n.ErrorCode\022\016\n\006roomNo\030\002 \001(\r*0\n\005Age" +
+                        "nt\022\013\n\007ANDROID\020\000\022\007\n\003IOS\020\001\022\006\n\002PC\020\002\022\t\n\005OTHE",
+                "R\020\003B\013\n\tgame.modeb\006proto3"
+        };
+        com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
+                new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
+                    public com.google.protobuf.ExtensionRegistry assignDescriptors(
+                            com.google.protobuf.Descriptors.FileDescriptor root) {
+                        descriptor = root;
+                        return null;
+                    }
+        };
+    com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
-              new com.google.protobuf.Descriptors.FileDescriptor[] {
+        new com.google.protobuf.Descriptors.FileDescriptor[] {
           game.mode.GameBase.getDescriptor(),
         }, assigner);
     internal_static_LoginRequest_descriptor =
@@ -11599,15 +11600,15 @@ public final class Hall {
         new java.lang.String[] { "RoomNo", "IntoIp", "Port", });
     internal_static_RebackRequest_descriptor =
       getDescriptor().getMessageTypes().get(8);
-    internal_static_RebackRequest_fieldAccessorTable = new
+        internal_static_RebackRequest_fieldAccessorTable = new
+                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+                internal_static_RebackRequest_descriptor,
+                new java.lang.String[] { "BackKey", });
+    internal_static_RebackResponse_descriptor =
+            getDescriptor().getMessageTypes().get(9);
+    internal_static_RebackResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_RebackRequest_descriptor,
-        new java.lang.String[]{"BackKey",});
-      internal_static_RebackResponse_descriptor =
-              getDescriptor().getMessageTypes().get(9);
-      internal_static_RebackResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-              internal_static_RebackResponse_descriptor,
+        internal_static_RebackResponse_descriptor,
         new java.lang.String[] { "Error", });
     internal_static_ShareSuccessResponse_descriptor =
       getDescriptor().getMessageTypes().get(10);
@@ -11626,19 +11627,19 @@ public final class Hall {
     internal_static_AgentRoomItem_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_AgentRoomItem_descriptor,
-        new java.lang.String[] { "RoomNo", "GameTimes", "Normal", "SingleFan", "GameRules", "Count", "CurrentCount", });
-    internal_static_AppVersion_descriptor =
-      getDescriptor().getMessageTypes().get(13);
-    internal_static_AppVersion_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-            internal_static_AppVersion_descriptor,
-            new java.lang.String[]{"Version",});
-      internal_static_HallDissolveApply_descriptor =
-              getDescriptor().getMessageTypes().get(14);
-      internal_static_HallDissolveApply_fieldAccessorTable = new
-              com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-              internal_static_HallDissolveApply_descriptor,
-              new java.lang.String[] { "Error", "RoomNo", });
+        new java.lang.String[] { "RoomNo", "GameTimes", "Normal", "SingleFan", "GameRules", "Count", "CurrentCount",});
+        internal_static_AppVersion_descriptor =
+                getDescriptor().getMessageTypes().get(13);
+        internal_static_AppVersion_fieldAccessorTable = new
+                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+                internal_static_AppVersion_descriptor,
+                new java.lang.String[]{"Version",});
+        internal_static_HallDissolveApply_descriptor =
+                getDescriptor().getMessageTypes().get(14);
+        internal_static_HallDissolveApply_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_HallDissolveApply_descriptor,
+        new java.lang.String[] { "Error", "RoomNo", });
     game.mode.GameBase.getDescriptor();
   }
 

@@ -1,7 +1,7 @@
 package game.timeout;
 
 import game.constant.Constant;
-import game.entrance.MessageReceive;
+import game.entrance.HallTcpService;
 
 import java.util.Date;
 
@@ -13,11 +13,11 @@ import java.util.Date;
 public class MessageTimeout extends Thread {
 
     private Date lastMessageDate;
-    private MessageReceive messageReceive;
+    private int userId;
 
-    public MessageTimeout(Date lastMessageDate, MessageReceive messageReceive) {
+    public MessageTimeout(Date lastMessageDate, int userId) {
         this.lastMessageDate = lastMessageDate;
-        this.messageReceive = messageReceive;
+        this.userId = userId;
     }
 
     @Override
@@ -30,8 +30,9 @@ public class MessageTimeout extends Thread {
             }
         }
 
-        if (0 == messageReceive.lastMessageDate.compareTo(lastMessageDate)) {
-            messageReceive.close();
+        if (HallTcpService.userClients.containsKey(userId)
+                && 0 == HallTcpService.userClients.get(userId).lastMessageDate.compareTo(lastMessageDate)) {
+            HallTcpService.userClients.get(userId).close();
         }
     }
 }

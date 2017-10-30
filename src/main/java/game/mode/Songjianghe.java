@@ -852,8 +852,8 @@ public final class Songjianghe {
             public SongjiangheMahjongIntoResponse parsePartialFrom(
                     com.google.protobuf.CodedInputStream input,
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                    throws com.google.protobuf.InvalidProtocolBufferException {
-                return new SongjiangheMahjongIntoResponse(input, extensionRegistry);
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new SongjiangheMahjongIntoResponse(input, extensionRegistry);
       }
     };
 
