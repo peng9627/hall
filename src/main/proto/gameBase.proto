@@ -335,7 +335,7 @@ enum ActionId {
 
     CHANGE_CARD = 30; //换牌
     CHANGE_CARD_CONFIRM = 31; //换牌完成
-    BAOJIAO = 32; //报叫
+    BAO_JIAO = 32; //报叫
 }
 
 //错误码
