@@ -1,0 +1,67 @@
+syntax = "proto3";
+option java_package = "game.mode";
+import "gameBase.proto";
+
+//进入房间返回 ROOM_INFO
+message RunQuicklyIntoResponse {
+    uint32 baseScore = 1; //基础分
+    uint32 gameTimes = 2; //游戏局数
+    uint32 count = 3; //人数
+    uint32 gameRules = 4; //低位到高位顺序（不可反打，飞机炸）
+}
+
+//游戏信息 GAME_INFO
+message RunQuicklyGameInfo {
+    repeated RunQuicklySeatGameInfo seats = 1; //座位
+    uint32 gameCount = 2; //当前游戏局数
+    uint32 gameTimes = 3; //总局数
+    uint32 lastPlayCardUser = 4; //上次出牌人
+}
+
+//玩家游戏信息
+message RunQuicklySeatGameInfo {
+    uint32 ID = 1; //用户名
+    repeated int32 cards = 2; //牌
+    uint32 cardsSize = 3; //牌数量
+    repeated int32 desktopCards = 4; //桌面上的牌
+    bool passStatus = 5; //是否过
+}
+
+//游戏开始 发牌 START
+message RunQuicklyStartResponse {
+    repeated int32 cards = 1; //牌
+}
+
+//出牌 PLAY_CARD
+message RunQuicklyPlayCard {
+    repeated int32 card = 1; //牌
+}
+
+//当局游戏结果 RESULT
+message RunQuicklyResultResponse {
+    repeated RunQuicklyResult result = 1; //结算
+    int32 readyTimeCounter = 2; //准备倒计时
+}
+
+//游戏结果
+message RunQuicklyResult {
+    uint32 ID = 1; //人
+    int32 currentScore = 2; //当前分
+    int32 totalScore = 3; //总分
+    repeated int32 cards = 4; //牌
+}
+
+//结束 BALANCE
+message RunQuicklyBalanceResponse {
+    repeated RunQuicklySeatBalance gameBalance = 1;
+}
+message RunQuicklySeatBalance {
+    uint32 ID = 1; //人
+    int32 winOrLose = 2; //总输赢
+    uint32 winCount = 3; //赢的次数
+}
+
+//回放
+message RunQuicklyReplayResponse {
+    repeated OperationHistory history = 1; //操作记录
+}

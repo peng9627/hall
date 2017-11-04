@@ -11,9 +11,8 @@ import java.util.List;
  * Author pengyi
  * Date 17-3-7.
  */
-public class XingningMahjongRoom {
+public class RongchangMahjongRoom {
 
-    private int baseScore; //基础分
     private String roomNo;  //桌号
     private List<Integer> seatNos;
     private GameStatus gameStatus;
@@ -22,20 +21,10 @@ public class XingningMahjongRoom {
     private int banker;//庄家
     private int gameTimes; //游戏局数
     private int count;//人数
-    private int ghost;//1.红中做鬼，2.无鬼，3.翻鬼，4.无鬼加倍
-    private int gameRules;////游戏规则  高位到低位顺序（鸡胡，门清，天地和，幺九，全番，十三幺，对对胡，十八罗汉，七小对，清一色，混一色，海底捞，杠爆全包，庄硬）
-
-    private int initMaCount;
+    private int gameRules;////游戏规则  高位到低位顺序（换三张，后四必胡，GPS，ip一致不能进房间）
+    private boolean aa;//AA支付
 
     private int roomOwner;
-
-    public int getBaseScore() {
-        return baseScore;
-    }
-
-    public void setBaseScore(int baseScore) {
-        this.baseScore = baseScore;
-    }
 
     public String getRoomNo() {
         return roomNo;
@@ -93,14 +82,6 @@ public class XingningMahjongRoom {
         this.count = count;
     }
 
-    public int getGhost() {
-        return ghost;
-    }
-
-    public void setGhost(int ghost) {
-        this.ghost = ghost;
-    }
-
     public int getGameRules() {
         return gameRules;
     }
@@ -109,12 +90,12 @@ public class XingningMahjongRoom {
         this.gameRules = gameRules;
     }
 
-    public int getInitMaCount() {
-        return initMaCount;
+    public boolean isAa() {
+        return aa;
     }
 
-    public void setInitMaCount(int initMaCount) {
-        this.initMaCount = initMaCount;
+    public void setAa(boolean aa) {
+        this.aa = aa;
     }
 
     public int getRoomOwner() {
@@ -125,19 +106,17 @@ public class XingningMahjongRoom {
         this.roomOwner = roomOwner;
     }
 
-    public XingningMahjongRoom() {
+    public RongchangMahjongRoom() {
     }
 
-    public XingningMahjongRoom(int baseScore, String roomNo, int banker, int gameTimes, int count, int initMaCount, int ghost, int gameRules) {
-        this.baseScore = baseScore;
+    public RongchangMahjongRoom(String roomNo, int banker, int gameTimes, int count, int gameRules, boolean aa) {
         this.roomNo = roomNo;
         this.banker = banker;
         this.roomOwner = banker;
         this.gameTimes = gameTimes;
         this.count = count;
-        this.initMaCount = initMaCount;
-        this.ghost = ghost;
         this.gameRules = gameRules;
+        this.aa = aa;
         this.gameStatus = GameStatus.WAITING;
         seatNos = new ArrayList<>();
         for (int i = 0; i < count; i++) {

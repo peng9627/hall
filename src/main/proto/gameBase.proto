@@ -1,0 +1,377 @@
+syntax = "proto3";
+option java_package = "game.mode";
+
+//通用请求
+message BaseConnection {
+    OperationType operationType = 1; //操作类型
+    bytes data = 2; //数据
+}
+
+//房卡模式进入房间请求 CONNECTION
+message RoomCardIntoRequest {
+    uint32 ID = 1; //用户名
+    string roomNo = 2; //房号
+}
+
+//进入房间返回 RoomInfo
+message RoomCardIntoResponse {
+    ErrorCode error = 1;
+    GameType gameType = 2;
+    string roomNo = 3; //桌号
+    uint32 roomOwner = 4; //房主
+    bool started = 5; //是否开始
+    bytes data = 6; //数据
+    int32 readyTimeCounter = 7; //准备倒计时
+}
+
+//所有玩家信息 SEAT_INFO
+message RoomSeatsInfo {
+    repeated SeatResponse seats = 1; //座位
+}
+
+//玩家信息
+message SeatResponse {
+    uint32 seatNo = 1; //座位号
+    uint32 ID = 2; //用户名
+    string nickname = 3; //用户名
+    int32 score = 4; //输赢分数
+    bool ready = 5; //是否准备
+    string ip = 6; //地区
+    string head = 7; //头像
+    bool sex = 8; //性别 true为男
+    bool offline = 9; //离线
+    uint32 gameCount = 10; //总局数
+    bool isRobot = 11; //是否托管
+}
+
+//操作记录
+message OperationHistory {
+    uint32 ID = 1; //操作玩家
+    ActionId operationId = 2; //操作id
+    repeated int32 card = 3; //牌
+}
+
+//动作请求数据 ACTION
+message BaseAction {
+    ActionId operationId = 1;
+    uint32 ID = 2; //操作玩家
+    bytes data = 3; //额外数据
+}
+
+//询问数据 ASK
+message AskResponse {
+    repeated ActionId operationId = 1;
+    int32 timeCounter = 2; //倒计时
+}
+
+//通知回合 ROUND
+message RoundResponse {
+    uint32 ID = 1; //当前操作的人
+    int32 timeCounter = 2; //倒计时
+}
+
+//准备返回 READY
+message ReadyResponse {
+    uint32 ID = 1; //用户名
+}
+
+//错误 ERROR
+message ErrorResponse {
+    ErrorCode errorCode = 1;
+}
+
+//战绩 RECORD
+message RecordResponse {
+    repeated GameRecord gameRecords = 1; //战绩列表
+}
+
+message GameRecord {
+    GameType gameType = 1; //游戏类型
+    repeated Record records = 2; //战绩列表
+}
+
+message Record {
+    string recordId = 1; //战绩id
+    string roomNo = 2; //房间号
+    uint32 gameCount = 3; //局数
+    repeated UserRecord userRecord = 4; //总输赢
+    uint64 dateTime = 5; //时间
+}
+
+//战绩详情 RECORD_DETAILS
+message RecordDetailsRequest {
+    string recordId = 1; //战绩id
+}
+
+//战绩详情 RECORD_DETAILS
+message RecordDetailsResponse {
+    ErrorCode errorCode = 1;
+    repeated RoundItemRecord RoundItemRecord = 2; //每一小局
+}
+
+message RoundItemRecord {
+    repeated UserRecord userRecord = 1; //每个玩家详情
+}
+
+message UserRecord {
+    uint32 ID = 1; //人
+    string nickname = 2; //昵称
+    string head = 3; //头像
+    int32 score = 4; //输赢
+}
+
+//结束 OVER
+message OverResponse {
+    string backKey = 1; //回到大厅的码
+    uint64 dateTime = 2; //时间
+}
+
+//回放 REPLAY
+message ReplayRequest {
+    string recordId = 1; //战绩id
+    uint32 round = 2; //局数下标
+}
+
+//回放    REPLAY
+message ReplayResponse {
+    ErrorCode errorCode = 1;
+    RoomCardIntoResponse roomInfo = 2;
+    RoomSeatsInfo seatInfo = 3;
+    bytes gameData = 4; //对应　MahjongReplayData
+}
+
+//消息 MESSAGE
+message Message {
+    MessageType messageType = 1; //公共消息类型
+    bytes content = 2; //公共消息内容，用户输入时此处为字符串，否则是下标
+    uint32 userId = 3; //用户id
+}
+
+//互动 INTERACTION
+message AppointInteraction {
+    uint32 toUserId = 1; //发送给某人
+    uint32 contentIndex = 2; //互动内容标识
+    uint32 userId = 3; //用户id
+}
+
+//日志 LOGGER
+message LoggerRequest {
+    string logger = 1; //日志
+}
+
+//比赛信息 MATCH_INFO
+message MatchInfo {
+    uint32 arenaType = 1; //竞技类型 0,钻石 1，话费
+    string name = 2; //竞技名
+    uint32 count = 3; //人数
+    uint32 entryFee = 4; //报名费
+    uint32 reward = 5; //奖励
+}
+//比赛当前数据 MATCH_DATA
+message MatchData {
+    uint32 status = 1; //比赛状态 0.等待， 1.淘汰赛，2.定局赛，3.决赛
+    uint32 currentCount = 2; //当前人数
+    uint32 round = 3; //轮次
+}
+
+//比赛淘汰分变化 MATCH_ELIMINATE_SCORE
+message MatchEliminateScore {
+    uint32 score = 1; //当前淘汰分
+}
+
+//比赛结果 MATCH_RESULT
+message MatchResult {
+    uint32 result = 1; //1.晋级 2.等待 3.淘汰,0.无结果
+    int32 currentScore = 2; //当局得分
+    int32 totalScore = 3; //总分
+}
+
+//比赛积分更新 MATCH_SCORE
+message ScoreResponse {
+    repeated ScoreResult scoreResult = 1;
+}
+
+message ScoreResult {
+    uint32 ID = 1;
+    int32 score = 2;
+}
+
+//比赛结果 MATCH_BALANCE
+message MatchBalance {
+    uint32 ranking = 1; //名次
+    int32 totalScore = 2; //总分
+}
+
+//申请解散 DISSOLVE
+message DissolveApply {
+    ErrorCode error = 1;
+    uint32 userId = 2;
+}
+
+//解散回复 DISSOLVE_REPLY
+message DissolveReplyRequest {
+    bool agree = 1; //是否同意
+}
+
+//解散回复 DISSOLVE_REPLY
+message DissolveReplyResponse {
+    repeated Dissolve dissolve = 1; //是否同意
+}
+
+message Dissolve {
+    uint32 userId = 1;
+    bool agree = 2; //是否同意
+}
+
+//解散确认 DISSOLVE_CONFIRM
+message DissolveConfirm {
+    bool dissolved = 1; //是否成功解散
+}
+
+//通知 NOTICE
+message Notice {
+    string message = 1; //通知
+}
+
+//在线状态 ONLINE
+message Online {
+    uint32 userId = 1; //用户id
+    bool online = 2; //是否在线
+}
+
+//退出房间　EXIT
+message ExitRoom {
+    ErrorCode error = 1;
+    uint32 userId = 2;
+    string backKey = 3; //回到大厅的码
+}
+
+//消息id
+enum OperationType {
+
+    //通用
+    ERROR = 0; //错误
+    HEARTBEAT = 1; //心跳包
+
+    //大厅
+    LOGIN = 10; //登录
+    CREATE_ROOM = 11; //创建房间
+    QUERY = 12; //查询数据
+    REBACK = 13; //重回大厅
+    ADD_ROOM = 14; //添加房间
+    RECORD = 15; //战绩
+    RECORD_DETAILS = 16; //战绩详情
+    SHARE_SUCCESS = 17; //分享成功
+    USER_INFO = 18; //用户信息
+    MALL = 19; //商城
+    EXCHANGE_HISTORY = 20; //兑换记录
+    REGISTRATION = 21; //比赛报名
+    COMPETITION_START = 22; //比赛开始
+    INTO_COMPETITION = 23; //进入比赛
+    CURRENCY = 24; //货币
+    COMPETITION_LIST = 25; //比赛列表
+    TASK = 26; //任务
+    NOTICE = 27; //通知
+
+    MATCH_INFO = 30; //比赛信息
+    MATCH_DATA = 31; //比赛当前数据
+    MATCH_RESULT = 32; //比赛结果
+    MATCH_BALANCE = 33; //比赛结果
+    MATCH_ELIMINATE_SCORE = 34; //比赛淘汰分
+    MATCH_SCORE = 35; //比赛积分更新
+
+    //麻将
+    CONNECTION = 50; //连接
+    START = 51; //开始
+    ROOM_INFO = 52;
+    SEAT_INFO = 53;
+    GAME_INFO = 54;
+    READY = 55; //准备
+    COMPLETED = 56; //就绪
+    ACTION = 57; //通知
+    ROUND = 58; //通知回合
+    ASK = 59; //询问
+    EXIT = 60; //退出
+    RESULT = 61; //结果
+    MESSAGE = 62; //消息
+    REPLAY = 63; //回放
+    OVER = 64; //结束
+    RECONNECTION = 65; //重连
+    DISSOLVE = 66; //解散
+    DISSOLVE_REPLY = 67; //解散回复
+    DISSOLVE_CONFIRM = 68; //解散确认
+    CONFIRM_BANKER = 69; //确认庄家
+    DEAL_CARD = 70; //发牌
+    INTERACTION = 71; //互动
+    UPDATE_STATUS = 72; //更新游戏状态
+    BALANCE = 73; //结算
+    ONLINE = 74; //离线
+    VERSION = 75; //版本
+
+    LOGGER = 80; //日志
+}
+
+//操作id
+enum ActionId {
+    //大厅
+    ROOM_LIST = 0; //房间列表
+
+    //麻将
+    BUY_HORSE = 11; //买马
+    GET_CARD = 12; //摸牌
+    PLAY_CARD = 13; //出牌
+    PENG = 14; //碰
+    AN_GANG = 15; //暗杠
+    DIAN_GANG = 16; //点杠
+    BA_GANG = 17; //扒杠
+    HU = 18; //胡
+    PASS = 19; //过
+
+    CHI = 20; //吃
+
+    PLAY_SCORE = 21; //下注
+    OPEN_CARD = 22; //亮牌
+    GRAB = 23; //抢庄
+
+    CHANGE_CARD = 30; //换牌
+    CHANGE_CARD_CONFIRM = 31; //换牌完成
+    BAOJIAO = 32; //报叫
+}
+
+//错误码
+enum ErrorCode {
+    //通用
+    SUCCESS = 0; //成功
+    ERROR_UNKNOW = 1; //未知错误
+
+    //登录
+    ERROR_UNKNOW_ACCOUNT = 10; //账号不存在
+    ERROR_PASSWORD_INCORRECT = 11; //密码错误
+    ERROR_KEY_INCORRECT = 12; //返回码不存在或以过期
+    MONEY_NOT_ENOUGH = 13; //余额不足
+
+    //游戏
+    ROOM_NOT_EXIST = 21; //房间不存在
+    COUNT_FULL = 22; //人数已满
+    SHOUND_NOT_OPERATION = 23; //不允许的操作
+    GOLD_TOO_LITTLE = 24; //金币不足
+    HASNOT_CARD = 25; //用户手中没有此牌
+    ERROR_SHARED = 26; //已经分享过
+    AREADY_REGISTRATION = 27; //已经报名比赛
+    AREADY_DISSOLVE = 28; //短时间内不能多次申请解散
+    GAME_START = 29; //游戏已经开始
+}
+
+enum GameType {
+    MAHJONG_XINGNING = 0; //兴宁麻将
+    MAHJONG_RUIJIN = 1; //瑞金麻将
+    RUN_QUICKLY = 2; //跑得快
+    SANGONG = 3; //三公
+}
+
+enum MessageType {
+    TEXT = 0; //文字
+    EMOTICON = 1; //表情
+    INPUT = 2; //用户输入
+    VOICE = 3; //语音
+}

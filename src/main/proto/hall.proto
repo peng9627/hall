@@ -1,0 +1,200 @@
+syntax = "proto3";
+option java_package = "game.mode";
+import "gameBase.proto";
+
+//登录    LOGIN
+message LoginRequest {
+    string username = 1; //用户名
+    string nickname = 2; //昵称
+    string head = 3; //头像
+    Agent agent = 4; //登录终端
+    bool sex = 5; //性别 true为男
+}
+
+//登录返回数据    LOGIN
+message LoginResponse {
+    ErrorCode errorCode = 1; //错误码
+    bool inGame = 2; //是否在游戏中
+}
+
+//用户信息 USER_INFO
+message UserInfoResponse {
+    uint32 ID = 1; //ID:唯一码
+    string nickname = 2; //昵称
+    string head = 3; //头像
+    uint64 lastLoginDate = 4; //上次登录时间
+    string lastLoginIp = 5; //上次登录ip
+    Agent lastLoginAgent = 6; //上次登录终端
+    bool sex = 7; //性别
+    uint32 gameCount = 8; //游戏次数
+    uint32 todayGameCount = 9; //今日对战次数
+}
+
+//货币 CURRENCY
+message CurrencyResponse {
+    repeated int32 currency = 1; //货币 1.房卡，2.积分
+}
+
+//创建房间
+message BaseCreateRoomRequest {
+    GameType gameType = 1;
+    bytes data = 2; //数据
+}
+
+//加入房间 ADD_ROOM
+message AddToRoomRequest {
+    string roomNo = 1; //房号
+}
+
+//查询数据  QUERY
+message QueryRequest {
+    ActionId operationId = 1;
+    bytes data = 2; //数据
+}
+
+//查询数据返回    QUERY
+message QueryResponse {
+    ActionId operationId = 1;
+    ErrorCode error = 2; //错误码
+    bytes data = 3; //数据
+}
+
+//荣昌麻将创建房间  CREATE_ROOM
+message RongchangCreateRoomRequest {
+    uint32 gameTimes = 1; //游戏局数
+    uint32 gameRules = 2; //游戏规则  低位到高位到顺序（换三张，后四必胡，GPS，ip一致不能进房间）
+    bool aa = 3; //AA支付
+    uint32 count = 4; //人数
+}
+
+//跑得快创建房间  CREATE_ROOM
+message RunQuicklyCreateRoomRequest {
+    uint32 baseScore = 1; //底分
+    uint32 gameTimes = 2; //游戏局数
+    uint32 count = 3; //人数
+    uint32 gameRules = 4; //低位到高位顺序（不可反打，飞机炸）
+}
+
+//三公创建房间  CREATE_ROOM
+message SanGongCreateRoomRequest {
+    uint32 baseScore = 1; //底分
+    uint32 gameTimes = 2; //游戏局数
+    uint32 bankerWay = 3; //庄家方式 1.自由场，2.通杀庄
+    uint32 count = 4; //人数
+    uint32 payType = 5; //支付方式 1.房主支付，2.AA
+}
+
+//创建房间 CREATE_ROOM ADD_ROOM
+message RoomResponse {
+    ErrorCode error = 1; //桌号
+    string roomNo = 2; //桌号
+    string intoIp = 3; //进入ip
+    uint32 port = 4; //进入端口
+}
+
+//重连 RECONNECTION
+message Reconnect {
+    GameType gameType = 1;
+    string roomNo = 2; //桌号
+    string intoIp = 3; //进入ip
+    uint32 port = 4; //进入端口
+}
+
+//重回大厅 REBACK
+message RebackRequest {
+    string backKey = 1; //回到大厅的码
+}
+
+//重回大厅 REBACK
+message RebackResponse {
+    ErrorCode error = 1;
+}
+
+//分享成功 SHARESUCCESS
+message ShareSuccessResponse {
+    ErrorCode error = 1;
+}
+
+//商城 MALL
+message Mall {
+    string wechat = 1; //联系微信
+    repeated Goods goods = 2; //商品
+    bool update = 3; //是否数据更新
+}
+
+//商品
+message Goods {
+    string imageUrl = 1; //图片地址
+    string goodsName = 2; //商品名称
+    uint32 golds = 3; //需要金币
+}
+
+//兑换记录 EXCHANGE_HISTORY
+message ExchangeHistory {
+    repeated ExchangeHistoryItem exchangeHistory = 1;
+}
+
+//兑换记录
+message ExchangeHistoryItem {
+    string goodsName = 1; //商品
+    uint32 golds = 2; //金币
+    uint64 dateTime = 3; //时间
+}
+
+//TASK
+message TaskResponse {
+    string name = 1;
+    uint32 count = 2; //人物需要场次
+    uint32 reward = 3; //奖励
+    uint32 todayGameCount = 4; //今日对战次数
+}
+
+//比赛查询 REGISTRATION_LIST
+message RegistrationListRequest {
+    GameType gameType = 1; //游戏类型
+}
+
+//比赛查询 REGISTRATION_LIST
+message RegistrationListResponse {
+    repeated Registration registration = 1; //比赛
+}
+
+//比赛
+message Registration {
+    string id = 1; //标识
+    uint32 arenaType = 2; //竞技类型 0.钻石赛 1.话费赛
+    string name = 3; //竞技名
+    uint32 count = 4; //总人数
+    uint32 entryFee = 5; //报名费
+    uint32 reward = 6; //奖励
+    uint32 currentCount = 7; //当前人数
+}
+
+//比赛报名 REGISTRATION
+message RegistrationRequest {
+    string id = 1; //比赛id
+}
+
+//比赛报名 REGISTRATION
+message RegistrationResponse {
+    ErrorCode error = 1;
+}
+
+//进入比赛 INTO_COMPETITION
+message IntoCompetitionRequest {
+    uint32 ID = 1; //用户名
+    string competitionId = 2; //比赛唯一标识
+}
+
+//APP版本信息
+message AppVersion {
+    int32 version = 1;
+}
+
+//登录终端
+enum Agent {
+    ANDROID = 0; //安卓
+    IOS = 1; //ios
+    PC = 2; //PC
+    OTHER = 3; //其它
+}

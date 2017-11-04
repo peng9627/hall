@@ -1,0 +1,11 @@
+syntax = "proto3";
+option java_package = "game.mode";
+
+//进入房间返回 ROOM_INFO
+message RongchangMahjongIntoResponse {
+    uint32 baseScore = 1; //基础分
+    uint32 gameTimes = 2; //游戏局数
+    uint32 gameRules = 3; //游戏规则  低位到高位到顺序（换三张，后四必胡，GPS，ip一致不能进房间）
+    bool aa = 4; //AA支付
+    uint32 count = 5; //人数
+}

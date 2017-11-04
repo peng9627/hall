@@ -1,0 +1,102 @@
+syntax = "proto3";
+option java_package = "game.mode";
+import "gameBase.proto";
+
+//进入房间返回 RoomInfo-data
+message SangongIntoResponse {
+    uint32 baseScore = 1; //基础分
+    uint32 gameTimes = 2; //游戏局数
+    uint32 bankerWay = 3; //庄家方式 1.自由场，2.通杀庄
+    uint32 count = 4; //人数
+    uint32 payType = 5; //支付方式 1.房主支付，2.AA
+}
+
+//游戏信息 GAME_INFO
+message SangongGameInfo {
+    repeated SangongSeatGameInfo seats = 1; //座位
+    uint32 gameCount = 2; //当前游戏局数
+    uint32 gameTimes = 3; //总局数
+    uint32 banker = 4; //庄家
+}
+
+//更新游戏状态 UPDATE_STATUS
+message SangongGameStatusResponse {
+    SangongGameStatus gameStatus = 1; //游戏状态
+    int32 timeCounter = 2; //准备倒计时
+}
+
+//玩家游戏信息
+message SangongSeatGameInfo {
+    uint32 ID = 1; //用户
+    repeated int32 cards = 2; //牌
+    uint32 cardsSize = 3; //牌数量
+    int32 score = 4; //输赢分数
+    bool open = 5; //是否亮过牌
+    uint32 playScore = 6; //下注分
+}
+
+//下注 PLAY_SCORE
+message PlayScoreRequest {
+    uint32 score = 1; //下注分数
+}
+
+//下注 PLAY_SCORE
+message PlayScoreResponse {
+    uint32 ID = 1; //用户
+    int32 score = 2; //下注分数
+}
+
+//发牌 DEAL_CARD
+message DealCard {
+    repeated int32 cards = 1; //牌
+}
+
+//亮牌 OPEN_CARD
+message OpenCardResponse {
+    uint32 ID = 1; //用户
+    repeated int32 cards = 2; //牌
+}
+
+//当局游戏结果 Result
+message SanGongResultResponse {
+    repeated SanGongResult result = 1; //结算
+    int32 readyTimeCounter = 2; //准备倒计时
+}
+
+//游戏结果 
+message SanGongResult {
+    uint32 ID = 1; //人
+    int32 currentScore = 2; //当前分
+    int32 totalScore = 3; //总分
+    CardType cardType = 4; //牌型
+    repeated int32 cards = 5; //手牌
+}
+
+//结束 BALANCE
+message SanGongBalanceResponse {
+    repeated SanGongSeatBalance gameBalance = 1;
+}
+message SanGongSeatBalance {
+    uint32 ID = 1; //人
+    int32 winOrLose = 2; //总输赢
+    uint32 sanGongCount = 3; //三公次数
+}
+
+//回放    REPLAY
+message SangongReplayResponse {
+    DealCard dealCard = 1;
+    repeated OperationHistory history = 2; //操作记录
+    SanGongResultResponse result = 3;
+}
+
+enum CardType {
+    CARDTYPE_SANGONG = 0; //三公
+    CARDTYPE_DANPAI = 1; //单牌
+}
+
+enum SangongGameStatus {
+    SANGONG_WAITTING = 0; //等待开始状态
+    SANGONG_READYING = 1; //准备状态
+    SANGONG_PLAYING = 2; //下注状态
+    SANGONG_OPENING = 3; //亮牌状态
+}

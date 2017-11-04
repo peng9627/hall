@@ -6,7 +6,6 @@ import com.alibaba.fastjson.TypeReference;
 import com.google.protobuf.InvalidProtocolBufferException;
 import game.constant.Constant;
 import game.mode.*;
-import game.mode.ruijin.RuijinMahjongRoom;
 import game.mode.runquickly.RunQuicklyRoom;
 import game.mode.sangong.SangongRoom;
 import game.mode.xingning.*;
@@ -176,116 +175,80 @@ public class HallClient {
                         jsonObject.put("flowType", 2);
                         boolean moneyEnough = true;
                         switch (createRoomRequest.getGameType()) {
-//                            case MAHJONG_XINGNING:
-//                                Hall.XingningMahjongCreateRoomRequest xingningMahjongCreateRoomRequest = Hall.XingningMahjongCreateRoomRequest.parseFrom(createRoomRequest.getData());
-//                                XingningMahjongRoom xingningMahjongRoom = new XingningMahjongRoom(xingningMahjongCreateRoomRequest.getBaseScore(),
-//                                        roomNo(), userId, xingningMahjongCreateRoomRequest.getGameTimes(), xingningMahjongCreateRoomRequest.getCount(),
-//                                        xingningMahjongCreateRoomRequest.getMaCount(), xingningMahjongCreateRoomRequest.getGhost(), xingningMahjongCreateRoomRequest.getGameRules());
-//                                Hall.RoomResponse.Builder createRoomResponse = Hall.RoomResponse.newBuilder();
-//                                if (0 == xingningMahjongRoom.getCount()) {
-//                                    createRoomResponse.setRoomNo(xingningMahjongRoom.getRoomNo()).setError(GameBase.ErrorCode.ERROR_UNKNOW).build();
-//                                    messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
-//                                    break;
-//                                }
-//                                jsonObject.put("description", "开房间" + xingningMahjongRoom.getRoomNo());
-//                                if (8 == xingningMahjongCreateRoomRequest.getGameTimes()) {
-//                                    jsonObject.put("money", 1);
-//                                } else {
-//                                    jsonObject.put("money", 2);
-//                                }
-//                                if (userResponse.getData().getMoney() < jsonObject.getIntValue("money")) {
-//                                    moneyEnough = false;
-//                                    createRoomResponse.setError(GameBase.ErrorCode.MONEY_NOT_ENOUGH);
-//                                    messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
-//                                    break;
-//                                }
-//                                redisService.addCache("room" + xingningMahjongRoom.getRoomNo(), JSON.toJSONString(xingningMahjongRoom));
-//                                redisService.addCache("reconnect" + userId, "xingning_mahjong," + xingningMahjongRoom.getRoomNo());
-//                                redisService.addCache("room_type" + xingningMahjongRoom.getRoomNo(), "xingning_mahjong");
-//
-//                                createRoomResponse.setRoomNo(xingningMahjongRoom.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS)
-//                                        .setIntoIp(Constant.gameServerIp).setPort(10001).build();
-//                                messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
-//                                break;
-//                            case MAHJONG_RUIJIN:
-//                                Hall.RuijinMahjongCreateRoomRequest ruijinMahjongCreateRoomRequest = Hall.RuijinMahjongCreateRoomRequest.parseFrom(createRoomRequest.getData());
-//                                RuijinMahjongRoom ruijinMahjongRoom = new RuijinMahjongRoom(ruijinMahjongCreateRoomRequest.getBaseScore(), roomNo(), userId, ruijinMahjongCreateRoomRequest.getGameTimes(),
-//                                        ruijinMahjongCreateRoomRequest.getCount(), ruijinMahjongCreateRoomRequest.getDianpao(), ruijinMahjongCreateRoomRequest.getZhuangxian());
-//                                Hall.RoomResponse.Builder createRoomResponse = Hall.RoomResponse.newBuilder();
-//                                if (0 == ruijinMahjongRoom.getCount()) {
-//                                    createRoomResponse.setRoomNo(ruijinMahjongRoom.getRoomNo()).setError(GameBase.ErrorCode.ERROR_UNKNOW).build();
-//                                    messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
-//                                    break;
-//                                }
-//                                jsonObject.put("description", "开房间" + ruijinMahjongRoom.getRoomNo());
-//                                switch (ruijinMahjongRoom.getGameTimes()) {
-//                                    case 4:
-//                                        jsonObject.put("money", 1);
-//                                        break;
-//                                    case 8:
-//                                        jsonObject.put("money", 2);
-//                                        break;
-//                                    case 16:
-//                                        jsonObject.put("money", 3);
-//                                        break;
-//                                }
-//                                if (userResponse.getData().getMoney() < jsonObject.getIntValue("money")) {
-//                                    moneyEnough = false;
-//                                    createRoomResponse.setError(GameBase.ErrorCode.MONEY_NOT_ENOUGH);
-//                                    messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
-//                                    break;
-//                                }
-//                                redisService.addCache("room" + ruijinMahjongRoom.getRoomNo(), JSON.toJSONString(ruijinMahjongRoom));
-//                                redisService.addCache("reconnect" + userId, "ruijin_mahjong," + ruijinMahjongRoom.getRoomNo());
-//                                redisService.addCache("room_type" + ruijinMahjongRoom.getRoomNo(), "ruijin_mahjong");
-//
-//                                createRoomResponse.setRoomNo(ruijinMahjongRoom.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS)
-//                                        .setIntoIp(Constant.gameServerIp).setPort(10003).build();
-//                                messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
-//                                break;
-//                            case RUN_QUICKLY:
-//                                Hall.RunQuicklyCreateRoomRequest runQuicklyCreateRoomRequest = Hall.RunQuicklyCreateRoomRequest.parseFrom(createRoomRequest.getData());
-//                                RunQuicklyRoom runQuicklyRoom = new RunQuicklyRoom(runQuicklyCreateRoomRequest.getBaseScore(), roomNo(), runQuicklyCreateRoomRequest.getGameTimes(),
-//                                        runQuicklyCreateRoomRequest.getCount(), runQuicklyCreateRoomRequest.getGameRules(), userId);
-//                                jsonObject.put("description", "开房间" + runQuicklyRoom.getRoomNo());
-//                                createRoomResponse = Hall.RoomResponse.newBuilder();
-//                                if (0 == runQuicklyRoom.getCount()) {
-//                                    createRoomResponse.setRoomNo(runQuicklyRoom.getRoomNo()).setError(GameBase.ErrorCode.ERROR_UNKNOW).build();
-//                                    messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
-//                                    break;
-//                                }
-//                                switch (runQuicklyRoom.getGameTimes()) {
-//                                    case 4:
-//                                        jsonObject.put("money", 1);
-//                                        break;
-//                                    case 8:
-//                                        jsonObject.put("money", 2);
-//                                        break;
-//                                    case 16:
-//                                        jsonObject.put("money", 3);
-//                                        break;
-//                                }
-//                                createRoomResponse = Hall.RoomResponse.newBuilder();
-//                                if (userResponse.getData().getMoney() < jsonObject.getIntValue("money")) {
-//                                    moneyEnough = false;
-//                                    createRoomResponse.setError(GameBase.ErrorCode.MONEY_NOT_ENOUGH);
-//                                    messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
-//                                    break;
-//                                }
-//                                redisService.addCache("room" + runQuicklyRoom.getRoomNo(), JSON.toJSONString(runQuicklyRoom));
-//                                redisService.addCache("reconnect" + userId, "run_quickly," + runQuicklyRoom.getRoomNo());
-//                                redisService.addCache("room_type" + runQuicklyRoom.getRoomNo(), "run_quickly");
-//
-//                                createRoomResponse.setRoomNo(runQuicklyRoom.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS)
-//                                        .setIntoIp(Constant.gameServerIp).setPort(10002).build();
-//                                messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
-//                                break;
+                            case MAHJONG_XINGNING:
+                                Hall.RongchangCreateRoomRequest rongchangCreateRoomRequest = Hall.RongchangCreateRoomRequest.parseFrom(createRoomRequest.getData());
+                                RongchangMahjongRoom rongchangMahjongRoom = new RongchangMahjongRoom(
+                                        roomNo(), userId, rongchangCreateRoomRequest.getGameTimes(), rongchangCreateRoomRequest.getCount(),
+                                        rongchangCreateRoomRequest.getGameRules(), rongchangCreateRoomRequest.getAa());
+                                Hall.RoomResponse.Builder createRoomResponse = Hall.RoomResponse.newBuilder();
+                                if (0 == rongchangMahjongRoom.getCount()) {
+                                    createRoomResponse.setRoomNo(rongchangMahjongRoom.getRoomNo()).setError(GameBase.ErrorCode.ERROR_UNKNOW).build();
+                                    messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
+                                    break;
+                                }
+                                jsonObject.put("description", "开房间" + rongchangMahjongRoom.getRoomNo());
+                                if (8 == rongchangCreateRoomRequest.getGameTimes()) {
+                                    jsonObject.put("money", 1);
+                                } else {
+                                    jsonObject.put("money", 2);
+                                }
+                                if (userResponse.getData().getMoney() < jsonObject.getIntValue("money")) {
+                                    moneyEnough = false;
+                                    createRoomResponse.setError(GameBase.ErrorCode.MONEY_NOT_ENOUGH);
+                                    messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
+                                    break;
+                                }
+                                redisService.addCache("room" + rongchangMahjongRoom.getRoomNo(), JSON.toJSONString(rongchangMahjongRoom));
+                                redisService.addCache("reconnect" + userId, "xingning_mahjong," + rongchangMahjongRoom.getRoomNo());
+                                redisService.addCache("room_type" + rongchangMahjongRoom.getRoomNo(), "xingning_mahjong");
+
+                                createRoomResponse.setRoomNo(rongchangMahjongRoom.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS)
+                                        .setIntoIp(Constant.gameServerIp).setPort(10401).build();
+                                messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
+                                break;
+                            case RUN_QUICKLY:
+                                Hall.RunQuicklyCreateRoomRequest runQuicklyCreateRoomRequest = Hall.RunQuicklyCreateRoomRequest.parseFrom(createRoomRequest.getData());
+                                RunQuicklyRoom runQuicklyRoom = new RunQuicklyRoom(runQuicklyCreateRoomRequest.getBaseScore(), roomNo(), runQuicklyCreateRoomRequest.getGameTimes(),
+                                        runQuicklyCreateRoomRequest.getCount(), runQuicklyCreateRoomRequest.getGameRules(), userId);
+                                jsonObject.put("description", "开房间" + runQuicklyRoom.getRoomNo());
+                                createRoomResponse = Hall.RoomResponse.newBuilder();
+                                if (0 == runQuicklyRoom.getCount()) {
+                                    createRoomResponse.setRoomNo(runQuicklyRoom.getRoomNo()).setError(GameBase.ErrorCode.ERROR_UNKNOW).build();
+                                    messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
+                                    break;
+                                }
+                                switch (runQuicklyRoom.getGameTimes()) {
+                                    case 4:
+                                        jsonObject.put("money", 1);
+                                        break;
+                                    case 8:
+                                        jsonObject.put("money", 2);
+                                        break;
+                                    case 16:
+                                        jsonObject.put("money", 3);
+                                        break;
+                                }
+                                createRoomResponse = Hall.RoomResponse.newBuilder();
+                                if (userResponse.getData().getMoney() < jsonObject.getIntValue("money")) {
+                                    moneyEnough = false;
+                                    createRoomResponse.setError(GameBase.ErrorCode.MONEY_NOT_ENOUGH);
+                                    messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
+                                    break;
+                                }
+                                redisService.addCache("room" + runQuicklyRoom.getRoomNo(), JSON.toJSONString(runQuicklyRoom));
+                                redisService.addCache("reconnect" + userId, "run_quickly," + runQuicklyRoom.getRoomNo());
+                                redisService.addCache("room_type" + runQuicklyRoom.getRoomNo(), "run_quickly");
+
+                                createRoomResponse.setRoomNo(runQuicklyRoom.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS)
+                                        .setIntoIp(Constant.gameServerIp).setPort(10402).build();
+                                messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
+                                break;
                             case SANGONG:
                                 Hall.SanGongCreateRoomRequest sanGongCreateRoomRequest = Hall.SanGongCreateRoomRequest.parseFrom(createRoomRequest.getData());
                                 SangongRoom sangongRoom = new SangongRoom(sanGongCreateRoomRequest.getBaseScore(), roomNo(),
                                         sanGongCreateRoomRequest.getGameTimes(), sanGongCreateRoomRequest.getBankerWay(),
                                         userId, sanGongCreateRoomRequest.getPayType(), sanGongCreateRoomRequest.getCount());
-                                Hall.RoomResponse.Builder createRoomResponse = Hall.RoomResponse.newBuilder();
+                                createRoomResponse = Hall.RoomResponse.newBuilder();
                                 if (0 == sangongRoom.getCount()) {
                                     createRoomResponse.setRoomNo(sangongRoom.getRoomNo()).setError(GameBase.ErrorCode.ERROR_UNKNOW).build();
                                     messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
@@ -313,7 +276,7 @@ public class HallClient {
                                 redisService.addCache("room_type" + sangongRoom.getRoomNo(), "sangong");
 
                                 createRoomResponse.setRoomNo(sangongRoom.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS)
-                                        .setIntoIp(Constant.gameServerIp).setPort(10004).build();
+                                        .setIntoIp(Constant.gameServerIp).setPort(10403).build();
                                 messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
                                 break;
                         }
@@ -331,37 +294,27 @@ public class HallClient {
                     Hall.RoomResponse.Builder createRoomResponse = Hall.RoomResponse.newBuilder();
                     if (redisService.exists("room" + addToRoomRequest.getRoomNo())) {
                         switch (redisService.getCache("room_type" + addToRoomRequest.getRoomNo())) {
-//                            case "xingning_mahjong":
-//                                XingningMahjongRoom xingningMahjongRoom = JSON.parseObject(redisService.getCache("room" + addToRoomRequest.getRoomNo()), XingningMahjongRoom.class);
-//
-//                                if (0 != xingningMahjongRoom.getGameStatus().compareTo(GameStatus.WAITING)) {
-//                                    createRoomResponse.setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.GAME_START);
-//                                } else {
-//                                    createRoomResponse.setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS)
-//                                            .setIntoIp(Constant.gameServerIp).setPort(10001);
-//                                }
-//                                messageReceive.send(this.response.setOperationType(GameBase.OperationType.ADD_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
-//                                break;
-//                            case "ruijin_mahjong":
-//                                RuijinMahjongRoom ruijinMahjongRoom = JSON.parseObject(redisService.getCache("room" + addToRoomRequest.getRoomNo()), RuijinMahjongRoom.class);
-//                                if (0 != ruijinMahjongRoom.getGameStatus().compareTo(GameStatus.WAITING)) {
-//                                    createRoomResponse.setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.GAME_START);
-//                                } else {
-//                                    createRoomResponse.setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS)
-//                                            .setIntoIp(Constant.gameServerIp).setPort(10003);
-//                                }
-//                                messageReceive.send(this.response.setOperationType(GameBase.OperationType.ADD_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
-//                                break;
-//                            case "run_quickly":
-//                                RunQuicklyRoom runQuicklyRoom = JSON.parseObject(redisService.getCache("room" + addToRoomRequest.getRoomNo()), RunQuicklyRoom.class);
-//                                if (0 != runQuicklyRoom.getGameStatus().compareTo(GameStatus.WAITING)) {
-//                                    createRoomResponse.setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.GAME_START);
-//                                } else {
-//                                    createRoomResponse.setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS)
-//                                            .setIntoIp(Constant.gameServerIp).setPort(10002);
-//                                }
-//                                messageReceive.send(this.response.setOperationType(GameBase.OperationType.ADD_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
-//                                break;
+                            case "xingning_mahjong":
+                                RongchangMahjongRoom xingningMahjongRoom = JSON.parseObject(redisService.getCache("room" + addToRoomRequest.getRoomNo()), RongchangMahjongRoom.class);
+
+                                if (0 != xingningMahjongRoom.getGameStatus().compareTo(GameStatus.WAITING)) {
+                                    createRoomResponse.setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.GAME_START);
+                                } else {
+                                    createRoomResponse.setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS)
+                                            .setIntoIp(Constant.gameServerIp).setPort(10401);
+                                }
+                                messageReceive.send(this.response.setOperationType(GameBase.OperationType.ADD_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
+                                break;
+                            case "run_quickly":
+                                RunQuicklyRoom runQuicklyRoom = JSON.parseObject(redisService.getCache("room" + addToRoomRequest.getRoomNo()), RunQuicklyRoom.class);
+                                if (0 != runQuicklyRoom.getGameStatus().compareTo(GameStatus.WAITING)) {
+                                    createRoomResponse.setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.GAME_START);
+                                } else {
+                                    createRoomResponse.setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS)
+                                            .setIntoIp(Constant.gameServerIp).setPort(10402);
+                                }
+                                messageReceive.send(this.response.setOperationType(GameBase.OperationType.ADD_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
+                                break;
                             case "sangong":
                                 SangongRoom sangongRoom = JSON.parseObject(redisService.getCache("room" + addToRoomRequest.getRoomNo()), SangongRoom.class);
                                 if (2 == sangongRoom.getPayType()) {
@@ -381,7 +334,7 @@ public class HallClient {
                                     createRoomResponse.setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.GAME_START);
                                 } else {
                                     createRoomResponse.setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS)
-                                            .setIntoIp(Constant.gameServerIp).setPort(10004);
+                                            .setIntoIp(Constant.gameServerIp).setPort(10403);
                                 }
                                 messageReceive.send(this.response.setOperationType(GameBase.OperationType.ADD_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
                                 break;
@@ -543,99 +496,99 @@ public class HallClient {
                                         //三公优先6人一桌，其它游戏4人
                                         while (userList.size() > 0) {
                                             switch (arena.getGameType()) {
-                                                case MAHJONG_XINGNING:
-                                                    XingningMahjongRoom xingningMahjongRoom = new XingningMahjongRoom(1, roomNo(), userList.get(0).getUserId(), 1, 4, 0, 1, 16382);
-                                                    Hall.RoomResponse roomResponse = Hall.RoomResponse.newBuilder().setIntoIp(Constant.gameServerIp)
-                                                            .setPort(10001).setRoomNo(String.valueOf(xingningMahjongRoom.getRoomNo())).build();
-                                                    if (userList.size() >= 4) {
-                                                        xingningMahjongRoom.addSeats(userList.subList(0, 4));
-                                                        for (int i = 0; i < 4; i++) {
-                                                            redisService.addCache("reconnect" + userList.get(i).getUserId(), "xingning_mahjong," + xingningMahjongRoom.getRoomNo());
-                                                            if (HallTcpService.userClients.containsKey(userList.get(i).getUserId())) {
-                                                                messageReceive.send(this.response.setOperationType(GameBase.OperationType.COMPETITION_START).setData(roomResponse.toByteString()).build(), userList.get(i).getUserId());
-                                                            }
-                                                        }
-                                                        userList.remove(0);
-                                                        userList.remove(0);
-                                                        userList.remove(0);
-                                                        userList.remove(0);
-                                                    }
-                                                    roomNos.add(Integer.parseInt(xingningMahjongRoom.getRoomNo()));
-                                                    redisService.addCache("room" + xingningMahjongRoom.getRoomNo(), JSON.toJSONString(xingningMahjongRoom));
-
-                                                    redisService.addCache("room_type" + xingningMahjongRoom.getRoomNo(), "xingning_mahjong");
-                                                    redisService.addCache("room_match" + xingningMahjongRoom.getRoomNo(), String.valueOf(matchNo));
-                                                    break;
-                                                case RUN_QUICKLY:
-                                                    RunQuicklyRoom runQuicklyRoom = new RunQuicklyRoom(1, roomNo(), 1, 4, 16382, userId);
-                                                    roomResponse = Hall.RoomResponse.newBuilder().setIntoIp(Constant.gameServerIp)
-                                                            .setPort(10002).setRoomNo(String.valueOf(runQuicklyRoom.getRoomNo())).build();
-                                                    if (userList.size() >= 4) {
-                                                        runQuicklyRoom.addSeats(userList.subList(0, 4));
-                                                        for (int i = 0; i < 4; i++) {
-                                                            redisService.addCache("reconnect" + userList.get(i).getUserId(), "run_quickly," + runQuicklyRoom.getRoomNo());
-                                                            if (HallTcpService.userClients.containsKey(userList.get(i).getUserId())) {
-                                                                messageReceive.send(this.response.setOperationType(GameBase.OperationType.COMPETITION_START).setData(roomResponse.toByteString()).build(), userList.get(i).getUserId());
-                                                            }
-                                                        }
-                                                        userList.remove(0);
-                                                        userList.remove(0);
-                                                        userList.remove(0);
-                                                        userList.remove(0);
-                                                    }
-                                                    roomNos.add(Integer.parseInt(runQuicklyRoom.getRoomNo()));
-                                                    redisService.addCache("room" + runQuicklyRoom.getRoomNo(), JSON.toJSONString(runQuicklyRoom));
-
-                                                    redisService.addCache("room_type" + runQuicklyRoom.getRoomNo(), "run_quickly");
-                                                    redisService.addCache("room_match" + runQuicklyRoom.getRoomNo(), String.valueOf(matchNo));
-                                                    break;
-                                                case MAHJONG_RUIJIN:
-                                                    RuijinMahjongRoom ruijinMahjongRoom = new RuijinMahjongRoom(1, roomNo(), userList.get(0).getUserId(), 1, 4, true, 1);
-                                                    roomResponse = Hall.RoomResponse.newBuilder().setIntoIp(Constant.gameServerIp)
-                                                            .setPort(10003).setRoomNo(String.valueOf(ruijinMahjongRoom.getRoomNo())).build();
-                                                    if (userList.size() >= 4) {
-                                                        ruijinMahjongRoom.addSeats(userList.subList(0, 4));
-                                                        for (int i = 0; i < 4; i++) {
-                                                            redisService.addCache("reconnect" + userList.get(i).getUserId(), "ruijin_mahjong," + ruijinMahjongRoom.getRoomNo());
-                                                            if (HallTcpService.userClients.containsKey(userList.get(i).getUserId())) {
-                                                                messageReceive.send(this.response.setOperationType(GameBase.OperationType.COMPETITION_START).setData(roomResponse.toByteString()).build(), userList.get(i).getUserId());
-                                                            }
-                                                        }
-                                                        userList.remove(0);
-                                                        userList.remove(0);
-                                                        userList.remove(0);
-                                                        userList.remove(0);
-                                                    }
-                                                    roomNos.add(Integer.parseInt(ruijinMahjongRoom.getRoomNo()));
-                                                    redisService.addCache("room" + ruijinMahjongRoom.getRoomNo(), JSON.toJSONString(ruijinMahjongRoom));
-
-                                                    redisService.addCache("room_type" + ruijinMahjongRoom.getRoomNo(), "ruijin_mahjong");
-                                                    redisService.addCache("room_match" + ruijinMahjongRoom.getRoomNo(), String.valueOf(matchNo));
-                                                    break;
-                                                case SANGONG:
-                                                    SangongRoom sangongRoom = new SangongRoom(1, String.valueOf(roomNo()), 1, 1, 0, 0, 4);
-                                                    roomResponse = Hall.RoomResponse.newBuilder().setIntoIp(Constant.gameServerIp)
-                                                            .setPort(10004).setRoomNo(String.valueOf(sangongRoom.getRoomNo())).build();
-
-                                                    if (userList.size() >= 4) {
-                                                        sangongRoom.addSeats(userList.subList(0, 4));
-                                                        for (int i = 0; i < 4; i++) {
-                                                            redisService.addCache("reconnect" + userList.get(i).getUserId(), "sangong," + sangongRoom.getRoomNo());
-                                                            if (HallTcpService.userClients.containsKey(userList.get(i).getUserId())) {
-                                                                messageReceive.send(this.response.setOperationType(GameBase.OperationType.COMPETITION_START).setData(roomResponse.toByteString()).build(), userList.get(i).getUserId());
-                                                            }
-                                                        }
-                                                        userList.remove(0);
-                                                        userList.remove(0);
-                                                        userList.remove(0);
-                                                        userList.remove(0);
-                                                    }
-                                                    roomNos.add(Integer.parseInt(sangongRoom.getRoomNo()));
-                                                    redisService.addCache("room" + sangongRoom.getRoomNo(), JSON.toJSONString(sangongRoom));
-
-                                                    redisService.addCache("room_type" + sangongRoom.getRoomNo(), "sangong");
-                                                    redisService.addCache("room_match" + sangongRoom.getRoomNo(), String.valueOf(matchNo));
-                                                    break;
+//                                                case MAHJONG_XINGNING:
+//                                                    RongchangMahjongRoom rongchangMahjongRoom = new RongchangMahjongRoom(roomNo(), userList.get(0).getUserId(), 1, 4, 0, 1, 16382);
+//                                                    Hall.RoomResponse roomResponse = Hall.RoomResponse.newBuilder().setIntoIp(Constant.gameServerIp)
+//                                                            .setPort(10001).setRoomNo(String.valueOf(rongchangMahjongRoom.getRoomNo())).build();
+//                                                    if (userList.size() >= 4) {
+//                                                        rongchangMahjongRoom.addSeats(userList.subList(0, 4));
+//                                                        for (int i = 0; i < 4; i++) {
+//                                                            redisService.addCache("reconnect" + userList.get(i).getUserId(), "xingning_mahjong," + rongchangMahjongRoom.getRoomNo());
+//                                                            if (HallTcpService.userClients.containsKey(userList.get(i).getUserId())) {
+//                                                                messageReceive.send(this.response.setOperationType(GameBase.OperationType.COMPETITION_START).setData(roomResponse.toByteString()).build(), userList.get(i).getUserId());
+//                                                            }
+//                                                        }
+//                                                        userList.remove(0);
+//                                                        userList.remove(0);
+//                                                        userList.remove(0);
+//                                                        userList.remove(0);
+//                                                    }
+//                                                    roomNos.add(Integer.parseInt(rongchangMahjongRoom.getRoomNo()));
+//                                                    redisService.addCache("room" + rongchangMahjongRoom.getRoomNo(), JSON.toJSONString(rongchangMahjongRoom));
+//
+//                                                    redisService.addCache("room_type" + rongchangMahjongRoom.getRoomNo(), "xingning_mahjong");
+//                                                    redisService.addCache("room_match" + rongchangMahjongRoom.getRoomNo(), String.valueOf(matchNo));
+//                                                    break;
+//                                                case RUN_QUICKLY:
+//                                                    RunQuicklyRoom runQuicklyRoom = new RunQuicklyRoom(1, roomNo(), 1, 4, 16382, userId);
+//                                                    roomResponse = Hall.RoomResponse.newBuilder().setIntoIp(Constant.gameServerIp)
+//                                                            .setPort(10002).setRoomNo(String.valueOf(runQuicklyRoom.getRoomNo())).build();
+//                                                    if (userList.size() >= 4) {
+//                                                        runQuicklyRoom.addSeats(userList.subList(0, 4));
+//                                                        for (int i = 0; i < 4; i++) {
+//                                                            redisService.addCache("reconnect" + userList.get(i).getUserId(), "run_quickly," + runQuicklyRoom.getRoomNo());
+//                                                            if (HallTcpService.userClients.containsKey(userList.get(i).getUserId())) {
+//                                                                messageReceive.send(this.response.setOperationType(GameBase.OperationType.COMPETITION_START).setData(roomResponse.toByteString()).build(), userList.get(i).getUserId());
+//                                                            }
+//                                                        }
+//                                                        userList.remove(0);
+//                                                        userList.remove(0);
+//                                                        userList.remove(0);
+//                                                        userList.remove(0);
+//                                                    }
+//                                                    roomNos.add(Integer.parseInt(runQuicklyRoom.getRoomNo()));
+//                                                    redisService.addCache("room" + runQuicklyRoom.getRoomNo(), JSON.toJSONString(runQuicklyRoom));
+//
+//                                                    redisService.addCache("room_type" + runQuicklyRoom.getRoomNo(), "run_quickly");
+//                                                    redisService.addCache("room_match" + runQuicklyRoom.getRoomNo(), String.valueOf(matchNo));
+//                                                    break;
+//                                                case MAHJONG_RUIJIN:
+//                                                    RuijinMahjongRoom ruijinMahjongRoom = new RuijinMahjongRoom(1, roomNo(), userList.get(0).getUserId(), 1, 4, true, 1);
+//                                                    roomResponse = Hall.RoomResponse.newBuilder().setIntoIp(Constant.gameServerIp)
+//                                                            .setPort(10003).setRoomNo(String.valueOf(ruijinMahjongRoom.getRoomNo())).build();
+//                                                    if (userList.size() >= 4) {
+//                                                        ruijinMahjongRoom.addSeats(userList.subList(0, 4));
+//                                                        for (int i = 0; i < 4; i++) {
+//                                                            redisService.addCache("reconnect" + userList.get(i).getUserId(), "ruijin_mahjong," + ruijinMahjongRoom.getRoomNo());
+//                                                            if (HallTcpService.userClients.containsKey(userList.get(i).getUserId())) {
+//                                                                messageReceive.send(this.response.setOperationType(GameBase.OperationType.COMPETITION_START).setData(roomResponse.toByteString()).build(), userList.get(i).getUserId());
+//                                                            }
+//                                                        }
+//                                                        userList.remove(0);
+//                                                        userList.remove(0);
+//                                                        userList.remove(0);
+//                                                        userList.remove(0);
+//                                                    }
+//                                                    roomNos.add(Integer.parseInt(ruijinMahjongRoom.getRoomNo()));
+//                                                    redisService.addCache("room" + ruijinMahjongRoom.getRoomNo(), JSON.toJSONString(ruijinMahjongRoom));
+//
+//                                                    redisService.addCache("room_type" + ruijinMahjongRoom.getRoomNo(), "ruijin_mahjong");
+//                                                    redisService.addCache("room_match" + ruijinMahjongRoom.getRoomNo(), String.valueOf(matchNo));
+//                                                    break;
+//                                                case SANGONG:
+//                                                    SangongRoom sangongRoom = new SangongRoom(1, String.valueOf(roomNo()), 1, 1, 0, 0, 4);
+//                                                    roomResponse = Hall.RoomResponse.newBuilder().setIntoIp(Constant.gameServerIp)
+//                                                            .setPort(10004).setRoomNo(String.valueOf(sangongRoom.getRoomNo())).build();
+//
+//                                                    if (userList.size() >= 4) {
+//                                                        sangongRoom.addSeats(userList.subList(0, 4));
+//                                                        for (int i = 0; i < 4; i++) {
+//                                                            redisService.addCache("reconnect" + userList.get(i).getUserId(), "sangong," + sangongRoom.getRoomNo());
+//                                                            if (HallTcpService.userClients.containsKey(userList.get(i).getUserId())) {
+//                                                                messageReceive.send(this.response.setOperationType(GameBase.OperationType.COMPETITION_START).setData(roomResponse.toByteString()).build(), userList.get(i).getUserId());
+//                                                            }
+//                                                        }
+//                                                        userList.remove(0);
+//                                                        userList.remove(0);
+//                                                        userList.remove(0);
+//                                                        userList.remove(0);
+//                                                    }
+//                                                    roomNos.add(Integer.parseInt(sangongRoom.getRoomNo()));
+//                                                    redisService.addCache("room" + sangongRoom.getRoomNo(), JSON.toJSONString(sangongRoom));
+//
+//                                                    redisService.addCache("room_type" + sangongRoom.getRoomNo(), "sangong");
+//                                                    redisService.addCache("room_match" + sangongRoom.getRoomNo(), String.valueOf(matchNo));
+//                                                    break;
                                             }
                                         }
 
@@ -925,29 +878,16 @@ public class HallClient {
                         roomCardIntoResponseBuilder.setRoomOwner(infoRepresentation.getRoomOwner());
                         roomCardIntoResponseBuilder.setStarted(true);
                         if (0 == infoRepresentation.getGameType().compareTo(GameType.MAHJONG_XINGNING)) {
-                            Xingning.XingningMahjongIntoResponse.Builder intoResponseBuilder = Xingning.XingningMahjongIntoResponse.newBuilder();
+                            Rongchang.RongchangMahjongIntoResponse.Builder intoResponseBuilder = Rongchang.RongchangMahjongIntoResponse.newBuilder();
                             intoResponseBuilder.setCount(infoRepresentation.getPeopleCount());
                             intoResponseBuilder.setGameTimes(infoRepresentation.getGameTotal());
 
                             JSONObject gameRule = JSON.parseObject(infoRepresentation.getGameRule());
                             intoResponseBuilder.setBaseScore(gameRule.getIntValue("baseScore"));
                             intoResponseBuilder.setGameRules(gameRule.getIntValue("gameRule"));
-                            intoResponseBuilder.setGhost(gameRule.getIntValue("ghost"));
-                            intoResponseBuilder.setMaCount(gameRule.getIntValue("initMaCount"));
                             gameInfo.setRogue(gameRule.getIntValue("rogue"));
                             roomCardIntoResponseBuilder.setData(intoResponseBuilder.build().toByteString());
                             resultResponse.addAllMaCard(JSON.parseArray(gameRule.getString("maCards"), Integer.class));
-                        } else {
-                            Ruijin.RuijinMahjongIntoResponse.Builder intoResponseBuilder = Ruijin.RuijinMahjongIntoResponse.newBuilder();
-                            intoResponseBuilder.setCount(infoRepresentation.getPeopleCount());
-                            intoResponseBuilder.setGameTimes(infoRepresentation.getGameTotal());
-
-                            JSONObject gameRule = JSON.parseObject(infoRepresentation.getGameRule());
-                            intoResponseBuilder.setBaseScore(gameRule.getIntValue("baseScore"));
-                            intoResponseBuilder.setDianpao(gameRule.getBooleanValue("dianpao"));
-                            intoResponseBuilder.setZhuangxian(gameRule.getIntValue("zhuangxian"));
-                            gameInfo.setRogue(gameRule.getIntValue("rogue"));
-                            roomCardIntoResponseBuilder.setData(intoResponseBuilder.build().toByteString());
                         }
                         mahjongReplayData.setGameInitInfo(gameInfo);
                         replayResponse.setRoomInfo(roomCardIntoResponseBuilder);
