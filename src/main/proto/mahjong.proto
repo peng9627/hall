@@ -117,25 +117,19 @@ message MahjongSeatGameInitInfo {
 }
 
 enum ScoreType {
-    PING_HU = 0; //平胡
-    ZIMO_HU = 1; //自摸
-    MENQING_HU = 2; //门清
-    PENGPENG_HU = 3; //碰碰胡
-    HUNYISE_HU = 4; //混一色
-    QINGYISE_HU = 5; //清一色
-    QIXIAODUI_HU = 6; //七小对
-    HUNYAOJIU_HU = 7; //混幺九
-    HAOHUAQIXIAODUI_HU = 8; //豪华七小对
-    SHISANYAO_HU = 9; //十三幺
-    TIAN_HU = 10; //天胡
-    DI_HU = 11; //地胡
-    QUANYAOJIU_HU = 12; //全幺九
-    QUANFAN_HU = 13; //全番
-    SHUANGHAOHUAQIXIAODUI_HU = 14; //双豪华七小对
-    SANHAOHUAQIXIAODUI_HU = 15; //三豪华七小对
-    SHIBALUOHAN_HU = 16; //十八罗汉
-    HAIDI = 17; //海底
-    GANGBAO = 18; //杠爆
-    ZHUANGYING = 19; //庄硬
-    FEI = 20; //飞
+    PINGHU = 0; //平胡
+    ZIMOHU = 1; //自摸+1
+    GUI = 2; //归+4
+    SHOUGUI = 3; //手归+6
+    TIANHU = 4; //天胡+10
+    DIHU = 5; //地胡+4
+    BAOJIAO = 6; //报叫+6
+    DADUI = 7; //大对+4
+    QINGYISE = 8; //清一色+6
+    QIDUI = 9; //七对+6
+    LONGQIDUI = 10; //拢七对+10
+    JINGOUDIAO = 11; //金勾掉+10
+    GANGSHANGPAO = 12; //杠上炮+4
+    GANGSHANGHUA = 13; //杠上花+4
+    QIANGGANG = 14; //抢杠+4
 }
