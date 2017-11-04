@@ -83,7 +83,8 @@ public class HallClient {
                         if (redisService.exists("reconnect" + userId)) {
                             String reconnectString = redisService.getCache("reconnect" + userId);
                             String[] reconnectInfo = reconnectString.split(",");
-                            if (redisService.exists("room" + reconnectInfo[1]) && "sangong".equals(reconnectInfo[0])) {
+                            if (redisService.exists("room" + reconnectInfo[1]) && ("rongchang_mahjong".equals(reconnectInfo[0])
+                                    || "run_quickly".equals(reconnectInfo[0]) || "sangong".equals(reconnectInfo[0]))) {
                                 loginResponse.setInGame(true);
                                 messageReceive.send(this.response.setOperationType(GameBase.OperationType.LOGIN).setData(loginResponse.build().toByteString()).build(), userId);
 
@@ -104,8 +105,8 @@ public class HallClient {
 
                                 Hall.Reconnect.Builder reconnect = Hall.Reconnect.newBuilder();
                                 reconnect.setRoomNo(reconnectInfo[1]);
-                                if ("xingning_mahjong".equals(reconnectInfo[0])) {
-                                    reconnect.setGameType(GameBase.GameType.MAHJONG_XINGNING);
+                                if ("rongchang_mahjong".equals(reconnectInfo[0])) {
+                                    reconnect.setGameType(GameBase.GameType.MAHJONG_RONGCHANG);
                                     reconnect.setIntoIp(Constant.gameServerIp);
                                     reconnect.setPort(10001);
                                     messageReceive.send(this.response.setOperationType(GameBase.OperationType.RECONNECTION).setData(reconnect.build().toByteString()).build(), userId);
@@ -114,12 +115,6 @@ public class HallClient {
                                     reconnect.setGameType(GameBase.GameType.RUN_QUICKLY);
                                     reconnect.setIntoIp(Constant.gameServerIp);
                                     reconnect.setPort(10002);
-                                    messageReceive.send(this.response.setOperationType(GameBase.OperationType.RECONNECTION).setData(reconnect.build().toByteString()).build(), userId);
-                                }
-                                if ("ruijin_mahjong".equals(reconnectInfo[0])) {
-                                    reconnect.setGameType(GameBase.GameType.MAHJONG_RUIJIN);
-                                    reconnect.setIntoIp(Constant.gameServerIp);
-                                    reconnect.setPort(10003);
                                     messageReceive.send(this.response.setOperationType(GameBase.OperationType.RECONNECTION).setData(reconnect.build().toByteString()).build(), userId);
                                 }
                                 if ("sangong".equals(reconnectInfo[0])) {
@@ -175,7 +170,7 @@ public class HallClient {
                         jsonObject.put("flowType", 2);
                         boolean moneyEnough = true;
                         switch (createRoomRequest.getGameType()) {
-                            case MAHJONG_XINGNING:
+                            case MAHJONG_RONGCHANG:
                                 Hall.RongchangCreateRoomRequest rongchangCreateRoomRequest = Hall.RongchangCreateRoomRequest.parseFrom(createRoomRequest.getData());
                                 RongchangMahjongRoom rongchangMahjongRoom = new RongchangMahjongRoom(
                                         roomNo(), userId, rongchangCreateRoomRequest.getGameTimes(), rongchangCreateRoomRequest.getCount(),
@@ -199,8 +194,8 @@ public class HallClient {
                                     break;
                                 }
                                 redisService.addCache("room" + rongchangMahjongRoom.getRoomNo(), JSON.toJSONString(rongchangMahjongRoom));
-                                redisService.addCache("reconnect" + userId, "xingning_mahjong," + rongchangMahjongRoom.getRoomNo());
-                                redisService.addCache("room_type" + rongchangMahjongRoom.getRoomNo(), "xingning_mahjong");
+                                redisService.addCache("reconnect" + userId, "rongchang_mahjong," + rongchangMahjongRoom.getRoomNo());
+                                redisService.addCache("room_type" + rongchangMahjongRoom.getRoomNo(), "rongchang_mahjong");
 
                                 createRoomResponse.setRoomNo(rongchangMahjongRoom.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS)
                                         .setIntoIp(Constant.gameServerIp).setPort(10401).build();
@@ -294,10 +289,10 @@ public class HallClient {
                     Hall.RoomResponse.Builder createRoomResponse = Hall.RoomResponse.newBuilder();
                     if (redisService.exists("room" + addToRoomRequest.getRoomNo())) {
                         switch (redisService.getCache("room_type" + addToRoomRequest.getRoomNo())) {
-                            case "xingning_mahjong":
-                                RongchangMahjongRoom xingningMahjongRoom = JSON.parseObject(redisService.getCache("room" + addToRoomRequest.getRoomNo()), RongchangMahjongRoom.class);
+                            case "rongchang_mahjong":
+                                RongchangMahjongRoom rongchangMahjongRoom = JSON.parseObject(redisService.getCache("room" + addToRoomRequest.getRoomNo()), RongchangMahjongRoom.class);
 
-                                if (0 != xingningMahjongRoom.getGameStatus().compareTo(GameStatus.WAITING)) {
+                                if (0 != rongchangMahjongRoom.getGameStatus().compareTo(GameStatus.WAITING)) {
                                     createRoomResponse.setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.GAME_START);
                                 } else {
                                     createRoomResponse.setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS)

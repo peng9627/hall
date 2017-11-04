@@ -363,10 +363,9 @@ enum ErrorCode {
 }
 
 enum GameType {
-    MAHJONG_XINGNING = 0; //兴宁麻将
-    MAHJONG_RUIJIN = 1; //瑞金麻将
-    RUN_QUICKLY = 2; //跑得快
-    SANGONG = 3; //三公
+    MAHJONG_RONGCHANG = 0; //荣昌麻将
+    RUN_QUICKLY = 1; //跑得快
+    SANGONG = 2; //三公
 }
 
 enum MessageType {
