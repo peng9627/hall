@@ -292,6 +292,21 @@ public class HallClient {
                             case "rongchang_mahjong":
                                 RongchangMahjongRoom rongchangMahjongRoom = JSON.parseObject(redisService.getCache("room" + addToRoomRequest.getRoomNo()), RongchangMahjongRoom.class);
 
+                                boolean sameIp = false;
+                                if (0 == (rongchangMahjongRoom.getGameRules() >> 3) % 2) {
+                                    for (Seat seat : rongchangMahjongRoom.getSeats()) {
+                                        if (seat.getIp().equals(ip)) {
+                                            messageReceive.send(this.response.setOperationType(GameBase.OperationType.ADD_ROOM).setData(Hall.RoomResponse.newBuilder()
+                                                    .setError(GameBase.ErrorCode.SAME_IP).build().toByteString()).build(), userId);
+                                            sameIp = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (sameIp) {
+                                    break;
+                                }
+
                                 if (0 != rongchangMahjongRoom.getGameStatus().compareTo(GameStatus.WAITING)) {
                                     createRoomResponse.setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.GAME_START);
                                 } else {

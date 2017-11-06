@@ -360,6 +360,7 @@ enum ErrorCode {
     AREADY_REGISTRATION = 27; //已经报名比赛
     AREADY_DISSOLVE = 28; //短时间内不能多次申请解散
     GAME_START = 29; //游戏已经开始
+    SAME_IP = 30; //同ip不能进入游戏
 }
 
 enum GameType {
