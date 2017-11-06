@@ -32,7 +32,7 @@ public class HallTcpService implements Runnable {
     @Override
     public void run() {
 
-        int port = 20000;
+        int port = 10000;
         try {
             serverSocket = new ServerSocket(port);
             started = true;

@@ -108,25 +108,25 @@ public class HallClient {
                                 if ("xingning_mahjong".equals(reconnectInfo[0])) {
                                     reconnect.setGameType(GameBase.GameType.MAHJONG_XINGNING);
                                     reconnect.setIntoIp(Constant.gameServerIp);
-                                    reconnect.setPort(20001);
+                                    reconnect.setPort(10001);
                                     messageReceive.send(this.response.setOperationType(GameBase.OperationType.RECONNECTION).setData(reconnect.build().toByteString()).build(), userId);
                                 }
                                 if ("run_quickly".equals(reconnectInfo[0])) {
                                     reconnect.setGameType(GameBase.GameType.RUN_QUICKLY);
                                     reconnect.setIntoIp(Constant.gameServerIp);
-                                    reconnect.setPort(20002);
+                                    reconnect.setPort(10002);
                                     messageReceive.send(this.response.setOperationType(GameBase.OperationType.RECONNECTION).setData(reconnect.build().toByteString()).build(), userId);
                                 }
                                 if ("ruijin_mahjong".equals(reconnectInfo[0])) {
                                     reconnect.setGameType(GameBase.GameType.MAHJONG_RUIJIN);
                                     reconnect.setIntoIp(Constant.gameServerIp);
-                                    reconnect.setPort(20003);
+                                    reconnect.setPort(10003);
                                     messageReceive.send(this.response.setOperationType(GameBase.OperationType.RECONNECTION).setData(reconnect.build().toByteString()).build(), userId);
                                 }
                                 if ("sangong".equals(reconnectInfo[0])) {
                                     reconnect.setGameType(GameBase.GameType.SANGONG);
                                     reconnect.setIntoIp(Constant.gameServerIp);
-                                    reconnect.setPort(20004);
+                                    reconnect.setPort(10004);
                                     messageReceive.send(this.response.setOperationType(GameBase.OperationType.RECONNECTION).setData(reconnect.build().toByteString()).build(), userId);
                                 }
                                 break;
@@ -240,7 +240,7 @@ public class HallClient {
                                 redisService.addCache("room_type" + ruijinMahjongRoom.getRoomNo(), "ruijin_mahjong");
 
                                 createRoomResponse.setRoomNo(ruijinMahjongRoom.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS)
-                                        .setIntoIp(Constant.gameServerIp).setPort(20003).build();
+                                        .setIntoIp(Constant.gameServerIp).setPort(10003).build();
                                 messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
                                 break;
                             case RUN_QUICKLY:
@@ -277,7 +277,7 @@ public class HallClient {
                                 redisService.addCache("room_type" + runQuicklyRoom.getRoomNo(), "run_quickly");
 
                                 createRoomResponse.setRoomNo(runQuicklyRoom.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS)
-                                        .setIntoIp(Constant.gameServerIp).setPort(20002).build();
+                                        .setIntoIp(Constant.gameServerIp).setPort(10002).build();
                                 messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
                                 break;
                             case SANGONG:
@@ -313,7 +313,7 @@ public class HallClient {
                                 redisService.addCache("room_type" + sangongRoom.getRoomNo(), "sangong");
 
                                 createRoomResponse.setRoomNo(sangongRoom.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS)
-                                        .setIntoIp(Constant.gameServerIp).setPort(20004).build();
+                                        .setIntoIp(Constant.gameServerIp).setPort(10004).build();
                                 messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
                                 break;
                         }
@@ -348,7 +348,7 @@ public class HallClient {
                                     createRoomResponse.setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.GAME_START);
                                 } else {
                                     createRoomResponse.setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS)
-                                            .setIntoIp(Constant.gameServerIp).setPort(20003);
+                                            .setIntoIp(Constant.gameServerIp).setPort(10003);
                                 }
                                 messageReceive.send(this.response.setOperationType(GameBase.OperationType.ADD_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
                                 break;
@@ -358,7 +358,7 @@ public class HallClient {
                                     createRoomResponse.setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.GAME_START);
                                 } else {
                                     createRoomResponse.setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS)
-                                            .setIntoIp(Constant.gameServerIp).setPort(20002);
+                                            .setIntoIp(Constant.gameServerIp).setPort(10002);
                                 }
                                 messageReceive.send(this.response.setOperationType(GameBase.OperationType.ADD_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
                                 break;
@@ -381,7 +381,7 @@ public class HallClient {
                                     createRoomResponse.setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.GAME_START);
                                 } else {
                                     createRoomResponse.setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS)
-                                            .setIntoIp(Constant.gameServerIp).setPort(20004);
+                                            .setIntoIp(Constant.gameServerIp).setPort(10004);
                                 }
                                 messageReceive.send(this.response.setOperationType(GameBase.OperationType.ADD_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
                                 break;
@@ -546,7 +546,7 @@ public class HallClient {
                                                 case MAHJONG_XINGNING:
                                                     XingningMahjongRoom xingningMahjongRoom = new XingningMahjongRoom(1, roomNo(), userList.get(0).getUserId(), 1, 4, 0, 1, 16382);
                                                     Hall.RoomResponse roomResponse = Hall.RoomResponse.newBuilder().setIntoIp(Constant.gameServerIp)
-                                                            .setPort(20001).setRoomNo(String.valueOf(xingningMahjongRoom.getRoomNo())).build();
+                                                            .setPort(10001).setRoomNo(String.valueOf(xingningMahjongRoom.getRoomNo())).build();
                                                     if (userList.size() >= 4) {
                                                         xingningMahjongRoom.addSeats(userList.subList(0, 4));
                                                         for (int i = 0; i < 4; i++) {
@@ -569,7 +569,7 @@ public class HallClient {
                                                 case RUN_QUICKLY:
                                                     RunQuicklyRoom runQuicklyRoom = new RunQuicklyRoom(1, roomNo(), 1, 4, 16382, userId);
                                                     roomResponse = Hall.RoomResponse.newBuilder().setIntoIp(Constant.gameServerIp)
-                                                            .setPort(20002).setRoomNo(String.valueOf(runQuicklyRoom.getRoomNo())).build();
+                                                            .setPort(10002).setRoomNo(String.valueOf(runQuicklyRoom.getRoomNo())).build();
                                                     if (userList.size() >= 4) {
                                                         runQuicklyRoom.addSeats(userList.subList(0, 4));
                                                         for (int i = 0; i < 4; i++) {
@@ -592,7 +592,7 @@ public class HallClient {
                                                 case MAHJONG_RUIJIN:
                                                     RuijinMahjongRoom ruijinMahjongRoom = new RuijinMahjongRoom(1, roomNo(), userList.get(0).getUserId(), 1, 4, true, 1);
                                                     roomResponse = Hall.RoomResponse.newBuilder().setIntoIp(Constant.gameServerIp)
-                                                            .setPort(20003).setRoomNo(String.valueOf(ruijinMahjongRoom.getRoomNo())).build();
+                                                            .setPort(10003).setRoomNo(String.valueOf(ruijinMahjongRoom.getRoomNo())).build();
                                                     if (userList.size() >= 4) {
                                                         ruijinMahjongRoom.addSeats(userList.subList(0, 4));
                                                         for (int i = 0; i < 4; i++) {
@@ -615,7 +615,7 @@ public class HallClient {
                                                 case SANGONG:
                                                     SangongRoom sangongRoom = new SangongRoom(1, String.valueOf(roomNo()), 1, 1, 0, 0, 4);
                                                     roomResponse = Hall.RoomResponse.newBuilder().setIntoIp(Constant.gameServerIp)
-                                                            .setPort(20004).setRoomNo(String.valueOf(sangongRoom.getRoomNo())).build();
+                                                            .setPort(10004).setRoomNo(String.valueOf(sangongRoom.getRoomNo())).build();
 
                                                     if (userList.size() >= 4) {
                                                         sangongRoom.addSeats(userList.subList(0, 4));
