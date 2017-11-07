@@ -90,6 +90,8 @@ message MahjongSeatGameBalance {
     uint32 dianpaoCount = 5; //点炮次数
     uint32 angang = 6; //暗杠次数
     uint32 minggang = 7; //明杠次数
+    uint32 chajiao = 8; //查叫次数
+    uint32 peijiao = 9; //赔叫次数
 }
 
 //回放数据

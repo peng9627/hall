@@ -108,19 +108,19 @@ public class HallClient {
                                 if ("rongchang_mahjong".equals(reconnectInfo[0])) {
                                     reconnect.setGameType(GameBase.GameType.MAHJONG_RONGCHANG);
                                     reconnect.setIntoIp(Constant.gameServerIp);
-                                    reconnect.setPort(10001);
+                                    reconnect.setPort(10401);
                                     messageReceive.send(this.response.setOperationType(GameBase.OperationType.RECONNECTION).setData(reconnect.build().toByteString()).build(), userId);
                                 }
                                 if ("run_quickly".equals(reconnectInfo[0])) {
                                     reconnect.setGameType(GameBase.GameType.RUN_QUICKLY);
                                     reconnect.setIntoIp(Constant.gameServerIp);
-                                    reconnect.setPort(10002);
+                                    reconnect.setPort(10402);
                                     messageReceive.send(this.response.setOperationType(GameBase.OperationType.RECONNECTION).setData(reconnect.build().toByteString()).build(), userId);
                                 }
                                 if ("sangong".equals(reconnectInfo[0])) {
                                     reconnect.setGameType(GameBase.GameType.SANGONG);
                                     reconnect.setIntoIp(Constant.gameServerIp);
-                                    reconnect.setPort(10004);
+                                    reconnect.setPort(10404);
                                     messageReceive.send(this.response.setOperationType(GameBase.OperationType.RECONNECTION).setData(reconnect.build().toByteString()).build(), userId);
                                 }
                                 break;
@@ -293,7 +293,7 @@ public class HallClient {
                                 RongchangMahjongRoom rongchangMahjongRoom = JSON.parseObject(redisService.getCache("room" + addToRoomRequest.getRoomNo()), RongchangMahjongRoom.class);
 
                                 boolean sameIp = false;
-                                if (0 == (rongchangMahjongRoom.getGameRules() >> 3) % 2) {
+                                if (1 == (rongchangMahjongRoom.getGameRules() >> 3) % 2) {
                                     for (Seat seat : rongchangMahjongRoom.getSeats()) {
                                         if (seat.getIp().equals(ip)) {
                                             messageReceive.send(this.response.setOperationType(GameBase.OperationType.ADD_ROOM).setData(Hall.RoomResponse.newBuilder()
