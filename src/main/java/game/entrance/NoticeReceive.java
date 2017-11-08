@@ -93,7 +93,6 @@ public class NoticeReceive implements Runnable {
     private void doPost(DataInputStream reader) throws Exception {
         String line = reader.readLine();
         while (line != null) {
-            System.out.println(line);
             line = reader.readLine();
             if ("".equals(line)) {
                 break;
@@ -177,6 +176,10 @@ public class NoticeReceive implements Runnable {
                     redisService.delete("agent_rooms" + socketRequest.getUserId());
                 }
                 redisService.unlock("lock_agent_rooms" + socketRequest.getUserId());
+                break;
+            case "/4":
+                apiResponse.setCode(0);
+                apiResponse.setData(HallTcpService.userClients.size());
                 break;
         }
 
