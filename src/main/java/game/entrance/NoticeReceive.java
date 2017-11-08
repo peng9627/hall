@@ -47,7 +47,7 @@ public class NoticeReceive implements Runnable {
             logger.info("socket.connection.fail.message" + e.getMessage());
             close();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e.toString(), e);
         }
         is = inputStream;
         os = outputStream;
@@ -82,7 +82,7 @@ public class NoticeReceive implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e.toString(), e);
         } finally {
             this.close();
         }
@@ -92,7 +92,6 @@ public class NoticeReceive implements Runnable {
     private void doPost(DataInputStream reader) throws Exception {
         String line = reader.readLine();
         while (line != null) {
-            System.out.println(line);
             line = reader.readLine();
             if ("".equals(line)) {
                 break;
@@ -119,7 +118,7 @@ public class NoticeReceive implements Runnable {
         SocketRequest socketRequest = JSON.parseObject(param, SocketRequest.class);
         ApiResponse apiResponse = new ApiResponse();
         switch (requestPath) {
-            case "/1":
+            case "/1"://更新货币
                 synchronized (this) {
                     wait(1000);
                 }
@@ -132,6 +131,10 @@ public class NoticeReceive implements Runnable {
                     HallTcpService.userClients.get(socketRequest.getUserId()).send(GameBase.BaseConnection.newBuilder().setOperationType(GameBase.OperationType.CURRENCY).setData(currencyResponse.toByteString()).build(), socketRequest.getUserId());
                 }
                 apiResponse.setCode(0);
+                break;
+            case "/4":
+                apiResponse.setCode(0);
+                apiResponse.setData(HallTcpService.userClients.size());
                 break;
         }
 
@@ -156,7 +159,7 @@ public class NoticeReceive implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e.toString(), e);
         }
     }
 }
