@@ -191,6 +191,21 @@ message AppVersion {
     int32 version = 1;
 }
 
+//排行榜
+message RankingResponse {
+    repeated RankingUser dianpaoRanking = 1; //点炮
+    repeated RankingUser zimoRanking = 2; //自摸
+    repeated RankingUser countRanking = 3; //游戏次数
+}
+
+message RankingUser {
+    int32 userId = 1;
+    string nickname = 2;
+    int32 dianpaoCount = 3; //点炮次数
+    int32 zimoCount = 4; //自摸次数
+    int32 gameCount = 5; //游戏次数
+}
+
 //登录终端
 enum Agent {
     ANDROID = 0; //安卓

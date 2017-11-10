@@ -279,6 +279,7 @@ enum OperationType {
     MATCH_BALANCE = 33; //比赛结果
     MATCH_ELIMINATE_SCORE = 34; //比赛淘汰分
     MATCH_SCORE = 35; //比赛积分更新
+    RANGING = 36; //排行榜
 
     //麻将
     CONNECTION = 50; //连接
@@ -365,8 +366,8 @@ enum ErrorCode {
 
 enum GameType {
     MAHJONG_RONGCHANG = 0; //荣昌麻将
-    RUN_QUICKLY = 1; //跑得快
-    SANGONG = 2; //三公
+    RUN_QUICKLY = 2; //跑得快
+    SANGONG = 3; //三公
 }
 
 enum MessageType {

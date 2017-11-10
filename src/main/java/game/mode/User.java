@@ -26,6 +26,8 @@ public class User {
     private Date lastLoginDate;         //上次登陆时间
     private Boolean status;             //状态
     private Integer integral;           //积分
+    private Integer dianPao;
+    private Integer zimo;
 
     public String getId() {
         return id;
@@ -169,5 +171,21 @@ public class User {
 
     public void setIntegral(Integer integral) {
         this.integral = integral;
+    }
+
+    public Integer getDianPao() {
+        return dianPao;
+    }
+
+    public void setDianPao(Integer dianPao) {
+        this.dianPao = dianPao;
+    }
+
+    public Integer getZimo() {
+        return zimo;
+    }
+
+    public void setZimo(Integer zimo) {
+        this.zimo = zimo;
     }
 }

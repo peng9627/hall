@@ -151,6 +151,9 @@ public class HallClient {
                         Hall.TaskResponse taskResponse = Hall.TaskResponse.newBuilder().setCount(100).setName("每日对战100局")
                                 .setReward(100).setTodayGameCount(user.getTodayGameCount()).build();
                         messageReceive.send(this.response.setOperationType(GameBase.OperationType.TASK).setData(taskResponse.toByteString()).build(), userId);
+
+                        Hall.RankingResponse rankingResponse = ranking();
+                        messageReceive.send(this.response.setOperationType(GameBase.OperationType.RANGING).setData(rankingResponse.toByteString()).build(), userId);
                     } else {
                         messageReceive.send(this.response.setOperationType(GameBase.OperationType.LOGIN)
                                 .setData(loginResponse.setErrorCode(GameBase.ErrorCode.ERROR_UNKNOW).build().toByteString()).build(), 0);
@@ -271,7 +274,7 @@ public class HallClient {
                                 redisService.addCache("room_type" + sangongRoom.getRoomNo(), "sangong");
 
                                 createRoomResponse.setRoomNo(sangongRoom.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS)
-                                        .setIntoIp(Constant.gameServerIp).setPort(10403).build();
+                                        .setIntoIp(Constant.gameServerIp).setPort(10404).build();
                                 messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
                                 break;
                         }
@@ -344,7 +347,7 @@ public class HallClient {
                                     createRoomResponse.setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.GAME_START);
                                 } else {
                                     createRoomResponse.setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS)
-                                            .setIntoIp(Constant.gameServerIp).setPort(10403);
+                                            .setIntoIp(Constant.gameServerIp).setPort(10404);
                                 }
                                 messageReceive.send(this.response.setOperationType(GameBase.OperationType.ADD_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
                                 break;
@@ -400,6 +403,9 @@ public class HallClient {
                         Hall.TaskResponse taskResponse = Hall.TaskResponse.newBuilder().setCount(100).setName("每日对战100局")
                                 .setReward(100).setTodayGameCount(user.getTodayGameCount()).build();
                         messageReceive.send(this.response.setOperationType(GameBase.OperationType.TASK).setData(taskResponse.toByteString()).build(), userId);
+
+                        Hall.RankingResponse rankingResponse = ranking();
+                        messageReceive.send(this.response.setOperationType(GameBase.OperationType.RANGING).setData(rankingResponse.toByteString()).build(), userId);
                     }
 
                     break;
@@ -913,6 +919,45 @@ public class HallClient {
             replayResponse.setErrorCode(GameBase.ErrorCode.ERROR_UNKNOW);
         }
         return replayResponse.build();
+    }
+
+    public Hall.RankingResponse ranking() {
+        Hall.RankingResponse.Builder rankingResponse = Hall.RankingResponse.newBuilder();
+        jsonObject.clear();
+        jsonObject.put("rankingType", 0);
+        ApiResponse<List<User>> usersResponse = JSON.parseObject(HttpUtil.urlConnectionByRsa(Constant.apiUrl + Constant.userRankingList, jsonObject.toJSONString()),
+                new TypeReference<ApiResponse<List<User>>>() {
+                });
+        if (0 == usersResponse.getCode() && null != usersResponse.getData()) {
+            for (User user : usersResponse.getData()) {
+                rankingResponse.addDianpaoRanking(Hall.RankingUser.newBuilder().setUserId(user.getUserId())
+                        .setNickname(user.getNickname()).setDianpaoCount(user.getDianPao())
+                        .setZimoCount(user.getZimo()).setGameCount(user.getGameCount()).build());
+            }
+        }
+        jsonObject.put("rankingType", 1);
+        usersResponse = JSON.parseObject(HttpUtil.urlConnectionByRsa(Constant.apiUrl + Constant.userRankingList, jsonObject.toJSONString()),
+                new TypeReference<ApiResponse<List<User>>>() {
+                });
+        if (0 == usersResponse.getCode() && null != usersResponse.getData()) {
+            for (User user : usersResponse.getData()) {
+                rankingResponse.addZimoRanking(Hall.RankingUser.newBuilder().setUserId(user.getUserId())
+                        .setNickname(user.getNickname()).setDianpaoCount(user.getDianPao())
+                        .setZimoCount(user.getZimo()).setGameCount(user.getGameCount()).build());
+            }
+        }
+        jsonObject.put("rankingType", 2);
+        usersResponse = JSON.parseObject(HttpUtil.urlConnectionByRsa(Constant.apiUrl + Constant.userRankingList, jsonObject.toJSONString()),
+                new TypeReference<ApiResponse<List<User>>>() {
+                });
+        if (0 == usersResponse.getCode() && null != usersResponse.getData()) {
+            for (User user : usersResponse.getData()) {
+                rankingResponse.addCountRanking(Hall.RankingUser.newBuilder().setUserId(user.getUserId())
+                        .setNickname(user.getNickname()).setDianpaoCount(user.getDianPao())
+                        .setZimoCount(user.getZimo()).setGameCount(user.getGameCount()).build());
+            }
+        }
+        return rankingResponse.build();
     }
 
 }
