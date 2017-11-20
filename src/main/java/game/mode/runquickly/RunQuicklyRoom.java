@@ -25,6 +25,7 @@ public class RunQuicklyRoom {
     private int multiple;
     private int gameCount;
     private int gameRules;
+    private boolean aa;
 
     public int getBaseScore() {
         return baseScore;
@@ -114,10 +115,18 @@ public class RunQuicklyRoom {
         this.gameRules = gameRules;
     }
 
+    public boolean isAa() {
+        return aa;
+    }
+
+    public void setAa(boolean aa) {
+        this.aa = aa;
+    }
+
     public RunQuicklyRoom() {
     }
 
-    public RunQuicklyRoom(int baseScore, String roomNo, int gameTimes, int count, int gameRules, int roomOwner) {
+    public RunQuicklyRoom(int baseScore, String roomNo, int gameTimes, int count, int gameRules, int roomOwner, boolean aa) {
         this.baseScore = baseScore;
         this.roomNo = roomNo;
         this.roomOwner = roomOwner;
@@ -126,6 +135,7 @@ public class RunQuicklyRoom {
         this.gameRules = gameRules;
         this.gameStatus = GameStatus.WAITING;
         this.multiple = 1;
+        this.aa = aa;
         seatNos = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             seatNos.add(i + 1);

@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import game.constant.Constant;
 import game.mode.*;
 import game.redis.RedisService;
 import game.utils.HttpUtil;
@@ -125,13 +126,17 @@ public class NoticeReceive implements Runnable {
                 }
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("userId", socketRequest.getUserId());
-                ApiResponse<User> userResponse = JSON.parseObject(HttpUtil.urlConnectionByRsa("http://127.0.0.1:9999/api/user/info", jsonObject.toJSONString()), new TypeReference<ApiResponse<User>>() {
+                ApiResponse<User> userResponse = JSON.parseObject(HttpUtil.urlConnectionByRsa(Constant.apiUrl + Constant.userInfoUrl, jsonObject.toJSONString()), new TypeReference<ApiResponse<User>>() {
                 });
                 if (0 == userResponse.getCode() && HallTcpService.userClients.containsKey(socketRequest.getUserId())) {
                     Hall.CurrencyResponse currencyResponse = Hall.CurrencyResponse.newBuilder().addCurrency(userResponse.getData().getMoney()).addCurrency(userResponse.getData().getIntegral()).build();
                     HallTcpService.userClients.get(socketRequest.getUserId()).send(GameBase.BaseConnection.newBuilder().setOperationType(GameBase.OperationType.CURRENCY).setData(currencyResponse.toByteString()).build(), socketRequest.getUserId());
                 }
                 apiResponse.setCode(0);
+                break;
+            case "/4":
+                apiResponse.setCode(0);
+                apiResponse.setData(HallTcpService.userClients.size());
                 break;
         }
 

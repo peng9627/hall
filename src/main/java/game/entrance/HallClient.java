@@ -186,9 +186,9 @@ public class HallClient {
                                 }
                                 jsonObject.put("description", "开房间" + rongchangMahjongRoom.getRoomNo());
                                 if (8 == rongchangCreateRoomRequest.getGameTimes()) {
-                                    jsonObject.put("money", 1);
-                                } else {
                                     jsonObject.put("money", 2);
+                                } else {
+                                    jsonObject.put("money", 3);
                                 }
                                 if (userResponse.getData().getMoney() < jsonObject.getIntValue("money")) {
                                     moneyEnough = false;
@@ -207,7 +207,7 @@ public class HallClient {
                             case RUN_QUICKLY:
                                 Hall.RunQuicklyCreateRoomRequest runQuicklyCreateRoomRequest = Hall.RunQuicklyCreateRoomRequest.parseFrom(createRoomRequest.getData());
                                 RunQuicklyRoom runQuicklyRoom = new RunQuicklyRoom(runQuicklyCreateRoomRequest.getBaseScore(), roomNo(), runQuicklyCreateRoomRequest.getGameTimes(),
-                                        runQuicklyCreateRoomRequest.getCount(), runQuicklyCreateRoomRequest.getGameRules(), userId);
+                                        runQuicklyCreateRoomRequest.getCount(), runQuicklyCreateRoomRequest.getGameRules(), userId, runQuicklyCreateRoomRequest.getAa());
                                 jsonObject.put("description", "开房间" + runQuicklyRoom.getRoomNo());
                                 createRoomResponse = Hall.RoomResponse.newBuilder();
                                 if (0 == runQuicklyRoom.getCount()) {
@@ -217,13 +217,13 @@ public class HallClient {
                                 }
                                 switch (runQuicklyRoom.getGameTimes()) {
                                     case 4:
-                                        jsonObject.put("money", 1);
+                                        jsonObject.put("money", 3);
                                         break;
                                     case 8:
-                                        jsonObject.put("money", 2);
+                                        jsonObject.put("money", 4);
                                         break;
-                                    case 16:
-                                        jsonObject.put("money", 3);
+                                    case 12:
+                                        jsonObject.put("money", 5);
                                         break;
                                 }
                                 createRoomResponse = Hall.RoomResponse.newBuilder();
@@ -256,10 +256,10 @@ public class HallClient {
                                     jsonObject.put("description", "开房间" + sangongRoom.getRoomNo());
                                     switch (sangongRoom.getGameTimes()) {
                                         case 10:
-                                            jsonObject.put("money", 3);
+                                            jsonObject.put("money", 4);
                                             break;
                                         case 20:
-                                            jsonObject.put("money", 6);
+                                            jsonObject.put("money", 8);
                                             break;
                                     }
                                     if (userResponse.getData().getMoney() < jsonObject.getIntValue("money")) {
@@ -307,6 +307,11 @@ public class HallClient {
                                     }
                                 }
                                 if (sameIp) {
+                                    break;
+                                }
+                                if (rongchangMahjongRoom.getCount() == rongchangMahjongRoom.getSeats().size()) {
+                                    messageReceive.send(this.response.setOperationType(GameBase.OperationType.ADD_ROOM).setData(Hall.RoomResponse.newBuilder()
+                                            .setError(GameBase.ErrorCode.COUNT_FULL).build().toByteString()).build(), userId);
                                     break;
                                 }
 

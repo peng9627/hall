@@ -72,7 +72,8 @@ message RunQuicklyCreateRoomRequest {
     uint32 baseScore = 1; //底分
     uint32 gameTimes = 2; //游戏局数
     uint32 count = 3; //人数
-    uint32 gameRules = 4; //低位到高位顺序（不可反打，飞机炸）
+    uint32 gameRules = 4; //低位到高位顺序（不可反打，飞机炸,四个二，gpsGPS）
+    bool aa = 5; //AA支付
 }
 
 //三公创建房间  CREATE_ROOM
