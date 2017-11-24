@@ -1,5 +1,6 @@
 package game.mode;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -28,6 +29,9 @@ public class User {
     private Integer integral;           //积分
     private Integer dianPao;
     private Integer zimo;
+    private Integer parentId;
+    private BigDecimal reward;
+    private int spreadCount;
 
     public String getId() {
         return id;
@@ -187,5 +191,29 @@ public class User {
 
     public void setZimo(Integer zimo) {
         this.zimo = zimo;
+    }
+
+    public Integer getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
+    }
+
+    public BigDecimal getReward() {
+        return reward;
+    }
+
+    public void setReward(BigDecimal reward) {
+        this.reward = reward;
+    }
+
+    public int getSpreadCount() {
+        return spreadCount;
+    }
+
+    public void setSpreadCount(int spreadCount) {
+        this.spreadCount = spreadCount;
     }
 }

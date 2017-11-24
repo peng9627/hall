@@ -28,11 +28,22 @@ message UserInfoResponse {
     bool sex = 7; //性别
     uint32 gameCount = 8; //游戏次数
     uint32 todayGameCount = 9; //今日对战次数
+    uint32 parent = 10; //上级
+    uint32 spreadCount = 11; //推广人数
+}
+//绑定上级 BING_PARENT
+message BindParentRequest {
+    uint32 parent = 1; //上级
+}
+
+//绑定上级 BING_PARENT
+message BindParentResponse {
+    ErrorCode errorCode = 1; //错误码
 }
 
 //货币 CURRENCY
 message CurrencyResponse {
-    repeated int32 currency = 1; //货币 1.房卡，2.积分
+    repeated int32 currency = 1; //货币 1.房卡，2.积分，3.佣金X100
 }
 
 //创建房间

@@ -98,9 +98,13 @@ public class HallClient {
                                 userInfoResponse.setGameCount(user.getGameCount());
                                 userInfoResponse.setSex(user.getSex().equals("1"));
                                 userInfoResponse.setTodayGameCount(user.getTodayGameCount());
+                                userInfoResponse.setParent(user.getParentId());
+                                userInfoResponse.setSpreadCount(user.getSpreadCount());
                                 messageReceive.send(this.response.setOperationType(GameBase.OperationType.USER_INFO).setData(userInfoResponse.build().toByteString()).build(), userId);
 
-                                Hall.CurrencyResponse currencyResponse = Hall.CurrencyResponse.newBuilder().addCurrency(user.getMoney()).addCurrency(user.getIntegral()).build();
+                                Hall.CurrencyResponse currencyResponse = Hall.CurrencyResponse.newBuilder()
+                                        .addCurrency(user.getMoney()).addCurrency(user.getIntegral())
+                                        .addCurrency(user.getReward() == null ? 0 : (int) (user.getReward().doubleValue() * 100)).build();
                                 messageReceive.send(this.response.setOperationType(GameBase.OperationType.CURRENCY).setData(currencyResponse.toByteString()).build(), userId);
 
                                 Hall.Reconnect.Builder reconnect = Hall.Reconnect.newBuilder();
@@ -140,9 +144,13 @@ public class HallClient {
                         userInfoResponse.setGameCount(user.getGameCount());
                         userInfoResponse.setSex(user.getSex().equals("1"));
                         userInfoResponse.setTodayGameCount(user.getTodayGameCount());
+                        userInfoResponse.setParent(user.getParentId());
+                        userInfoResponse.setSpreadCount(user.getSpreadCount());
                         messageReceive.send(this.response.setOperationType(GameBase.OperationType.USER_INFO).setData(userInfoResponse.build().toByteString()).build(), userId);
 
-                        Hall.CurrencyResponse currencyResponse = Hall.CurrencyResponse.newBuilder().addCurrency(user.getMoney()).addCurrency(user.getIntegral()).build();
+                        Hall.CurrencyResponse currencyResponse = Hall.CurrencyResponse.newBuilder()
+                                .addCurrency(user.getMoney()).addCurrency(user.getIntegral())
+                                .addCurrency(user.getReward() == null ? 0 : (int) (user.getReward().doubleValue() * 100)).build();
                         messageReceive.send(this.response.setOperationType(GameBase.OperationType.CURRENCY).setData(currencyResponse.toByteString()).build(), userId);
 
                         GameBase.RecordResponse recordResponse = gameRecord();
@@ -184,18 +192,26 @@ public class HallClient {
                                     messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
                                     break;
                                 }
-                                jsonObject.put("description", "开房间" + rongchangMahjongRoom.getRoomNo());
-                                if (8 == rongchangCreateRoomRequest.getGameTimes()) {
-                                    jsonObject.put("money", 2);
-                                } else {
-                                    jsonObject.put("money", 3);
-                                }
-                                if (userResponse.getData().getMoney() < jsonObject.getIntValue("money")) {
+                                if (!rongchangCreateRoomRequest.getAa()) {
+                                    jsonObject.put("description", "开房间" + rongchangMahjongRoom.getRoomNo());
+                                    if (8 == rongchangCreateRoomRequest.getGameTimes()) {
+                                        jsonObject.put("money", 2);
+                                    } else {
+                                        jsonObject.put("money", 3);
+                                    }
+                                    if (userResponse.getData().getMoney() < jsonObject.getIntValue("money")) {
+                                        moneyEnough = false;
+                                        createRoomResponse.setError(GameBase.ErrorCode.MONEY_NOT_ENOUGH);
+                                        messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
+                                        break;
+                                    }
+                                } else if (userResponse.getData().getMoney() < 1) {
                                     moneyEnough = false;
                                     createRoomResponse.setError(GameBase.ErrorCode.MONEY_NOT_ENOUGH);
                                     messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
                                     break;
                                 }
+
                                 redisService.addCache("room" + rongchangMahjongRoom.getRoomNo(), JSON.toJSONString(rongchangMahjongRoom));
                                 redisService.addCache("reconnect" + userId, "rongchang_mahjong," + rongchangMahjongRoom.getRoomNo());
                                 redisService.addCache("room_type" + rongchangMahjongRoom.getRoomNo(), "rongchang_mahjong");
@@ -208,31 +224,40 @@ public class HallClient {
                                 Hall.RunQuicklyCreateRoomRequest runQuicklyCreateRoomRequest = Hall.RunQuicklyCreateRoomRequest.parseFrom(createRoomRequest.getData());
                                 RunQuicklyRoom runQuicklyRoom = new RunQuicklyRoom(runQuicklyCreateRoomRequest.getBaseScore(), roomNo(), runQuicklyCreateRoomRequest.getGameTimes(),
                                         runQuicklyCreateRoomRequest.getCount(), runQuicklyCreateRoomRequest.getGameRules(), userId, runQuicklyCreateRoomRequest.getAa());
-                                jsonObject.put("description", "开房间" + runQuicklyRoom.getRoomNo());
+
                                 createRoomResponse = Hall.RoomResponse.newBuilder();
                                 if (0 == runQuicklyRoom.getCount()) {
                                     createRoomResponse.setRoomNo(runQuicklyRoom.getRoomNo()).setError(GameBase.ErrorCode.ERROR_UNKNOW).build();
                                     messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
                                     break;
                                 }
-                                switch (runQuicklyRoom.getGameTimes()) {
-                                    case 4:
-                                        jsonObject.put("money", 3);
+                                if (!runQuicklyCreateRoomRequest.getAa()) {
+                                    jsonObject.put("description", "开房间" + runQuicklyRoom.getRoomNo());
+                                    switch (runQuicklyRoom.getGameTimes()) {
+                                        case 4:
+                                            jsonObject.put("money", 3);
+                                            break;
+                                        case 8:
+                                            jsonObject.put("money", 4);
+                                            break;
+                                        case 12:
+                                            jsonObject.put("money", 5);
+                                            break;
+                                    }
+                                    createRoomResponse = Hall.RoomResponse.newBuilder();
+                                    if (userResponse.getData().getMoney() < jsonObject.getIntValue("money")) {
+                                        moneyEnough = false;
+                                        createRoomResponse.setError(GameBase.ErrorCode.MONEY_NOT_ENOUGH);
+                                        messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
                                         break;
-                                    case 8:
-                                        jsonObject.put("money", 4);
-                                        break;
-                                    case 12:
-                                        jsonObject.put("money", 5);
-                                        break;
-                                }
-                                createRoomResponse = Hall.RoomResponse.newBuilder();
-                                if (userResponse.getData().getMoney() < jsonObject.getIntValue("money")) {
+                                    }
+                                } else if (userResponse.getData().getMoney() < 1) {
                                     moneyEnough = false;
                                     createRoomResponse.setError(GameBase.ErrorCode.MONEY_NOT_ENOUGH);
                                     messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
                                     break;
                                 }
+
                                 redisService.addCache("room" + runQuicklyRoom.getRoomNo(), JSON.toJSONString(runQuicklyRoom));
                                 redisService.addCache("reconnect" + userId, "run_quickly," + runQuicklyRoom.getRoomNo());
                                 redisService.addCache("room_type" + runQuicklyRoom.getRoomNo(), "run_quickly");
@@ -268,6 +293,11 @@ public class HallClient {
                                         messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
                                         break;
                                     }
+                                } else if (userResponse.getData().getMoney() < 2) {
+                                    moneyEnough = false;
+                                    createRoomResponse.setError(GameBase.ErrorCode.MONEY_NOT_ENOUGH);
+                                    messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
+                                    break;
                                 }
                                 redisService.addCache("room" + sangongRoom.getRoomNo(), JSON.toJSONString(sangongRoom));
                                 redisService.addCache("reconnect" + userId, "sangong," + sangongRoom.getRoomNo());
@@ -397,9 +427,12 @@ public class HallClient {
                         userInfoResponse.setGameCount(user.getGameCount());
                         userInfoResponse.setSex(user.getSex().equals("1"));
                         userInfoResponse.setTodayGameCount(user.getTodayGameCount());
+                        userInfoResponse.setParent(user.getParentId());
+                        userInfoResponse.setSpreadCount(user.getSpreadCount());
                         messageReceive.send(this.response.setOperationType(GameBase.OperationType.USER_INFO).setData(userInfoResponse.build().toByteString()).build(), userId);
 
-                        Hall.CurrencyResponse currencyResponse = Hall.CurrencyResponse.newBuilder().addCurrency(user.getMoney()).addCurrency(user.getIntegral()).build();
+                        Hall.CurrencyResponse currencyResponse = Hall.CurrencyResponse.newBuilder().addCurrency(user.getMoney())
+                                .addCurrency(user.getIntegral()).addCurrency(user.getReward() == null ? 0 : (int) (user.getReward().doubleValue() * 100)).build();
                         messageReceive.send(this.response.setOperationType(GameBase.OperationType.CURRENCY).setData(currencyResponse.toByteString()).build(), userId);
 
                         GameBase.RecordResponse recordResponse = gameRecord();
@@ -678,6 +711,59 @@ public class HallClient {
                         }
                     }
                     messageReceive.send(this.response.setOperationType(GameBase.OperationType.MALL).setData(mall.build().toByteString()).build(), userId);
+                    break;
+                case BING_PARENT:
+                    Hall.BindParentRequest bindParentRequest = Hall.BindParentRequest.parseFrom(request.getData());
+                    Hall.BindParentResponse.Builder bindParentResponse = Hall.BindParentResponse.newBuilder();
+                    if (userId == bindParentRequest.getParent()) {
+                        messageReceive.send(this.response.setOperationType(GameBase.OperationType.BING_PARENT)
+                                .setData(bindParentResponse.setErrorCode(GameBase.ErrorCode.ERROR_UNKNOW).build().toByteString()).build(), 0);
+                        break;
+                    }
+                    jsonObject.clear();
+                    jsonObject.put("userId", userId);
+                    userResponse = JSON.parseObject(HttpUtil.urlConnectionByRsa(Constant.apiUrl + Constant.userInfoUrl, jsonObject.toJSONString()), new TypeReference<ApiResponse<User>>() {
+                    });
+                    if (0 == userResponse.getCode()) {
+                        User user = userResponse.getData();
+                        if (0 != user.getParentId()) {
+                            messageReceive.send(this.response.setOperationType(GameBase.OperationType.BING_PARENT)
+                                    .setData(bindParentResponse.setErrorCode(GameBase.ErrorCode.AREADY_BIND).build().toByteString()).build(), 0);
+                            break;
+                        } else {
+                            jsonObject.clear();
+                            jsonObject.put("userId", userId);
+                            jsonObject.put("parent", bindParentRequest.getParent());
+                            apiResponse = JSON.parseObject(HttpUtil.urlConnectionByRsa(Constant.apiUrl + Constant.updateInfoUrl, jsonObject.toJSONString()), ApiResponse.class);
+                            if (3 == apiResponse.getCode()) {
+                                messageReceive.send(this.response.setOperationType(GameBase.OperationType.BING_PARENT)
+                                        .setData(bindParentResponse.setErrorCode(GameBase.ErrorCode.PARENT_NO_FIND).build().toByteString()).build(), 0);
+                            } else if (0 == apiResponse.getCode()) {
+                                Hall.UserInfoResponse.Builder userInfoResponse = Hall.UserInfoResponse.newBuilder();
+                                userInfoResponse.setID(user.getUserId());
+                                userInfoResponse.setNickname(null == user.getNickname() ? "" : user.getNickname());
+                                userInfoResponse.setHead(null == user.getHead() ? "" : user.getHead());
+                                userInfoResponse.setLastLoginDate(new Date().getTime());
+                                userInfoResponse.setLastLoginIp(ip);
+                                userInfoResponse.setLastLoginAgent(Hall.Agent.forNumber(Integer.valueOf(user.getAgent())));
+                                userInfoResponse.setGameCount(user.getGameCount());
+                                userInfoResponse.setSex(user.getSex().equals("1"));
+                                userInfoResponse.setTodayGameCount(user.getTodayGameCount());
+                                userInfoResponse.setParent(bindParentRequest.getParent());
+                                userInfoResponse.setSpreadCount(user.getSpreadCount());
+                                messageReceive.send(this.response.setOperationType(GameBase.OperationType.USER_INFO).setData(userInfoResponse.build().toByteString()).build(), userId);
+                                messageReceive.send(this.response.setOperationType(GameBase.OperationType.BING_PARENT)
+                                        .setData(bindParentResponse.setErrorCode(GameBase.ErrorCode.SUCCESS).build().toByteString()).build(), 0);
+                            } else {
+                                messageReceive.send(this.response.setOperationType(GameBase.OperationType.BING_PARENT)
+                                        .setData(bindParentResponse.setErrorCode(GameBase.ErrorCode.ERROR_UNKNOW).build().toByteString()).build(), 0);
+                            }
+                        }
+                    } else {
+                        messageReceive.send(this.response.setOperationType(GameBase.OperationType.BING_PARENT)
+                                .setData(bindParentResponse.setErrorCode(GameBase.ErrorCode.ERROR_UNKNOW).build().toByteString()).build(), 0);
+                        break;
+                    }
                     break;
             }
         } catch (InvalidProtocolBufferException e) {

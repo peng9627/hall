@@ -7,7 +7,8 @@ message RunQuicklyIntoResponse {
     uint32 baseScore = 1; //基础分
     uint32 gameTimes = 2; //游戏局数
     uint32 count = 3; //人数
-    uint32 gameRules = 4; //低位到高位顺序（不可反打，飞机炸）
+    uint32 gameRules = 4; //低位到高位顺序（不可反打，飞机炸,四个二，gpsGPS）
+    bool aa = 5; //AA支付
 }
 
 //游戏信息 GAME_INFO
@@ -16,6 +17,7 @@ message RunQuicklyGameInfo {
     uint32 gameCount = 2; //当前游戏局数
     uint32 gameTimes = 3; //总局数
     uint32 lastPlayCardUser = 4; //上次出牌人
+    int32 cardType = 5; //上次出牌型
 }
 
 //玩家游戏信息
@@ -35,6 +37,7 @@ message RunQuicklyStartResponse {
 //出牌 PLAY_CARD
 message RunQuicklyPlayCard {
     repeated int32 card = 1; //牌
+    int32 cardType = 2; //牌型
 }
 
 //当局游戏结果 RESULT

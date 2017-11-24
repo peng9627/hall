@@ -13,6 +13,12 @@ message MahjongHuResponse {
     repeated ScoreType scoreType = 2; //牌型
 }
 
+//换牌
+message ChangeCardResponse {
+    repeated int32 cards = 1; //牌
+    int32 dice = 2; //骰子
+}
+
 message Baojiao {
     bool bao = 1; //是否报叫
 }
@@ -36,6 +42,7 @@ message MahjongGameInfo {
     repeated uint32 dice = 6; //骰子
     int32 rogue = 7; //赖子
     uint32 lastPlayedUser = 8; //上一个出牌的人
+    int32 changeDice = 9;
 }
 
 //玩家游戏信息
@@ -49,6 +56,8 @@ message MahjongSeatGameInfo {
     repeated int32 mingGangCards = 7; //明杠的牌
     repeated int32 chiCards = 8; //吃的牌
     repeated int32 playedCards = 9; //出过的牌
+    bool changeCard = 10; //是否已经换牌
+    int32 huCard = 11; //胡的牌，如果为0则未胡
 }
 
 //当局游戏结果 RESULT

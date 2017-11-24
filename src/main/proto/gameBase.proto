@@ -42,6 +42,7 @@ message SeatResponse {
     bool offline = 9; //离线
     uint32 gameCount = 10; //总局数
     bool isRobot = 11; //是否托管
+    string gps = 12; //gps
 }
 
 //操作记录
@@ -58,6 +59,12 @@ message BaseAction {
     bytes data = 3; //额外数据
 }
 
+//额外流程 EXTRA_PROCESS
+message ProcessResponse {
+    ActionId operationId = 1;
+    int32 timeCounter = 2; //倒计时
+}
+
 //询问数据 ASK
 message AskResponse {
     repeated ActionId operationId = 1;
@@ -68,6 +75,7 @@ message AskResponse {
 message RoundResponse {
     uint32 ID = 1; //当前操作的人
     int32 timeCounter = 2; //倒计时
+    bool onlyBomb = 3; //只能出炸弹
 }
 
 //准备返回 READY
@@ -206,6 +214,7 @@ message MatchBalance {
 message DissolveApply {
     ErrorCode error = 1;
     uint32 userId = 2;
+    uint32 time = 3;
 }
 
 //解散回复 DISSOLVE_REPLY
@@ -246,6 +255,17 @@ message ExitRoom {
     string backKey = 3; //回到大厅的码
 }
 
+//GPS
+message GPSRequest {
+    string gps = 1;
+}
+
+//GPS
+message GPSResponse {
+    uint32 userId = 1;
+    string gps = 2;
+}
+
 //消息id
 enum OperationType {
 
@@ -272,6 +292,7 @@ enum OperationType {
     COMPETITION_LIST = 25; //比赛列表
     TASK = 26; //任务
     NOTICE = 27; //通知
+    BING_PARENT = 28; //绑定上级代理
 
     MATCH_INFO = 30; //比赛信息
     MATCH_DATA = 31; //比赛当前数据
@@ -308,6 +329,8 @@ enum OperationType {
     BALANCE = 73; //结算
     ONLINE = 74; //离线
     VERSION = 75; //版本
+    EXTRA_PROCESS = 76; //额外流程
+    GPS = 77; //GPS
 
     LOGGER = 80; //日志
 }
@@ -362,6 +385,8 @@ enum ErrorCode {
     AREADY_DISSOLVE = 28; //短时间内不能多次申请解散
     GAME_START = 29; //游戏已经开始
     SAME_IP = 30; //同ip不能进入游戏
+    AREADY_BIND = 31; //已经绑定
+    PARENT_NO_FIND = 32; //没有找到上级
 }
 
 enum GameType {

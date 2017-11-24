@@ -23,7 +23,8 @@ public class Constant {
     public static String exchangeListUrl = "/exchange/list/";
     //    public static String gameServerIp = "119.23.67.179";
     public static String gameServerIp = "119.23.60.87";
-//    public static String gameServerIp = "192.168.1.99";
+    //    public static String gameServerIp = "192.168.1.99";
+    public static String updateInfoUrl = "/user/updateInfo";
 
     public static int messageTimeout = 60000;
 }
