@@ -12,6 +12,7 @@ public class Record {
     private List<SeatRecord> seatRecordList;//座位战绩信息
     private Date startDate;
     private int gameCount;
+    private int changeDice;
 
     public Integer getJiabao() {
         return jiabao;
@@ -67,5 +68,13 @@ public class Record {
 
     public void setGameCount(int gameCount) {
         this.gameCount = gameCount;
+    }
+
+    public int getChangeDice() {
+        return changeDice;
+    }
+
+    public void setChangeDice(int changeDice) {
+        this.changeDice = changeDice;
     }
 }

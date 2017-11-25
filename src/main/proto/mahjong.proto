@@ -119,12 +119,15 @@ message GameInitInfo {
     uint32 banker = 5; //庄家ID
     repeated uint32 dice = 6; //骰子
     int32 rogue = 7; //赖子
+    int32 changeDice = 8; //换牌骰子
 }
 
 //初始座位数据
 message MahjongSeatGameInitInfo {
     uint32 ID = 1; //ID
     repeated int32 initialCards = 2; //初始手牌
+    repeated int32 changeOutCards = 3; //换出的牌
+    repeated int32 changeInCards = 4; //换入的牌
 }
 
 enum ScoreType {

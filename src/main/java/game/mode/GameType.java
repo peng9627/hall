@@ -5,7 +5,7 @@ package game.mode;
  */
 public enum GameType {
 
-    MAHJONG_XINGNING("兴宁麻将", 1),
+    MAHJONG_RONGCHANG("兴宁麻将", 1),
     MAHJONG_RUIJIN("瑞金麻将", 2),
     RUN_QUICKLY("跑得快", 3),
     SANGONG("三公", 4);

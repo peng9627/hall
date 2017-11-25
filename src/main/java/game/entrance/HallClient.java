@@ -883,8 +883,7 @@ public class HallClient {
             GameRecordInfoRepresentation infoRepresentation = gameRecordResponse.getData();
             replayResponse.setErrorCode(GameBase.ErrorCode.SUCCESS);
             switch (gameRecordResponse.getData().getGameType()) {
-                case MAHJONG_XINGNING:
-                case MAHJONG_RUIJIN:
+                case MAHJONG_RONGCHANG:
                     if (null != infoRepresentation.getData()) {
                         List<Record> records = JSON.parseArray(new String(infoRepresentation.getData(), Charset.forName("utf-8")), Record.class);
                         Record record = records.get(round);
@@ -892,6 +891,7 @@ public class HallClient {
                         Mahjong.MahjongReplayData.Builder mahjongReplayData = Mahjong.MahjongReplayData.newBuilder();
 
                         Mahjong.GameInitInfo.Builder gameInfo = Mahjong.GameInitInfo.newBuilder();
+                        gameInfo.setChangeDice(record.getChangeDice());
                         gameInfo.setSurplusCardsSize(135 - (record.getSeatRecordList().size() * 13));
                         gameInfo.setBanker(record.getBanker());
                         if (null != record.getDice() && 0 < record.getDice().length) {
@@ -905,6 +905,12 @@ public class HallClient {
                         GameBase.RoomSeatsInfo.Builder roomSeatsInfo = GameBase.RoomSeatsInfo.newBuilder();
                         for (SeatRecord seatRecord : record.getSeatRecordList()) {
                             Mahjong.MahjongSeatGameInitInfo.Builder gameSeatResponse = Mahjong.MahjongSeatGameInitInfo.newBuilder();
+                            if (null != seatRecord.getChangeOutCard()) {
+                                gameSeatResponse.addAllChangeOutCards(seatRecord.getChangeOutCard());
+                            }
+                            if (null != seatRecord.getChangeInCard()) {
+                                gameSeatResponse.addAllChangeInCards(seatRecord.getChangeInCard());
+                            }
                             Mahjong.MahjongUserResult.Builder mahjongUserResult = Mahjong.MahjongUserResult.newBuilder();
                             GameBase.SeatResponse.Builder seatResponse = GameBase.SeatResponse.newBuilder();
                             gameSeatResponse.setID(seatRecord.getUserId());
@@ -984,7 +990,7 @@ public class HallClient {
                         roomCardIntoResponseBuilder.setRoomNo(infoRepresentation.getRoomNo().toString());
                         roomCardIntoResponseBuilder.setRoomOwner(infoRepresentation.getRoomOwner());
                         roomCardIntoResponseBuilder.setStarted(true);
-                        if (0 == infoRepresentation.getGameType().compareTo(GameType.MAHJONG_XINGNING)) {
+                        if (0 == infoRepresentation.getGameType().compareTo(GameType.MAHJONG_RONGCHANG)) {
                             Rongchang.RongchangMahjongIntoResponse.Builder intoResponseBuilder = Rongchang.RongchangMahjongIntoResponse.newBuilder();
                             intoResponseBuilder.setCount(infoRepresentation.getPeopleCount());
                             intoResponseBuilder.setGameTimes(infoRepresentation.getGameTotal());
@@ -994,16 +1000,11 @@ public class HallClient {
                             intoResponseBuilder.setGameRules(gameRule.getIntValue("gameRule"));
                             gameInfo.setRogue(gameRule.getIntValue("rogue"));
                             roomCardIntoResponseBuilder.setData(intoResponseBuilder.build().toByteString());
-                            resultResponse.addAllMaCard(JSON.parseArray(gameRule.getString("maCards"), Integer.class));
                         }
                         mahjongReplayData.setGameInitInfo(gameInfo);
                         replayResponse.setRoomInfo(roomCardIntoResponseBuilder);
                         replayResponse.setGameData(mahjongReplayData.build().toByteString());
                     }
-                    break;
-                case RUN_QUICKLY:
-                    break;
-                case SANGONG:
                     break;
             }
         } else {

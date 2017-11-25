@@ -24,6 +24,8 @@ public class SeatRecord {
     private int seatNo;
     private int gameCount;
     private int maScore;
+    private List<Integer> changeOutCard = new ArrayList<>();              //换出的牌
+    private List<Integer> changeInCard = new ArrayList<>();              //换入的牌
 
     public int getUserId() {
         return userId;
@@ -183,5 +185,21 @@ public class SeatRecord {
 
     public void setMaScore(int maScore) {
         this.maScore = maScore;
+    }
+
+    public List<Integer> getChangeOutCard() {
+        return changeOutCard;
+    }
+
+    public void setChangeOutCard(List<Integer> changeOutCard) {
+        this.changeOutCard = changeOutCard;
+    }
+
+    public List<Integer> getChangeInCard() {
+        return changeInCard;
+    }
+
+    public void setChangeInCard(List<Integer> changeInCard) {
+        this.changeInCard = changeInCard;
     }
 }
