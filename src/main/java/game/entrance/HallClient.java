@@ -321,6 +321,10 @@ public class HallClient {
                     Hall.AddToRoomRequest addToRoomRequest = Hall.AddToRoomRequest.parseFrom(request.getData());
                     Hall.RoomResponse.Builder createRoomResponse = Hall.RoomResponse.newBuilder();
                     if (redisService.exists("room" + addToRoomRequest.getRoomNo())) {
+                        jsonObject.clear();
+                        jsonObject.put("userId", userId);
+                        userResponse = JSON.parseObject(HttpUtil.urlConnectionByRsa(Constant.apiUrl + Constant.userInfoUrl, jsonObject.toJSONString()), new TypeReference<ApiResponse<User>>() {
+                        });
                         switch (redisService.getCache("room_type" + addToRoomRequest.getRoomNo())) {
                             case "rongchang_mahjong":
                                 RongchangMahjongRoom rongchangMahjongRoom = JSON.parseObject(redisService.getCache("room" + addToRoomRequest.getRoomNo()), RongchangMahjongRoom.class);
@@ -345,6 +349,10 @@ public class HallClient {
                                     break;
                                 }
 
+                                if (rongchangMahjongRoom.isAa() && userResponse.getData().getMoney() < 1) {
+                                    createRoomResponse.setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.MONEY_NOT_ENOUGH);
+                                }
+
                                 if (0 != rongchangMahjongRoom.getGameStatus().compareTo(GameStatus.WAITING)) {
                                     createRoomResponse.setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.GAME_START);
                                 } else {
@@ -355,6 +363,14 @@ public class HallClient {
                                 break;
                             case "run_quickly":
                                 RunQuicklyRoom runQuicklyRoom = JSON.parseObject(redisService.getCache("room" + addToRoomRequest.getRoomNo()), RunQuicklyRoom.class);
+                                if (runQuicklyRoom.isAa() && userResponse.getData().getMoney() < 1) {
+                                    createRoomResponse.setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.MONEY_NOT_ENOUGH);
+                                }
+                                if (runQuicklyRoom.getCount() == runQuicklyRoom.getSeats().size()) {
+                                    messageReceive.send(this.response.setOperationType(GameBase.OperationType.ADD_ROOM).setData(Hall.RoomResponse.newBuilder()
+                                            .setError(GameBase.ErrorCode.COUNT_FULL).build().toByteString()).build(), userId);
+                                    break;
+                                }
                                 if (0 != runQuicklyRoom.getGameStatus().compareTo(GameStatus.WAITING)) {
                                     createRoomResponse.setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.GAME_START);
                                 } else {
@@ -365,18 +381,13 @@ public class HallClient {
                                 break;
                             case "sangong":
                                 SangongRoom sangongRoom = JSON.parseObject(redisService.getCache("room" + addToRoomRequest.getRoomNo()), SangongRoom.class);
-                                if (2 == sangongRoom.getPayType()) {
-                                    jsonObject.clear();
-                                    jsonObject.put("userId", userId);
-                                    userResponse = JSON.parseObject(HttpUtil.urlConnectionByRsa(Constant.apiUrl + Constant.userInfoUrl, jsonObject.toJSONString()), new TypeReference<ApiResponse<User>>() {
-                                    });
-                                    if (0 == userResponse.getCode()) {
-                                        if (userResponse.getData().getMoney() < jsonObject.getIntValue("money")) {
-                                            createRoomResponse.setError(GameBase.ErrorCode.MONEY_NOT_ENOUGH);
-                                            break;
-                                        }
-                                    }
-
+                                if (2 == sangongRoom.getPayType() && userResponse.getData().getMoney() < 1) {
+                                    createRoomResponse.setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.MONEY_NOT_ENOUGH);
+                                }
+                                if (sangongRoom.getCount() == sangongRoom.getSeats().size()) {
+                                    messageReceive.send(this.response.setOperationType(GameBase.OperationType.ADD_ROOM).setData(Hall.RoomResponse.newBuilder()
+                                            .setError(GameBase.ErrorCode.COUNT_FULL).build().toByteString()).build(), userId);
+                                    break;
                                 }
                                 if (0 != sangongRoom.getGameStatus().compareTo(GameStatus.WAITING)) {
                                     createRoomResponse.setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.GAME_START);
