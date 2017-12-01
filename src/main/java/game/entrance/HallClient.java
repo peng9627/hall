@@ -351,6 +351,8 @@ public class HallClient {
 
                                 if (rongchangMahjongRoom.isAa() && userResponse.getData().getMoney() < 1) {
                                     createRoomResponse.setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.MONEY_NOT_ENOUGH);
+                                    messageReceive.send(this.response.setOperationType(GameBase.OperationType.ADD_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
+                                    break;
                                 }
 
                                 if (0 != rongchangMahjongRoom.getGameStatus().compareTo(GameStatus.WAITING)) {
@@ -365,6 +367,8 @@ public class HallClient {
                                 RunQuicklyRoom runQuicklyRoom = JSON.parseObject(redisService.getCache("room" + addToRoomRequest.getRoomNo()), RunQuicklyRoom.class);
                                 if (runQuicklyRoom.isAa() && userResponse.getData().getMoney() < 1) {
                                     createRoomResponse.setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.MONEY_NOT_ENOUGH);
+                                    messageReceive.send(this.response.setOperationType(GameBase.OperationType.ADD_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
+                                    break;
                                 }
                                 if (runQuicklyRoom.getCount() == runQuicklyRoom.getSeats().size()) {
                                     messageReceive.send(this.response.setOperationType(GameBase.OperationType.ADD_ROOM).setData(Hall.RoomResponse.newBuilder()
@@ -383,6 +387,8 @@ public class HallClient {
                                 SangongRoom sangongRoom = JSON.parseObject(redisService.getCache("room" + addToRoomRequest.getRoomNo()), SangongRoom.class);
                                 if (2 == sangongRoom.getPayType() && userResponse.getData().getMoney() < 1) {
                                     createRoomResponse.setRoomNo(addToRoomRequest.getRoomNo()).setError(GameBase.ErrorCode.MONEY_NOT_ENOUGH);
+                                    messageReceive.send(this.response.setOperationType(GameBase.OperationType.ADD_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
+                                    break;
                                 }
                                 if (sangongRoom.getCount() == sangongRoom.getSeats().size()) {
                                     messageReceive.send(this.response.setOperationType(GameBase.OperationType.ADD_ROOM).setData(Hall.RoomResponse.newBuilder()
