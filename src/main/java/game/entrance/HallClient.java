@@ -104,7 +104,8 @@ public class HallClient {
 
                                 Hall.CurrencyResponse currencyResponse = Hall.CurrencyResponse.newBuilder()
                                         .addCurrency(user.getMoney()).addCurrency(user.getIntegral())
-                                        .addCurrency(user.getReward() == null ? 0 : (int) (user.getReward().doubleValue() * 100)).build();
+                                        .addCurrency(user.getReward() == null ? 0 : (int) (user.getReward().doubleValue() * 100))
+                                        .addCurrency(user.getSpreadCount()).build();
                                 messageReceive.send(this.response.setOperationType(GameBase.OperationType.CURRENCY).setData(currencyResponse.toByteString()).build(), userId);
 
                                 Hall.Reconnect.Builder reconnect = Hall.Reconnect.newBuilder();
@@ -150,7 +151,8 @@ public class HallClient {
 
                         Hall.CurrencyResponse currencyResponse = Hall.CurrencyResponse.newBuilder()
                                 .addCurrency(user.getMoney()).addCurrency(user.getIntegral())
-                                .addCurrency(user.getReward() == null ? 0 : (int) (user.getReward().doubleValue() * 100)).build();
+                                .addCurrency(user.getReward() == null ? 0 : (int) (user.getReward().doubleValue() * 100))
+                                .addCurrency(user.getSpreadCount()).build();
                         messageReceive.send(this.response.setOperationType(GameBase.OperationType.CURRENCY).setData(currencyResponse.toByteString()).build(), userId);
 
                         GameBase.RecordResponse recordResponse = gameRecord();
@@ -449,7 +451,8 @@ public class HallClient {
                         messageReceive.send(this.response.setOperationType(GameBase.OperationType.USER_INFO).setData(userInfoResponse.build().toByteString()).build(), userId);
 
                         Hall.CurrencyResponse currencyResponse = Hall.CurrencyResponse.newBuilder().addCurrency(user.getMoney())
-                                .addCurrency(user.getIntegral()).addCurrency(user.getReward() == null ? 0 : (int) (user.getReward().doubleValue() * 100)).build();
+                                .addCurrency(user.getIntegral()).addCurrency(user.getReward() == null ? 0 : (int) (user.getReward().doubleValue() * 100))
+                                .addCurrency(user.getSpreadCount()).build();
                         messageReceive.send(this.response.setOperationType(GameBase.OperationType.CURRENCY).setData(currencyResponse.toByteString()).build(), userId);
 
                         GameBase.RecordResponse recordResponse = gameRecord();

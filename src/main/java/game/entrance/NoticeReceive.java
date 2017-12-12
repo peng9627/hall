@@ -130,7 +130,8 @@ public class NoticeReceive implements Runnable {
                 });
                 if (0 == userResponse.getCode() && HallTcpService.userClients.containsKey(socketRequest.getUserId())) {
                     Hall.CurrencyResponse currencyResponse = Hall.CurrencyResponse.newBuilder().addCurrency(userResponse.getData().getMoney())
-                            .addCurrency(userResponse.getData().getIntegral()).addCurrency(userResponse.getData().getReward() == null ? 0 : (int) (userResponse.getData().getReward().doubleValue() * 100)).build();
+                            .addCurrency(userResponse.getData().getIntegral()).addCurrency(userResponse.getData().getReward() == null ? 0 : (int) (userResponse.getData().getReward().doubleValue() * 100))
+                            .addCurrency(userResponse.getData().getSpreadCount()).build();
                     HallTcpService.userClients.get(socketRequest.getUserId()).send(GameBase.BaseConnection.newBuilder().setOperationType(GameBase.OperationType.CURRENCY).setData(currencyResponse.toByteString()).build(), socketRequest.getUserId());
                 }
                 apiResponse.setCode(0);
