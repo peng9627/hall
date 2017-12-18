@@ -89,7 +89,7 @@ public class HallClient {
                         if (redisService.exists("reconnect" + userId)) {
                             String reconnectString = redisService.getCache("reconnect" + userId);
                             String[] reconnectInfo = reconnectString.split(",");
-                            if (redisService.exists("room" + reconnectInfo[1]) && "sangong".equals(reconnectInfo[0])) {
+                            if (redisService.exists("room" + reconnectInfo[1])) {
                                 loginResponse.setInGame(true);
                                 messageReceive.send(this.response.setOperationType(GameBase.OperationType.LOGIN).setData(loginResponse.build().toByteString()).build(), userId);
 
