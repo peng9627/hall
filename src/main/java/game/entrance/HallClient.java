@@ -65,6 +65,11 @@ public class HallClient {
                             });
                     if (0 == response.getCode()) {
                         User user = response.getData();
+                        if (!user.getStatus()) {
+                            messageReceive.send(this.response.setOperationType(GameBase.OperationType.LOGIN)
+                                    .setData(loginResponse.setErrorCode(GameBase.ErrorCode.ERROR_UNKNOW_ACCOUNT).build().toByteString()).build(), 0);
+                            break;
+                        }
                         if (HallTcpService.userClients.containsKey(userId) && HallTcpService.userClients.get(userId) != messageReceive) {
                             HallTcpService.userClients.get(userId).close();
                         }
