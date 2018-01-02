@@ -7,7 +7,7 @@ package game.constant;
  */
 public class Constant {
 
-    public static int appVersion = 1;
+    public static int appVersion = 2;
     public static String apiUrl = "http://127.0.0.1:9999/api";
     public static String userInfoUrl = "/user/info";
     public static String userListUrl = "/user/list";
