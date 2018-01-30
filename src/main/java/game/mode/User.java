@@ -23,6 +23,7 @@ public class User {
     private String area;                //地方
     private Integer gameCount;             //游戏局数
     private Integer todayGameCount;     //今日游戏次数
+    private Integer todayCreateGameCount;     //今日创建次数
     private Date lastLoginDate;         //上次登陆时间
     private Boolean status;             //状态
     private Integer integral;           //积分
@@ -145,6 +146,14 @@ public class User {
 
     public void setTodayGameCount(Integer todayGameCount) {
         this.todayGameCount = todayGameCount;
+    }
+
+    public Integer getTodayCreateGameCount() {
+        return todayCreateGameCount;
+    }
+
+    public void setTodayCreateGameCount(Integer todayCreateGameCount) {
+        this.todayCreateGameCount = todayCreateGameCount;
     }
 
     public Date getLastLoginDate() {

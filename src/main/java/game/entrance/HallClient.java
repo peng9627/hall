@@ -159,9 +159,21 @@ public class HallClient {
                         GameBase.RecordResponse recordResponse = gameRecord();
                         messageReceive.send(this.response.setOperationType(GameBase.OperationType.RECORD).setData(recordResponse.toByteString()).build(), userId);
 
-                        Hall.TaskResponse taskResponse = Hall.TaskResponse.newBuilder().setCount(100).setName("每日对战100局")
-                                .setReward(100).setTodayGameCount(user.getTodayGameCount()).build();
-                        messageReceive.send(this.response.setOperationType(GameBase.OperationType.TASK).setData(taskResponse.toByteString()).build(), userId);
+                        Hall.TaskResponse.Builder taskResponse = Hall.TaskResponse.newBuilder();
+                        ApiResponse<List<Task>> tasks = JSON.parseObject(HttpUtil.urlConnectionByRsa(Constant.apiUrl + Constant.taskListUrl, jsonObject.toJSONString()), new TypeReference<ApiResponse<List<Task>>>() {
+                        });
+                        if (0 == tasks.getCode() && 0 != tasks.getData().size()) {
+                            for (Task task : tasks.getData()) {
+                                if (1 == task.getTaskType()) {
+                                    taskResponse.addTasks(Hall.TaskResponse.TaskItem.newBuilder().setCount(task.getTodayGameCount()).setName(task.getName())
+                                            .setReward(task.getReward()).setTaskType(task.getTaskType()).setTodayGameCount(user.getTodayGameCount()));
+                                } else {
+                                    taskResponse.addTasks(Hall.TaskResponse.TaskItem.newBuilder().setCount(task.getTodayGameCount()).setName(task.getName())
+                                            .setReward(task.getReward()).setTaskType(task.getTaskType()).setTodayGameCount(user.getTodayCreateGameCount()));
+                                }
+                            }
+                        }
+                        messageReceive.send(this.response.setOperationType(GameBase.OperationType.TASK).setData(taskResponse.build().toByteString()).build(), userId);
                     } else {
                         messageReceive.send(this.response.setOperationType(GameBase.OperationType.LOGIN)
                                 .setData(loginResponse.setErrorCode(GameBase.ErrorCode.ERROR_UNKNOW).build().toByteString()).build(), 0);
@@ -194,9 +206,9 @@ public class HallClient {
                                 }
                                 jsonObject.put("description", "开房间" + xingningMahjongRoom.getRoomNo());
                                 if (8 == xingningMahjongCreateRoomRequest.getGameTimes()) {
-                                    jsonObject.put("money", 1);
-                                } else {
                                     jsonObject.put("money", 2);
+                                } else {
+                                    jsonObject.put("money", 4);
                                 }
                                 if (userResponse.getData().getMoney() < jsonObject.getIntValue("money")) {
                                     moneyEnough = false;
@@ -211,6 +223,11 @@ public class HallClient {
                                 createRoomResponse.setRoomNo(xingningMahjongRoom.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS)
                                         .setIntoIp(Constant.gameServerIp).setPort(10001).build();
                                 messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
+
+                                JSONObject addCount = new JSONObject();
+                                addCount.put("userId", userId);
+                                addCount.put("create", true);
+                                HttpUtil.urlConnectionByRsa(Constant.apiUrl + Constant.addCountUrl, addCount.toJSONString());
                                 break;
                             case MAHJONG_RUIJIN:
                                 Hall.RuijinMahjongCreateRoomRequest ruijinMahjongCreateRoomRequest = Hall.RuijinMahjongCreateRoomRequest.parseFrom(createRoomRequest.getData());
@@ -247,6 +264,11 @@ public class HallClient {
                                 createRoomResponse.setRoomNo(ruijinMahjongRoom.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS)
                                         .setIntoIp(Constant.gameServerIp).setPort(10003).build();
                                 messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
+
+                                addCount = new JSONObject();
+                                addCount.put("userId", userId);
+                                addCount.put("create", true);
+                                HttpUtil.urlConnectionByRsa(Constant.apiUrl + Constant.addCountUrl, addCount.toJSONString());
                                 break;
                             case RUN_QUICKLY:
                                 Hall.RunQuicklyCreateRoomRequest runQuicklyCreateRoomRequest = Hall.RunQuicklyCreateRoomRequest.parseFrom(createRoomRequest.getData());
@@ -267,7 +289,7 @@ public class HallClient {
                                         jsonObject.put("money", 2);
                                         break;
                                     case 16:
-                                        jsonObject.put("money", 3);
+                                        jsonObject.put("money", 4);
                                         break;
                                 }
                                 createRoomResponse = Hall.RoomResponse.newBuilder();
@@ -284,6 +306,11 @@ public class HallClient {
                                 createRoomResponse.setRoomNo(runQuicklyRoom.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS)
                                         .setIntoIp(Constant.gameServerIp).setPort(10002).build();
                                 messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
+
+                                addCount = new JSONObject();
+                                addCount.put("userId", userId);
+                                addCount.put("create", true);
+                                HttpUtil.urlConnectionByRsa(Constant.apiUrl + Constant.addCountUrl, addCount.toJSONString());
                                 break;
                             case SANGONG:
                                 Hall.SanGongCreateRoomRequest sanGongCreateRoomRequest = Hall.SanGongCreateRoomRequest.parseFrom(createRoomRequest.getData());
@@ -320,6 +347,11 @@ public class HallClient {
                                 createRoomResponse.setRoomNo(sangongRoom.getRoomNo()).setError(GameBase.ErrorCode.SUCCESS)
                                         .setIntoIp(Constant.gameServerIp).setPort(10004).build();
                                 messageReceive.send(this.response.setOperationType(GameBase.OperationType.CREATE_ROOM).setData(createRoomResponse.build().toByteString()).build(), userId);
+
+                                addCount = new JSONObject();
+                                addCount.put("userId", userId);
+                                addCount.put("create", true);
+                                HttpUtil.urlConnectionByRsa(Constant.apiUrl + Constant.addCountUrl, addCount.toJSONString());
                                 break;
                         }
                         if (moneyEnough && jsonObject.containsKey("money")) {
@@ -439,9 +471,16 @@ public class HallClient {
                         GameBase.RecordResponse recordResponse = gameRecord();
                         messageReceive.send(this.response.setOperationType(GameBase.OperationType.RECORD).setData(recordResponse.toByteString()).build(), userId);
 
-                        Hall.TaskResponse taskResponse = Hall.TaskResponse.newBuilder().setCount(100).setName("每日对战100局")
-                                .setReward(100).setTodayGameCount(user.getTodayGameCount()).build();
-                        messageReceive.send(this.response.setOperationType(GameBase.OperationType.TASK).setData(taskResponse.toByteString()).build(), userId);
+                        Hall.TaskResponse.Builder taskResponse = Hall.TaskResponse.newBuilder();
+                        ApiResponse<List<Task>> tasks = JSON.parseObject(HttpUtil.urlConnectionByRsa(Constant.apiUrl + Constant.taskListUrl, jsonObject.toJSONString()), new TypeReference<ApiResponse<List<Task>>>() {
+                        });
+                        if (0 == tasks.getCode() && 0 != tasks.getData().size()) {
+                            for (Task task : tasks.getData()) {
+                                taskResponse.addTasks(Hall.TaskResponse.TaskItem.newBuilder().setCount(task.getTodayGameCount()).setName(task.getName())
+                                        .setReward(task.getReward()).setTaskType(task.getTaskType()).setTodayGameCount(user.getTodayGameCount()));
+                            }
+                        }
+                        messageReceive.send(this.response.setOperationType(GameBase.OperationType.TASK).setData(taskResponse.build().toByteString()).build(), userId);
                     }
 
                     break;
