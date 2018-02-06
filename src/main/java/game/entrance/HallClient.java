@@ -476,8 +476,13 @@ public class HallClient {
                         });
                         if (0 == tasks.getCode() && 0 != tasks.getData().size()) {
                             for (Task task : tasks.getData()) {
-                                taskResponse.addTasks(Hall.TaskResponse.TaskItem.newBuilder().setCount(task.getTodayGameCount()).setName(task.getName())
-                                        .setReward(task.getReward()).setTaskType(task.getTaskType()).setTodayGameCount(user.getTodayGameCount()));
+                                if (1 == task.getTaskType()) {
+                                    taskResponse.addTasks(Hall.TaskResponse.TaskItem.newBuilder().setCount(task.getTodayGameCount()).setName(task.getName())
+                                            .setReward(task.getReward()).setTaskType(task.getTaskType()).setTodayGameCount(user.getTodayGameCount()));
+                                } else {
+                                    taskResponse.addTasks(Hall.TaskResponse.TaskItem.newBuilder().setCount(task.getTodayGameCount()).setName(task.getName())
+                                            .setReward(task.getReward()).setTaskType(task.getTaskType()).setTodayGameCount(user.getTodayCreateGameCount()));
+                                }
                             }
                         }
                         messageReceive.send(this.response.setOperationType(GameBase.OperationType.TASK).setData(taskResponse.build().toByteString()).build(), userId);
