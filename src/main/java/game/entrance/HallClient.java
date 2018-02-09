@@ -11,6 +11,7 @@ import game.mode.runquickly.RunQuicklyRoom;
 import game.mode.sangong.SangongRoom;
 import game.mode.xingning.*;
 import game.redis.RedisService;
+import game.utils.FileUtils;
 import game.utils.HttpUtil;
 import game.utils.LoggerUtil;
 import org.slf4j.Logger;
@@ -736,7 +737,8 @@ public class HallClient {
                     break;
                 case MALL:
                     Hall.Mall.Builder mall = Hall.Mall.newBuilder();
-                    mall.setWechat("121212");
+                    String wechat = FileUtils.readToString("/home/www/UnityAsset/wechat.txt");
+                    mall.setWechat(wechat);
 
                     if (redisService.exists("cache_goods")) {
                         String goodsCache = redisService.getCache("cache_goods");
