@@ -79,7 +79,7 @@ public class HallClient {
                             try {
                                 wait(10);
                             } catch (InterruptedException e) {
-                                e.printStackTrace();
+                                logger.error(e.toString(), e);
                             }
                         }
                         HallTcpService.userClients.put(user.getUserId(), messageReceive);
